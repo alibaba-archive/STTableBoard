@@ -10,18 +10,38 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let table = STTableBoard(frame: view.frame, numberOfPage: 3)
-        view.addSubview(table)
-        // Do any additional setup after loading the view, typically from a nib.
+//        self.edgesForExtendedLayout = UIRectEdge.None
+        
+        let table = STTableBoard()
+        table.registerClasses(classAndIdentifier: [(UITableViewCell.self,"DefaultCell")])
+        table.dataSource = self
+        self.addChildViewController(table)
+        view.addSubview(table.view)
+        table.didMoveToParentViewController(self)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+}
+
+extension ViewController: STTableBoardDataSource {
+    func numberOfBoardsInTableBoard(tableBoard: STTableBoard) -> Int {
+        return 5
+    }
+    
+    func tableBoard(tableBoard tableBoard: STTableBoard, numberOfRowsInBoard board: Int) -> Int {
+        return board + 2
+    }
+    
+    func tableBoard(tableBoard tableBoard: STTableBoard, cellForRowAtIndexPath indexPath: STIndexPath) -> UITableViewCell {
+        let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath)
+        cell.textLabel?.text = "最后的战役"
+        cell.backgroundColor = UIColor.果灰()
+        return cell
+    }
 }
 

@@ -6,6 +6,8 @@
 //  Copyright © 2015年 Donggu. All rights reserved.
 //
 
+
+
 import UIKit
 
 let leading: CGFloat  = 30.0
@@ -15,61 +17,94 @@ let bottom: CGFloat = top
 let pageSpacing: CGFloat = leading / 2
 let overlap: CGFloat = pageSpacing * 3
 
-class STTableBoard: UIView {
+class STTableBoard: UIViewController {
     
-    var numberOfPage: Int = 1
-    var views: [STTableView] = []
-    var currentPage: Int = 0
+    weak var dataSource: STTableBoardDataSource?
+    
+    private var numberOfPage: Int {
+        get {
+            guard let page = self.dataSource?.numberOfBoardsInTableBoard(self) else { return 1 }
+            return page
+        }
+    }
+    
+    private var currentPage: Int = 0
+    private var boards: [STBoardView] = []
+    private var registerCellClasses:[(AnyClass,String)] = []
     
     private var scrollView: UIScrollView!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    convenience init(frame: CGRect, numberOfPage: Int) {
-        self.init(frame: frame)
-        self.numberOfPage = numberOfPage
+    override func viewDidLoad() {
+        super.viewDidLoad()
         setupProperty()
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        reloadData()
     }
 
-    func setupProperty() {
-        let viewWidth = CGRectGetWidth(frame)
-        let viewHeight = CGRectGetHeight(frame)
-        let contentViewWidth = viewWidth + (viewWidth - overlap) * CGFloat(numberOfPage - 1)
-        
-        scrollView = UIScrollView(frame: frame)
-        scrollView.contentSize = CGSize(width: contentViewWidth, height: viewHeight)
+    private func setupProperty() {
+        let contentViewWidth = view.width + (view.width - overlap) * CGFloat(numberOfPage - 1)
+        scrollView = UIScrollView(frame: view.bounds)
+        scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.delegate = self
         scrollView.bounces = false
-        addSubview(scrollView)
+        view.addSubview(scrollView)
+    }
+    
+    private func reloadData() {
+        let contentViewWidth = view.width + (view.width - overlap) * CGFloat(numberOfPage - 1)
+        scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
         
-        views = []
+        if boards.count != 0 {
+            boards.forEach({ (board) -> () in
+                board.removeFromSuperview()
+            })
+            boards.removeAll()
+        }
+        
         for i in 0..<numberOfPage {
-            let width = CGRectGetWidth(frame) - (leading + trailing)
-            let height = CGRectGetHeight(frame) - (top + bottom)
+            let width = self.view.width - (leading + trailing)
+            let height = self.view.height - (top + bottom)
             let x = leading + CGFloat(i) * (width + pageSpacing)
             let y = top
-            let cardViewFrame = CGRectMake(x, y, width, height)
+            let boardViewFrame = CGRectMake(x, y, width, height)
             
-            let cardView: STTableView = STTableView(frame: cardViewFrame)
-            cardView.backgroundColor = UIColor.blueColor()
-            views.append(cardView)
+            let boardView: STBoardView = STBoardView(frame: boardViewFrame)
+            boardView.index = i
+            boardView.tableView.delegate = self
+            boardView.tableView.dataSource = self
+            registerCellClasses.forEach({ (classAndIdentifier) -> () in
+                boardView.tableView.registerClass(classAndIdentifier.0, forCellReuseIdentifier: classAndIdentifier.1)
+            })
+            boards.append(boardView)
         }
         
-        views.forEach { (cardView) -> () in
+        boards.forEach { (cardView) -> () in
             scrollView.addSubview(cardView)
         }
-        
     }
+}
 
-    func scrollToActualPage(scrollView: UIScrollView, offsetX: CGFloat) {
+//MARK: - UITableView help method
+extension STTableBoard {
+    func registerClasses(classAndIdentifier classAndIdentifier: [(AnyClass,String)]) {
+        registerCellClasses = classAndIdentifier
+    }
+    
+    func dequeueReusableCellWithIdentifier(identifier: String, forIndexPath indexPath: STIndexPath) -> UITableViewCell {
+        let row = indexPath.row
+        let tableView = boards[indexPath.board].tableView
+        return tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: NSIndexPath(forRow: row, inSection: 0))
+    }
+}
+
+//MARK: - Page method
+extension STTableBoard {
+    private func scrollToActualPage(scrollView: UIScrollView, offsetX: CGFloat) {
         let pageOffset = CGRectGetWidth(scrollView.frame) - overlap
         let proportion = offsetX / pageOffset
         let page = Int(proportion)
@@ -81,7 +116,7 @@ class STTableBoard: UIView {
         }
     }
     
-    func scrollToPage(scrollView: UIScrollView, page: Int, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    private func scrollToPage(scrollView: UIScrollView, page: Int, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let pageOffset = CGRectGetWidth(scrollView.frame) - overlap
         UIView.animateWithDuration(0.33) { () -> Void in
             scrollView.contentOffset = CGPoint(x: pageOffset * CGFloat(page), y: 0)
@@ -91,6 +126,7 @@ class STTableBoard: UIView {
     }
 }
 
+//MARK: - UIScrollViewDelegate
 extension STTableBoard : UIScrollViewDelegate {
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
@@ -107,5 +143,27 @@ extension STTableBoard : UIScrollViewDelegate {
             }
             
         }
+    }
+}
+
+//MARK: - UITableViewDelegate
+extension STTableBoard: UITableViewDelegate {
+    
+}
+
+//MARK: - UITableViewDataSource
+extension STTableBoard: UITableViewDataSource {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let board = (tableView as! STShadowTableView).index, numberOfRows = dataSource?.tableBoard(tableBoard: self, numberOfRowsInBoard: board) else { return 0 }
+        return numberOfRows
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        guard let board = (tableView as! STShadowTableView).index, cell = dataSource?.tableBoard(tableBoard: self, cellForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) else { fatalError("board or cell can not be nill") }
+        return cell
     }
 }

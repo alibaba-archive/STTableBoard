@@ -1,14 +1,14 @@
 //
-//  STTableView.swift
+//  STShadowTableView.swift
 //  STTableBoard
 //
-//  Created by DangGu on 15/10/25.
+//  Created by DangGu on 15/11/25.
 //  Copyright © 2015年 Donggu. All rights reserved.
 //
 
 import UIKit
 
-class STTableView: UIView {
+class STShadowTableView: UITableView {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -17,14 +17,16 @@ class STTableView: UIView {
         // Drawing code
     }
     */
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        let layer = self.layer
-        layer.cornerRadius = 5.0
-        layer.masksToBounds = true
+    
+    var index: Int?
+    
+    override init(frame: CGRect, style: UITableViewStyle) {
+        super.init(frame: frame, style: style)
+        self.separatorStyle = .None
     }
 
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
+
 }
