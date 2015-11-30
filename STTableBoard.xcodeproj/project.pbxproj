@@ -10,10 +10,11 @@
 		EB055D9C1BDF490C00846C99 /* STTableBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB055D9B1BDF490C00846C99 /* STTableBoard.swift */; };
 		EB4194781C02C2DA00D42DF0 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4194771C02C2DA00D42DF0 /* UIViewExtension.swift */; };
 		EB6206861C05903F003171A0 /* STBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6206851C05903F003171A0 /* STBoardView.swift */; };
+		EB6590271C06B141001D335B /* STBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6590261C06B141001D335B /* STBoardCell.swift */; };
+		EB6590291C06B9F2001D335B /* constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6590281C06B9F2001D335B /* constant.swift */; };
 		EB721AF11C05B27200386D65 /* UIColor+ChineseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB721AF01C05B27200386D65 /* UIColor+ChineseColor.swift */; };
 		EB9B3EE71C0598E7006DA5D9 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B3EE61C0598E7006DA5D9 /* BoardViewController.swift */; };
 		EB9B3EE91C059FEC006DA5D9 /* STShadowTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B3EE81C059FEC006DA5D9 /* STShadowTableView.swift */; };
-		EBB0AB841C03048C00B3DA5E /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB0AB831C03048C00B3DA5E /* UITableViewCellExtensions.swift */; };
 		EBB0AB861C04358A00B3DA5E /* STTableBoardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB0AB851C04358A00B3DA5E /* STTableBoardDelegate.swift */; };
 		EBB0AB8A1C0437C500B3DA5E /* STIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB0AB891C0437C500B3DA5E /* STIndexPath.swift */; };
 		EBB91D5B1BDCFA9C00C2DF3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB91D5A1BDCFA9C00C2DF3E /* AppDelegate.swift */; };
@@ -46,10 +47,11 @@
 		EB055D9B1BDF490C00846C99 /* STTableBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableBoard.swift; sourceTree = "<group>"; };
 		EB4194771C02C2DA00D42DF0 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		EB6206851C05903F003171A0 /* STBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardView.swift; sourceTree = "<group>"; };
+		EB6590261C06B141001D335B /* STBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardCell.swift; sourceTree = "<group>"; };
+		EB6590281C06B9F2001D335B /* constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constant.swift; sourceTree = "<group>"; };
 		EB721AF01C05B27200386D65 /* UIColor+ChineseColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ChineseColor.swift"; sourceTree = "<group>"; };
 		EB9B3EE61C0598E7006DA5D9 /* BoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
 		EB9B3EE81C059FEC006DA5D9 /* STShadowTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STShadowTableView.swift; sourceTree = "<group>"; };
-		EBB0AB831C03048C00B3DA5E /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
 		EBB0AB851C04358A00B3DA5E /* STTableBoardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableBoardDelegate.swift; sourceTree = "<group>"; };
 		EBB0AB891C0437C500B3DA5E /* STIndexPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STIndexPath.swift; sourceTree = "<group>"; };
 		EBB91D571BDCFA9C00C2DF3E /* STTableBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STTableBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,10 +98,17 @@
 			isa = PBXGroup;
 			children = (
 				EB4194771C02C2DA00D42DF0 /* UIViewExtension.swift */,
-				EBB0AB831C03048C00B3DA5E /* UITableViewCellExtensions.swift */,
 				EB721AF01C05B27200386D65 /* UIColor+ChineseColor.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		EB6590251C06B119001D335B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				EB055D9B1BDF490C00846C99 /* STTableBoard.swift */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		EBB0AB871C04372A00B3DA5E /* Protocols */ = {
@@ -114,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				EBB0AB891C0437C500B3DA5E /* STIndexPath.swift */,
+				EB6590281C06B9F2001D335B /* constant.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -141,6 +151,7 @@
 		EBB91D591BDCFA9C00C2DF3E /* STTableBoard */ = {
 			isa = PBXGroup;
 			children = (
+				EB6590251C06B119001D335B /* ViewControllers */,
 				EBB0AB881C0437A100B3DA5E /* Classes */,
 				EBB0AB871C04372A00B3DA5E /* Protocols */,
 				EB4194741C02B10200D42DF0 /* Extensions */,
@@ -177,9 +188,9 @@
 		EBCC59D81BDD03DB00AB522D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EB055D9B1BDF490C00846C99 /* STTableBoard.swift */,
 				EB6206851C05903F003171A0 /* STBoardView.swift */,
 				EB9B3EE81C059FEC006DA5D9 /* STShadowTableView.swift */,
+				EB6590261C06B141001D335B /* STBoardCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -323,10 +334,11 @@
 				EB055D9C1BDF490C00846C99 /* STTableBoard.swift in Sources */,
 				EBB91D5D1BDCFA9C00C2DF3E /* ViewController.swift in Sources */,
 				EBB0AB861C04358A00B3DA5E /* STTableBoardDelegate.swift in Sources */,
+				EB6590291C06B9F2001D335B /* constant.swift in Sources */,
 				EBB91D5B1BDCFA9C00C2DF3E /* AppDelegate.swift in Sources */,
-				EBB0AB841C03048C00B3DA5E /* UITableViewCellExtensions.swift in Sources */,
 				EB721AF11C05B27200386D65 /* UIColor+ChineseColor.swift in Sources */,
 				EB9B3EE71C0598E7006DA5D9 /* BoardViewController.swift in Sources */,
+				EB6590271C06B141001D335B /* STBoardCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
