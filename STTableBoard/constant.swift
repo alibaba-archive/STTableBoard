@@ -6,7 +6,7 @@
 //  Copyright © 2015年 Donggu. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum SnapViewStatus {
     case Moving

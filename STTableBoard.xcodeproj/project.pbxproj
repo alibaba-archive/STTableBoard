@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EB055D9C1BDF490C00846C99 /* STTableBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB055D9B1BDF490C00846C99 /* STTableBoard.swift */; };
 		EB4194781C02C2DA00D42DF0 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4194771C02C2DA00D42DF0 /* UIViewExtension.swift */; };
+		EB43F7181C0C81F500EC0885 /* UIScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43F7171C0C81F500EC0885 /* UIScrollViewExtension.swift */; };
 		EB6206861C05903F003171A0 /* STBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6206851C05903F003171A0 /* STBoardView.swift */; };
 		EB6590271C06B141001D335B /* STBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6590261C06B141001D335B /* STBoardCell.swift */; };
 		EB6590291C06B9F2001D335B /* constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6590281C06B9F2001D335B /* constant.swift */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		EB055D9B1BDF490C00846C99 /* STTableBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableBoard.swift; sourceTree = "<group>"; };
 		EB4194771C02C2DA00D42DF0 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		EB43F7171C0C81F500EC0885 /* UIScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollViewExtension.swift; sourceTree = "<group>"; };
 		EB6206851C05903F003171A0 /* STBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardView.swift; sourceTree = "<group>"; };
 		EB6590261C06B141001D335B /* STBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardCell.swift; sourceTree = "<group>"; };
 		EB6590281C06B9F2001D335B /* constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constant.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 		EB4194741C02B10200D42DF0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EB43F7171C0C81F500EC0885 /* UIScrollViewExtension.swift */,
 				EB4194771C02C2DA00D42DF0 /* UIViewExtension.swift */,
 				EB721AF01C05B27200386D65 /* UIColor+ChineseColor.swift */,
 			);
@@ -337,6 +340,7 @@
 				EB6590291C06B9F2001D335B /* constant.swift in Sources */,
 				EBB91D5B1BDCFA9C00C2DF3E /* AppDelegate.swift in Sources */,
 				EB721AF11C05B27200386D65 /* UIColor+ChineseColor.swift in Sources */,
+				EB43F7181C0C81F500EC0885 /* UIScrollViewExtension.swift in Sources */,
 				EB9B3EE71C0598E7006DA5D9 /* BoardViewController.swift in Sources */,
 				EB6590271C06B141001D335B /* STBoardCell.swift in Sources */,
 			);

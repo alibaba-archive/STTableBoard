@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 let leading: CGFloat  = 30.0
 let trailing: CGFloat = leading
@@ -28,7 +29,6 @@ class STTableBoard: UIViewController {
     private var currentPage: Int = 0
     private var boards: [STBoardView] = []
     private var registerCellClasses:[(AnyClass,String)] = []
-    
     private var scrollView: UIScrollView!
     
     private var longPressGesture: UILongPressGestureRecognizer {
@@ -43,6 +43,7 @@ class STTableBoard: UIViewController {
     private var snapshotCenterOffset: CGPoint!
     private var snapshotOffsetForLeftBounds: CGFloat!
     private var isScrolling: Bool = false
+    private var velocity: CGFloat = 50
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,13 +121,14 @@ extension STTableBoard {
                 }, completion:nil)
             sourceIndexPath = STIndexPath(forRow: indexPath.row, inBoard: currentPage)
         case .Changed:
+            // move snapShot
             let positionInScrollView = recognizer.locationInView(scrollView)
-            let positionInTableView = recognizer.locationInView(tableView)
             snapshot.center = caculateSnapShot(positionInScrollView)
             snapshotOffsetForLeftBounds = snapshot.center.x - scrollView.contentOffset.x
-            if !isScrolling {
-                scrollBySnapshot()
-            }
+            scrollBySnapshot()
+            
+            //move row to newIndexPath
+            let positionInTableView = recognizer.locationInView(tableView)
             if let indexPath = tableView.indexPathForRowAtPoint(positionInTableView), dataSource = dataSource {
                 dataSource.tableBoard(tableBoard: self, moveRowAtIndexPath: sourceIndexPath, toIndexPath: indexPath.convertToSTIndexPath(currentPage))
                 tableView.moveRowAtIndexPath(sourceIndexPath.convertToNSIndexPath(), toIndexPath: indexPath)
@@ -163,37 +165,62 @@ extension STTableBoard {
     }
     
     func scrollBySnapshot() {
+        // caculate velocity
+        func velocityByOffset(offset: CGFloat) -> CGFloat{
+            if offset >= 80 {
+                return 400
+            } else if offset >= 50 {
+                return 200
+            } else if offset >= 20 {
+                return 100
+            }
+            return 50
+        }
+        
+        // stop the scrollView animation
+        func stopAnimation() {
+            CATransaction.begin()
+            scrollView.layer.removeAllAnimations()
+            snapshot.layer.removeAllAnimations()
+            CATransaction.commit()
+            scrollView.setContentOffset(CGPoint(x: scrollView.layer.presentationLayer()!.bounds.origin.x, y: 0), animated: false)
+            snapshot.center = CGPoint(x: self.snapshotOffsetForLeftBounds + scrollView.layer.presentationLayer()!.bounds.origin.x, y: snapshot.center.y)
+            isScrolling = false
+
+        }
+        
         guard let snapshot = self.snapshot else {return}
 
-        let minX = snapshot.minX
-        let maxX = snapshot.maxX
+        let minX = snapshot.layer.presentationLayer()!.frame.origin.x
         
-//        let leftPage = pageWithXPoint(minX)
-//        let rightPage = pageWithXPoint(maxX)
+        let offsetX = scrollView.presentContenOffset()!.x
         
-//        if leftPage != currentPage && self.scrollView.contentOffset.x >= 0{
-        if minX < scrollView.contentOffset.x && scrollView.contentOffset.x >= 0 {
-            let contentOffSet = scrollView.contentOffset
-            var velocity: CGFloat = 20
-            let diff = scrollView.contentOffset.x - minX
-            print("diff \(diff)")
-            if diff >= 80 {
-                velocity = 110
-            } else if diff >= 50 {
-                velocity = 80
-            } else if diff >= 20 {
-                velocity = 50
+        // left scrolling
+        if minX < offsetX && offsetX >= 0 {
+            let offset = offsetX - minX
+            let newVelocity = velocityByOffset(offset)
+            if newVelocity == self.velocity {
+                return
+            } else {
+                self.velocity = newVelocity
+                stopAnimation()
             }
-            let x = contentOffSet.x - velocity < 0 ? 0 : contentOffSet.x - velocity
             isScrolling = true
+            let duration = Double(offsetX / self.velocity) == 0 ? 0 : Double(offsetX / self.velocity)
+            print("duration : \(duration)")
+            print("offSetX : \(offsetX)")
+            print("velocity \(self.velocity)")
             
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.scrollView.contentOffset = CGPoint(x: x, y: contentOffSet.y)
-                snapshot.center = CGPoint(x: self.snapshotOffsetForLeftBounds + self.scrollView.contentOffset.x, y: snapshot.center.y)
-                }, completion: {(finished) -> Void in
-                    self.isScrolling = false
-                    self.scrollBySnapshot()
-            })
+            UIView.animateWithDuration(duration, delay: 0.0,
+                options: [.BeginFromCurrentState, .AllowUserInteraction, .CurveLinear],
+                animations: { () -> Void in
+                    self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
+                    snapshot.center = CGPoint(x: self.snapshotOffsetForLeftBounds + self.scrollView.contentOffset.x, y: snapshot.center.y)
+                }, completion: nil)
+        } else {
+            if isScrolling {
+                stopAnimation()
+            }
         }
     }
     
@@ -217,6 +244,7 @@ extension STTableBoard {
     func caculateSnapShot(position: CGPoint) -> CGPoint{
         return CGPoint(x: position.x - snapshotCenterOffset.x, y: position.y - snapshotCenterOffset.y)
     }
+    
 }
 
 //MARK: - UITableView help method
