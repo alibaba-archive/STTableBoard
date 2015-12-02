@@ -12,3 +12,15 @@ enum SnapViewStatus {
     case Moving
     case Origin
 }
+
+enum ScrollDirection {
+    case Left
+    case Right
+    case None
+}
+
+var screenWidth: CGFloat {
+    get {
+        return CGRectGetWidth(UIScreen.mainScreen().bounds)
+    }
+}

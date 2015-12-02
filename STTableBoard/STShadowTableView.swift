@@ -18,7 +18,7 @@ class STShadowTableView: UITableView {
     }
     */
     
-    var index: Int?
+    var index: Int!
     
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)

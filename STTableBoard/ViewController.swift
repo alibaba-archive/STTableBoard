@@ -18,20 +18,13 @@ class ViewController: UIViewController {
         
 //        dataArray = [
 //            ["最后的战役1","最后的战役2","最后的战役3"],
-//            ["七里香1","七里香2","七里香3","七里香4","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"],
-//            ["晴天1","晴天2","晴天3","晴天4","晴天5"]
-//        ]
-        
-//        dataArray = [
-//            ["最后的战役1","最后的战役2","最后的战役3"],
 //            ["晴天1","晴天2","晴天3","晴天4","晴天5"]
 //        ]
         
         dataArray = [
             ["最后的战役1","最后的战役2","最后的战役3"],
             ["晴天1","晴天2","晴天3","晴天4","晴天5"],
-            ["七里香1","七里香2","七里香3","七里香4","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"]
-        
+            ["七里香1","七里香2","七里香3","七里香4","最后的战役1","最后的战役2","最后的战役3","晴天1","晴天2","晴天3","晴天4","晴天5","爱情悬崖1","爱情悬崖2","爱情悬崖3","爱情悬崖4"]
         ]
         
         let table = STTableBoard()
@@ -58,10 +51,11 @@ extension ViewController: STTableBoardDataSource {
     }
     
     func tableBoard(tableBoard tableBoard: STTableBoard, cellForRowAtIndexPath indexPath: STIndexPath) -> UITableViewCell {
-        let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath)
+        let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath) as! STBoardCell
         cell.textLabel?.text = dataArray[indexPath.board][indexPath.row]
         cell.contentView.backgroundColor = UIColor.果灰()
         cell.backgroundColor = UIColor.clearColor()
+        cell.moving = false
         return cell
     }
     

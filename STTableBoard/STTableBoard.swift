@@ -43,6 +43,7 @@ class STTableBoard: UIViewController {
     private var snapshotCenterOffset: CGPoint!
     private var snapshotOffsetForLeftBounds: CGFloat!
     private var isScrolling: Bool = false
+    private var scrollDirection: ScrollDirection = .None
     private var velocity: CGFloat = 50
     
     override func viewDidLoad() {
@@ -104,40 +105,75 @@ class STTableBoard: UIViewController {
 //MARK: - long press drag
 extension STTableBoard {
     func handleLongPressGesuter(recognizer: UIGestureRecognizer) {
-        let tableView = boards[currentPage].tableView
         
         switch recognizer.state {
         case .Began:
-            let position = recognizer.locationInView(tableView)
-            guard let indexPath = tableView.indexPathForRowAtPoint(position), cell = tableView.cellForRowAtIndexPath(indexPath) as? STBoardCell else {return}
+            guard let tableView = tableViewAtPoint(recognizer.locationInView(scrollView)) else { return }
+            let positionInTableView = recognizer.locationInView(tableView)
+            guard let indexPath = tableView.indexPathForRowAtPoint(positionInTableView), cell = tableView.cellForRowAtIndexPath(indexPath) as? STBoardCell else {return}
             snapshot = cell.snapshot
             updateSnapViewStatus(.Origin)
             snapshot.center = scrollView.convertPoint(cell.center, fromView: tableView)
             scrollView.addSubview(snapshot)
-            snapshotCenterOffset = caculatePointOffset(cellCenter: cell.center, position: position, fromView: tableView)
+            snapshotCenterOffset = caculatePointOffset(cellCenter: cell.center, position: positionInTableView, fromView: tableView)
             UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
                 self.updateSnapViewStatus(.Moving)
                 cell.moving = true
                 }, completion:nil)
-            sourceIndexPath = STIndexPath(forRow: indexPath.row, inBoard: currentPage)
+            sourceIndexPath = STIndexPath(forRow: indexPath.row, inBoard: tableView.index)
         case .Changed:
             // move snapShot
             let positionInScrollView = recognizer.locationInView(scrollView)
             snapshot.center = caculateSnapShot(positionInScrollView)
             snapshotOffsetForLeftBounds = snapshot.center.x - scrollView.contentOffset.x
-            scrollBySnapshot()
             
+            scrollBySnapshot()
             //move row to newIndexPath
+            
+            let realPointX = isScrolling ? scrollView.presentContenOffset()!.x + snapshotOffsetForLeftBounds + snapshotCenterOffset.x: positionInScrollView.x
+            
+            guard let tableView = tableViewAtPoint(CGPoint(x: realPointX, y: positionInScrollView.y)) else { return }
+            print("positionInScrollView.x \(positionInScrollView.x)")
+            print("scrollView.presentContenOffset()!.x \(scrollView.presentContenOffset()!.x)")
+            print("snapshotOffsetForLeftBounds \(snapshotOffsetForLeftBounds)")
             let positionInTableView = recognizer.locationInView(tableView)
-            if let indexPath = tableView.indexPathForRowAtPoint(positionInTableView), dataSource = dataSource {
-                dataSource.tableBoard(tableBoard: self, moveRowAtIndexPath: sourceIndexPath, toIndexPath: indexPath.convertToSTIndexPath(currentPage))
-                tableView.moveRowAtIndexPath(sourceIndexPath.convertToNSIndexPath(), toIndexPath: indexPath)
-                sourceIndexPath = indexPath.convertToSTIndexPath(currentPage)
+            var realPoint = positionInTableView
+            switch (isScrolling, scrollDirection) {
+            case (true, ScrollDirection.Left):
+                realPoint = CGPoint(x: positionInTableView.x + scrollView.presentContenOffset()!.x, y: positionInTableView.y)
+            case (true, ScrollDirection.Right):
+                realPoint = CGPoint(x: positionInTableView.x - (scrollView.contentOffset.x - scrollView.presentContenOffset()!.x), y: positionInTableView.y)
+            default:
+                break
+            }
+//            let realPoint = isScrolling ? CGPoint(x: positionInTableView.x + scrollView.presentContenOffset()!.x, y: positionInTableView.y) : positionInTableView
+//            print("isScrolling : \(isScrolling)")
+//            print("ScrollDirection : \(scrollDirection)")
+            print("realPoint : \(realPoint)")
+//            print("$$$$$$$$$$$$$$$$$$$$")
+//            print("******************")
+            if let indexPath = tableView.indexPathForRowAtPoint(realPoint), dataSource = dataSource {
+                dataSource.tableBoard(tableBoard: self, moveRowAtIndexPath: sourceIndexPath, toIndexPath: indexPath.convertToSTIndexPath(tableView.index))
+                if sourceIndexPath.board == tableView.index {
+                    tableView.moveRowAtIndexPath(sourceIndexPath.convertToNSIndexPath(), toIndexPath: indexPath)
+                } else {
+                    let sourceTableView = boards[sourceIndexPath.board].tableView
+                    sourceTableView.beginUpdates()
+                    sourceTableView.deleteRowsAtIndexPaths([sourceIndexPath.convertToNSIndexPath()], withRowAnimation: .Automatic)
+                    sourceTableView.endUpdates()
+                    tableView.beginUpdates()
+                    tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                    tableView.endUpdates()
+                    let cell = tableView.cellForRowAtIndexPath(indexPath) as! STBoardCell
+                    cell.moving = true
+                }
+                sourceIndexPath = indexPath.convertToSTIndexPath(tableView.index)
             }
         default:
-            guard let cell = tableView.cellForRowAtIndexPath(sourceIndexPath.convertToNSIndexPath()) as? STBoardCell else {return}
+            let sourceTableView = boards[sourceIndexPath.board].tableView
+            guard let cell = sourceTableView.cellForRowAtIndexPath(sourceIndexPath.convertToNSIndexPath()) as? STBoardCell else {return}
             UIView.animateWithDuration(0.33, animations: { () -> Void in
-                self.snapshot.center = self.scrollView.convertPoint(cell.center, fromView: tableView)
+                self.snapshot.center = self.scrollView.convertPoint(cell.center, fromView: sourceTableView)
                 self.updateSnapViewStatus(.Origin)
                 }, completion: { [unowned self](finished) -> Void in
                     cell.moving = false
@@ -145,6 +181,10 @@ extension STTableBoard {
                     self.snapshot = nil
             })
             self.sourceIndexPath = nil
+            if isScrolling {
+                stopAnimation()
+            }
+            scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
         }
     }
     
@@ -177,61 +217,58 @@ extension STTableBoard {
             return 50
         }
         
-        // stop the scrollView animation
-        func stopAnimation() {
-            CATransaction.begin()
-            scrollView.layer.removeAllAnimations()
-            snapshot.layer.removeAllAnimations()
-            CATransaction.commit()
-            scrollView.setContentOffset(CGPoint(x: scrollView.layer.presentationLayer()!.bounds.origin.x, y: 0), animated: false)
-            snapshot.center = CGPoint(x: self.snapshotOffsetForLeftBounds + scrollView.layer.presentationLayer()!.bounds.origin.x, y: snapshot.center.y)
-            isScrolling = false
 
-        }
         
         guard let snapshot = self.snapshot else {return}
 
         let minX = snapshot.layer.presentationLayer()!.frame.origin.x
+        let maxX = snapshot.layer.presentationLayer()!.frame.origin.x + CGRectGetWidth(snapshot.frame)
         
-        let offsetX = scrollView.presentContenOffset()!.x
+        let leftOffsetX = scrollView.presentContenOffset()!.x
+        let rightOffsetX = scrollView.presentContenOffset()!.x + screenWidth
         
         // left scrolling
-        if minX < offsetX && offsetX >= 0 {
-            let offset = offsetX - minX
+        if minX < leftOffsetX && leftOffsetX > 0 {
+            let offset = leftOffsetX - minX
             let newVelocity = velocityByOffset(offset)
             if newVelocity == self.velocity {
-                return
+                if isScrolling { return }
             } else {
                 self.velocity = newVelocity
                 stopAnimation()
             }
             isScrolling = true
-            let duration = Double(offsetX / self.velocity) == 0 ? 0 : Double(offsetX / self.velocity)
-            print("duration : \(duration)")
-            print("offSetX : \(offsetX)")
-            print("velocity \(self.velocity)")
-            
+            scrollDirection = .Left
+            let duration = Double(leftOffsetX / self.velocity)
             UIView.animateWithDuration(duration, delay: 0.0,
                 options: [.BeginFromCurrentState, .AllowUserInteraction, .CurveLinear],
                 animations: { () -> Void in
                     self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
                     snapshot.center = CGPoint(x: self.snapshotOffsetForLeftBounds + self.scrollView.contentOffset.x, y: snapshot.center.y)
                 }, completion: nil)
+        } else if maxX > rightOffsetX && rightOffsetX < scrollView.contentSize.width {
+            let offset = maxX - rightOffsetX
+            let newVelocity = velocityByOffset(offset)
+            if newVelocity == self.velocity {
+                if isScrolling { return }
+            } else {
+                self.velocity = newVelocity
+                stopAnimation()
+            }
+            isScrolling = true
+            scrollDirection = .Right 
+            let scrollViewContentWidth = scrollView.contentSize.width
+            let duration = Double((scrollViewContentWidth - rightOffsetX) / self.velocity)
+            UIView.animateWithDuration(duration, delay: 0.0,
+                options: [.BeginFromCurrentState, .AllowUserInteraction, .CurveLinear],
+                animations: { () -> Void in
+                    self.scrollView.contentOffset = CGPoint(x: scrollViewContentWidth - screenWidth, y: 0)
+                    snapshot.center = CGPoint(x: self.snapshotOffsetForLeftBounds + self.scrollView.contentOffset.x, y: snapshot.center.y)
+                }, completion: nil)
         } else {
             if isScrolling {
                 stopAnimation()
             }
-        }
-    }
-    
-    func pageWithXPoint(x: CGFloat) -> Int{
-        let page = Int(x / (view.width - overlap))
-        if page > numberOfPage {
-            return numberOfPage
-        } else if page < 0 {
-            return 0
-        } else {
-            return page
         }
     }
     
@@ -245,6 +282,49 @@ extension STTableBoard {
         return CGPoint(x: position.x - snapshotCenterOffset.x, y: position.y - snapshotCenterOffset.y)
     }
     
+    // stop the scrollView animation
+    func stopAnimation() {
+        CATransaction.begin()
+        scrollView.layer.removeAllAnimations()
+        snapshot.layer.removeAllAnimations()
+        CATransaction.commit()
+        scrollView.setContentOffset(CGPoint(x: scrollView.layer.presentationLayer()!.bounds.origin.x, y: 0), animated: false)
+        snapshot.center = CGPoint(x: self.snapshotOffsetForLeftBounds + scrollView.presentContenOffset()!.x, y: snapshot.center.y)
+        isScrolling = false
+        scrollDirection = .None
+        
+    }
+}
+
+//MARK: - Postiion helper 
+extension STTableBoard {
+    func boardAtPoint(pointInScrollView: CGPoint) -> STBoardView? {
+        var returnedBoard:STBoardView? = nil
+        
+        boards.forEach { (board) -> () in
+            if CGRectContainsPoint(board.frame, pointInScrollView) {
+                returnedBoard = board
+            }
+        }
+        print("$$$$$$$$$$$$$$$$$$$$")
+        print("$$$$$$$$$$$$$$$$$$$$")
+        print("$$$$$$$$$$$$$$$$$$$$")
+        print("pointInScrollView : \(pointInScrollView)")
+        print("isScrolling : \(isScrolling)")
+        if returnedBoard != nil{
+            print("index : \(returnedBoard!.index)")
+        } else {
+            print("index wtf nil")
+        }
+//        print("$$$$$$$$$$$$$$$$$$$$")
+        
+        return returnedBoard
+    }
+    
+    func tableViewAtPoint(pointInScrollView: CGPoint) -> STShadowTableView? {
+        guard let board = boardAtPoint(pointInScrollView) else { return nil }
+        return board.tableView
+    }
 }
 
 //MARK: - UITableView help method
