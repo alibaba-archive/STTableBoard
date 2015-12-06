@@ -24,3 +24,5 @@ var screenWidth: CGFloat {
         return CGRectGetWidth(UIScreen.mainScreen().bounds)
     }
 }
+
+let TimerUserInfoTableViewKey = "theTableView"

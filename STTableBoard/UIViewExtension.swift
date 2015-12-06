@@ -11,13 +11,13 @@ import UIKit
 extension UIView {
     var width: CGFloat {
         get {
-            return CGRectGetWidth(frame)
+            return CGRectGetWidth(bounds)
         }
     }
     
     var height: CGFloat {
         get {
-            return CGRectGetHeight(frame)
+            return CGRectGetHeight(bounds)
         }
     }
     

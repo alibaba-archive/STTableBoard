@@ -18,6 +18,7 @@
 		EB9B3EE91C059FEC006DA5D9 /* STShadowTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B3EE81C059FEC006DA5D9 /* STShadowTableView.swift */; };
 		EBB0AB861C04358A00B3DA5E /* STTableBoardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB0AB851C04358A00B3DA5E /* STTableBoardDelegate.swift */; };
 		EBB0AB8A1C0437C500B3DA5E /* STIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB0AB891C0437C500B3DA5E /* STIndexPath.swift */; };
+		EBB2C9261C116A0400743B3F /* STTableBoardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB2C9251C116A0400743B3F /* STTableBoardExtensions.swift */; };
 		EBB91D5B1BDCFA9C00C2DF3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB91D5A1BDCFA9C00C2DF3E /* AppDelegate.swift */; };
 		EBB91D5D1BDCFA9C00C2DF3E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB91D5C1BDCFA9C00C2DF3E /* ViewController.swift */; };
 		EBB91D601BDCFA9C00C2DF3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBB91D5E1BDCFA9C00C2DF3E /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 		EBB91D651BDCFA9C00C2DF3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBB91D631BDCFA9C00C2DF3E /* LaunchScreen.storyboard */; };
 		EBB91D701BDCFA9C00C2DF3E /* STTableBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB91D6F1BDCFA9C00C2DF3E /* STTableBoardTests.swift */; };
 		EBB91D7B1BDCFA9C00C2DF3E /* STTableBoardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB91D7A1BDCFA9C00C2DF3E /* STTableBoardUITests.swift */; };
+		EBF4C7C51C10455A00E490E4 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF4C7C41C10455A00E490E4 /* CommonExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,7 @@
 		EB9B3EE81C059FEC006DA5D9 /* STShadowTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STShadowTableView.swift; sourceTree = "<group>"; };
 		EBB0AB851C04358A00B3DA5E /* STTableBoardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableBoardDelegate.swift; sourceTree = "<group>"; };
 		EBB0AB891C0437C500B3DA5E /* STIndexPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STIndexPath.swift; sourceTree = "<group>"; };
+		EBB2C9251C116A0400743B3F /* STTableBoardExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableBoardExtensions.swift; sourceTree = "<group>"; };
 		EBB91D571BDCFA9C00C2DF3E /* STTableBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STTableBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBB91D5A1BDCFA9C00C2DF3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EBB91D5C1BDCFA9C00C2DF3E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +72,7 @@
 		EBB91D761BDCFA9C00C2DF3E /* STTableBoardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STTableBoardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBB91D7A1BDCFA9C00C2DF3E /* STTableBoardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTableBoardUITests.swift; sourceTree = "<group>"; };
 		EBB91D7C1BDCFA9C00C2DF3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBF4C7C41C10455A00E490E4 /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +103,11 @@
 		EB4194741C02B10200D42DF0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EBB2C9251C116A0400743B3F /* STTableBoardExtensions.swift */,
 				EB43F7171C0C81F500EC0885 /* UIScrollViewExtension.swift */,
 				EB4194771C02C2DA00D42DF0 /* UIViewExtension.swift */,
 				EB721AF01C05B27200386D65 /* UIColor+ChineseColor.swift */,
+				EBF4C7C41C10455A00E490E4 /* CommonExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -335,7 +341,9 @@
 				EB6206861C05903F003171A0 /* STBoardView.swift in Sources */,
 				EB4194781C02C2DA00D42DF0 /* UIViewExtension.swift in Sources */,
 				EB055D9C1BDF490C00846C99 /* STTableBoard.swift in Sources */,
+				EBB2C9261C116A0400743B3F /* STTableBoardExtensions.swift in Sources */,
 				EBB91D5D1BDCFA9C00C2DF3E /* ViewController.swift in Sources */,
+				EBF4C7C51C10455A00E490E4 /* CommonExtensions.swift in Sources */,
 				EBB0AB861C04358A00B3DA5E /* STTableBoardDelegate.swift in Sources */,
 				EB6590291C06B9F2001D335B /* constant.swift in Sources */,
 				EBB91D5B1BDCFA9C00C2DF3E /* AppDelegate.swift in Sources */,
