@@ -1,2 +1,2 @@
 # STTableBoard
-a table board like troll
+a table board like trello
