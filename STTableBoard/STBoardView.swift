@@ -8,8 +8,6 @@
 
 import UIKit
 
-let headerFooterViewHeight: CGFloat = 44.0
-
 class STBoardView: UIView {
     
     var headerView: UIView!
@@ -31,7 +29,8 @@ class STBoardView: UIView {
     }
     
     func setupProperty() {
-        backgroundColor = UIColor.grayColor()
+//        backgroundColor = UIColor.grayColor()
+        backgroundColor = UIColor.蓝灰()
         let layer = self.layer
         layer.cornerRadius = 5.0
         layer.masksToBounds = true
@@ -43,7 +42,7 @@ class STBoardView: UIView {
         addSubview(headerView)
         addSubview(footerView)
         tableView = STShadowTableView(frame: CGRectZero, style: .Plain)
-        tableView.backgroundColor = UIColor.蓝灰()
+        tableView.backgroundColor = UIColor.clearColor()
         addSubview(tableView)
         
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,8 +55,6 @@ class STBoardView: UIView {
         NSLayoutConstraint.activateConstraints(headerViewHorizontalConstraints + tableViewHorizontalConstraints + footerViewHorizontalConstraints + verticalConstraints)
     }
 
-    
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -8,6 +8,16 @@
 
 import UIKit
 
+protocol STTableBoardDelegate: class {
+    func tableBoard(tableBoard tableBoard:STTableBoard, heightForRowAtIndexPath indexPath: STIndexPath) -> CGFloat
+}
+
+extension STTableBoardDelegate {
+    func tableBoard(tableBoard tableBoard:STTableBoard, heightForRowAtIndexPath indexPath: STIndexPath) -> CGFloat {
+        return 44.0
+    }
+}
+
 protocol STTableBoardDataSource: class {
     func numberOfBoardsInTableBoard(tableBoard: STTableBoard) -> Int
     func tableBoard(tableBoard tableBoard: STTableBoard, numberOfRowsInBoard board: Int) -> Int
@@ -23,5 +33,4 @@ extension STTableBoardDataSource {
     func tableBoard(tableBoard tableBoard:STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) {
         return
     }
-    
 }

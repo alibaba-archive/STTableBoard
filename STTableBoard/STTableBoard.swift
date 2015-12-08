@@ -7,19 +7,22 @@
 //
 
 import UIKit
-import QuartzCore
-
-let leading: CGFloat  = 30.0
-let trailing: CGFloat = leading
-let top: CGFloat = 20.0
-let bottom: CGFloat = top
-let pageSpacing: CGFloat = leading / 2
-let overlap: CGFloat = pageSpacing * 3
-let rotateAngel: CGFloat = CGFloat(M_PI/36)
 
 class STTableBoard: UIViewController {
     
+    var boardWidth: CGFloat {
+        get {
+            return self.view.width - (leading + trailing)
+        }
+    }
+    var maxBoardHeight: CGFloat {
+        get {
+            return self.view.height - (top + bottom)
+        }
+    }
+    
     weak var dataSource: STTableBoardDataSource?
+    weak var delegate: STTableBoardDelegate?
     
     var numberOfPage: Int {
         get {
@@ -88,11 +91,9 @@ class STTableBoard: UIViewController {
         }
         
         for i in 0..<numberOfPage {
-            let width = self.view.width - (leading + trailing)
-            let height = self.view.height - (top + bottom)
-            let x = leading + CGFloat(i) * (width + pageSpacing)
+            let x = leading + CGFloat(i) * (boardWidth + pageSpacing)
             let y = top
-            let boardViewFrame = CGRectMake(x, y, width, height)
+            let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
             
             let boardView: STBoardView = STBoardView(frame: boardViewFrame)
             boardView.addGestureRecognizer(self.longPressGesture)
@@ -102,6 +103,7 @@ class STTableBoard: UIViewController {
             registerCellClasses.forEach({ (classAndIdentifier) -> () in
                 boardView.tableView.registerClass(classAndIdentifier.0, forCellReuseIdentifier: classAndIdentifier.1)
             })
+            autoAdjustTableBoardHeight(boardView, animated: false)
             boards.append(boardView)
         }
         

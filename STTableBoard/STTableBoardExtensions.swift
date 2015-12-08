@@ -23,7 +23,7 @@ extension STTableBoard {
             
             moveSnapshotToPosition(positionInScrollView)
             autoScrollInScrollView()
-            autoSctollInTableView(tableView)
+            autoScrollInTableView(tableView)
             moveRowToPosition(tableView, recognizer: recognizer)
         default:
             endMovingRow()
@@ -94,11 +94,13 @@ extension STTableBoard {
             } else {
                 let sourceTableView = boards[sourceIndexPath.board].tableView
                 sourceTableView.beginUpdates()
-                sourceTableView.deleteRowsAtIndexPaths([sourceIndexPath.convertToNSIndexPath()], withRowAnimation: .Automatic)
+                sourceTableView.deleteRowsAtIndexPaths([sourceIndexPath.convertToNSIndexPath()], withRowAnimation: .Fade)
                 sourceTableView.endUpdates()
+                rowDidBeRemovedFromTableView(sourceTableView)
                 tableView.beginUpdates()
-                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
                 tableView.endUpdates()
+                rowDidBeInsertedIntoTableView(tableView)
                 let cell = tableView.cellForRowAtIndexPath(indexPath) as! STBoardCell
                 cell.moving = true
             }
@@ -186,7 +188,7 @@ extension STTableBoard {
         }
     }
     
-    func autoSctollInTableView(tableView: STShadowTableView?) {
+    func autoScrollInTableView(tableView: STShadowTableView?) {
         guard let tableView = tableView else { return }
         
         func canTableViewScroll() -> Bool {
@@ -198,7 +200,6 @@ extension STTableBoard {
             let convertedBootomLeftPoint = tableView.superview!.convertPoint(snapshotBottomRightPoint(), fromView: scrollView)
             let distanceToTopEdge = convertedTopLeftPoint.y - CGRectGetMinY(tableView.frame)
             let distanceToBottomEdge = CGRectGetMaxY(tableView.frame) - convertedBootomLeftPoint.y
-            print("distanceToTopEdge \(distanceToTopEdge)  distanceToBottomEdge\(distanceToBottomEdge)")
             
             if distanceToTopEdge < 0 {
                 tableViewAutoScrollDistance = CGFloat(ceilf(Float(distanceToTopEdge / 5.0)))
@@ -217,7 +218,6 @@ extension STTableBoard {
                 tableViewAutoScrollTimer = nil
             } else if tableViewAutoScrollTimer == nil {
                 tableViewAutoScrollTimer = NSTimer.scheduledTimerWithTimeInterval((1.0 / 60.0), target: self, selector: "tableViewAutoScrollTimerFired:", userInfo: [TimerUserInfoTableViewKey : tableView], repeats: true)
-                
             }
         }
     }
@@ -236,6 +236,16 @@ extension STTableBoard {
         tableView.contentOffset = CGPoint(x: tableView.contentOffset.x, y: tableView.contentOffset.y + tableViewAutoScrollDistance)
     }
     
+    func rowDidBeRemovedFromTableView(tableView: STShadowTableView) {
+        guard let board = tableView.superview as? STBoardView else { return }
+        autoAdjustTableBoardHeight(board, animated: true)
+    }
+    
+    func rowDidBeInsertedIntoTableView(tableView: STShadowTableView) {
+        guard let board = tableView.superview as? STBoardView else { return }
+        autoAdjustTableBoardHeight(board, animated: true)
+    }
+    
     // stop the scrollView animation
     func stopAnimation() {
         CATransaction.begin()
@@ -248,6 +258,36 @@ extension STTableBoard {
         scrollDirection = .None
         
     }
+}
+
+//MARK: - board helper method
+extension STTableBoard {
+    func caculateBoardHeight(board: STBoardView) -> CGFloat {
+        guard let tableView = board.tableView else { return 0.0 }
+        let numberOfRows = tableView.numberOfRowsInSection(0)
+        var tableViewContentHeight: CGFloat = 2 * headerFooterViewHeight
+        if numberOfRows > 0 {
+            for i in 0..<numberOfRows {
+                tableViewContentHeight += self.tableView(tableView, heightForRowAtIndexPath: NSIndexPath(forRow: i, inSection: 0))
+            }
+        }
+        return tableViewContentHeight
+    }
+    
+    func autoAdjustTableBoardHeight(board: STBoardView, animated: Bool) {
+        let realBoardHeight = caculateBoardHeight(board)
+        let newHeight = realBoardHeight < maxBoardHeight ? realBoardHeight : maxBoardHeight
+        var frame = board.frame
+        frame.size.height = newHeight
+        if animated {
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                board.frame = frame
+            })
+        } else {
+            board.frame = frame
+        }
+    }
+    
 }
 
 //MARK: - Position helper method
@@ -383,7 +423,10 @@ extension STTableBoard : UIScrollViewDelegate {
 
 //MARK: - UITableViewDelegate
 extension STTableBoard: UITableViewDelegate {
-    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        guard let board = (tableView as! STShadowTableView).index, heightForRow = delegate?.tableBoard(tableBoard: self, heightForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) else { return 44.0 }
+        return heightForRow
+    }
 }
 
 //MARK: - UITableViewDataSource
@@ -398,7 +441,8 @@ extension STTableBoard: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let board = (tableView as! STShadowTableView).index, cell = dataSource?.tableBoard(tableBoard: self, cellForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) else { fatalError("board or cell can not be nill") }
+        guard let board = (tableView as! STShadowTableView).index, cell = dataSource?.tableBoard(tableBoard: self, cellForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) as? STBoardCell else { fatalError("board or cell can not be nill") }
+        cell.moving = false
         return cell
     }
 }

@@ -26,3 +26,11 @@ var screenWidth: CGFloat {
 }
 
 let TimerUserInfoTableViewKey = "theTableView"
+let leading: CGFloat  = 30.0
+let trailing: CGFloat = leading
+let top: CGFloat = 20.0
+let bottom: CGFloat = top
+let pageSpacing: CGFloat = leading / 2
+let overlap: CGFloat = pageSpacing * 3
+let rotateAngel: CGFloat = CGFloat(M_PI/36)
+let headerFooterViewHeight: CGFloat = 44.0
