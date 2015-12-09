@@ -34,6 +34,8 @@ class STTableBoard: UIViewController {
     var boards: [STBoardView] = []
     var registerCellClasses:[(AnyClass,String)] = []
     var scrollView: UIScrollView!
+    var containerView: UIView!
+    var tableBoardMode: STTableBoardMode = .Page
     
     var longPressGesture: UILongPressGestureRecognizer {
         get {
@@ -54,6 +56,11 @@ class STTableBoard: UIViewController {
     var tableViewAutoScrollTimer: NSTimer?
     var tableViewAutoScrollDistance: CGFloat = 0
     
+    //Zoom
+    var originContentOffset = CGPoint(x: 0, y: 0)
+    var originContentSize = CGSize(width: 0, height: 0)
+    var scaledContentOffset = CGPoint(x: 0, y: 0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupProperty()
@@ -66,7 +73,15 @@ class STTableBoard: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        scrollView.addObserver(self, forKeyPath: "zoomScale", options: [.New, .Old], context: nil)
     }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        scrollView.removeObserver(self, forKeyPath: "zoomScale")
+    }
+    
+    
 
     private func setupProperty() {
         let contentViewWidth = view.width + (view.width - overlap) * CGFloat(numberOfPage - 1)
@@ -74,14 +89,28 @@ class STTableBoard: UIViewController {
         scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
+        scrollView.minimumZoomScale = scaleForScroll
+        scrollView.maximumZoomScale = scaleForPage
         scrollView.delegate = self
         scrollView.bounces = false
         view.addSubview(scrollView)
+        
+        containerView = UIView(frame: CGRect(origin: CGPointZero, size: scrollView.contentSize))
+        scrollView.addSubview(containerView)
+        containerView.backgroundColor = UIColor.浅草绿()
+        
+        let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleDoubleTap:")
+        doubleTapGesture.delegate = self
+        doubleTapGesture.numberOfTapsRequired = 1
+        doubleTapGesture.numberOfTouchesRequired = 1
+        containerView.addGestureRecognizer(doubleTapGesture)
+        
     }
     
     private func reloadData() {
         let contentViewWidth = view.width + (view.width - overlap) * CGFloat(numberOfPage - 1)
         scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
+        containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
         
         if boards.count != 0 {
             boards.forEach({ (board) -> () in
@@ -108,7 +137,7 @@ class STTableBoard: UIViewController {
         }
         
         boards.forEach { (cardView) -> () in
-            scrollView.addSubview(cardView)
+            containerView.addSubview(cardView)
         }
     }
 }

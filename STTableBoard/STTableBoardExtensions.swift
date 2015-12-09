@@ -8,6 +8,29 @@
 
 import UIKit
 
+//MARK: - double tap
+extension STTableBoard {
+    
+    func handleDoubleTap(recognizer: UIGestureRecognizer) {
+        switchMode()
+    }
+    
+    func switchMode() {
+        let newMode: STTableBoardMode = tableBoardMode == .Page ? .Scroll : .Page
+        var newScale: CGFloat = 0.0
+        switch newMode {
+        case .Page:
+            newScale = scaleForPage
+            tableBoardMode = .Page
+        case .Scroll:
+            newScale = scaleForScroll
+            tableBoardMode = .Scroll
+
+        }
+        scrollView.setZoomScale(newScale, animated: true)
+    }
+}
+
 //MARK: - long press drag
 extension STTableBoard {
     func handleLongPressGesuter(recognizer: UIGestureRecognizer) {
@@ -16,7 +39,7 @@ extension STTableBoard {
         case .Began:
             startMovingRow(recognizer)
         case .Changed:
-            // move snapShotu
+            // move snapShot
             let positionInScrollView = recognizer.locationInView(scrollView)
             let realPointX = isScrolling ? scrollView.presentContenOffset()!.x + snapshotOffsetForLeftBounds + snapshotCenterOffset.x: positionInScrollView.x
             let tableView = tableViewAtPoint(CGPoint(x: realPointX, y: positionInScrollView.y))
@@ -374,6 +397,7 @@ extension STIndexPath {
 //MARK: - Page method
 extension STTableBoard {
     func scrollToActualPage(scrollView: UIScrollView, offsetX: CGFloat) {
+        guard tableBoardMode == .Page else { return }
         let pageOffset = CGRectGetWidth(scrollView.frame) - overlap
         let proportion = offsetX / pageOffset
         let page = Int(proportion)
@@ -386,6 +410,7 @@ extension STTableBoard {
     }
     
     func scrollToPage(scrollView: UIScrollView, page: Int, targetContentOffset: UnsafeMutablePointer<CGPoint>?) {
+        guard tableBoardMode == .Page else { return }
         let pageOffset = CGRectGetWidth(scrollView.frame) - overlap
         UIView.animateWithDuration(0.33) { () -> Void in
             scrollView.contentOffset = CGPoint(x: pageOffset * CGFloat(page), y: 0)
@@ -397,15 +422,37 @@ extension STTableBoard {
     }
 }
 
+extension STTableBoard {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        guard let keyPath = keyPath where keyPath == "zoomScale", let change = change, let newValue = change["new"] as? CGFloat else { return }
+        tableBoardMode = newValue == scrollView.minimumZoomScale ? .Scroll : .Page
+        print("mode : \(tableBoardMode)")
+        
+    }
+}
+
+extension STTableBoard: UIGestureRecognizerDelegate {
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        guard let touchedView = touch.view else { return false }
+        if touchedView == containerView {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
 //MARK: - UIScrollViewDelegate
-extension STTableBoard : UIScrollViewDelegate {
+extension STTableBoard: UIScrollViewDelegate {
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard tableBoardMode == .Page else { return }
         if !decelerate {
             scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
         }
     }
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard tableBoardMode == .Page else { return }
         if velocity.x != 0 {
             if velocity.x < 0 && currentPage > 0{
                 scrollToPage(scrollView, page: currentPage - 1, targetContentOffset: targetContentOffset)
@@ -418,6 +465,33 @@ extension STTableBoard : UIScrollViewDelegate {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         //        print("contentOffset : \(scrollView.contentOffset)")
+    }
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return containerView
+    }
+    
+    func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
+        switch tableBoardMode {
+        case .Scroll:
+            originContentOffset = scrollView.contentOffset
+            originContentSize = scrollView.contentSize
+        case .Page:
+            scaledContentOffset = scrollView.contentOffset
+        }
+    }
+    
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        switch tableBoardMode {
+        case .Scroll:
+            scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: view.height)
+            scrollView.contentOffset = CGPoint(x: originContentOffset.x * scrollView.zoomScale, y: 0)
+        case .Page:
+            scrollView.contentSize = originContentSize
+            scrollView.contentOffset = CGPoint(x: scaledContentOffset.x / scaleForScroll, y: 0)
+            scrollToActualPage(self.scrollView, offsetX: scaledContentOffset.x / scaleForScroll)
+        }
+        containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
     }
 }
 
