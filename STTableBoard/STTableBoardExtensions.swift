@@ -43,7 +43,6 @@ extension STTableBoard {
             let positionInScrollView = recognizer.locationInView(scrollView)
             let realPointX = isScrolling ? scrollView.presentContenOffset()!.x + snapshotOffsetForLeftBounds + snapshotCenterOffset.x: positionInScrollView.x
             let tableView = tableViewAtPoint(CGPoint(x: realPointX, y: positionInScrollView.y))
-            
             moveSnapshotToPosition(positionInScrollView)
             autoScrollInScrollView()
             autoScrollInTableView(tableView)

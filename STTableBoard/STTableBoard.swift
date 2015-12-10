@@ -101,7 +101,7 @@ class STTableBoard: UIViewController {
         
         let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleDoubleTap:")
         doubleTapGesture.delegate = self
-        doubleTapGesture.numberOfTapsRequired = 1
+        doubleTapGesture.numberOfTapsRequired = 2
         doubleTapGesture.numberOfTouchesRequired = 1
         containerView.addGestureRecognizer(doubleTapGesture)
         
