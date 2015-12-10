@@ -36,6 +36,8 @@ class STTableBoard: UIViewController {
     var scrollView: UIScrollView!
     var containerView: UIView!
     var tableBoardMode: STTableBoardMode = .Page
+    var currentScale: CGFloat = scaleForPage
+    var tapPosition: CGPoint = CGPoint(x: 0, y: 0)
     
     var longPressGesture: UILongPressGestureRecognizer {
         get {
@@ -47,10 +49,10 @@ class STTableBoard: UIViewController {
     var snapshot: UIView!
     var sourceIndexPath: STIndexPath!
     var snapshotCenterOffset: CGPoint!
-    var snapshotOffsetForLeftBounds: CGFloat!
+    var snapshotOffsetForLeftBounds: CGFloat! 
     var isScrolling: Bool = false
     var scrollDirection: ScrollDirection = .None
-    var velocity: CGFloat = 50
+    var velocity: CGFloat = defaultScrollViewScrollVelocity
     
     //TableView auto Scroll
     var tableViewAutoScrollTimer: NSTimer?
@@ -73,12 +75,10 @@ class STTableBoard: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        scrollView.addObserver(self, forKeyPath: "zoomScale", options: [.New, .Old], context: nil)
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        scrollView.removeObserver(self, forKeyPath: "zoomScale")
     }
     
     

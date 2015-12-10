@@ -24,12 +24,6 @@ enum STTableBoardMode {
     case Scroll
 }
 
-var screenWidth: CGFloat {
-    get {
-        return CGRectGetWidth(UIScreen.mainScreen().bounds)
-    }
-}
-
 let TimerUserInfoTableViewKey = "theTableView"
 let leading: CGFloat  = 30.0
 let trailing: CGFloat = leading
@@ -41,3 +35,4 @@ let rotateAngel: CGFloat = CGFloat(M_PI/36)
 let headerFooterViewHeight: CGFloat = 44.0
 let scaleForPage: CGFloat = 1.0
 let scaleForScroll: CGFloat = 0.5
+let defaultScrollViewScrollVelocity: CGFloat = 50.0
