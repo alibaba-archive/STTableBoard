@@ -483,17 +483,17 @@ extension STTableBoard: UIScrollViewDelegate {
         switch tableBoardMode {
         case .Scroll:
             scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: view.height)
-            scrollView.contentOffset = CGPoint(x: originContentOffset.x * scrollView.zoomScale, y: 0)
-            print("scrollView.contentSize \(scrollView.contentSize)")
-            print("scrollView.contentOffset \(scrollView.contentOffset)")
+            if scrollView.contentSize.width < originContentOffset.x * currentScale + scrollView.width {
+                scrollView.contentOffset = CGPoint(x: scrollView.contentSize.width - scrollView.width, y: 0)
+            } else {
+                scrollView.contentOffset = CGPoint(x: originContentOffset.x * currentScale, y: 0)
+            }
         case .Page:
             scrollView.contentSize = originContentSize
             scrollView.contentOffset = CGPoint(x: scaledContentOffset.x / scaleForScroll, y: 0)
             scrollToPage(scrollView, page: pageAtPoint(tapPosition) - 1, targetContentOffset: nil)
-//            scrollToActualPage(self.scrollView, offsetX: scaledContentOffset.x / scaleForScroll)
         }
         containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
-        print("containerView.frame \(containerView.frame)")
     }
 }
 
