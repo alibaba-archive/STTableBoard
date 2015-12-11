@@ -29,7 +29,7 @@ extension STTableBoardDataSource {
     func numberOfBoardsInTableBoard(tableBoard: STTableBoard) -> Int {
         return 1
     }
-    
+
     func tableBoard(tableBoard tableBoard:STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) {
         return
     }

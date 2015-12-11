@@ -11,7 +11,7 @@ import Foundation
 class STIndexPath {
     let row: Int
     let board: Int
-    
+
     init(forRow row: Int, inBoard board: Int) {
         self.row = row
         self.board = board

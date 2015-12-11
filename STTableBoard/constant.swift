@@ -24,7 +24,7 @@ enum STTableBoardMode {
     case Scroll
 }
 
-let TimerUserInfoTableViewKey = "theTableView"
+let timerUserInfoTableViewKey = "theTableView"
 let leading: CGFloat  = 30.0
 let trailing: CGFloat = leading
 let top: CGFloat = 20.0
