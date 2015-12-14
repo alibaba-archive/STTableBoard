@@ -24,6 +24,11 @@ enum STTableBoardMode {
     case Scroll
 }
 
+enum STTableBoardOrientation {
+    case Landscape
+    case Portrait
+}
+
 let timerUserInfoTableViewKey = "theTableView"
 let leading: CGFloat  = 30.0
 let trailing: CGFloat = leading
@@ -43,9 +48,16 @@ var currentDevice: UIUserInterfaceIdiom {
     }
 }
 
-var currentOrientation: UIInterfaceOrientation {
+var currentOrientation: STTableBoardOrientation {
     get {
-        return UIApplication.sharedApplication().statusBarOrientation
+        var orientation: STTableBoardOrientation = .Portrait
+        switch UIApplication.sharedApplication().statusBarOrientation {
+        case .Portrait, .PortraitUpsideDown, .Unknown:
+            orientation = .Portrait
+        case .LandscapeLeft, .LandscapeRight:
+            orientation = .Landscape
+        }
+        return orientation
     }
 }
 

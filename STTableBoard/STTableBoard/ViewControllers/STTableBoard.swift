@@ -17,9 +17,9 @@ public class STTableBoard: UIViewController {
             } else {
                 var width: CGFloat = 0
                 switch currentOrientation {
-                case .Portrait, .PortraitUpsideDown, .Unknown:
+                case .Portrait:
                     width = self.view.width
-                case .LandscapeLeft, .LandscapeRight:
+                case .Landscape:
                     width = self.view.height
                 }
                 return width - (leading + trailing)
@@ -100,7 +100,6 @@ public class STTableBoard: UIViewController {
     //MARK: - life cycle
     override public func viewDidLoad() {
         super.viewDidLoad()
-        printOrientation()
         setupProperty()
     }
 
@@ -184,30 +183,9 @@ public class STTableBoard: UIViewController {
         boards.forEach { (board) -> () in
             autoAdjustTableBoardHeight(board, animated: true)
         }
-        if size.width > size.height {
-            tableBoardMode = .Scroll
-            containerView.removeGestureRecognizer(doubleTapGesture)
-        } else {
-            if currentDevice == .Phone {
-                tableBoardMode = .Page
-                containerView.addGestureRecognizer(doubleTapGesture)
-            }
+        if size.width < size.height {
             scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
         }
-    }
-    
-    func printOrientation() {
-        switch currentOrientation {
-        case .Portrait:
-            print("Portrait")
-        case .PortraitUpsideDown:
-            print("PortraitUpsideDown")
-        case .LandscapeLeft:
-            print("LandscapeLeft")
-        case .LandscapeRight:
-            print("LandscapeRight")
-        case .Unknown:
-            print("Unknown")
-        }
+        originContentSize = CGSize(width: originContentSize.width, height: size.height)
     }
 }

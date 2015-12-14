@@ -22,11 +22,11 @@ extension STTableBoard {
         case .Page:
             newScale = scaleForPage
             tableBoardMode = .Page
-            currentScale = scaleForPage
+            currentScale = newScale
         case .Scroll:
             newScale = scaleForScroll
             tableBoardMode = .Scroll
-            currentScale = scaleForScroll
+            currentScale = newScale
         }
         scrollView.setZoomScale(newScale, animated: true)
     }
@@ -406,7 +406,7 @@ extension STIndexPath {
 //MARK: - Page method
 extension STTableBoard {
     func scrollToActualPage(scrollView: UIScrollView, offsetX: CGFloat) {
-        guard tableBoardMode == .Page else { return }
+        guard tableBoardMode == .Page && currentOrientation == .Portrait else { return }
         let pageOffset = CGRectGetWidth(scrollView.frame) - overlap
         let proportion = offsetX / pageOffset
         let page = Int(proportion)
@@ -419,7 +419,7 @@ extension STTableBoard {
     }
     
     func scrollToPage(scrollView: UIScrollView, page: Int, targetContentOffset: UnsafeMutablePointer<CGPoint>?) {
-        guard tableBoardMode == .Page else { return }
+        guard tableBoardMode == .Page && currentOrientation == .Portrait else { return }
         let pageOffset = CGRectGetWidth(scrollView.frame) - overlap
         UIView.animateWithDuration(0.33) { () -> Void in
             scrollView.contentOffset = CGPoint(x: pageOffset * CGFloat(page), y: 0)
