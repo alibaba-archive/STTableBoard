@@ -12,7 +12,18 @@ public class STTableBoard: UIViewController {
     
     var boardWidth: CGFloat {
         get {
-            return self.view.width - (leading + trailing)
+            if currentDevice == .Pad {
+                return self.customBoardWidth
+            } else {
+                var width: CGFloat = 0
+                switch currentOrientation {
+                case .Portrait, .PortraitUpsideDown, .Unknown:
+                    width = self.view.width
+                case .LandscapeLeft, .LandscapeRight:
+                    width = self.view.height
+                }
+                return width - (leading + trailing)
+            }
         }
     }
     var maxBoardHeight: CGFloat {
@@ -35,10 +46,26 @@ public class STTableBoard: UIViewController {
         }
     }
     
+    lazy var doubleTapGesture: UITapGestureRecognizer = {
+        let gesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleDoubleTap:")
+        gesture.delegate = self
+        gesture.numberOfTapsRequired = 2
+        gesture.numberOfTouchesRequired = 1
+        return gesture
+    }()
+    
+    var contentViewWidth: CGFloat {
+        get {
+            return 2 * leading + CGFloat(numberOfPage) * boardWidth + CGFloat(numberOfPage - 1) * pageSpacing
+        }
+        
+    }
+    
     var currentPage: Int = 0
     var registerCellClasses:[(AnyClass, String)] = []
     var tableBoardMode: STTableBoardMode = .Page
-
+    public var customBoardWidth: CGFloat = 280
+    
     //Views Property
     var boards: [STBoardView] = []
     var scrollView: UIScrollView!
@@ -73,6 +100,7 @@ public class STTableBoard: UIViewController {
     //MARK: - life cycle
     override public func viewDidLoad() {
         super.viewDidLoad()
+        printOrientation()
         setupProperty()
     }
 
@@ -91,9 +119,7 @@ public class STTableBoard: UIViewController {
 
     //MARK: - init helper
     private func setupProperty() {
-        let contentViewWidth = view.width + (view.width - overlap) * CGFloat(numberOfPage - 1)
         scrollView = UIScrollView(frame: view.bounds)
-        scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.minimumZoomScale = scaleForScroll
@@ -106,15 +132,14 @@ public class STTableBoard: UIViewController {
         scrollView.addSubview(containerView)
         containerView.backgroundColor = UIColor.浅草绿()
 
-        let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleDoubleTap:")
-        doubleTapGesture.delegate = self
-        doubleTapGesture.numberOfTapsRequired = 2
-        doubleTapGesture.numberOfTouchesRequired = 1
-        containerView.addGestureRecognizer(doubleTapGesture)
+        if currentDevice == .Pad {
+            tableBoardMode = .Scroll
+        } else if currentDevice == .Phone {
+            containerView.addGestureRecognizer(doubleTapGesture)
+        }
     }
 
     public func reloadData() {
-        let contentViewWidth = view.width + (view.width - overlap) * CGFloat(numberOfPage - 1)
         scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
         containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
 
@@ -144,6 +169,45 @@ public class STTableBoard: UIViewController {
 
         boards.forEach { (cardView) -> () in
             containerView.addSubview(cardView)
+        }
+    }
+    
+    public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        relayoutAllViews(size)
+    }
+    
+    func relayoutAllViews(size: CGSize) {
+        scrollView.frame = CGRect(origin: CGPointZero, size: size)
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
+        containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
+        boards.forEach { (board) -> () in
+            autoAdjustTableBoardHeight(board, animated: true)
+        }
+        if size.width > size.height {
+            tableBoardMode = .Scroll
+            containerView.removeGestureRecognizer(doubleTapGesture)
+        } else {
+            if currentDevice == .Phone {
+                tableBoardMode = .Page
+                containerView.addGestureRecognizer(doubleTapGesture)
+            }
+            scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
+        }
+    }
+    
+    func printOrientation() {
+        switch currentOrientation {
+        case .Portrait:
+            print("Portrait")
+        case .PortraitUpsideDown:
+            print("PortraitUpsideDown")
+        case .LandscapeLeft:
+            print("LandscapeLeft")
+        case .LandscapeRight:
+            print("LandscapeRight")
+        case .Unknown:
+            print("Unknown")
         }
     }
 }

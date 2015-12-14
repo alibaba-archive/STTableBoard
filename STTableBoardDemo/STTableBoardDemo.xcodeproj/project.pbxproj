@@ -7,15 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB5CB0161C1E995B000C7192 /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB5CB0111C1E6D02000C7192 /* STTableBoard.framework */; };
+		EB5CB0171C1E995B000C7192 /* STTableBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EB5CB0111C1E6D02000C7192 /* STTableBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EB793BAA1C1E653400BF1148 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793BA91C1E653400BF1148 /* AppDelegate.swift */; };
 		EB793BAC1C1E653400BF1148 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793BAB1C1E653400BF1148 /* ViewController.swift */; };
 		EB793BAF1C1E653400BF1148 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB793BAD1C1E653400BF1148 /* Main.storyboard */; };
 		EB793BB11C1E653400BF1148 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB793BB01C1E653400BF1148 /* Assets.xcassets */; };
 		EB793BB41C1E653400BF1148 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB793BB21C1E653400BF1148 /* LaunchScreen.storyboard */; };
-		EB793BBC1C1E684200BF1148 /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB793BBB1C1E684200BF1148 /* STTableBoard.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		EB5CB0181C1E995B000C7192 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EB5CB0171C1E995B000C7192 /* STTableBoard.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		EB5CB0111C1E6D02000C7192 /* STTableBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = STTableBoard.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/STTableBoard-ddlvqoirodprgldnvvuhbtwkjhea/Build/Products/Debug-iphoneos/STTableBoard.framework"; sourceTree = "<group>"; };
 		EB793BA61C1E653400BF1148 /* STTableBoardDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STTableBoardDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB793BA91C1E653400BF1148 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB793BAB1C1E653400BF1148 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -23,7 +39,6 @@
 		EB793BB01C1E653400BF1148 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB793BB31C1E653400BF1148 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB793BB51C1E653400BF1148 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EB793BBB1C1E684200BF1148 /* STTableBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = STTableBoard.framework; path = "../STTableBoard/build/Debug-iphoneos/STTableBoard.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB793BBC1C1E684200BF1148 /* STTableBoard.framework in Frameworks */,
+				EB5CB0161C1E995B000C7192 /* STTableBoard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,7 +56,7 @@
 		EB793B9D1C1E653400BF1148 = {
 			isa = PBXGroup;
 			children = (
-				EB793BBB1C1E684200BF1148 /* STTableBoard.framework */,
+				EB5CB0111C1E6D02000C7192 /* STTableBoard.framework */,
 				EB793BA81C1E653400BF1148 /* STTableBoardDemo */,
 				EB793BA71C1E653400BF1148 /* Products */,
 			);
@@ -78,6 +93,7 @@
 				EB793BA21C1E653400BF1148 /* Sources */,
 				EB793BA31C1E653400BF1148 /* Frameworks */,
 				EB793BA41C1E653400BF1148 /* Resources */,
+				EB5CB0181C1E995B000C7192 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -100,6 +116,7 @@
 				TargetAttributes = {
 					EB793BA51C1E653400BF1148 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = L9RXQ34KZ8;
 					};
 				};
 			};
@@ -202,7 +219,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -240,7 +257,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -251,10 +268,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = STTableBoardDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StormXX.STTableBoardDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -262,10 +284,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = STTableBoardDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StormXX.STTableBoardDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -36,3 +36,16 @@ let headerFooterViewHeight: CGFloat = 44.0
 let scaleForPage: CGFloat = 1.0
 let scaleForScroll: CGFloat = 0.5
 let defaultScrollViewScrollVelocity: CGFloat = 50.0
+
+var currentDevice: UIUserInterfaceIdiom {
+    get {
+        return UIDevice.currentDevice().userInterfaceIdiom
+    }
+}
+
+var currentOrientation: UIInterfaceOrientation {
+    get {
+        return UIApplication.sharedApplication().statusBarOrientation
+    }
+}
+
