@@ -307,6 +307,7 @@ extension STTableBoard {
         if animated {
             UIView.animateWithDuration(0.5, animations: { () -> Void in
                 board.frame = frame
+                board.layoutIfNeeded()
             })
         } else {
             board.frame = frame
