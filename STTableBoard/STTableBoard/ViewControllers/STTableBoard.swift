@@ -3,12 +3,12 @@
 //  STTableBoard
 //
 //  Created by DangGu on 15/10/27.
-//  Copyright © 2015年 Donggu. All rights reserved.
+//  Copyright © 2015年 StormXX. All rights reserved.
 //
 
 import UIKit
 
-class STTableBoard: UIViewController {
+public class STTableBoard: UIViewController {
     
     var boardWidth: CGFloat {
         get {
@@ -45,8 +45,8 @@ class STTableBoard: UIViewController {
     var containerView: UIView!
 
     //Delegate Property
-    weak var dataSource: STTableBoardDataSource?
-    weak var delegate: STTableBoardDelegate?
+    public weak var dataSource: STTableBoardDataSource?
+    public weak var delegate: STTableBoardDelegate?
 
     //Move Row Property
     var snapshot: UIView!
@@ -71,21 +71,21 @@ class STTableBoard: UIViewController {
     var tapPosition: CGPoint = CGPoint(x: 0, y: 0)
 
     //MARK: - life cycle
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         setupProperty()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         reloadData()
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override public func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
     }
 
@@ -113,7 +113,7 @@ class STTableBoard: UIViewController {
         containerView.addGestureRecognizer(doubleTapGesture)
     }
 
-    func reloadData() {
+    public func reloadData() {
         let contentViewWidth = view.width + (view.width - overlap) * CGFloat(numberOfPage - 1)
         scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
         containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
@@ -131,7 +131,7 @@ class STTableBoard: UIViewController {
             let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
 
             let boardView: STBoardView = STBoardView(frame: boardViewFrame)
-            boardView.addGestureRecognizer(self.longPressGesture)
+            boardView.tableView.addGestureRecognizer(self.longPressGesture)
             boardView.index = i
             boardView.tableView.delegate = self
             boardView.tableView.dataSource = self

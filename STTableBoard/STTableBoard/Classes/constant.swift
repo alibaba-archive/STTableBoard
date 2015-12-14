@@ -3,7 +3,7 @@
 //  STTableBoard
 //
 //  Created by DangGu on 15/11/26.
-//  Copyright © 2015年 Donggu. All rights reserved.
+//  Copyright © 2015年 StormXX. All rights reserved.
 //
 
 import UIKit

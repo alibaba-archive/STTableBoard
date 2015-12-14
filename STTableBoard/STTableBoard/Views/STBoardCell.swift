@@ -3,12 +3,12 @@
 //  STTableBoard
 //
 //  Created by DangGu on 15/11/26.
-//  Copyright © 2015年 Donggu. All rights reserved.
+//  Copyright © 2015年 StormXX. All rights reserved.
 //
 
 import UIKit
 
-class STBoardCell: UITableViewCell {
+public class STBoardCell: UITableViewCell {
     
     var snapshot: UIView {
         get {
@@ -37,8 +37,9 @@ class STBoardCell: UITableViewCell {
     }
     
     
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .None
         // Initialization code
     }
     
@@ -47,11 +48,11 @@ class STBoardCell: UITableViewCell {
         self.selectionStyle = .None
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override public func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

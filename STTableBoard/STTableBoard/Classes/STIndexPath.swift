@@ -3,14 +3,14 @@
 //  STTableBoard
 //
 //  Created by DangGu on 15/11/24.
-//  Copyright © 2015年 Donggu. All rights reserved.
+//  Copyright © 2015年 StormXX. All rights reserved.
 //
 
 import Foundation
 
-class STIndexPath {
-    let row: Int
-    let board: Int
+public class STIndexPath {
+    public let row: Int
+    public let board: Int
 
     init(forRow row: Int, inBoard board: Int) {
         self.row = row

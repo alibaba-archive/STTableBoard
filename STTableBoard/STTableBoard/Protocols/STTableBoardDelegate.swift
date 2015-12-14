@@ -3,12 +3,12 @@
 //  STTableBoard
 //
 //  Created by DangGu on 15/11/24.
-//  Copyright © 2015年 Donggu. All rights reserved.
+//  Copyright © 2015年 StormXX. All rights reserved.
 //
 
 import UIKit
 
-protocol STTableBoardDelegate: class {
+public protocol STTableBoardDelegate: class {
     func tableBoard(tableBoard tableBoard:STTableBoard, heightForRowAtIndexPath indexPath: STIndexPath) -> CGFloat
 }
 
@@ -18,7 +18,7 @@ extension STTableBoardDelegate {
     }
 }
 
-protocol STTableBoardDataSource: class {
+public protocol STTableBoardDataSource: class {
     func numberOfBoardsInTableBoard(tableBoard: STTableBoard) -> Int
     func tableBoard(tableBoard tableBoard: STTableBoard, numberOfRowsInBoard board: Int) -> Int
     func tableBoard(tableBoard tableBoard: STTableBoard, cellForRowAtIndexPath indexPath: STIndexPath) -> UITableViewCell

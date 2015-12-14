@@ -3,7 +3,7 @@
 //  STTableBoard
 //
 //  Created by DangGu on 15/12/4.
-//  Copyright © 2015年 Donggu. All rights reserved.
+//  Copyright © 2015年 StormXX. All rights reserved.
 //
 
 import UIKit
@@ -378,11 +378,11 @@ extension STTableBoard {
 
 //MARK: - UITableView help method
 extension STTableBoard {
-    func registerClasses(classAndIdentifier classAndIdentifier: [(AnyClass,String)]) {
+    public func registerClasses(classAndIdentifier classAndIdentifier: [(AnyClass,String)]) {
         registerCellClasses = classAndIdentifier
     }
     
-    func dequeueReusableCellWithIdentifier(identifier: String, forIndexPath indexPath: STIndexPath) -> UITableViewCell {
+    public func dequeueReusableCellWithIdentifier(identifier: String, forIndexPath indexPath: STIndexPath) -> UITableViewCell {
         let row = indexPath.row
         let tableView = boards[indexPath.board].tableView
         return tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: NSIndexPath(forRow: row, inSection: 0))
@@ -431,7 +431,7 @@ extension STTableBoard {
 }
 
 extension STTableBoard: UIGestureRecognizerDelegate {
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         guard let touchedView = touch.view else { return false }
         if touchedView == containerView {
             return true
@@ -443,14 +443,14 @@ extension STTableBoard: UIGestureRecognizerDelegate {
 
 //MARK: - UIScrollViewDelegate
 extension STTableBoard: UIScrollViewDelegate {
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard tableBoardMode == .Page else { return }
         if !decelerate {
             scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
         }
     }
     
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         guard tableBoardMode == .Page else { return }
         if velocity.x != 0 {
             if velocity.x < 0 && currentPage > 0{
@@ -462,11 +462,11 @@ extension STTableBoard: UIScrollViewDelegate {
         }
     }
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return containerView
     }
     
-    func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
+    public func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
         switch tableBoardMode {
         case .Scroll:
             originContentOffset = scrollView.contentOffset
@@ -476,7 +476,7 @@ extension STTableBoard: UIScrollViewDelegate {
         }
     }
     
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    public func scrollViewDidZoom(scrollView: UIScrollView) {
         switch tableBoardMode {
         case .Scroll:
             scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: view.height)
@@ -499,7 +499,7 @@ extension STTableBoard: UIScrollViewDelegate {
 
 //MARK: - UITableViewDelegate
 extension STTableBoard: UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         guard let board = (tableView as! STShadowTableView).index,
             heightForRow = delegate?.tableBoard(tableBoard: self, heightForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) else { return 44.0 }
         return heightForRow
@@ -508,17 +508,17 @@ extension STTableBoard: UITableViewDelegate {
 
 //MARK: - UITableViewDataSource
 extension STTableBoard: UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let board = (tableView as! STShadowTableView).index,
             numberOfRows = dataSource?.tableBoard(tableBoard: self, numberOfRowsInBoard: board) else { return 0 }
         return numberOfRows
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let board = (tableView as! STShadowTableView).index,
             cell = dataSource?.tableBoard(tableBoard: self, cellForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) as? STBoardCell else { fatalError("board or cell can not be nill") }
         cell.moving = false

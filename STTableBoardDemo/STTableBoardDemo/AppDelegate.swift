@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  STTableBoard
+//  STTableBoardDemo
 //
-//  Created by DangGu on 15/10/25.
-//  Copyright © 2015年 Donggu. All rights reserved.
+//  Created by DangGu on 15/12/14.
+//  Copyright © 2015年 StormXX. All rights reserved.
 //
 
 import UIKit
