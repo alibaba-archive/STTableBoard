@@ -173,7 +173,19 @@ public class STTableBoard: UIViewController {
     
     public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        relayoutAllViews(size)
+        coordinator.animateAlongsideTransition({ [unowned self](context) -> Void in
+            self.relayoutAllViews(size)
+            }) { [unowned self](contenxt) -> Void in
+                switch (currentOrientation, currentDevice) {
+                case (_, .Pad):
+                    self.tableBoardMode = .Scroll
+                case (.Landscape, _):
+                    self.tableBoardMode = .Scroll
+                case (.Portrait, _):
+                    self.tableBoardMode = .Page
+                }
+                self.scrollToActualPage(self.scrollView, offsetX: self.scrollView.contentOffset.x)
+        }
     }
     
     func relayoutAllViews(size: CGSize) {
@@ -182,9 +194,6 @@ public class STTableBoard: UIViewController {
         containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
         boards.forEach { (board) -> () in
             autoAdjustTableBoardHeight(board, animated: true)
-        }
-        if size.width < size.height {
-            scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
         }
         originContentSize = CGSize(width: originContentSize.width, height: size.height)
     }
