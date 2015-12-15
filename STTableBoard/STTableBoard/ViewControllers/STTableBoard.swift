@@ -39,9 +39,16 @@ public class STTableBoard: UIViewController {
         }
     }
     
-    var longPressGesture: UILongPressGestureRecognizer {
+    var longPressGestureForCell: UILongPressGestureRecognizer {
         get {
-            let gesture = UILongPressGestureRecognizer(target: self, action: "handleLongPressGesuter:")
+            let gesture = UILongPressGestureRecognizer(target: self, action: "handleLongPressGestureForCell:")
+            return gesture
+        }
+    }
+    
+    var longPressGestureForBoard: UILongPressGestureRecognizer {
+        get {
+            let gesture = UILongPressGestureRecognizer(target: self, action: "handleLongPressGestureForBoard:")
             return gesture
         }
     }
@@ -75,11 +82,15 @@ public class STTableBoard: UIViewController {
     public weak var dataSource: STTableBoardDataSource?
     public weak var delegate: STTableBoardDelegate?
 
-    //Move Row Property
+    
+    
+    //Move Row Or Board Property
     var snapshot: UIView!
     var snapshotCenterOffset: CGPoint!
     var snapshotOffsetForLeftBounds: CGFloat!
     var sourceIndexPath: STIndexPath!
+    var sourceIndex: Int = -1
+    var isMoveBoardFromPageMode: Bool = false
 
     //ScrollView Auto Scroll property
     var isScrolling: Bool = false
@@ -155,7 +166,8 @@ public class STTableBoard: UIViewController {
             let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
 
             let boardView: STBoardView = STBoardView(frame: boardViewFrame)
-            boardView.tableView.addGestureRecognizer(self.longPressGesture)
+            boardView.headerView.addGestureRecognizer(self.longPressGestureForBoard)
+            boardView.tableView.addGestureRecognizer(self.longPressGestureForCell)
             boardView.index = i
             boardView.tableView.delegate = self
             boardView.tableView.dataSource = self

@@ -14,7 +14,32 @@ class STBoardView: UIView {
     var footerView: UIView!
     var tableView: STShadowTableView!
     
-    var index: Int? {
+    var snapshot: UIView {
+        get {
+            UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0);
+            self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext();
+            
+            let snapshot = UIImageView(image: image)
+            let layer = snapshot.layer
+            layer.masksToBounds = false;
+            layer.cornerRadius = 0.0;
+            layer.shadowOffset = CGSizeMake(-5.0, 0.0);
+            layer.shadowRadius = 5.0;
+            layer.shadowOpacity = 0.4;
+            return snapshot;
+        }
+    }
+    
+    var moving: Bool = false {
+        didSet {
+            let alpha: CGFloat = moving ? 0.0 : 1.0
+            self.alpha = alpha
+        }
+    }
+    
+    var index: Int {
         get {
             return self.tableView.index
         }
@@ -29,7 +54,6 @@ class STBoardView: UIView {
     }
     
     func setupProperty() {
-//        backgroundColor = UIColor.grayColor()
         backgroundColor = UIColor.蓝灰()
         let layer = self.layer
         layer.cornerRadius = 5.0

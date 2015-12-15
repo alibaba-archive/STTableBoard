@@ -27,8 +27,17 @@ class ViewController: UIViewController {
             ["最后的战役1","最后的战役2","最后的战役3"],
             ["晴天1","晴天2","晴天3","晴天4","晴天5"],
             ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
-            ["星晴1","星晴2","星晴3"]
-            
+            ["星晴1","星晴2","星晴3"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
         ]
         
         let table = STTableBoard()
@@ -73,6 +82,13 @@ extension ViewController: STTableBoardDataSource {
         let data = dataArray[sourceIndexPath.board][sourceIndexPath.row]
         dataArray[sourceIndexPath.board].removeAtIndex(sourceIndexPath.row)
         dataArray[destinationIndexPath.board].insert(data, atIndex: destinationIndexPath.row)
+    }
+    
+    func tableBoard(tableBoard tableBoard: STTableBoard, moveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int) {
+        let sourceData = dataArray[sourceIndex]
+        let destinationData = dataArray[destinationIndex]
+        dataArray[sourceIndex] = destinationData
+        dataArray[destinationIndex] = sourceData
     }
 }
 
