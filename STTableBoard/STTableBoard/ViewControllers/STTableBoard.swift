@@ -82,8 +82,6 @@ public class STTableBoard: UIViewController {
     public weak var dataSource: STTableBoardDataSource?
     public weak var delegate: STTableBoardDelegate?
 
-    
-    
     //Move Row Or Board Property
     var snapshot: UIView!
     var snapshotCenterOffset: CGPoint!
@@ -121,6 +119,7 @@ public class STTableBoard: UIViewController {
 
     override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        scrollView.pinchGestureRecognizer?.enabled = false
     }
 
     override public func viewDidDisappear(animated: Bool) {
@@ -140,7 +139,8 @@ public class STTableBoard: UIViewController {
 
         containerView = UIView(frame: CGRect(origin: CGPointZero, size: scrollView.contentSize))
         scrollView.addSubview(containerView)
-        containerView.backgroundColor = UIColor.浅草绿()
+        containerView.backgroundColor = tableBoardBackgroundColor
+        scrollView.backgroundColor = tableBoardBackgroundColor
 
         if currentDevice == .Pad {
             tableBoardMode = .Scroll
@@ -176,6 +176,10 @@ public class STTableBoard: UIViewController {
             })
             autoAdjustTableBoardHeight(boardView, animated: false)
             boards.append(boardView)
+            
+            guard let dataSource = dataSource, let boardTitle = dataSource.tableBoard(tableBoard: self, titleForBoardInBoard: i) else { return }
+            boardView.title = boardTitle
+            
         }
 
         boards.forEach { (cardView) -> () in

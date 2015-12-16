@@ -67,8 +67,6 @@ extension STTableBoard {
             board.moving = true
             }, completion: nil)
         sourceIndex = board.index
-        
-
     }
     
     func endMovingBoard() {
@@ -76,7 +74,8 @@ extension STTableBoard {
         let board = boards[sourceIndex]
         
         UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
-            self.snapshot.frame = board.frame
+//            self.snapshot.frame = board.frame
+            self.snapshot.center = board.center
             self.updateSnapViewStatus(.Origin)
             }) { [unowned self](finished) -> Void in
                 board.moving = false
@@ -362,7 +361,7 @@ extension STTableBoard {
     func caculateBoardHeight(board: STBoardView) -> CGFloat {
         guard let tableView = board.tableView else { return 0.0 }
         let numberOfRows = tableView.numberOfRowsInSection(0)
-        var tableViewContentHeight: CGFloat = 2 * headerFooterViewHeight
+        var tableViewContentHeight: CGFloat = headerViewHeight + footerViewHeight
         if numberOfRows > 0 {
             for i in 0..<numberOfRows {
                 tableViewContentHeight += self.tableView(tableView, heightForRowAtIndexPath: NSIndexPath(forRow: i, inSection: 0))
@@ -633,6 +632,8 @@ extension STTableBoard: UITableViewDataSource {
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let board = (tableView as! STShadowTableView).index,
             cell = dataSource?.tableBoard(tableBoard: self, cellForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) as? STBoardCell else { fatalError("board or cell can not be nill") }
+        cell.backgroundColor = UIColor.clearColor()
+        cell.contentView.backgroundColor = UIColor.clearColor()
         cell.moving = false
         return cell
     }

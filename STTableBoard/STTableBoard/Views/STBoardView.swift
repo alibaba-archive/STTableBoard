@@ -10,7 +10,7 @@ import UIKit
 
 class STBoardView: UIView {
     
-    var headerView: UIView!
+    var headerView: STBoardHeaderView!
     var footerView: UIView!
     var tableView: STShadowTableView!
     
@@ -48,25 +48,37 @@ class STBoardView: UIView {
         }
     }
     
+    var title: String? {
+        get {
+            return self.headerView.title
+        }
+        set {
+            self.headerView.title = newValue
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupProperty()
     }
     
     func setupProperty() {
-        backgroundColor = UIColor.蓝灰()
+        backgroundColor = boardBackgroundColor
         let layer = self.layer
         layer.cornerRadius = 5.0
         layer.masksToBounds = true
+        layer.borderColor = boardBorderColor.CGColor
+        layer.borderWidth = 1.0
         
-        headerView = UIView(frame: CGRectZero)
+        headerView = STBoardHeaderView(frame: CGRectZero)
         footerView = UIView(frame: CGRectZero)
-        headerView.backgroundColor = UIColor.藏墨蓝()
-        footerView.backgroundColor = UIColor.藏墨蓝()
+        tableView = STShadowTableView(frame: CGRectZero, style: .Plain)
+        headerView.backgroundColor = boardBackgroundColor
+        footerView.backgroundColor = boardBackgroundColor
+        tableView.backgroundColor = boardBackgroundColor
+        
         addSubview(headerView)
         addSubview(footerView)
-        tableView = STShadowTableView(frame: CGRectZero, style: .Plain)
-        tableView.backgroundColor = UIColor.clearColor()
         addSubview(tableView)
         
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,8 +87,12 @@ class STBoardView: UIView {
         let headerViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[headerView]|", options: [], metrics: nil, views: ["headerView":headerView])
         let tableViewHorizontalConstraints  = NSLayoutConstraint.constraintsWithVisualFormat("H:|[tableView]|", options: [], metrics: nil, views: ["tableView":tableView])
         let footerViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[footerView]|", options: [], metrics: nil, views: ["footerView":footerView])
-        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[headerView(==height)][tableView][footerView(==height)]|", options: [], metrics: ["height":headerFooterViewHeight], views: ["headerView":headerView, "tableView":tableView, "footerView":footerView])
+        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[headerView(==headerViewHeight)][tableView][footerView(==footerViewHeight)]|", options: [], metrics: ["headerViewHeight":headerViewHeight, "footerViewHeight":footerViewHeight], views: ["headerView":headerView, "tableView":tableView, "footerView":footerView])
         NSLayoutConstraint.activateConstraints(headerViewHorizontalConstraints + tableViewHorizontalConstraints + footerViewHorizontalConstraints + verticalConstraints)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
     }
 
     required init?(coder aDecoder: NSCoder) {

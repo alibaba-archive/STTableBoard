@@ -20,6 +20,7 @@
 		EB793B501C1E618300BF1148 /* STBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B451C1E618300BF1148 /* STBoardView.swift */; };
 		EB793B511C1E618300BF1148 /* STShadowTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B461C1E618300BF1148 /* STShadowTableView.swift */; };
 		EB793B531C1E61D200BF1148 /* constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B521C1E61D200BF1148 /* constant.swift */; };
+		EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		EB793B451C1E618300BF1148 /* STBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardView.swift; sourceTree = "<group>"; };
 		EB793B461C1E618300BF1148 /* STShadowTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STShadowTableView.swift; sourceTree = "<group>"; };
 		EB793B521C1E61D200BF1148 /* constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constant.swift; sourceTree = "<group>"; };
+		EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				EB793B441C1E618300BF1148 /* STBoardCell.swift */,
 				EB793B451C1E618300BF1148 /* STBoardView.swift */,
 				EB793B461C1E618300BF1148 /* STShadowTableView.swift */,
+				EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				EB793B511C1E618300BF1148 /* STShadowTableView.swift in Sources */,
 				EB793B4C1C1E618300BF1148 /* UIViewExtension.swift in Sources */,
 				EB793B4B1C1E618300BF1148 /* UIScrollViewExtension.swift in Sources */,
+				EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */,
 				EB793B481C1E618300BF1148 /* CommonExtensions.swift in Sources */,
 				EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */,
 				EB793B501C1E618300BF1148 /* STBoardView.swift in Sources */,

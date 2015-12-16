@@ -17,10 +17,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         //        self.edgesForExtendedLayout = UIRectEdge.None
         
-        //        dataArray = [
-        //            ["最后的战役1","最后的战役2","最后的战役3"],
-        //            ["晴天1","晴天2","晴天3","晴天4","晴天5"]
-        //        ]
+//                dataArray = [
+//                    ["最后的战役1","最后的战役2","最后的战役3"]
+////                    ["晴天1","晴天2","晴天3","晴天4","晴天5"]
+//                ]
         
         dataArray = [
             ["七里香1","七里香2","七里香3","七里香4","最后的战役1","最后的战役2","最后的战役3","晴天1","晴天2","晴天3","晴天4","晴天5","爱情悬崖1","爱情悬崖2","爱情悬崖3","爱情悬崖4","彩虹1","彩虹2","彩虹3","彩虹4"],
@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         ]
         
         let table = STTableBoard()
-        table.registerClasses(classAndIdentifier: [(STBoardCell.self,"DefaultCell")])
+        table.registerClasses(classAndIdentifier: [(STCardCell.self,"DefaultCell")])
         table.delegate = self
         table.dataSource = self
         self.addChildViewController(table)
@@ -57,11 +57,16 @@ class ViewController: UIViewController {
 
 extension ViewController: STTableBoardDelegate {
     func tableBoard(tableBoard tableBoard: STTableBoard, heightForRowAtIndexPath indexPath: STIndexPath) -> CGFloat {
-        return 44.0
+        return 50.0
     }
 }
 
 extension ViewController: STTableBoardDataSource {
+    
+    func tableBoard(tableBoard tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String? {
+        return "Jay Chou"
+    }
+    
     func numberOfBoardsInTableBoard(tableBoard: STTableBoard) -> Int {
         return dataArray.count
     }
@@ -71,10 +76,7 @@ extension ViewController: STTableBoardDataSource {
     }
     
     func tableBoard(tableBoard tableBoard: STTableBoard, cellForRowAtIndexPath indexPath: STIndexPath) -> UITableViewCell {
-        let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath) as! STBoardCell
-        cell.textLabel?.text = dataArray[indexPath.board][indexPath.row]
-        cell.contentView.backgroundColor = UIColor.果灰()
-        cell.backgroundColor = UIColor.clearColor()
+        let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath) as! STCardCell
         return cell
     }
     

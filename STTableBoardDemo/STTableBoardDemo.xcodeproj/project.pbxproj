@@ -14,6 +14,7 @@
 		EB793BAF1C1E653400BF1148 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB793BAD1C1E653400BF1148 /* Main.storyboard */; };
 		EB793BB11C1E653400BF1148 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB793BB01C1E653400BF1148 /* Assets.xcassets */; };
 		EB793BB41C1E653400BF1148 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB793BB21C1E653400BF1148 /* LaunchScreen.storyboard */; };
+		EBB662CD1C2131A700FB94A1 /* STCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662CC1C2131A700FB94A1 /* STCardCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,7 @@
 		EB793BB01C1E653400BF1148 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB793BB31C1E653400BF1148 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB793BB51C1E653400BF1148 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBB662CC1C2131A700FB94A1 /* STCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STCardCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 		EB793BA81C1E653400BF1148 /* STTableBoardDemo */ = {
 			isa = PBXGroup;
 			children = (
+				EBB662CB1C21319400FB94A1 /* Views */,
 				EB793BA91C1E653400BF1148 /* AppDelegate.swift */,
 				EB793BAB1C1E653400BF1148 /* ViewController.swift */,
 				EB793BAD1C1E653400BF1148 /* Main.storyboard */,
@@ -81,6 +84,14 @@
 				EB793BB51C1E653400BF1148 /* Info.plist */,
 			);
 			path = STTableBoardDemo;
+			sourceTree = "<group>";
+		};
+		EBB662CB1C21319400FB94A1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EBB662CC1C2131A700FB94A1 /* STCardCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,6 +169,7 @@
 			files = (
 				EB793BAC1C1E653400BF1148 /* ViewController.swift in Sources */,
 				EB793BAA1C1E653400BF1148 /* AppDelegate.swift in Sources */,
+				EBB662CD1C2131A700FB94A1 /* STCardCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
