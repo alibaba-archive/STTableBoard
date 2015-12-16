@@ -50,9 +50,12 @@ extension STTableBoard {
     }
     
     func startMovingBoard(recognizer: UIGestureRecognizer) {
-
         let positionInContainerView = recognizer.locationInView(containerView)
         guard let board = boardAtPoint(positionInContainerView) else { return }
+        if currentDevice == .Phone && tableBoardMode == .Page {
+            switchMode()
+            isMoveBoardFromPageMode = true
+        }
         snapshot = board.snapshot
         snapshot.center = board.center
         containerView.addSubview(snapshot)
@@ -65,17 +68,15 @@ extension STTableBoard {
             }, completion: nil)
         sourceIndex = board.index
         
-        if currentDevice == .Phone && tableBoardMode == .Page {
-            switchMode()
-            isMoveBoardFromPageMode = true
-        }
+
     }
     
     func endMovingBoard() {
         guard sourceIndex != -1 else { return }
         let board = boards[sourceIndex]
+        
         UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
-            self.snapshot.center = board.center
+            self.snapshot.frame = board.frame
             self.updateSnapViewStatus(.Origin)
             }) { [unowned self](finished) -> Void in
                 board.moving = false
