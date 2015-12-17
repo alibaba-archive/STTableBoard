@@ -390,7 +390,6 @@ extension STTableBoard {
         guard sourceIndex != destinationIndex , let dataSource = dataSource else { return }
         dataSource.tableBoard(tableBoard: self, moveBoardAtIndex: sourceIndex, toIndex: destinationIndex)
         
-        print("sourceIndex \(sourceIndex)  destinationIndex \(destinationIndex)")
         let sourceBoard = boards[sourceIndex]
         let destinationBoard = boards[destinationIndex]
         self.boards[sourceIndex] = destinationBoard

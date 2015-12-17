@@ -42,6 +42,7 @@ let footerViewHeight: CGFloat = 48.0
 let scaleForPage: CGFloat = 1.0
 let scaleForScroll: CGFloat = 0.5
 let defaultScrollViewScrollVelocity: CGFloat = 50.0
+let currentBundle = NSBundle(forClass: STTableBoard.self)
 
 //Color
 let boardBackgroundColor: UIColor = UIColor(red: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)

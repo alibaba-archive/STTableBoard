@@ -13,6 +13,8 @@ class STBoardView: UIView {
     var headerView: STBoardHeaderView!
     var footerView: UIView!
     var tableView: STShadowTableView!
+    var topShadowBar: UIImageView!
+    var bottomShadowBar: UIImageView!
     
     var snapshot: UIView {
         get {
@@ -60,6 +62,11 @@ class STBoardView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupProperty()
+        tableView.addObserver(self, forKeyPath: "contentOffset", options: [.New, .Old], context: nil)
+    }
+    
+    deinit {
+        tableView.removeObserver(self, forKeyPath: "contentOffset")
     }
     
     func setupProperty() {
@@ -89,14 +96,65 @@ class STBoardView: UIView {
         let footerViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[footerView]|", options: [], metrics: nil, views: ["footerView":footerView])
         let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[headerView(==headerViewHeight)][tableView][footerView(==footerViewHeight)]|", options: [], metrics: ["headerViewHeight":headerViewHeight, "footerViewHeight":footerViewHeight], views: ["headerView":headerView, "tableView":tableView, "footerView":footerView])
         NSLayoutConstraint.activateConstraints(headerViewHorizontalConstraints + tableViewHorizontalConstraints + footerViewHorizontalConstraints + verticalConstraints)
+        
+        //shadowView
+        let topShadowBarImage = UIImage(named: "topShadow", inBundle: currentBundle, compatibleWithTraitCollection: nil)
+        let bottomShadowBarImage = UIImage(named: "bottomShadow", inBundle: currentBundle, compatibleWithTraitCollection: nil)
+        topShadowBar = UIImageView(image: topShadowBarImage)
+        bottomShadowBar = UIImageView(image: bottomShadowBarImage)
+        
+        addSubview(topShadowBar)
+        addSubview(bottomShadowBar)
+        
+        topShadowBar.translatesAutoresizingMaskIntoConstraints = false
+        bottomShadowBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        let topShadowBarHeight: CGFloat = 5.0, bottomShadowBarHeight: CGFloat = 5.0
+        
+        let topShadowBarHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[topShadowBar]|", options: [], metrics: nil, views: ["topShadowBar":topShadowBar])
+        let bottomShadowBarHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[bottomShadowBar]|", options: [], metrics: nil, views: ["bottomShadowBar":bottomShadowBar])
+        let topShadowBarTopConstraint = NSLayoutConstraint(item: topShadowBar,
+            attribute: .Top,
+            relatedBy: .Equal,
+            toItem: headerView,
+            attribute: .Bottom,
+            multiplier: 1.0, constant: 0.0)
+        let topShadowBarHeightConstraint = NSLayoutConstraint(item: topShadowBar,
+            attribute: .Height,
+            relatedBy: .Equal,
+            toItem: nil,
+            attribute: .NotAnAttribute,
+            multiplier: 1.0, constant: topShadowBarHeight)
+        let bottomShadowBarBottomConstraint = NSLayoutConstraint(item: bottomShadowBar,
+            attribute: .Bottom,
+            relatedBy: .Equal,
+            toItem: footerView,
+            attribute: .Top,
+            multiplier: 1.0, constant: 0.0)
+        let bottomShadowBarHeightConstraint = NSLayoutConstraint(item: bottomShadowBar,
+            attribute: .Height,
+            relatedBy: .Equal,
+            toItem: nil,
+            attribute: .NotAnAttribute,
+            multiplier: 1.0, constant: bottomShadowBarHeight)
+        
+        NSLayoutConstraint.activateConstraints(topShadowBarHorizontalConstraints + bottomShadowBarHorizontalConstraints + [topShadowBarTopConstraint, topShadowBarHeightConstraint, bottomShadowBarBottomConstraint, bottomShadowBarHeightConstraint] )
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.layoutIfNeeded()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        guard let change = change where keyPath == "contentOffset" else { return }
+        let offsetY = (change["new"] as! NSValue).CGPointValue().y
+        topShadowBar.hidden = (offsetY <= 0)
+        bottomShadowBar.hidden = (offsetY == 0 && tableView.height == tableView.contentSize.height) || (offsetY + tableView.height >= tableView.contentSize.height)
     }
 
 }
