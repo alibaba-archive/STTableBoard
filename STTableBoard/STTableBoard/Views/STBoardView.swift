@@ -11,7 +11,7 @@ import UIKit
 class STBoardView: UIView {
     
     var headerView: STBoardHeaderView!
-    var footerView: UIView!
+    var footerView: STBoardFooterView!
     var tableView: STShadowTableView!
     var topShadowBar: UIImageView!
     var bottomShadowBar: UIImageView!
@@ -29,7 +29,7 @@ class STBoardView: UIView {
             layer.cornerRadius = 0.0;
             layer.shadowOffset = CGSizeMake(-5.0, 0.0);
             layer.shadowRadius = 5.0;
-            layer.shadowOpacity = 0.4;
+            layer.shadowOpacity = 0.15;
             return snapshot;
         }
     }
@@ -75,10 +75,10 @@ class STBoardView: UIView {
         layer.cornerRadius = 5.0
         layer.masksToBounds = true
         layer.borderColor = boardBorderColor.CGColor
-        layer.borderWidth = 1.0
+        layer.borderWidth = 0.5
         
         headerView = STBoardHeaderView(frame: CGRectZero)
-        footerView = UIView(frame: CGRectZero)
+        footerView = STBoardFooterView(frame: CGRectZero)
         tableView = STShadowTableView(frame: CGRectZero, style: .Plain)
         headerView.backgroundColor = boardBackgroundColor
         footerView.backgroundColor = boardBackgroundColor
@@ -139,11 +139,6 @@ class STBoardView: UIView {
             multiplier: 1.0, constant: bottomShadowBarHeight)
         
         NSLayoutConstraint.activateConstraints(topShadowBarHorizontalConstraints + bottomShadowBarHorizontalConstraints + [topShadowBarTopConstraint, topShadowBarHeightConstraint, bottomShadowBarBottomConstraint, bottomShadowBarHeightConstraint] )
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.layoutIfNeeded()
     }
 
     required init?(coder aDecoder: NSCoder) {

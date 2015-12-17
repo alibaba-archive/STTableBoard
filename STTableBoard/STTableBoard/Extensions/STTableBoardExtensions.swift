@@ -552,14 +552,14 @@ extension STTableBoard: UIGestureRecognizerDelegate {
 //MARK: - UIScrollViewDelegate
 extension STTableBoard: UIScrollViewDelegate {
     public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        guard tableBoardMode == .Page else { return }
+        guard tableBoardMode == .Page && scrollView == self.scrollView else { return }
         if !decelerate {
             scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
         }
     }
     
     public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard tableBoardMode == .Page else { return }
+        guard tableBoardMode == .Page && scrollView == self.scrollView else { return }
         if velocity.x != 0 {
             if velocity.x < 0 && currentPage > 0{
                 scrollToPage(scrollView, page: currentPage - 1, targetContentOffset: targetContentOffset)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB5655F11C22AC7400182CEA /* STBoardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */; };
 		EB793B171C1E608900BF1148 /* STTableBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = EB793B161C1E608900BF1148 /* STTableBoard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B381C1E618300BF1148 /* STIndexPath.swift */; };
 		EB793B481C1E618300BF1148 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3A1C1E618300BF1148 /* CommonExtensions.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardFooterView.swift; sourceTree = "<group>"; };
 		EB793B131C1E608900BF1148 /* STTableBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STTableBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB793B161C1E608900BF1148 /* STTableBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STTableBoard.h; sourceTree = "<group>"; };
 		EB793B181C1E608900BF1148 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				EB793B451C1E618300BF1148 /* STBoardView.swift */,
 				EB793B461C1E618300BF1148 /* STShadowTableView.swift */,
 				EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */,
+				EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				EB793B531C1E61D200BF1148 /* constant.swift in Sources */,
 				EB793B4D1C1E618300BF1148 /* STTableBoardDelegate.swift in Sources */,
 				EB793B491C1E618300BF1148 /* STTableBoardExtensions.swift in Sources */,
+				EB5655F11C22AC7400182CEA /* STBoardFooterView.swift in Sources */,
 				EB793B4A1C1E618300BF1148 /* UIColor+ChineseColor.swift in Sources */,
 				EB793B4F1C1E618300BF1148 /* STBoardCell.swift in Sources */,
 			);
