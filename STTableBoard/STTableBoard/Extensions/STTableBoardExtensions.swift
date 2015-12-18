@@ -191,7 +191,13 @@ extension STTableBoard {
             }
             dataSource.tableBoard(tableBoard: self, moveRowAtIndexPath: sourceIndexPath, toIndexPath: indexPath.convertToSTIndexPath(tableView.index))
             if sourceIndexPath.board == tableView.index {
-                tableView.moveRowAtIndexPath(sourceIndexPath.convertToNSIndexPath(), toIndexPath: indexPath)
+                tableView.beginUpdates()
+//                tableView.moveRowAtIndexPath(sourceIndexPath.convertToNSIndexPath(), toIndexPath: indexPath)
+                tableView.deleteRowsAtIndexPaths([sourceIndexPath.convertToNSIndexPath()], withRowAnimation: .Fade)
+                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+                tableView.endUpdates()
+                let cell = tableView.cellForRowAtIndexPath(indexPath) as! STBoardCell
+                cell.moving = true
             } else {
                 let sourceTableView = boards[sourceIndexPath.board].tableView
                 sourceTableView.beginUpdates()
