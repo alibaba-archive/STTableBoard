@@ -14,7 +14,8 @@ class STCardCell: STBoardCell {
     
     lazy var cardView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.whiteColor()
+//        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.clearColor()
         return view
     }()
     
@@ -60,41 +61,46 @@ class STCardCell: STBoardCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupProperty()
+        contentView.addSubview(cardView)
+        let backgroundImageView = UIImageView(image: UIImage(named: "Shadow"))
+        backgroundImageView.contentMode = .ScaleToFill
+        self.backgroundView = backgroundImageView
         setupUI()
     }
     
     func setupProperty() {
         contentView.addSubview(cardView)
-        cardView.addSubview(topLeftCorner)
-        cardView.addSubview(topRightCorner)
-        cardView.addSubview(bottomLeftCorner)
-        cardView.addSubview(bottomRightCorner)
+//        cardView.addSubview(topLeftCorner)
+//        cardView.addSubview(topRightCorner)
+//        cardView.addSubview(bottomLeftCorner)
+//        cardView.addSubview(bottomRightCorner)
         
         cardView.translatesAutoresizingMaskIntoConstraints = false
-        topLeftCorner.translatesAutoresizingMaskIntoConstraints = false
-        topRightCorner.translatesAutoresizingMaskIntoConstraints = false
-        bottomLeftCorner.translatesAutoresizingMaskIntoConstraints = false
-        bottomRightCorner.translatesAutoresizingMaskIntoConstraints = false
+//        topLeftCorner.translatesAutoresizingMaskIntoConstraints = false
+//        topRightCorner.translatesAutoresizingMaskIntoConstraints = false
+//        bottomLeftCorner.translatesAutoresizingMaskIntoConstraints = false
+//        bottomRightCorner.translatesAutoresizingMaskIntoConstraints = false
         
-        let leading = 10, trailing = 10
-        let top = 5, bottom = 5
+        let leading = 10, trailing = 10, top = 5, bottom = 5
         let cardViewHorizontalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("H:|-leading-[cardView]-trailing-|", options: [], metrics: ["leading":leading, "trailing":trailing], views: ["cardView":cardView])
         let cardViewVerticalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("V:|-top-[cardView]-bottom-|", options: [], metrics: ["top":top, "bottom":bottom], views: ["cardView":cardView])
+//
+//        let topLeftHorizontalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("H:|[topLeftCorner]", options: [], metrics: nil, views: ["topLeftCorner":topLeftCorner])
+//        let topRightHorizontalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("H:[topRightCorner]|", options: [], metrics: nil, views: ["topRightCorner":topRightCorner])
+//        let bottomLeftHorizontalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("H:|[bottomLeftCorner]", options: [], metrics: nil, views: ["bottomLeftCorner":bottomLeftCorner])
+//        let bottomRightHorizontalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("H:[bottomRightCorner]|", options: [], metrics: nil, views: ["bottomRightCorner":bottomRightCorner])
+//        
+//        let topLeftVerticalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("V:|[topLeftCorner]", options: [], metrics: nil, views: ["topLeftCorner":topLeftCorner])
+//        let topRightVerticalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("V:|[topRightCorner]", options: [], metrics: nil, views: ["topRightCorner":topRightCorner])
+//        let bottomLeftVerticalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("V:[bottomLeftCorner]|", options: [], metrics: nil, views: ["bottomLeftCorner":bottomLeftCorner])
+//        let bottomRightVerticalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("V:[bottomRightCorner]|", options: [], metrics: nil, views: ["bottomRightCorner":bottomRightCorner])
+//        
+//        let cornerHorizontalConstraits = topLeftHorizontalConstraits + topRightHorizontalConstraits + bottomLeftHorizontalConstraits + bottomRightHorizontalConstraits
+//        let cornerVerticalConstraits = topLeftVerticalConstraits + topRightVerticalConstraits + bottomLeftVerticalConstraits + bottomRightVerticalConstraits
         
-        let topLeftHorizontalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("H:|[topLeftCorner]", options: [], metrics: nil, views: ["topLeftCorner":topLeftCorner])
-        let topRightHorizontalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("H:[topRightCorner]|", options: [], metrics: nil, views: ["topRightCorner":topRightCorner])
-        let bottomLeftHorizontalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("H:|[bottomLeftCorner]", options: [], metrics: nil, views: ["bottomLeftCorner":bottomLeftCorner])
-        let bottomRightHorizontalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("H:[bottomRightCorner]|", options: [], metrics: nil, views: ["bottomRightCorner":bottomRightCorner])
+//        NSLayoutConstraint.activateConstraints(cardViewHorizontalConstraits + cardViewVerticalConstraits + cornerHorizontalConstraits + cornerVerticalConstraits)
+        NSLayoutConstraint.activateConstraints(cardViewHorizontalConstraits + cardViewVerticalConstraits)
         
-        let topLeftVerticalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("V:|[topLeftCorner]", options: [], metrics: nil, views: ["topLeftCorner":topLeftCorner])
-        let topRightVerticalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("V:|[topRightCorner]", options: [], metrics: nil, views: ["topRightCorner":topRightCorner])
-        let bottomLeftVerticalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("V:[bottomLeftCorner]|", options: [], metrics: nil, views: ["bottomLeftCorner":bottomLeftCorner])
-        let bottomRightVerticalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("V:[bottomRightCorner]|", options: [], metrics: nil, views: ["bottomRightCorner":bottomRightCorner])
-        
-        let cornerHorizontalConstraits = topLeftHorizontalConstraits + topRightHorizontalConstraits + bottomLeftHorizontalConstraits + bottomRightHorizontalConstraits
-        let cornerVerticalConstraits = topLeftVerticalConstraits + topRightVerticalConstraits + bottomLeftVerticalConstraits + bottomRightVerticalConstraits
-        
-        NSLayoutConstraint.activateConstraints(cardViewHorizontalConstraits + cardViewVerticalConstraits + cornerHorizontalConstraits + cornerVerticalConstraits)
     }
     
     func setupUI() {

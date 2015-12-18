@@ -33,6 +33,7 @@ public class STBoardCell: UITableViewCell {
             let alpha: CGFloat = moving ? 0.0 : 1.0
             self.contentView.alpha = alpha
             self.alpha = alpha
+            self.backgroundView?.alpha = alpha
         }
     }
     

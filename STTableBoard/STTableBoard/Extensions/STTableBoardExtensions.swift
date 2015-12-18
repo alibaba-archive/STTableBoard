@@ -161,6 +161,7 @@ extension STTableBoard {
             tableViewAutoScrollTimer = nil
         }
         scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
+        lastMovingTime = nil
     }
     
     func moveSnapshotToPosition(position: CGPoint) {
@@ -169,6 +170,8 @@ extension STTableBoard {
     }
     
     func moveRowToPosition(tableView: STShadowTableView?, recognizer: UIGestureRecognizer) {
+
+        
         guard let tableView = tableView else { return }
         
         let positionInTableView = recognizer.locationInView(tableView)
@@ -183,6 +186,9 @@ extension STTableBoard {
         }
         
         if let indexPath = tableView.indexPathForRowAtPoint(realPoint), dataSource = dataSource {
+            if let lastMovingTime = lastMovingTime {
+                guard NSDate().timeIntervalSinceDate(lastMovingTime) > minimumMovingRowInterval else { return }
+            }
             dataSource.tableBoard(tableBoard: self, moveRowAtIndexPath: sourceIndexPath, toIndexPath: indexPath.convertToSTIndexPath(tableView.index))
             if sourceIndexPath.board == tableView.index {
                 tableView.moveRowAtIndexPath(sourceIndexPath.convertToNSIndexPath(), toIndexPath: indexPath)
@@ -200,6 +206,7 @@ extension STTableBoard {
                 cell.moving = true
             }
             sourceIndexPath = indexPath.convertToSTIndexPath(tableView.index)
+            lastMovingTime = NSDate()
         }
     }
     

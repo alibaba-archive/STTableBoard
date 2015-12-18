@@ -89,6 +89,7 @@ public class STTableBoard: UIViewController {
     var sourceIndexPath: STIndexPath!
     var sourceIndex: Int = -1
     var isMoveBoardFromPageMode: Bool = false
+    var lastMovingTime: NSDate!
 
     //ScrollView Auto Scroll property
     var isScrolling: Bool = false
