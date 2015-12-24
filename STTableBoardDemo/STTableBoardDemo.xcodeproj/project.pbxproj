@@ -9,12 +9,18 @@
 /* Begin PBXBuildFile section */
 		EB5CB0161C1E995B000C7192 /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB5CB0111C1E6D02000C7192 /* STTableBoard.framework */; };
 		EB5CB0171C1E995B000C7192 /* STTableBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EB5CB0111C1E6D02000C7192 /* STTableBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EB68A9961C27E0FC00D3FB98 /* BoardCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68A9951C27E0FC00D3FB98 /* BoardCardCell.swift */; };
+		EB68A9991C27E4CB00D3FB98 /* RoundAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68A9981C27E4CB00D3FB98 /* RoundAvatarImageView.swift */; };
+		EB6DB26D1C2A8B6A00C4A481 /* BadgeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6DB26A1C2A8B6A00C4A481 /* BadgeListView.swift */; };
+		EB6DB26E1C2A8B6A00C4A481 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6DB26B1C2A8B6A00C4A481 /* BadgeView.swift */; };
+		EB6DB26F1C2A8B6A00C4A481 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6DB26C1C2A8B6A00C4A481 /* UIViewExtension.swift */; };
 		EB793BAA1C1E653400BF1148 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793BA91C1E653400BF1148 /* AppDelegate.swift */; };
 		EB793BAC1C1E653400BF1148 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793BAB1C1E653400BF1148 /* ViewController.swift */; };
 		EB793BAF1C1E653400BF1148 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB793BAD1C1E653400BF1148 /* Main.storyboard */; };
 		EB793BB11C1E653400BF1148 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB793BB01C1E653400BF1148 /* Assets.xcassets */; };
 		EB793BB41C1E653400BF1148 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB793BB21C1E653400BF1148 /* LaunchScreen.storyboard */; };
 		EBB662CD1C2131A700FB94A1 /* STCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662CC1C2131A700FB94A1 /* STCardCell.swift */; };
+		EBC8A1811C2A6F8000D9FD15 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +39,11 @@
 
 /* Begin PBXFileReference section */
 		EB5CB0111C1E6D02000C7192 /* STTableBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = STTableBoard.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/STTableBoard-ddlvqoirodprgldnvvuhbtwkjhea/Build/Products/Debug-iphoneos/STTableBoard.framework"; sourceTree = "<group>"; };
+		EB68A9951C27E0FC00D3FB98 /* BoardCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardCardCell.swift; sourceTree = "<group>"; };
+		EB68A9981C27E4CB00D3FB98 /* RoundAvatarImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundAvatarImageView.swift; sourceTree = "<group>"; };
+		EB6DB26A1C2A8B6A00C4A481 /* BadgeListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BadgeListView.swift; path = BadgeListView/BadgeListView.swift; sourceTree = "<group>"; };
+		EB6DB26B1C2A8B6A00C4A481 /* BadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BadgeView.swift; path = BadgeListView/BadgeView.swift; sourceTree = "<group>"; };
+		EB6DB26C1C2A8B6A00C4A481 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = BadgeListView/UIViewExtension.swift; sourceTree = "<group>"; };
 		EB793BA61C1E653400BF1148 /* STTableBoardDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STTableBoardDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB793BA91C1E653400BF1148 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB793BAB1C1E653400BF1148 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -41,6 +52,7 @@
 		EB793BB31C1E653400BF1148 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB793BB51C1E653400BF1148 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBB662CC1C2131A700FB94A1 /* STCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STCardCell.swift; sourceTree = "<group>"; };
+		EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +67,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB68A9971C27E48400D3FB98 /* CardCell */ = {
+			isa = PBXGroup;
+			children = (
+				EB68A99A1C27E70900D3FB98 /* CellHelperViews */,
+				EB68A9951C27E0FC00D3FB98 /* BoardCardCell.swift */,
+			);
+			name = CardCell;
+			sourceTree = "<group>";
+		};
+		EB68A99A1C27E70900D3FB98 /* CellHelperViews */ = {
+			isa = PBXGroup;
+			children = (
+				EB68A9981C27E4CB00D3FB98 /* RoundAvatarImageView.swift */,
+				EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */,
+			);
+			name = CellHelperViews;
+			sourceTree = "<group>";
+		};
+		EB6DB2691C2A8B3900C4A481 /* BadgeListView */ = {
+			isa = PBXGroup;
+			children = (
+				EB6DB26A1C2A8B6A00C4A481 /* BadgeListView.swift */,
+				EB6DB26B1C2A8B6A00C4A481 /* BadgeView.swift */,
+				EB6DB26C1C2A8B6A00C4A481 /* UIViewExtension.swift */,
+			);
+			name = BadgeListView;
+			sourceTree = "<group>";
+		};
 		EB793B9D1C1E653400BF1148 = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +115,7 @@
 		EB793BA81C1E653400BF1148 /* STTableBoardDemo */ = {
 			isa = PBXGroup;
 			children = (
+				EB6DB2691C2A8B3900C4A481 /* BadgeListView */,
 				EBB662CB1C21319400FB94A1 /* Views */,
 				EB793BA91C1E653400BF1148 /* AppDelegate.swift */,
 				EB793BAB1C1E653400BF1148 /* ViewController.swift */,
@@ -89,6 +130,7 @@
 		EBB662CB1C21319400FB94A1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EB68A9971C27E48400D3FB98 /* CardCell */,
 				EBB662CC1C2131A700FB94A1 /* STCardCell.swift */,
 			);
 			name = Views;
@@ -167,9 +209,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB6DB26E1C2A8B6A00C4A481 /* BadgeView.swift in Sources */,
+				EB68A9961C27E0FC00D3FB98 /* BoardCardCell.swift in Sources */,
+				EBC8A1811C2A6F8000D9FD15 /* CheckBoxView.swift in Sources */,
 				EB793BAC1C1E653400BF1148 /* ViewController.swift in Sources */,
 				EB793BAA1C1E653400BF1148 /* AppDelegate.swift in Sources */,
 				EBB662CD1C2131A700FB94A1 /* STCardCell.swift in Sources */,
+				EB6DB26F1C2A8B6A00C4A481 /* UIViewExtension.swift in Sources */,
+				EB6DB26D1C2A8B6A00C4A481 /* BadgeListView.swift in Sources */,
+				EB68A9991C27E4CB00D3FB98 /* RoundAvatarImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +330,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = STTableBoardDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -298,6 +350,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = STTableBoardDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

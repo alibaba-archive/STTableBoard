@@ -192,7 +192,6 @@ extension STTableBoard {
             dataSource.tableBoard(tableBoard: self, moveRowAtIndexPath: sourceIndexPath, toIndexPath: indexPath.convertToSTIndexPath(tableView.index))
             if sourceIndexPath.board == tableView.index {
                 tableView.beginUpdates()
-//                tableView.moveRowAtIndexPath(sourceIndexPath.convertToNSIndexPath(), toIndexPath: indexPath)
                 tableView.deleteRowsAtIndexPaths([sourceIndexPath.convertToNSIndexPath()], withRowAnimation: .Fade)
                 tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
                 tableView.endUpdates()
@@ -579,7 +578,6 @@ extension STTableBoard: UIScrollViewDelegate {
             } else if velocity.x > 0 && currentPage < numberOfPage - 1{
                 scrollToPage(scrollView, page: currentPage + 1, targetContentOffset: targetContentOffset)
             }
-            
         }
     }
     

@@ -201,6 +201,7 @@ public class STTableBoard: UIViewController {
                 case (.Portrait, _):
                     self.tableBoardMode = .Page
                 }
+                print("currentOrientation \(currentOrientation)")
                 self.scrollToActualPage(self.scrollView, offsetX: self.scrollView.contentOffset.x)
         }
     }

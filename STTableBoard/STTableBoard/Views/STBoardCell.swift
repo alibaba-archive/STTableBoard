@@ -37,7 +37,6 @@ public class STBoardCell: UITableViewCell {
         }
     }
     
-    
     override public func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .None

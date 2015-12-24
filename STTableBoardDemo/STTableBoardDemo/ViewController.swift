@@ -19,10 +19,8 @@ class ViewController: UIViewController {
         
 //                dataArray = [
 ////                    ["七里香1","七里香2","七里香3","七里香4","最后的战役1","最后的战役2","最后的战役3","晴天1","晴天2","晴天3","晴天4","晴天5","爱情悬崖1","爱情悬崖2","爱情悬崖3","爱情悬崖4","彩虹1","彩虹2","彩虹3","彩虹4"]
-//                    ["彩虹","星晴"],
-//                    ["晴天1","晴天2","晴天3","晴天4","晴天5"],
-//                    ["晴天1","晴天2","晴天3","晴天4","晴天5"],
-//                    ["晴天1","晴天2","晴天3","晴天4","晴天5"]
+//                    ["彩虹","星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴"],
+//
 //                ]
         
 //        dataArray = [
@@ -54,7 +52,7 @@ class ViewController: UIViewController {
         ]
         
         let table = STTableBoard()
-        table.registerClasses(classAndIdentifier: [(STCardCell.self,"DefaultCell")])
+        table.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
         table.delegate = self
         table.dataSource = self
         self.addChildViewController(table)
@@ -98,8 +96,10 @@ extension ViewController: STTableBoardDataSource {
     }
     
     func tableBoard(tableBoard tableBoard: STTableBoard, cellForRowAtIndexPath indexPath: STIndexPath) -> UITableViewCell {
-        let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath) as! STCardCell
-        cell.title = dataArray[indexPath.board][indexPath.row]
+//        let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath) as! STCardCell
+//        cell.title = dataArray[indexPath.board][indexPath.row]
+        let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath) as! BoardCardCell
+        cell.titleText = dataArray[indexPath.board][indexPath.row]
         return cell
     }
     
