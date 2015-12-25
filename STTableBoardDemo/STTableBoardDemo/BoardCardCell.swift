@@ -10,17 +10,17 @@ import UIKit
 import STTableBoard
 
 class BoardCardCell: STBoardCell {
-    private lazy var cardView: UIView = {
-        let view = UIView()
+    private lazy var cardView: CardView = {
+        let view = CardView()
         view.backgroundColor = UIColor.clearColor()
         return view
     }()
     
-    private lazy var backgroundImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Shadow"))
-        imageView.contentMode = .ScaleToFill
-        return imageView
-    }()
+//    private lazy var backgroundImageView: UIImageView = {
+//        let imageView = UIImageView(image: UIImage(named: "Shadow"))
+//        imageView.contentMode = .ScaleToFill
+//        return imageView
+//    }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: CGRectZero)
@@ -63,7 +63,7 @@ class BoardCardCell: STBoardCell {
     }
     
     func setupProperty() {
-        backgroundView = backgroundImageView
+//        backgroundView = backgroundImageView
         contentView.addSubview(cardView)
         cardView.addSubview(checkBoxView)
         cardView.addSubview(avatarView)
@@ -107,7 +107,6 @@ class BoardCardCell: STBoardCell {
             cardView.layoutIfNeeded()
             let badge: BadgeView = BadgeView(frame: CGRectZero)
             badge.image = UIImage(named: "dueDate_icon")
-            print("image badge\(badge.image)")
             badge.backgroundImage = UIImage(named: "dueDate_background")
             badge.text = "16 Oct"
             badge.textColor = UIColor.whiteColor()

@@ -14,8 +14,8 @@ class ViewController: UIViewController {
     var dataArray: [[String]] = []
     
     override func viewDidLoad() {
+        self.automaticallyAdjustsScrollViewInsets = false
         super.viewDidLoad()
-        //        self.edgesForExtendedLayout = UIRectEdge.None
         
 //                dataArray = [
 ////                    ["七里香1","七里香2","七里香3","七里香4","最后的战役1","最后的战役2","最后的战役3","晴天1","晴天2","晴天3","晴天4","晴天5","爱情悬崖1","爱情悬崖2","爱情悬崖3","爱情悬崖4","彩虹1","彩虹2","彩虹3","彩虹4"]
@@ -52,6 +52,8 @@ class ViewController: UIViewController {
         ]
         
         let table = STTableBoard()
+        table.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
+        table.sizeOffset = CGSize(width: 80, height: 0)
         table.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
         table.delegate = self
         table.dataSource = self

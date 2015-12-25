@@ -20,6 +20,7 @@
 		EB793BB11C1E653400BF1148 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB793BB01C1E653400BF1148 /* Assets.xcassets */; };
 		EB793BB41C1E653400BF1148 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB793BB21C1E653400BF1148 /* LaunchScreen.storyboard */; };
 		EBB662CD1C2131A700FB94A1 /* STCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662CC1C2131A700FB94A1 /* STCardCell.swift */; };
+		EBC6E9AA1C2BEC2E00073795 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC6E9A91C2BEC2E00073795 /* CardView.swift */; };
 		EBC8A1811C2A6F8000D9FD15 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		EB793BB31C1E653400BF1148 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB793BB51C1E653400BF1148 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBB662CC1C2131A700FB94A1 /* STCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STCardCell.swift; sourceTree = "<group>"; };
+		EBC6E9A91C2BEC2E00073795 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +83,7 @@
 			children = (
 				EB68A9981C27E4CB00D3FB98 /* RoundAvatarImageView.swift */,
 				EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */,
+				EBC6E9A91C2BEC2E00073795 /* CardView.swift */,
 			);
 			name = CellHelperViews;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				EB68A9961C27E0FC00D3FB98 /* BoardCardCell.swift in Sources */,
 				EBC8A1811C2A6F8000D9FD15 /* CheckBoxView.swift in Sources */,
 				EB793BAC1C1E653400BF1148 /* ViewController.swift in Sources */,
+				EBC6E9AA1C2BEC2E00073795 /* CardView.swift in Sources */,
 				EB793BAA1C1E653400BF1148 /* AppDelegate.swift in Sources */,
 				EBB662CD1C2131A700FB94A1 /* STCardCell.swift in Sources */,
 				EB6DB26F1C2A8B6A00C4A481 /* UIViewExtension.swift in Sources */,

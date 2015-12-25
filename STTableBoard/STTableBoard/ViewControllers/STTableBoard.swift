@@ -68,6 +68,9 @@ public class STTableBoard: UIViewController {
         
     }
     
+    public var contentInset: UIEdgeInsets = UIEdgeInsetsZero
+    public var sizeOffset: CGSize = CGSize(width: 0, height: 0)
+    
     var currentPage: Int = 0
     var registerCellClasses:[(AnyClass, String)] = []
     var tableBoardMode: STTableBoardMode = .Page
@@ -129,6 +132,8 @@ public class STTableBoard: UIViewController {
 
     //MARK: - init helper
     private func setupProperty() {
+        view.frame = CGRect(x: contentInset.left, y: contentInset.top, width: view.width - (contentInset.left + contentInset.right + sizeOffset.width), height: view.height - (contentInset.top + contentInset.bottom + sizeOffset.height))
+        
         scrollView = UIScrollView(frame: view.bounds)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
@@ -191,7 +196,8 @@ public class STTableBoard: UIViewController {
     public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         coordinator.animateAlongsideTransition({ [unowned self](context) -> Void in
-            self.relayoutAllViews(size)
+            let newSize = CGSize(width: size.width - (self.contentInset.left + self.contentInset.right + self.sizeOffset.width), height: size.height - (self.contentInset.top + self.contentInset.bottom + self.sizeOffset.height))
+            self.relayoutAllViews(newSize)
             }) { [unowned self](contenxt) -> Void in
                 switch (currentOrientation, currentDevice) {
                 case (_, .Pad):
