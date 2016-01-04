@@ -52,8 +52,8 @@ class ViewController: UIViewController {
         ]
         
         let table = STTableBoard()
-        table.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
-        table.sizeOffset = CGSize(width: 80, height: 0)
+//        table.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
+//        table.sizeOffset = CGSize(width: 80, height: 0)
         table.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
         table.delegate = self
         table.dataSource = self
@@ -98,8 +98,6 @@ extension ViewController: STTableBoardDataSource {
     }
     
     func tableBoard(tableBoard tableBoard: STTableBoard, cellForRowAtIndexPath indexPath: STIndexPath) -> UITableViewCell {
-//        let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath) as! STCardCell
-//        cell.title = dataArray[indexPath.board][indexPath.row]
         let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath) as! BoardCardCell
         cell.titleText = dataArray[indexPath.board][indexPath.row]
         return cell

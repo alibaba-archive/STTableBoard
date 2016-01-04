@@ -151,6 +151,7 @@ public class STTableBoard: UIViewController {
         if currentDevice == .Pad {
             tableBoardMode = .Scroll
         } else if currentDevice == .Phone {
+            tableBoardMode = .Page
             containerView.addGestureRecognizer(doubleTapGesture)
         }
     }
@@ -163,7 +164,7 @@ public class STTableBoard: UIViewController {
             boards.forEach({ (board) -> () in
                 board.removeFromSuperview()
             })
-            boards.removeAll()
+            boards.removeAll(keepCapacity: true)
         }
 
         for i in 0..<numberOfPage {
@@ -185,7 +186,6 @@ public class STTableBoard: UIViewController {
             
             guard let dataSource = dataSource, let boardTitle = dataSource.tableBoard(tableBoard: self, titleForBoardInBoard: i) else { return }
             boardView.title = boardTitle
-            
         }
 
         boards.forEach { (cardView) -> () in
@@ -207,7 +207,6 @@ public class STTableBoard: UIViewController {
                 case (.Portrait, _):
                     self.tableBoardMode = .Page
                 }
-                print("currentOrientation \(currentOrientation)")
                 self.scrollToActualPage(self.scrollView, offsetX: self.scrollView.contentOffset.x)
         }
     }

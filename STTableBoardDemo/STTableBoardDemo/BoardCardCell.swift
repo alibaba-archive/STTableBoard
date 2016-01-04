@@ -16,12 +16,6 @@ class BoardCardCell: STBoardCell {
         return view
     }()
     
-//    private lazy var backgroundImageView: UIImageView = {
-//        let imageView = UIImageView(image: UIImage(named: "Shadow"))
-//        imageView.contentMode = .ScaleToFill
-//        return imageView
-//    }()
-    
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: CGRectZero)
         label.numberOfLines = 2

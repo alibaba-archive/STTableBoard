@@ -10,11 +10,10 @@
 		EB5655F11C22AC7400182CEA /* STBoardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */; };
 		EB793B171C1E608900BF1148 /* STTableBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = EB793B161C1E608900BF1148 /* STTableBoard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B381C1E618300BF1148 /* STIndexPath.swift */; };
-		EB793B481C1E618300BF1148 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3A1C1E618300BF1148 /* CommonExtensions.swift */; };
 		EB793B491C1E618300BF1148 /* STTableBoardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3B1C1E618300BF1148 /* STTableBoardExtensions.swift */; };
 		EB793B4A1C1E618300BF1148 /* UIColor+ChineseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3C1C1E618300BF1148 /* UIColor+ChineseColor.swift */; };
 		EB793B4B1C1E618300BF1148 /* UIScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */; };
-		EB793B4C1C1E618300BF1148 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3E1C1E618300BF1148 /* UIViewExtension.swift */; };
+		EB793B4C1C1E618300BF1148 /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */; };
 		EB793B4D1C1E618300BF1148 /* STTableBoardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B401C1E618300BF1148 /* STTableBoardDelegate.swift */; };
 		EB793B4E1C1E618300BF1148 /* STTableBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B421C1E618300BF1148 /* STTableBoard.swift */; };
 		EB793B4F1C1E618300BF1148 /* STBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B441C1E618300BF1148 /* STBoardCell.swift */; };
@@ -23,6 +22,7 @@
 		EB793B531C1E61D200BF1148 /* constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B521C1E61D200BF1148 /* constant.swift */; };
 		EB7C97C41C21B2C300C68649 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7C97C31C21B2C300C68649 /* Images.xcassets */; };
 		EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */; };
+		EBEA1D041C3A6A39000B56BF /* NewBoardButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA1D031C3A6A39000B56BF /* NewBoardButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,11 +31,10 @@
 		EB793B161C1E608900BF1148 /* STTableBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STTableBoard.h; sourceTree = "<group>"; };
 		EB793B181C1E608900BF1148 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB793B381C1E618300BF1148 /* STIndexPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STIndexPath.swift; sourceTree = "<group>"; };
-		EB793B3A1C1E618300BF1148 /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
 		EB793B3B1C1E618300BF1148 /* STTableBoardExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableBoardExtensions.swift; sourceTree = "<group>"; };
 		EB793B3C1C1E618300BF1148 /* UIColor+ChineseColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ChineseColor.swift"; sourceTree = "<group>"; };
 		EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollViewExtension.swift; sourceTree = "<group>"; };
-		EB793B3E1C1E618300BF1148 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		EB793B401C1E618300BF1148 /* STTableBoardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableBoardDelegate.swift; sourceTree = "<group>"; };
 		EB793B421C1E618300BF1148 /* STTableBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableBoard.swift; sourceTree = "<group>"; };
 		EB793B441C1E618300BF1148 /* STBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardCell.swift; sourceTree = "<group>"; };
@@ -44,6 +43,7 @@
 		EB793B521C1E61D200BF1148 /* constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constant.swift; sourceTree = "<group>"; };
 		EB7C97C31C21B2C300C68649 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardHeaderView.swift; sourceTree = "<group>"; };
+		EBEA1D031C3A6A39000B56BF /* NewBoardButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBoardButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +101,9 @@
 			isa = PBXGroup;
 			children = (
 				EB793B3B1C1E618300BF1148 /* STTableBoardExtensions.swift */,
-				EB793B3A1C1E618300BF1148 /* CommonExtensions.swift */,
 				EB793B3C1C1E618300BF1148 /* UIColor+ChineseColor.swift */,
 				EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */,
-				EB793B3E1C1E618300BF1148 /* UIViewExtension.swift */,
+				EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -133,6 +132,7 @@
 				EB793B461C1E618300BF1148 /* STShadowTableView.swift */,
 				EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */,
 				EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */,
+				EBEA1D031C3A6A39000B56BF /* NewBoardButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,11 +216,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBEA1D041C3A6A39000B56BF /* NewBoardButtonView.swift in Sources */,
 				EB793B511C1E618300BF1148 /* STShadowTableView.swift in Sources */,
-				EB793B4C1C1E618300BF1148 /* UIViewExtension.swift in Sources */,
+				EB793B4C1C1E618300BF1148 /* UIView+Frame.swift in Sources */,
 				EB793B4B1C1E618300BF1148 /* UIScrollViewExtension.swift in Sources */,
 				EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */,
-				EB793B481C1E618300BF1148 /* CommonExtensions.swift in Sources */,
 				EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */,
 				EB793B501C1E618300BF1148 /* STBoardView.swift in Sources */,
 				EB793B4E1C1E618300BF1148 /* STTableBoard.swift in Sources */,
