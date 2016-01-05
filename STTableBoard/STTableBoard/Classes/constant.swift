@@ -39,6 +39,8 @@ let overlap: CGFloat = pageSpacing * 3
 let rotateAngel: CGFloat = CGFloat(M_PI/36)
 let headerViewHeight: CGFloat = 60.0
 let footerViewHeight: CGFloat = 48.0
+let newBoardButtonViewHeight: CGFloat = 56.0
+let newBoardComposeViewHeight: CGFloat = 122.0
 let scaleForPage: CGFloat = 1.0
 let scaleForScroll: CGFloat = 0.5
 let defaultScrollViewScrollVelocity: CGFloat = 50.0
@@ -54,6 +56,8 @@ let boardBorderColor: UIColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, bl
 let dashedLineColor: UIColor = UIColor(red: 221.0/255.0, green: 221.0/255.0, blue: 221.0/255.0, alpha: 1.0)
 let newBoardButtonBackgroundColor: UIColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
 let newBoardButtonTextColor: UIColor = UIColor(red: 189.0/255.0, green: 189.0/255.0, blue: 189.0/255.0, alpha: 1.0)
+let cancelButtonTextColor: UIColor = UIColor(red: 166/255.0, green: 166/255.0, blue: 166/255.0, alpha: 1.0)
+
 
 var currentDevice: UIUserInterfaceIdiom {
     get {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB3D687E1C3B6C7E00C6EAFD /* NewBoardComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3D687D1C3B6C7E00C6EAFD /* NewBoardComposeView.swift */; };
 		EB5655F11C22AC7400182CEA /* STBoardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */; };
 		EB793B171C1E608900BF1148 /* STTableBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = EB793B161C1E608900BF1148 /* STTableBoard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B381C1E618300BF1148 /* STIndexPath.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EB3D687D1C3B6C7E00C6EAFD /* NewBoardComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBoardComposeView.swift; sourceTree = "<group>"; };
 		EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardFooterView.swift; sourceTree = "<group>"; };
 		EB793B131C1E608900BF1148 /* STTableBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STTableBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB793B161C1E608900BF1148 /* STTableBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STTableBoard.h; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */,
 				EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */,
 				EBEA1D031C3A6A39000B56BF /* NewBoardButtonView.swift */,
+				EB3D687D1C3B6C7E00C6EAFD /* NewBoardComposeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				EBEA1D041C3A6A39000B56BF /* NewBoardButtonView.swift in Sources */,
 				EB793B511C1E618300BF1148 /* STShadowTableView.swift in Sources */,
 				EB793B4C1C1E618300BF1148 /* UIView+Frame.swift in Sources */,
+				EB3D687E1C3B6C7E00C6EAFD /* NewBoardComposeView.swift in Sources */,
 				EB793B4B1C1E618300BF1148 /* UIScrollViewExtension.swift in Sources */,
 				EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */,
 				EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */,

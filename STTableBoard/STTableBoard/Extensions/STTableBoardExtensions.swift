@@ -416,6 +416,22 @@ extension STTableBoard {
             destinationBoard.frame = CGRect(origin: sourceOrigin, size: destinationBoard.bounds.size)
             }, completion: nil)
     }
+    
+    func showNewBoardComposeView() {
+        self.newBoardComposeView.alpha = 1.0
+        self.newBoardButtonView.alpha = 0.0
+        UIView.animateWithDuration(0.2) { () -> Void in
+            self.newBoardComposeView.frame.size.height = newBoardComposeViewHeight
+        }
+    }
+    
+    func hiddenNewBoardComposeView() {
+        self.newBoardButtonView.alpha = 1.0
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.newBoardComposeView.alpha = 0.0
+            self.newBoardComposeView.frame.size.height = newBoardButtonViewHeight
+            })
+    }
 }
 
 //MARK: - Position helper method
@@ -632,13 +648,13 @@ extension STTableBoard: UITableViewDataSource {
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    
+
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let board = (tableView as! STShadowTableView).index,
             numberOfRows = dataSource?.tableBoard(tableBoard: self, numberOfRowsInBoard: board) else { return 0 }
         return numberOfRows
     }
-    
+
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let board = (tableView as! STShadowTableView).index,
             cell = dataSource?.tableBoard(tableBoard: self, cellForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) as? STBoardCell else { fatalError("board or cell can not be nill") }
@@ -646,5 +662,23 @@ extension STTableBoard: UITableViewDataSource {
         cell.contentView.backgroundColor = UIColor.clearColor()
         cell.moving = false
         return cell
+    }
+}
+
+//MARK: - NewBoardButtonViewDelegate
+extension STTableBoard: NewBoardButtonViewDelegate {
+    func newBoardButtonViewDidBeClicked(newBoardButtonView view: NewBoardButtonView) {
+        showNewBoardComposeView()
+    }
+}
+
+//MARK: - NewBoardComposeViewDelegate
+extension STTableBoard: NewBoardComposeViewDelegate {
+    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickDoneButton button: UIButton) {
+        print("doneButton clicked")
+    }
+    
+    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickCancelButton button: UIButton) {
+        hiddenNewBoardComposeView()
     }
 }

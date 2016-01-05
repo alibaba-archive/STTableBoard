@@ -35,7 +35,7 @@ public class STTableBoard: UIViewController {
     var numberOfPage: Int {
         get {
             guard let page = self.dataSource?.numberOfBoardsInTableBoard(self) else { return 1 }
-            return page
+            return page + 1
         }
     }
     
@@ -65,8 +65,22 @@ public class STTableBoard: UIViewController {
         get {
             return 2 * leading + CGFloat(numberOfPage) * boardWidth + CGFloat(numberOfPage - 1) * pageSpacing
         }
-        
     }
+    
+    lazy var newBoardButtonView: NewBoardButtonView = {
+        let view = NewBoardButtonView(frame: CGRectZero)
+        view.image = UIImage(named: "icon_addBoard", inBundle: currentBundle, compatibleWithTraitCollection: nil)
+        view.title = "新建任务阶段..."
+        view.delegate = self
+        return view
+    }()
+    
+    lazy var newBoardComposeView: NewBoardComposeView = {
+        let view = NewBoardComposeView(frame: CGRectZero)
+        view.delegate = self
+        view.alpha = 0.0
+        return view
+    }()
     
     public var contentInset: UIEdgeInsets = UIEdgeInsetsZero
     public var sizeOffset: CGSize = CGSize(width: 0, height: 0)
@@ -166,8 +180,9 @@ public class STTableBoard: UIViewController {
             })
             boards.removeAll(keepCapacity: true)
         }
+        newBoardButtonView.removeFromSuperview()
 
-        for i in 0..<numberOfPage {
+        for i in 0..<numberOfPage - 1 {
             let x = leading + CGFloat(i) * (boardWidth + pageSpacing)
             let y = top
             let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
@@ -191,6 +206,12 @@ public class STTableBoard: UIViewController {
         boards.forEach { (cardView) -> () in
             containerView.addSubview(cardView)
         }
+        
+        let newBoardButtonViewFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: top, width: boardWidth, height: newBoardButtonViewHeight)
+        newBoardButtonView.frame = newBoardButtonViewFrame
+        newBoardComposeView.frame = newBoardButtonViewFrame
+        containerView.addSubview(newBoardButtonView)
+        containerView.addSubview(newBoardComposeView)
     }
     
     public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {

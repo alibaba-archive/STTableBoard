@@ -6,9 +6,15 @@
 //  Copyright © 2016年 StormXX. All rights reserved.
 //
 
+protocol NewBoardButtonViewDelegate: class {
+    func newBoardButtonViewDidBeClicked(newBoardButtonView view: NewBoardButtonView)
+}
+
 import UIKit
 
 class NewBoardButtonView: UIView {
+    
+    weak var delegate: NewBoardButtonViewDelegate?
     
     var title: String? {
         didSet {
@@ -49,11 +55,15 @@ class NewBoardButtonView: UIView {
         dashedLineColor.setStroke()
         dashedPath.stroke()
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(imageView)
         addSubview(titleLabel)
+        backgroundColor = UIColor.clearColor()
+        
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "viewDidBeClicked")
+        self.addGestureRecognizer(tapGesture)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -65,6 +75,10 @@ class NewBoardButtonView: UIView {
         NSLayoutConstraint.activateConstraints(horizontalConstraints + [imageViewHeight, imageViewCenterY])
     }
     
+    func viewDidBeClicked() {
+        delegate?.newBoardButtonViewDidBeClicked(newBoardButtonView: self)
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
