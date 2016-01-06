@@ -115,5 +115,10 @@ extension ViewController: STTableBoardDataSource {
         dataArray[sourceIndex] = destinationData
         dataArray[destinationIndex] = sourceData
     }
+    
+    func tableBoard(tableBoard tableBoard: STTableBoard, willAddNewBoardAtIndex index: Int) {
+        dataArray.append([])
+    }
+    
 }
 

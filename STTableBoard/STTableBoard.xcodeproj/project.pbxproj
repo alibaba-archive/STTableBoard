@@ -23,7 +23,7 @@
 		EB793B531C1E61D200BF1148 /* constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B521C1E61D200BF1148 /* constant.swift */; };
 		EB7C97C41C21B2C300C68649 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7C97C31C21B2C300C68649 /* Images.xcassets */; };
 		EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */; };
-		EBEA1D041C3A6A39000B56BF /* NewBoardButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA1D031C3A6A39000B56BF /* NewBoardButtonView.swift */; };
+		EBEA1D041C3A6A39000B56BF /* NewBoardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +45,7 @@
 		EB793B521C1E61D200BF1148 /* constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constant.swift; sourceTree = "<group>"; };
 		EB7C97C31C21B2C300C68649 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardHeaderView.swift; sourceTree = "<group>"; };
-		EBEA1D031C3A6A39000B56BF /* NewBoardButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBoardButtonView.swift; sourceTree = "<group>"; };
+		EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBoardButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,7 +134,7 @@
 				EB793B461C1E618300BF1148 /* STShadowTableView.swift */,
 				EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */,
 				EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */,
-				EBEA1D031C3A6A39000B56BF /* NewBoardButtonView.swift */,
+				EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */,
 				EB3D687D1C3B6C7E00C6EAFD /* NewBoardComposeView.swift */,
 			);
 			path = Views;
@@ -219,7 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBEA1D041C3A6A39000B56BF /* NewBoardButtonView.swift in Sources */,
+				EBEA1D041C3A6A39000B56BF /* NewBoardButton.swift in Sources */,
 				EB793B511C1E618300BF1148 /* STShadowTableView.swift in Sources */,
 				EB793B4C1C1E618300BF1148 /* UIView+Frame.swift in Sources */,
 				EB3D687E1C3B6C7E00C6EAFD /* NewBoardComposeView.swift in Sources */,

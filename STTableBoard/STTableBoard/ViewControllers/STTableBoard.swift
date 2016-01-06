@@ -67,8 +67,8 @@ public class STTableBoard: UIViewController {
         }
     }
     
-    lazy var newBoardButtonView: NewBoardButtonView = {
-        let view = NewBoardButtonView(frame: CGRectZero)
+    lazy var newBoardButtonView: NewBoardButton = {
+        let view = NewBoardButton(frame: CGRectZero)
         view.image = UIImage(named: "icon_addBoard", inBundle: currentBundle, compatibleWithTraitCollection: nil)
         view.title = "新建任务阶段..."
         view.delegate = self
@@ -171,8 +171,9 @@ public class STTableBoard: UIViewController {
     }
 
     public func reloadData() {
-        scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
-        containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
+//        scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
+//        containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
+        resetContentSize()
 
         if boards.count != 0 {
             boards.forEach({ (board) -> () in
@@ -240,5 +241,10 @@ public class STTableBoard: UIViewController {
             autoAdjustTableBoardHeight(board, animated: true)
         }
         originContentSize = CGSize(width: originContentSize.width, height: size.height)
+    }
+    
+    func resetContentSize() {
+        scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
+        containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
     }
 }

@@ -665,9 +665,9 @@ extension STTableBoard: UITableViewDataSource {
     }
 }
 
-//MARK: - NewBoardButtonViewDelegate
-extension STTableBoard: NewBoardButtonViewDelegate {
-    func newBoardButtonViewDidBeClicked(newBoardButtonView view: NewBoardButtonView) {
+//MARK: - NewBoardButtonDelegate
+extension STTableBoard: NewBoardButtonDelegate {
+    func newBoardButtonDidBeClicked(newBoardButton button: NewBoardButton) {
         showNewBoardComposeView()
     }
 }
@@ -675,7 +675,40 @@ extension STTableBoard: NewBoardButtonViewDelegate {
 //MARK: - NewBoardComposeViewDelegate
 extension STTableBoard: NewBoardComposeViewDelegate {
     func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickDoneButton button: UIButton) {
-        print("doneButton clicked")
+        hiddenNewBoardComposeView()
+        guard let dataSource = dataSource else { return }
+        dataSource.tableBoard(tableBoard: self, willAddNewBoardAtIndex: numberOfPage - 1)
+        resetContentSize()
+        
+        let index = numberOfPage - 2
+        let x = leading + CGFloat(index) * (boardWidth + pageSpacing)
+        let y = top
+        let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
+        
+        let boardView: STBoardView = STBoardView(frame: boardViewFrame)
+        boardView.headerView.addGestureRecognizer(self.longPressGestureForBoard)
+        boardView.tableView.addGestureRecognizer(self.longPressGestureForCell)
+        boardView.index = index
+        boardView.tableView.delegate = self
+        boardView.tableView.dataSource = self
+        registerCellClasses.forEach({ (classAndIdentifier) -> () in
+            boardView.tableView.registerClass(classAndIdentifier.0, forCellReuseIdentifier: classAndIdentifier.1)
+        })
+        autoAdjustTableBoardHeight(boardView, animated: false)
+        boards.append(boardView)
+        containerView.addSubview(boardView)
+        
+        guard let boardTitle = dataSource.tableBoard(tableBoard: self, titleForBoardInBoard: index) else { return }
+        boardView.title = boardTitle
+        boardView.alpha = 0.0
+        
+        let newFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: newBoardButtonView.minY, width: newBoardButtonView.width, height: newBoardButtonView.height)
+        newBoardComposeView.frame = newFrame
+        UIView.animateWithDuration(0.5) { () -> Void in
+            boardView.alpha = 1.0
+            self.newBoardButtonView.frame = newFrame
+        }
+        
     }
     
     func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickCancelButton button: UIButton) {
