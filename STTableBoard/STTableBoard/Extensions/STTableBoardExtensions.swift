@@ -8,6 +8,16 @@
 
 import UIKit
 
+//MARK: - public method
+public extension STTableBoard {
+    func reloadBoardAtIndex(index: Int) {
+        guard index < boards.count else { fatalError("index is not exist!!") }
+        let board = boards[index]
+        board.tableView.reloadData()
+        autoAdjustTableBoardHeight(board, animated: true)
+    }
+}
+
 //MARK: - double tap
 extension STTableBoard {
     func handleDoubleTap(recognizer: UIGestureRecognizer) {
