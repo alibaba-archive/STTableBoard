@@ -725,3 +725,15 @@ extension STTableBoard: NewBoardComposeViewDelegate {
         hiddenNewBoardComposeView()
     }
 }
+
+//MARK: - STBoardViewDelegate 
+extension STTableBoard: STBoardViewDelegate {
+    func boardMenuButtonDidBeClicked() {
+//        let index = 0
+//        let boardMenu = BoardMenu(frame: CGRect(origin: CGPoint(x: 20, y: 200), size: CGSize(width: boardWidth, height: 300)))
+//        scrollView.addSubview(boardMenu)
+    }
+    
+    func boardFootViewDidBeClicked() {
+    }
+}

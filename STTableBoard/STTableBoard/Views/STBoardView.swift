@@ -6,6 +6,11 @@
 //  Copyright © 2015年 StormXX. All rights reserved.
 //
 
+protocol STBoardViewDelegate: class {
+    func boardMenuButtonDidBeClicked()
+    func boardFootViewDidBeClicked()
+}
+
 import UIKit
 
 class STBoardView: UIView {
@@ -15,6 +20,8 @@ class STBoardView: UIView {
     var tableView: STShadowTableView!
     var topShadowBar: UIImageView!
     var bottomShadowBar: UIImageView!
+    
+    weak var delegate: STBoardViewDelegate?
     
     var snapshot: UIView {
         get {
@@ -83,6 +90,9 @@ class STBoardView: UIView {
         headerView.backgroundColor = boardBackgroundColor
         footerView.backgroundColor = boardBackgroundColor
         tableView.backgroundColor = boardBackgroundColor
+        
+        headerView.boardView = self
+        footerView.boardView = self
         
         addSubview(headerView)
         addSubview(footerView)

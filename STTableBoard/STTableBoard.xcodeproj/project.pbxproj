@@ -23,6 +23,8 @@
 		EB793B531C1E61D200BF1148 /* constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B521C1E61D200BF1148 /* constant.swift */; };
 		EB7C97C41C21B2C300C68649 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7C97C31C21B2C300C68649 /* Images.xcassets */; };
 		EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */; };
+		EBCFC0471C3E49CE00B29AE5 /* BoardMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCFC0461C3E49CE00B29AE5 /* BoardMenu.swift */; };
+		EBCFC04F1C3E528A00B29AE5 /* BoardMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCFC04E1C3E528A00B29AE5 /* BoardMenuTableViewController.swift */; };
 		EBEA1D041C3A6A39000B56BF /* NewBoardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +47,8 @@
 		EB793B521C1E61D200BF1148 /* constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constant.swift; sourceTree = "<group>"; };
 		EB7C97C31C21B2C300C68649 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardHeaderView.swift; sourceTree = "<group>"; };
+		EBCFC0461C3E49CE00B29AE5 /* BoardMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardMenu.swift; sourceTree = "<group>"; };
+		EBCFC04E1C3E528A00B29AE5 /* BoardMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardMenuTableViewController.swift; sourceTree = "<group>"; };
 		EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBoardButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,15 +133,49 @@
 		EB793B431C1E618300BF1148 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EB793B441C1E618300BF1148 /* STBoardCell.swift */,
+				EBCFC0451C3E499900B29AE5 /* BoardCell */,
+				EBCFC0441C3E499000B29AE5 /* BoardMenu */,
+				EBCFC0431C3E498000B29AE5 /* NewBoardButton */,
+				EBCFC0421C3E496300B29AE5 /* Board */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EBCFC0421C3E496300B29AE5 /* Board */ = {
+			isa = PBXGroup;
+			children = (
 				EB793B451C1E618300BF1148 /* STBoardView.swift */,
 				EB793B461C1E618300BF1148 /* STShadowTableView.swift */,
 				EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */,
 				EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */,
+			);
+			name = Board;
+			sourceTree = "<group>";
+		};
+		EBCFC0431C3E498000B29AE5 /* NewBoardButton */ = {
+			isa = PBXGroup;
+			children = (
 				EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */,
 				EB3D687D1C3B6C7E00C6EAFD /* NewBoardComposeView.swift */,
 			);
-			path = Views;
+			name = NewBoardButton;
+			sourceTree = "<group>";
+		};
+		EBCFC0441C3E499000B29AE5 /* BoardMenu */ = {
+			isa = PBXGroup;
+			children = (
+				EBCFC0461C3E49CE00B29AE5 /* BoardMenu.swift */,
+				EBCFC04E1C3E528A00B29AE5 /* BoardMenuTableViewController.swift */,
+			);
+			name = BoardMenu;
+			sourceTree = "<group>";
+		};
+		EBCFC0451C3E499900B29AE5 /* BoardCell */ = {
+			isa = PBXGroup;
+			children = (
+				EB793B441C1E618300BF1148 /* STBoardCell.swift */,
+			);
+			name = BoardCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,10 +260,12 @@
 				EBEA1D041C3A6A39000B56BF /* NewBoardButton.swift in Sources */,
 				EB793B511C1E618300BF1148 /* STShadowTableView.swift in Sources */,
 				EB793B4C1C1E618300BF1148 /* UIView+Frame.swift in Sources */,
+				EBCFC04F1C3E528A00B29AE5 /* BoardMenuTableViewController.swift in Sources */,
 				EB3D687E1C3B6C7E00C6EAFD /* NewBoardComposeView.swift in Sources */,
 				EB793B4B1C1E618300BF1148 /* UIScrollViewExtension.swift in Sources */,
 				EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */,
 				EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */,
+				EBCFC0471C3E49CE00B29AE5 /* BoardMenu.swift in Sources */,
 				EB793B501C1E618300BF1148 /* STBoardView.swift in Sources */,
 				EB793B4E1C1E618300BF1148 /* STTableBoard.swift in Sources */,
 				EB793B531C1E61D200BF1148 /* constant.swift in Sources */,

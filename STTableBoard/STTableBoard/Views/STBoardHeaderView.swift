@@ -10,6 +10,8 @@ import UIKit
 
 class STBoardHeaderView: UIView {
     
+    var boardView: STBoardView!
+    
     var title: String? {
         didSet {
             titleLable.text = title
@@ -25,6 +27,7 @@ class STBoardHeaderView: UIView {
     private lazy var actionButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "boardHeaderButton", inBundle: currentBundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        button.addTarget(self, action: "actionButtonBeClicked:", forControlEvents: .TouchUpInside)
         return button
     }()
 
@@ -52,14 +55,15 @@ class STBoardHeaderView: UIView {
             multiplier: 1.0,
             constant: 0)
         
-        let buttonWidth = NSLayoutConstraint(item: actionButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 9.0)
-        let buttonHeight = NSLayoutConstraint(item: actionButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 15.0)
+        let buttonWidth = NSLayoutConstraint(item: actionButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 19.0)
+        let buttonHeight = NSLayoutConstraint(item: actionButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 19.0)
         let buttonCenterY = NSLayoutConstraint(item: actionButton, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0)
         
         NSLayoutConstraint.activateConstraints(horizontalConstraits + [titleLableVerticalConstrait, buttonWidth, buttonHeight, buttonCenterY])
-        
-
-        
+    }
+    
+    func actionButtonBeClicked(sender: UIButton) {
+        boardView.delegate?.boardMenuButtonDidBeClicked()
     }
 
     required init?(coder aDecoder: NSCoder) {

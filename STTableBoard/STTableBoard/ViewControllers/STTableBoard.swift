@@ -194,6 +194,7 @@ public class STTableBoard: UIViewController {
             boardView.index = i
             boardView.tableView.delegate = self
             boardView.tableView.dataSource = self
+            boardView.delegate = self
             registerCellClasses.forEach({ (classAndIdentifier) -> () in
                 boardView.tableView.registerClass(classAndIdentifier.0, forCellReuseIdentifier: classAndIdentifier.1)
             })

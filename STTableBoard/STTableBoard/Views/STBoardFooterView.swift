@@ -10,6 +10,8 @@ import UIKit
 
 class STBoardFooterView: UIView {
     
+    var boardView: STBoardView!
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .Left
