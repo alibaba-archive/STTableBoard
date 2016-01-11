@@ -6,20 +6,17 @@
 //  Copyright © 2016年 StormXX. All rights reserved.
 //
 
+
 import UIKit
 
 class BoardMenuTableViewController: UITableViewController {
 
-    var boardMenu: BoardMenu!
-    
     override init(style: UITableViewStyle) {
         super.init(style: style)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "哈哈哈哈"
-        self.navigationController?.title = "哈哈哈哈哈"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
     }
 
@@ -44,9 +41,9 @@ class BoardMenuTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        boardMenu.delegate?.didSelectRowAtIndexPath(indexPath)
+        guard let boardMenu = self.navigationController as? BoardMenu else { return }
+        boardMenu.boardMenuDelegate?.boardIndex(boardIndex: boardMenu.boardIndex, rowDidSelectAtIndexPath: indexPath)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        boardMenu.hiddenBoardMenu()
     }
 
     required init?(coder aDecoder: NSCoder) {

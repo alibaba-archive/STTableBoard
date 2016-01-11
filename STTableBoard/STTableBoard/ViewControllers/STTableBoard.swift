@@ -70,7 +70,7 @@ public class STTableBoard: UIViewController {
     lazy var newBoardButtonView: NewBoardButton = {
         let view = NewBoardButton(frame: CGRectZero)
         view.image = UIImage(named: "icon_addBoard", inBundle: currentBundle, compatibleWithTraitCollection: nil)
-        view.title = "新建任务阶段..."
+        view.title = "Add Stage..."
         view.delegate = self
         return view
     }()
@@ -79,6 +79,20 @@ public class STTableBoard: UIViewController {
         let view = NewBoardComposeView(frame: CGRectZero)
         view.delegate = self
         view.alpha = 0.0
+        return view
+    }()
+    
+    lazy var boardMenu: BoardMenu = {
+        let menu = BoardMenu()
+        menu.boardMenuDelegate = self
+        return menu
+    }()
+    
+    lazy var boardMenuMaskView: UIView = {
+        let view = UIView(frame: self.view.bounds)
+        view.backgroundColor = UIColor.clearColor()
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "boardMenuMaskViewTapped:")
+        view.addGestureRecognizer(tapGesture)
         return view
     }()
     
@@ -123,6 +137,9 @@ public class STTableBoard: UIViewController {
     var scaledContentOffset = CGPoint(x: 0, y: 0)
     var currentScale: CGFloat = scaleForPage
     var tapPosition: CGPoint = CGPoint(x: 0, y: 0)
+    
+    //Board Menu property 
+    var boardMenuVisible: Bool = false
 
     //MARK: - life cycle
     override public func viewDidLoad() {
@@ -170,52 +187,6 @@ public class STTableBoard: UIViewController {
         }
     }
 
-    public func reloadData() {
-//        scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
-//        containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
-        resetContentSize()
-
-        if boards.count != 0 {
-            boards.forEach({ (board) -> () in
-                board.removeFromSuperview()
-            })
-            boards.removeAll(keepCapacity: true)
-        }
-        newBoardButtonView.removeFromSuperview()
-
-        for i in 0..<numberOfPage - 1 {
-            let x = leading + CGFloat(i) * (boardWidth + pageSpacing)
-            let y = top
-            let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
-
-            let boardView: STBoardView = STBoardView(frame: boardViewFrame)
-            boardView.headerView.addGestureRecognizer(self.longPressGestureForBoard)
-            boardView.tableView.addGestureRecognizer(self.longPressGestureForCell)
-            boardView.index = i
-            boardView.tableView.delegate = self
-            boardView.tableView.dataSource = self
-            boardView.delegate = self
-            registerCellClasses.forEach({ (classAndIdentifier) -> () in
-                boardView.tableView.registerClass(classAndIdentifier.0, forCellReuseIdentifier: classAndIdentifier.1)
-            })
-            autoAdjustTableBoardHeight(boardView, animated: false)
-            boards.append(boardView)
-            
-            guard let dataSource = dataSource, let boardTitle = dataSource.tableBoard(tableBoard: self, titleForBoardInBoard: i) else { return }
-            boardView.title = boardTitle
-        }
-
-        boards.forEach { (cardView) -> () in
-            containerView.addSubview(cardView)
-        }
-        
-        let newBoardButtonViewFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: top, width: boardWidth, height: newBoardButtonViewHeight)
-        newBoardButtonView.frame = newBoardButtonViewFrame
-        newBoardComposeView.frame = newBoardButtonViewFrame
-        containerView.addSubview(newBoardButtonView)
-        containerView.addSubview(newBoardComposeView)
-    }
-    
     public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         coordinator.animateAlongsideTransition({ [unowned self](context) -> Void in
@@ -238,10 +209,15 @@ public class STTableBoard: UIViewController {
         scrollView.frame = CGRect(origin: CGPointZero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
         containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
+        boardMenuMaskView.frame = CGRect(origin: CGPointZero, size: size)
         boards.forEach { (board) -> () in
             autoAdjustTableBoardHeight(board, animated: true)
         }
         originContentSize = CGSize(width: originContentSize.width, height: size.height)
+        
+        if boardMenuVisible {
+            hiddenBoardMenu()
+        }
     }
     
     func resetContentSize() {

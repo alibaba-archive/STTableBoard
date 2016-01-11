@@ -63,7 +63,7 @@ class STBoardHeaderView: UIView {
     }
     
     func actionButtonBeClicked(sender: UIButton) {
-        boardView.delegate?.boardMenuButtonDidBeClicked()
+        boardView.delegate?.boardView(boardView, didClickButton: sender)
     }
 
     required init?(coder aDecoder: NSCoder) {

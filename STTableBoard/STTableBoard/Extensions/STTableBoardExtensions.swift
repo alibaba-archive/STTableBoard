@@ -8,16 +8,6 @@
 
 import UIKit
 
-//MARK: - public method
-public extension STTableBoard {
-    func reloadBoardAtIndex(index: Int) {
-        guard index < boards.count else { fatalError("index is not exist!!") }
-        let board = boards[index]
-        board.tableView.reloadData()
-        autoAdjustTableBoardHeight(board, animated: true)
-    }
-}
-
 //MARK: - double tap
 extension STTableBoard {
     func handleDoubleTap(recognizer: UIGestureRecognizer) {
@@ -519,8 +509,37 @@ extension STTableBoard {
         let page = Int(ceilf(Float((pointX - leading) / (scrollView.width - leading - pageSpacing))))
         return page
     }
+    
+    func boardMenuFrameBelowMenuButton(button: UIButton) -> CGRect {
+        let buttonFrameInView = view.convertRect(button.frame, fromView: button.superview)
+        var frame: CGRect = CGRectZero
+        switch (tableBoardMode, currentOrientation, currentDevice) {
+        case (.Page, _, _), (.Scroll, .Portrait, .Phone):
+            let y: CGFloat = CGRectGetMaxY(buttonFrameInView) + 20.0
+            let x: CGFloat = 45.0
+            frame = CGRect(x: x, y: y, width: boardWidth, height: 200.0)
+        case (.Scroll, _, _):
+            let maxMargin: CGFloat = 20.0
+            let y: CGFloat = CGRectGetMaxY(buttonFrameInView) + 20.0
+            let boardMenuLeftToEdge = CGRectGetMinX(buttonFrameInView) - boardWidth / 2
+            let boardMenuRightToEdge = CGRectGetMaxX(buttonFrameInView) + boardWidth / 2
+            var x: CGFloat = 0
+            switch (boardMenuLeftToEdge, boardMenuRightToEdge) {
+            case (_, _) where boardMenuLeftToEdge > maxMargin && boardMenuRightToEdge > maxMargin:
+                x = boardMenuLeftToEdge
+            case (_, _) where boardMenuLeftToEdge > maxMargin && boardMenuRightToEdge <= maxMargin:
+                x = view.width - maxMargin - boardWidth
+            case (_, _) where boardMenuLeftToEdge <= maxMargin:
+                x = maxMargin
+            default:
+                x = maxMargin
+            }
+            frame = CGRect(x: x, y: y, width: boardWidth, height: 200.0)
+        }
+        
+        return frame
+    }
 }
-
 
 //MARK: - UITableView help method
 extension STTableBoard {
@@ -576,164 +595,30 @@ extension STTableBoard {
     }
 }
 
-extension STTableBoard: UIGestureRecognizerDelegate {
-    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        guard let touchedView = touch.view else { return false }
-        if touchedView == containerView {
-            return true
-        } else {
-            return false
-        }
-    }
-}
-
-//MARK: - UIScrollViewDelegate
-extension STTableBoard: UIScrollViewDelegate {
-    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        guard tableBoardMode == .Page && scrollView == self.scrollView else { return }
-        if !decelerate {
-            scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
-        }
+//MARK: - BoardMenu method
+extension STTableBoard {
+    func showBoardMenuWithFrame(frame: CGRect, boardIndex: Int, boardTitle: String?) {
+        boardMenu.view.frame = frame
+        boardMenu.boardIndex = boardIndex
+        boardMenu.boardMenuTitle = boardTitle
+        view.addSubview(boardMenuMaskView)
+        self.addChildViewController(boardMenu)
+        view.addSubview(boardMenu.view)
+        boardMenu.didMoveToParentViewController(self)
+        boardMenuVisible = true
     }
     
-    public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard tableBoardMode == .Page && scrollView == self.scrollView else { return }
-        if velocity.x != 0 {
-            if velocity.x < 0 && currentPage > 0{
-                scrollToPage(scrollView, page: currentPage - 1, targetContentOffset: targetContentOffset)
-            } else if velocity.x > 0 && currentPage < numberOfPage - 1{
-                scrollToPage(scrollView, page: currentPage + 1, targetContentOffset: targetContentOffset)
-            }
-        }
+    func hiddenBoardMenu() {
+        boardMenu.view.removeFromSuperview()
+        boardMenu.removeFromParentViewController()
+        boardMenuMaskView.removeFromSuperview()
+        boardMenuVisible = false
     }
     
-    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return containerView
-    }
-    
-    public func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
-        switch tableBoardMode {
-        case .Scroll:
-            originContentOffset = scrollView.contentOffset
-            originContentSize = scrollView.contentSize
-        case .Page:
-            scaledContentOffset = scrollView.contentOffset
-        }
-    }
-    
-    public func scrollViewDidZoom(scrollView: UIScrollView) {
-        switch tableBoardMode {
-        case .Scroll:
-            scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: view.height)
-            if scrollView.contentSize.width < originContentOffset.x * currentScale + scrollView.width {
-                scrollView.contentOffset = CGPoint(x: scrollView.contentSize.width - scrollView.width, y: 0)
-            } else {
-                scrollView.contentOffset = CGPoint(x: originContentOffset.x * currentScale, y: 0)
-            }
-        case .Page:
-            scrollView.contentSize = originContentSize
-            scrollView.contentOffset = CGPoint(x: scaledContentOffset.x / scaleForScroll, y: 0)
-            if !isMoveBoardFromPageMode {
-                scrollToPage(scrollView, page: pageAtPoint(tapPosition) - 1, targetContentOffset: nil)
-            }
-        }
-        containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
-        boards.forEach { (board) -> () in
-            autoAdjustTableBoardHeight(board, animated: true)
-        }
+    func boardMenuMaskViewTapped(recognizer: UIGestureRecognizer) {
+        hiddenBoardMenu()
     }
 }
 
-//MARK: - UITableViewDelegate
-extension STTableBoard: UITableViewDelegate {
-    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        guard let board = (tableView as! STShadowTableView).index,
-            heightForRow = delegate?.tableBoard(tableBoard: self, heightForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) else { return 44.0 }
-        return heightForRow
-    }
-}
 
-//MARK: - UITableViewDataSource
-extension STTableBoard: UITableViewDataSource {
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
 
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let board = (tableView as! STShadowTableView).index,
-            numberOfRows = dataSource?.tableBoard(tableBoard: self, numberOfRowsInBoard: board) else { return 0 }
-        return numberOfRows
-    }
-
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let board = (tableView as! STShadowTableView).index,
-            cell = dataSource?.tableBoard(tableBoard: self, cellForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) as? STBoardCell else { fatalError("board or cell can not be nill") }
-        cell.backgroundColor = UIColor.clearColor()
-        cell.contentView.backgroundColor = UIColor.clearColor()
-        cell.moving = false
-        return cell
-    }
-}
-
-//MARK: - NewBoardButtonDelegate
-extension STTableBoard: NewBoardButtonDelegate {
-    func newBoardButtonDidBeClicked(newBoardButton button: NewBoardButton) {
-        showNewBoardComposeView()
-    }
-}
-
-//MARK: - NewBoardComposeViewDelegate
-extension STTableBoard: NewBoardComposeViewDelegate {
-    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickDoneButton button: UIButton) {
-        hiddenNewBoardComposeView()
-        guard let dataSource = dataSource else { return }
-        dataSource.tableBoard(tableBoard: self, willAddNewBoardAtIndex: numberOfPage - 1)
-        resetContentSize()
-        
-        let index = numberOfPage - 2
-        let x = leading + CGFloat(index) * (boardWidth + pageSpacing)
-        let y = top
-        let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
-        
-        let boardView: STBoardView = STBoardView(frame: boardViewFrame)
-        boardView.headerView.addGestureRecognizer(self.longPressGestureForBoard)
-        boardView.tableView.addGestureRecognizer(self.longPressGestureForCell)
-        boardView.index = index
-        boardView.tableView.delegate = self
-        boardView.tableView.dataSource = self
-        registerCellClasses.forEach({ (classAndIdentifier) -> () in
-            boardView.tableView.registerClass(classAndIdentifier.0, forCellReuseIdentifier: classAndIdentifier.1)
-        })
-        autoAdjustTableBoardHeight(boardView, animated: false)
-        boards.append(boardView)
-        containerView.addSubview(boardView)
-        
-        guard let boardTitle = dataSource.tableBoard(tableBoard: self, titleForBoardInBoard: index) else { return }
-        boardView.title = boardTitle
-        boardView.alpha = 0.0
-        
-        let newFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: newBoardButtonView.minY, width: newBoardButtonView.width, height: newBoardButtonView.height)
-        newBoardComposeView.frame = newFrame
-        UIView.animateWithDuration(0.5) { () -> Void in
-            boardView.alpha = 1.0
-            self.newBoardButtonView.frame = newFrame
-        }
-        
-    }
-    
-    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickCancelButton button: UIButton) {
-        hiddenNewBoardComposeView()
-    }
-}
-
-//MARK: - STBoardViewDelegate 
-extension STTableBoard: STBoardViewDelegate {
-    func boardMenuButtonDidBeClicked() {
-//        let index = 0
-//        let boardMenu = BoardMenu(frame: CGRect(origin: CGPoint(x: 20, y: 200), size: CGSize(width: boardWidth, height: 300)))
-//        scrollView.addSubview(boardMenu)
-    }
-    
-    func boardFootViewDidBeClicked() {
-    }
-}

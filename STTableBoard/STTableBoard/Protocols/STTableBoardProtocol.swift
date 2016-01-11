@@ -26,6 +26,7 @@ public protocol STTableBoardDataSource: class {
     func tableBoard(tableBoard tableBoard: STTableBoard, moveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int)
     func tableBoard(tableBoard tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String?
     func tableBoard(tableBoard tableBoard: STTableBoard, willAddNewBoardAtIndex index: Int)
+    func tableBoard(tableBoard tableBoard: STTableBoard, willRemoveBoardAtIndex index: Int)
 }
 
 public extension STTableBoardDataSource {
@@ -44,10 +45,4 @@ public extension STTableBoardDataSource {
     func tableBoard(tableBoard tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String? {
         return nil
     }
-    
-    func tableBoard(tableBoard tableBoard: STTableBoard, willAddNewBoardAtIndex index: Int) {
-        return
-    }
-    
-    
 }

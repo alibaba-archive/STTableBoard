@@ -1,54 +1,70 @@
 //
-//  BoardMenu.swift
+//  BoardMenuNavigationController.swift
 //  STTableBoard
 //
-//  Created by DangGu on 16/1/7.
+//  Created by DangGu on 16/1/9.
 //  Copyright © 2016年 StormXX. All rights reserved.
 //
-
 protocol BoardMenuDelegate: class {
-    func didSelectRowAtIndexPath(indexPath: NSIndexPath)
+    func boardIndex(boardIndex index: Int, rowDidSelectAtIndexPath indexPath: NSIndexPath)
 }
 
 import UIKit
 
-class BoardMenu: UIView {
+class BoardMenu: UINavigationController {
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
+    private var boardMenuTableViewController: BoardMenuTableViewController!
     
-    var boardIndex: Int!
-    weak var delegate: BoardMenuDelegate?
-
-    lazy var boardMenuTableViewController: BoardMenuTableViewController = {
-        let controller = BoardMenuTableViewController(style: .Grouped)
-        return controller
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        let controller = BoardMenuTableViewController(style: .Grouped)
-        let navigationController: UINavigationController = UINavigationController(rootViewController: controller)
-        navigationController.view.frame = CGRect(origin: CGPointZero, size: bounds.size)
-        controller.view.frame = CGRect(origin: CGPointZero, size: bounds.size)
-        addSubview(controller.view)
+    weak var boardMenuDelegate: BoardMenuDelegate?
+    var boardIndex: Int = 0
+    var boardMenuTitle: String? {
+        didSet{
+            self.boardMenuTableViewController.title = boardMenuTitle
+        }
     }
 
+    override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
+    }
+    
+    convenience init() {
+        let rootViewController = BoardMenuTableViewController(style: .Grouped)
+        self.init(rootViewController: rootViewController)
+        self.boardMenuTableViewController = rootViewController
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let layer = view.layer
+        layer.masksToBounds = true
+        layer.cornerRadius = 6.0
+        layer.borderColor = boardBorderColor.CGColor
+        layer.borderWidth = 1.0
+        
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func showBoardMenu() {
-        
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-    
-    func hiddenBoardMenu() {
-    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
+    */
 
 }

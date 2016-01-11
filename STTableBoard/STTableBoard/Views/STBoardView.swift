@@ -7,8 +7,9 @@
 //
 
 protocol STBoardViewDelegate: class {
-    func boardMenuButtonDidBeClicked()
+//    func boardMenuButtonDidBeClicked(index: Int)
     func boardFootViewDidBeClicked()
+    func boardView(boardView: STBoardView, didClickButton button: UIButton)
 }
 
 import UIKit
