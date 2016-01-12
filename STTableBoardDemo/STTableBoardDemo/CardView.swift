@@ -14,10 +14,10 @@ class CardView: UIView {
 
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-        let contentRect = CGRectInset(rect, 1.0, 1.0)
+        let contentRect = CGRectInset(rect, 1.0, 2.0)
         let roundedPath = UIBezierPath(roundedRect: contentRect, cornerRadius: cornerRadius)
         CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
-        CGContextSetShadowWithColor(context, CGSize(width: 0.5, height: 0.5), 2.0, UIColor.blackColor().colorWithAlphaComponent(0.3).CGColor)
+        CGContextSetShadowWithColor(context, CGSize(width: 0.0, height: 0.8), 2.0, UIColor.blackColor().colorWithAlphaComponent(0.15).CGColor)
         roundedPath.fill()
     }
 

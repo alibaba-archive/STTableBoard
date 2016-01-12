@@ -5,7 +5,6 @@
 //  Created by DangGu on 15/11/26.
 //  Copyright © 2015年 StormXX. All rights reserved.
 //
-
 import UIKit
 
 enum SnapViewStatus {
@@ -37,7 +36,7 @@ let bottom: CGFloat = top
 let pageSpacing: CGFloat = leading / 2
 let overlap: CGFloat = pageSpacing * 3
 let rotateAngel: CGFloat = CGFloat(M_PI/36)
-let headerViewHeight: CGFloat = 60.0
+let headerViewHeight: CGFloat = 48.0
 let footerViewHeight: CGFloat = 48.0
 let newBoardButtonViewHeight: CGFloat = 56.0
 let newBoardComposeViewHeight: CGFloat = 122.0

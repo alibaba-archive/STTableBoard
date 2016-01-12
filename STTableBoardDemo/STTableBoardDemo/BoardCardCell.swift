@@ -77,7 +77,7 @@ class BoardCardCell: STBoardCell {
         
         let views = ["checkBoxView":checkBoxView, "avatarView":avatarView, "titleLabel":titleLabel]
         
-        let leading = 10, trailing = 10, top = 5, bottom = 5
+        let leading = 8, trailing = 8, top = 2, bottom = 2
         let cardViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-leading-[cardView]-trailing-|", options: [], metrics: ["leading":leading, "trailing":trailing], views: ["cardView":cardView])
         let cardViewVerticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-top-[cardView]-bottom-|", options: [], metrics: ["top":top, "bottom":bottom], views: ["cardView":cardView])
         NSLayoutConstraint.activateConstraints(cardViewHorizontalConstraints + cardViewVerticalConstraints)
@@ -89,7 +89,7 @@ class BoardCardCell: STBoardCell {
         let checkboxTopConstraint = NSLayoutConstraint(item: checkBoxView, attribute: .Top, relatedBy: .Equal, toItem: cardView, attribute: .Top, multiplier: 1.0, constant: 13.0)
         let avatarTopConstraint = NSLayoutConstraint(item: avatarView, attribute: .Top, relatedBy: .Equal, toItem: cardView, attribute: .Top, multiplier: 1.0, constant: 10.0)
         let titleLabelTopConstraint = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: cardView, attribute: .Top, multiplier: 1.0, constant: 14.0)
-        let badgeListViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-36-[badgeListView]-10-|", options: [], metrics: nil, views: ["badgeListView":badgeListView])
+        let badgeListViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-36-[badgeListView]-8-|", options: [], metrics: nil, views: ["badgeListView":badgeListView])
         let badgeListViewTopConstraint = NSLayoutConstraint(item: badgeListView, attribute: .Top, relatedBy: .Equal, toItem: titleLabel, attribute: .Bottom, multiplier: 1.0, constant: 12.0)
         
         NSLayoutConstraint.activateConstraints(horizontalConstraints + [checkboxHeightConstraint, checkboxTopConstraint, avatarHeightConstraints, avatarTopConstraint, titleLabelTopConstraint, badgeListViewTopConstraint] + badgeListViewHorizontalConstraints)
@@ -104,22 +104,26 @@ class BoardCardCell: STBoardCell {
             badge.backgroundImage = UIImage(named: "dueDate_background")
             badge.text = "16 Oct"
             badge.textColor = UIColor.whiteColor()
+            badge.imageWidth = 8.0
             badge.sizeToFit()
+            badge.textFont = UIFont.systemFontOfSize(10.0)
             
             let bbadge: BadgeView = BadgeView(frame: CGRectZero)
             bbadge.image = UIImage(named: "tag_icon")
             bbadge.backgroundImage = UIImage(named: "tag_background")
             bbadge.text = "交互设计"
             bbadge.textColor = UIColor.grayColor()
-            bbadge.imageWidth = 5.0
+            bbadge.imageWidth = 4.0
             bbadge.sizeToFit()
+            bbadge.textFont = UIFont.systemFontOfSize(10.0)
             
             let cbadge: BadgeView = BadgeView(frame: CGRectZero)
             cbadge.image = UIImage(named: "subtask_icon")
-            cbadge.imageWidth = 12.0
+            cbadge.imageWidth = 9.0
             cbadge.text = "2/3"
             cbadge.textColor = UIColor.grayColor()
             cbadge.sizeToFit()
+            cbadge.textFont = UIFont.systemFontOfSize(10.0)
             
             badgeListView.addBadge(badge)
             badgeListView.addBadge(bbadge)
