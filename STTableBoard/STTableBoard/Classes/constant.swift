@@ -7,6 +7,11 @@
 //
 import UIKit
 
+public enum BoardMenuHandleType {
+    case BoardTitleChanged
+    case BoardDeleted
+}
+
 enum SnapViewStatus {
     case Moving
     case Origin
@@ -56,6 +61,14 @@ let dashedLineColor: UIColor = UIColor(red: 221.0/255.0, green: 221.0/255.0, blu
 let newBoardButtonBackgroundColor: UIColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
 let newBoardButtonTextColor: UIColor = UIColor(red: 189.0/255.0, green: 189.0/255.0, blue: 189.0/255.0, alpha: 1.0)
 let cancelButtonTextColor: UIColor = UIColor(red: 166/255.0, green: 166/255.0, blue: 166/255.0, alpha: 1.0)
+
+// board menu colors
+let boardMenuTextViewControllerBackgroundColor: UIColor = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 1.0)
+let boardMenuTextFieldBorderColor: UIColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
+
+// board menu userInfo keys
+let newBoardTitleKey = "newBoardTitle"
+let boardIndexKey = "boardIndex"
 
 
 var currentDevice: UIUserInterfaceIdiom {

@@ -82,6 +82,7 @@ public class STTableBoard: UIViewController {
         return view
     }()
     
+    // BoardMenu Properties
     lazy var boardMenu: BoardMenu = {
         let menu = BoardMenu()
         menu.boardMenuDelegate = self
@@ -90,10 +91,16 @@ public class STTableBoard: UIViewController {
     
     lazy var boardMenuMaskView: UIView = {
         let view = UIView(frame: self.view.bounds)
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "boardMenuMaskViewTapped:")
         view.addGestureRecognizer(tapGesture)
         return view
+    }()
+    
+    lazy var boardMenuPopover: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "BoardMenu_Popover", inBundle: currentBundle, compatibleWithTraitCollection: nil))
+        imageView.sizeToFit()
+        return imageView
     }()
     
     public var contentInset: UIEdgeInsets = UIEdgeInsetsZero

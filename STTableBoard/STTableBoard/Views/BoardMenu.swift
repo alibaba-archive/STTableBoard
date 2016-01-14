@@ -6,7 +6,7 @@
 //  Copyright © 2016年 StormXX. All rights reserved.
 //
 protocol BoardMenuDelegate: class {
-    func boardIndex(boardIndex index: Int, rowDidSelectAtIndexPath indexPath: NSIndexPath)
+    func boardMenu(boardMenu: BoardMenu, boardMenuHandleType type: BoardMenuHandleType, userInfo: [String: AnyObject?]?)
 }
 
 import UIKit
@@ -28,7 +28,7 @@ class BoardMenu: UINavigationController {
     }
     
     convenience init() {
-        let rootViewController = BoardMenuTableViewController(style: .Grouped)
+        let rootViewController = BoardMenuTableViewController(style: .Plain)
         self.init(rootViewController: rootViewController)
         self.boardMenuTableViewController = rootViewController
     }

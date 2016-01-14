@@ -513,31 +513,39 @@ extension STTableBoard {
     func boardMenuFrameBelowMenuButton(button: UIButton) -> CGRect {
         let buttonFrameInView = view.convertRect(button.frame, fromView: button.superview)
         var frame: CGRect = CGRectZero
+        let height: CGFloat = 144.0
+        let width: CGFloat = boardWidth + 60.0
         switch (tableBoardMode, currentOrientation, currentDevice) {
         case (.Page, _, _), (.Scroll, .Portrait, .Phone):
             let y: CGFloat = CGRectGetMaxY(buttonFrameInView) + 20.0
-            let x: CGFloat = 45.0
-            frame = CGRect(x: x, y: y, width: boardWidth, height: 200.0)
+            let x: CGFloat = 0.0
+            frame = CGRect(x: x, y: y, width: width, height: height)
         case (.Scroll, _, _):
             let maxMargin: CGFloat = 20.0
             let y: CGFloat = CGRectGetMaxY(buttonFrameInView) + 20.0
-            let boardMenuLeftToEdge = CGRectGetMinX(buttonFrameInView) - boardWidth / 2
-            let boardMenuRightToEdge = CGRectGetMaxX(buttonFrameInView) + boardWidth / 2
+            let boardMenuLeftToEdge = CGRectGetMinX(buttonFrameInView) - width / 2
+            let boardMenuRightToEdge = view.width - (CGRectGetMaxX(buttonFrameInView) + width / 2)
             var x: CGFloat = 0
             switch (boardMenuLeftToEdge, boardMenuRightToEdge) {
             case (_, _) where boardMenuLeftToEdge > maxMargin && boardMenuRightToEdge > maxMargin:
                 x = boardMenuLeftToEdge
             case (_, _) where boardMenuLeftToEdge > maxMargin && boardMenuRightToEdge <= maxMargin:
-                x = view.width - maxMargin - boardWidth
+                x = view.width - maxMargin - width
             case (_, _) where boardMenuLeftToEdge <= maxMargin:
                 x = maxMargin
             default:
                 x = maxMargin
             }
-            frame = CGRect(x: x, y: y, width: boardWidth, height: 200.0)
+            frame = CGRect(x: x, y: y, width: width, height: height)
         }
         
         return frame
+    }
+    
+    func setBoardMenuPopoverFrameBelowMenuButton(button: UIButton) {
+        let buttonFrameInView = view.convertRect(button.frame, fromView: button.superview)
+        boardMenuPopover.center.x = CGRectGetMinX(buttonFrameInView) + buttonFrameInView.width / 2
+        boardMenuPopover.center.y = CGRectGetMinY(boardMenu.view.frame) - boardMenuPopover.height / 2
     }
 }
 
@@ -597,7 +605,8 @@ extension STTableBoard {
 
 //MARK: - BoardMenu method
 extension STTableBoard {
-    func showBoardMenuWithFrame(frame: CGRect, boardIndex: Int, boardTitle: String?) {
+    func showBoardMenu(button: UIButton, boardIndex: Int, boardTitle: String?) {
+        let frame = boardMenuFrameBelowMenuButton(button)
         boardMenu.view.frame = frame
         boardMenu.boardIndex = boardIndex
         boardMenu.boardMenuTitle = boardTitle
@@ -606,12 +615,16 @@ extension STTableBoard {
         view.addSubview(boardMenu.view)
         boardMenu.didMoveToParentViewController(self)
         boardMenuVisible = true
+        
+        setBoardMenuPopoverFrameBelowMenuButton(button)
+        view.addSubview(boardMenuPopover)
     }
     
     func hiddenBoardMenu() {
         boardMenu.view.removeFromSuperview()
         boardMenu.removeFromParentViewController()
         boardMenuMaskView.removeFromSuperview()
+        boardMenuPopover.removeFromSuperview()
         boardMenuVisible = false
     }
     

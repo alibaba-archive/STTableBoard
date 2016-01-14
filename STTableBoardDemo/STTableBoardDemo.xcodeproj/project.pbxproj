@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EB5CB0161C1E995B000C7192 /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB5CB0111C1E6D02000C7192 /* STTableBoard.framework */; };
-		EB5CB0171C1E995B000C7192 /* STTableBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EB5CB0111C1E6D02000C7192 /* STTableBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EB09DAC21C4795080089CD7E /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB09DAC11C4795080089CD7E /* STTableBoard.framework */; };
+		EB09DAC31C4795080089CD7E /* STTableBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EB09DAC11C4795080089CD7E /* STTableBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EB68A9961C27E0FC00D3FB98 /* BoardCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68A9951C27E0FC00D3FB98 /* BoardCardCell.swift */; };
 		EB68A9991C27E4CB00D3FB98 /* RoundAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68A9981C27E4CB00D3FB98 /* RoundAvatarImageView.swift */; };
 		EB6DB26D1C2A8B6A00C4A481 /* BadgeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6DB26A1C2A8B6A00C4A481 /* BadgeListView.swift */; };
@@ -31,7 +31,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EB5CB0171C1E995B000C7192 /* STTableBoard.framework in Embed Frameworks */,
+				EB09DAC31C4795080089CD7E /* STTableBoard.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,7 +39,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		EB5CB0111C1E6D02000C7192 /* STTableBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = STTableBoard.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/STTableBoard-ddlvqoirodprgldnvvuhbtwkjhea/Build/Products/Debug-iphoneos/STTableBoard.framework"; sourceTree = "<group>"; };
+		EB09DAC11C4795080089CD7E /* STTableBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = STTableBoard.framework; path = "/Users/StormXX/Library/Developer/Xcode/DerivedData/STTableBoard-ddlvqoirodprgldnvvuhbtwkjhea/Build/Products/Debug-iphoneos/STTableBoard.framework"; sourceTree = "<absolute>"; };
 		EB68A9951C27E0FC00D3FB98 /* BoardCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardCardCell.swift; sourceTree = "<group>"; };
 		EB68A9981C27E4CB00D3FB98 /* RoundAvatarImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundAvatarImageView.swift; sourceTree = "<group>"; };
 		EB6DB26A1C2A8B6A00C4A481 /* BadgeListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BadgeListView.swift; path = BadgeListView/BadgeListView.swift; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB5CB0161C1E995B000C7192 /* STTableBoard.framework in Frameworks */,
+				EB09DAC21C4795080089CD7E /* STTableBoard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +101,7 @@
 		EB793B9D1C1E653400BF1148 = {
 			isa = PBXGroup;
 			children = (
-				EB5CB0111C1E6D02000C7192 /* STTableBoard.framework */,
+				EB09DAC11C4795080089CD7E /* STTableBoard.framework */,
 				EB793BA81C1E653400BF1148 /* STTableBoardDemo */,
 				EB793BA71C1E653400BF1148 /* Products */,
 			);

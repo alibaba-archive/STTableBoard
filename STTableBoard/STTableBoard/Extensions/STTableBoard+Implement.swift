@@ -119,8 +119,8 @@ extension STTableBoard: NewBoardButtonDelegate {
 extension STTableBoard: NewBoardComposeViewDelegate {
     func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickDoneButton button: UIButton) {
         hiddenNewBoardComposeView()
-        guard let dataSource = dataSource else { return }
-        dataSource.tableBoard(tableBoard: self, willAddNewBoardAtIndex: numberOfPage - 1)
+        guard let delegate = delegate, dataSource = dataSource else { return }
+        delegate.tableBoard(tableBoard: self, willAddNewBoardAtIndex: numberOfPage - 1)
         resetContentSize()
         
         let index = numberOfPage - 2
@@ -164,8 +164,7 @@ extension STTableBoard: STBoardViewDelegate {
         if boardMenuVisible {
             hiddenBoardMenu()
         } else {
-            let frame = boardMenuFrameBelowMenuButton(button)
-            showBoardMenuWithFrame(frame, boardIndex: boardView.index, boardTitle: boardView.title)
+            showBoardMenu(button, boardIndex: boardView.index, boardTitle: boardView.title)
         }
     }
     
@@ -175,8 +174,16 @@ extension STTableBoard: STBoardViewDelegate {
 }
 
 extension STTableBoard: BoardMenuDelegate {
-    func boardIndex(boardIndex index: Int, rowDidSelectAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 && indexPath.row == 0 {
+    func boardMenu(boardMenu: BoardMenu, boardMenuHandleType type: BoardMenuHandleType, userInfo: [String : AnyObject?]?) {
+        switch type {
+        case .BoardTitleChanged:
+            if let userInfo = userInfo, let newTitle = userInfo[newBoardTitleKey] as? String {
+                delegate?.tableBoard(tableBoard: self, boardTitleBeChangedTo: newTitle, inBoard: boardMenu.boardIndex)
+                reloadBoardTitleAtIndex(boardMenu.boardIndex)
+                hiddenBoardMenu()
+            }
+        case .BoardDeleted:
+            let index = boardMenu.boardIndex
             removeBoardAtIndex(index)
         }
     }
