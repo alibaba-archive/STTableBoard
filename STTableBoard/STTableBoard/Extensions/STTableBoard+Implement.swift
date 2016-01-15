@@ -117,10 +117,10 @@ extension STTableBoard: NewBoardButtonDelegate {
 
 //MARK: - NewBoardComposeViewDelegate
 extension STTableBoard: NewBoardComposeViewDelegate {
-    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickDoneButton button: UIButton) {
+    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickDoneButton button: UIButton, withBoardTitle title: String) {
         hiddenNewBoardComposeView()
         guard let delegate = delegate, dataSource = dataSource else { return }
-        delegate.tableBoard(tableBoard: self, willAddNewBoardAtIndex: numberOfPage - 1)
+        delegate.tableBoard(tableBoard: self, willAddNewBoardAtIndex: numberOfPage - 1, withBoardTitle: title)
         resetContentSize()
         
         let index = numberOfPage - 2

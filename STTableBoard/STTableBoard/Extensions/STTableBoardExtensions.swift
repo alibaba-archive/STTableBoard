@@ -418,8 +418,10 @@ extension STTableBoard {
     }
     
     func showNewBoardComposeView() {
-        self.newBoardComposeView.alpha = 1.0
-        self.newBoardButtonView.alpha = 0.0
+        newBoardComposeView.textField.becomeFirstResponder()
+        newBoardComposeView.textField.text = nil
+        newBoardComposeView.alpha = 1.0
+        newBoardButtonView.alpha = 0.0
         UIView.animateWithDuration(0.2) { () -> Void in
             self.newBoardComposeView.frame.size.height = newBoardComposeViewHeight
         }

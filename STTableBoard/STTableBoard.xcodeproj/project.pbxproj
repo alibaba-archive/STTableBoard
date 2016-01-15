@@ -28,6 +28,7 @@
 		EB7C97C41C21B2C300C68649 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7C97C31C21B2C300C68649 /* Images.xcassets */; };
 		EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */; };
 		EBCFC04F1C3E528A00B29AE5 /* BoardMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCFC04E1C3E528A00B29AE5 /* BoardMenuTableViewController.swift */; };
+		EBD0BD841C48E4900056C1BA /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0BD831C48E4900056C1BA /* StringExtension.swift */; };
 		EBEA1D041C3A6A39000B56BF /* NewBoardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		EB7C97C31C21B2C300C68649 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardHeaderView.swift; sourceTree = "<group>"; };
 		EBCFC04E1C3E528A00B29AE5 /* BoardMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardMenuTableViewController.swift; sourceTree = "<group>"; };
+		EBD0BD831C48E4900056C1BA /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBoardButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,12 +114,10 @@
 		EB793B391C1E618300BF1148 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EBD0BD821C48E4650056C1BA /* CommonExtension */,
 				EB793B3B1C1E618300BF1148 /* STTableBoardExtensions.swift */,
 				EB2D5E9C1C42A51E00029B8F /* STTableBoard+Implement.swift */,
 				EB2D5E9E1C42A5C700029B8F /* STTableBoard+Public.swift */,
-				EB793B3C1C1E618300BF1148 /* UIColor+ChineseColor.swift */,
-				EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */,
-				EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -185,6 +185,17 @@
 				EB793B441C1E618300BF1148 /* STBoardCell.swift */,
 			);
 			name = BoardCell;
+			sourceTree = "<group>";
+		};
+		EBD0BD821C48E4650056C1BA /* CommonExtension */ = {
+			isa = PBXGroup;
+			children = (
+				EB793B3C1C1E618300BF1148 /* UIColor+ChineseColor.swift */,
+				EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */,
+				EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */,
+				EBD0BD831C48E4900056C1BA /* StringExtension.swift */,
+			);
+			name = CommonExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +285,7 @@
 				EB793B4B1C1E618300BF1148 /* UIScrollViewExtension.swift in Sources */,
 				EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */,
 				EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */,
+				EBD0BD841C48E4900056C1BA /* StringExtension.swift in Sources */,
 				EB793B501C1E618300BF1148 /* STBoardView.swift in Sources */,
 				EB793B4E1C1E618300BF1148 /* STTableBoard.swift in Sources */,
 				EB793B531C1E61D200BF1148 /* constant.swift in Sources */,

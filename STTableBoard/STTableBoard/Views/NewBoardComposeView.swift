@@ -7,7 +7,7 @@
 //
 
 protocol NewBoardComposeViewDelegate: class {
-    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickDoneButton button: UIButton)
+    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickDoneButton button: UIButton, withBoardTitle title: String)
     func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickCancelButton button: UIButton)
 }
 
@@ -30,6 +30,8 @@ class NewBoardComposeView: UIView {
         field.borderStyle = .RoundedRect
         field.font = UIFont.systemFontOfSize(15.0)
         field.textColor = UIColor(red: 56/255.0, green: 56/255.0, blue: 56/255.0, alpha: 1.0)
+        field.delegate = self
+        field.returnKeyType = .Done
         return field
     }()
     
@@ -87,11 +89,30 @@ class NewBoardComposeView: UIView {
     }
     
     func doneButtonClicked(sender: UIButton) {
-        delegate?.newBoardComposeView(newBoardComposeView: self, didClickDoneButton: sender)
+        if let text = textField.text {
+            let trimedText = text.trim()
+            if trimedText.characters.count > 0 {
+                delegate?.newBoardComposeView(newBoardComposeView: self, didClickDoneButton: sender, withBoardTitle: trimedText)
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+}
+
+extension NewBoardComposeView: UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if let text = textField.text {
+            let trimedText = text.trim()
+            if trimedText.characters.count > 0 {
+                delegate?.newBoardComposeView(newBoardComposeView: self, didClickDoneButton: doneButton, withBoardTitle: trimedText)
+            } else {
+                return false
+            }
+        }
+        textField.resignFirstResponder()
+        return true
+    }
 }

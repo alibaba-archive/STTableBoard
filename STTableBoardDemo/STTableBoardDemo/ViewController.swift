@@ -82,25 +82,15 @@ extension ViewController: STTableBoardDelegate {
         titleArray.removeAtIndex(index)
     }
     
-    func tableBoard(tableBoard tableBoard: STTableBoard, willAddNewBoardAtIndex index: Int) {
+    func tableBoard(tableBoard tableBoard: STTableBoard, willAddNewBoardAtIndex index: Int, withBoardTitle title: String) {
         dataArray.append([])
-        titleArray.append("233")
+        titleArray.append(title)
     }
 }
 
 extension ViewController: STTableBoardDataSource {
     
     func tableBoard(tableBoard tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String? {
-//        switch board {
-//        case 0:
-//            return "Design"
-//        case 1:
-//            return "iOS"
-//        case 2:
-//            return "Android"
-//        default:
-//            return "Other"
-//        }
         return titleArray[board]
     }
     

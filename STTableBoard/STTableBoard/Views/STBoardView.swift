@@ -7,7 +7,6 @@
 //
 
 protocol STBoardViewDelegate: class {
-//    func boardMenuButtonDidBeClicked(index: Int)
     func boardFootViewDidBeClicked()
     func boardView(boardView: STBoardView, didClickButton button: UIButton)
 }
