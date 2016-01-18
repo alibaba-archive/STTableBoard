@@ -49,9 +49,9 @@ public extension STTableBoard {
         
         let newBoardButtonViewFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: top, width: boardWidth, height: newBoardButtonViewHeight)
         newBoardButtonView.frame = newBoardButtonViewFrame
-        newBoardComposeView.frame = newBoardButtonViewFrame
+        textComposeView.frame = newBoardButtonViewFrame
         containerView.addSubview(newBoardButtonView)
-        containerView.addSubview(newBoardComposeView)
+        containerView.addSubview(textComposeView)
     }
     
     func reloadBoardAtIndex(index: Int) {

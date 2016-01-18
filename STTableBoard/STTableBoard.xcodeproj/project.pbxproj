@@ -10,7 +10,7 @@
 		EB1263FB1C477CC700D3C42E /* BoardMenuTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1263FA1C477CC700D3C42E /* BoardMenuTextViewController.swift */; };
 		EB2D5E9D1C42A51E00029B8F /* STTableBoard+Implement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D5E9C1C42A51E00029B8F /* STTableBoard+Implement.swift */; };
 		EB2D5E9F1C42A5C700029B8F /* STTableBoard+Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D5E9E1C42A5C700029B8F /* STTableBoard+Public.swift */; };
-		EB3D687E1C3B6C7E00C6EAFD /* NewBoardComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3D687D1C3B6C7E00C6EAFD /* NewBoardComposeView.swift */; };
+		EB3D687E1C3B6C7E00C6EAFD /* TextComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3D687D1C3B6C7E00C6EAFD /* TextComposeView.swift */; };
 		EB4945471C40AAAA00B3573E /* BoardMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4945461C40AAAA00B3573E /* BoardMenu.swift */; };
 		EB5655F11C22AC7400182CEA /* STBoardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */; };
 		EB793B171C1E608900BF1148 /* STTableBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = EB793B161C1E608900BF1148 /* STTableBoard.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -36,7 +36,7 @@
 		EB1263FA1C477CC700D3C42E /* BoardMenuTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardMenuTextViewController.swift; sourceTree = "<group>"; };
 		EB2D5E9C1C42A51E00029B8F /* STTableBoard+Implement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STTableBoard+Implement.swift"; sourceTree = "<group>"; };
 		EB2D5E9E1C42A5C700029B8F /* STTableBoard+Public.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STTableBoard+Public.swift"; sourceTree = "<group>"; };
-		EB3D687D1C3B6C7E00C6EAFD /* NewBoardComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBoardComposeView.swift; sourceTree = "<group>"; };
+		EB3D687D1C3B6C7E00C6EAFD /* TextComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextComposeView.swift; sourceTree = "<group>"; };
 		EB4945461C40AAAA00B3573E /* BoardMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardMenu.swift; sourceTree = "<group>"; };
 		EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardFooterView.swift; sourceTree = "<group>"; };
 		EB793B131C1E608900BF1148 /* STTableBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STTableBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +71,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB1CF1F01C4CC7840084AB53 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				EB3D687D1C3B6C7E00C6EAFD /* TextComposeView.swift */,
+			);
+			name = Component;
+			sourceTree = "<group>";
+		};
 		EB793B091C1E608900BF1148 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				EB793B421C1E618300BF1148 /* STTableBoard.swift */,
+				EBCFC0441C3E499000B29AE5 /* BoardMenu */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -141,8 +150,8 @@
 		EB793B431C1E618300BF1148 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EB1CF1F01C4CC7840084AB53 /* Component */,
 				EBCFC0451C3E499900B29AE5 /* BoardCell */,
-				EBCFC0441C3E499000B29AE5 /* BoardMenu */,
 				EBCFC0431C3E498000B29AE5 /* NewBoardButton */,
 				EBCFC0421C3E496300B29AE5 /* Board */,
 			);
@@ -164,7 +173,6 @@
 			isa = PBXGroup;
 			children = (
 				EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */,
-				EB3D687D1C3B6C7E00C6EAFD /* NewBoardComposeView.swift */,
 			);
 			name = NewBoardButton;
 			sourceTree = "<group>";
@@ -177,6 +185,7 @@
 				EB4945461C40AAAA00B3573E /* BoardMenu.swift */,
 			);
 			name = BoardMenu;
+			path = ../Views;
 			sourceTree = "<group>";
 		};
 		EBCFC0451C3E499900B29AE5 /* BoardCell */ = {
@@ -281,7 +290,7 @@
 				EB793B511C1E618300BF1148 /* STShadowTableView.swift in Sources */,
 				EB793B4C1C1E618300BF1148 /* UIView+Frame.swift in Sources */,
 				EBCFC04F1C3E528A00B29AE5 /* BoardMenuTableViewController.swift in Sources */,
-				EB3D687E1C3B6C7E00C6EAFD /* NewBoardComposeView.swift in Sources */,
+				EB3D687E1C3B6C7E00C6EAFD /* TextComposeView.swift in Sources */,
 				EB793B4B1C1E618300BF1148 /* UIScrollViewExtension.swift in Sources */,
 				EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */,
 				EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */,

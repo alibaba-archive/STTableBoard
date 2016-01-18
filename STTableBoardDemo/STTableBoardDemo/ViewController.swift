@@ -124,8 +124,10 @@ extension ViewController: STTableBoardDataSource {
     func tableBoard(tableBoard tableBoard: STTableBoard, boardTitleBeChangedTo title: String, inBoard board: Int) {
        titleArray[board] = title
     }
-
-
     
+    func tableBoard(tableBoard tableBoard: STTableBoard, didAddRowAtBoard board: Int, withRowTitle title: String) {
+       dataArray[board].append(title)
+    }
 }
+
 

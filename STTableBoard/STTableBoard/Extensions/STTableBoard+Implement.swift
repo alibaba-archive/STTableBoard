@@ -111,16 +111,16 @@ extension STTableBoard: UITableViewDataSource {
 //MARK: - NewBoardButtonDelegate
 extension STTableBoard: NewBoardButtonDelegate {
     func newBoardButtonDidBeClicked(newBoardButton button: NewBoardButton) {
-        showNewBoardComposeView()
+        showTextComposeView()
     }
 }
 
-//MARK: - NewBoardComposeViewDelegate
-extension STTableBoard: NewBoardComposeViewDelegate {
-    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickDoneButton button: UIButton, withBoardTitle title: String) {
-        hiddenNewBoardComposeView()
+//MARK: - TextComposeViewDelegate
+extension STTableBoard: TextComposeViewDelegate {
+    func textComposeView(textComposeView view: TextComposeView, didClickDoneButton button: UIButton, withText text: String) {
+        hiddenTextComposeView()
         guard let delegate = delegate, dataSource = dataSource else { return }
-        delegate.tableBoard(tableBoard: self, willAddNewBoardAtIndex: numberOfPage - 1, withBoardTitle: title)
+        delegate.tableBoard(tableBoard: self, willAddNewBoardAtIndex: numberOfPage - 1, withBoardTitle: text)
         resetContentSize()
         
         let index = numberOfPage - 2
@@ -146,26 +146,38 @@ extension STTableBoard: NewBoardComposeViewDelegate {
         boardView.alpha = 0.0
         
         let newFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: newBoardButtonView.minY, width: newBoardButtonView.width, height: newBoardButtonView.height)
-        newBoardComposeView.frame = newFrame
+        textComposeView.frame = newFrame
         UIView.animateWithDuration(0.5) { () -> Void in
             boardView.alpha = 1.0
             self.newBoardButtonView.frame = newFrame
         }
     }
     
-    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickCancelButton button: UIButton) {
-        hiddenNewBoardComposeView()
+    func textComposeView(textComposeView view: TextComposeView, didClickCancelButton button: UIButton) {
+        hiddenTextComposeView()
     }
 }
 
 //MARK: - STBoardViewDelegate
 extension STTableBoard: STBoardViewDelegate {
-    func boardView(boardView: STBoardView, didClickButton button: UIButton) {
+    func boardView(boardView: STBoardView, didClickBoardMenuButton button: UIButton) {
         if boardMenuVisible {
             hiddenBoardMenu()
         } else {
             showBoardMenu(button, boardIndex: boardView.index, boardTitle: boardView.title)
         }
+    }
+    
+    func boardView(boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String) {
+        dataSource?.tableBoard(tableBoard: self, didAddRowAtBoard: boardView.index, withRowTitle: title)
+        let tableView = boardView.tableView
+        let numberOfRows = tableView.numberOfRowsInSection(0)
+        let insertedIndexPath = NSIndexPath(forRow: numberOfRows - 1, inSection: 0)
+        tableView.beginUpdates()
+        tableView.insertRowsAtIndexPaths([insertedIndexPath], withRowAnimation: .Automatic)
+        tableView.endUpdates()
+        autoAdjustTableBoardHeight(boardView, animated: false)
+        tableView.scrollToRowAtIndexPath(insertedIndexPath, atScrollPosition: .Top, animated: true)
     }
     
     func boardFootViewDidBeClicked() {

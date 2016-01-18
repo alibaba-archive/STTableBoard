@@ -75,8 +75,8 @@ public class STTableBoard: UIViewController {
         return view
     }()
     
-    lazy var newBoardComposeView: NewBoardComposeView = {
-        let view = NewBoardComposeView(frame: CGRectZero)
+    lazy var textComposeView: TextComposeView = {
+        let view = TextComposeView(frame: CGRectZero)
         view.delegate = self
         view.alpha = 0.0
         return view
@@ -144,6 +144,7 @@ public class STTableBoard: UIViewController {
     var scaledContentOffset = CGPoint(x: 0, y: 0)
     var currentScale: CGFloat = scaleForPage
     var tapPosition: CGPoint = CGPoint(x: 0, y: 0)
+    var originFrame: CGRect!
     
     //Board Menu property 
     var boardMenuVisible: Bool = false
@@ -152,6 +153,7 @@ public class STTableBoard: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupProperty()
+        addNotification()
     }
 
     override public func viewWillAppear(animated: Bool) {
@@ -230,5 +232,30 @@ public class STTableBoard: UIViewController {
     func resetContentSize() {
         scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
         containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
+    }
+    
+    func addNotification() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+}
+
+//MARK: - response method
+extension STTableBoard {
+    func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo, let keyboardFrameValue = userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue {
+            let keyboardFrame = keyboardFrameValue.CGRectValue()
+            let keyboardHeight = CGRectGetHeight(keyboardFrame)
+            originFrame = self.view.frame
+            UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
+                self.relayoutAllViews(CGSize(width: self.view.width, height: self.view.height - keyboardHeight))
+            })
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
+            self.relayoutAllViews(self.originFrame.size)
+            })
     }
 }

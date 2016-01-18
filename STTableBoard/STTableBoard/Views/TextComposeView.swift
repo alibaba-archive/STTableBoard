@@ -1,29 +1,22 @@
 //
-//  NewBoardComposeView.swift
-//  UITestProject
+//  TextComposeView.swift
+//  STTableBoard
 //
 //  Created by DangGu on 16/1/4.
 //  Copyright © 2016年 StormXX. All rights reserved.
 //
 
-protocol NewBoardComposeViewDelegate: class {
-    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickDoneButton button: UIButton, withBoardTitle title: String)
-    func newBoardComposeView(newBoardComposeView view: NewBoardComposeView, didClickCancelButton button: UIButton)
+protocol TextComposeViewDelegate: class {
+    func textComposeView(textComposeView view: TextComposeView, didClickDoneButton button: UIButton, withText text: String)
+    func textComposeView(textComposeView view: TextComposeView, didClickCancelButton button: UIButton)
 }
 
 import UIKit
 
-class NewBoardComposeView: UIView {
+class TextComposeView: UIView {
     
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-    // Drawing code
-    }
-    */
-    
-    weak var delegate: NewBoardComposeViewDelegate?
+    weak var delegate: TextComposeViewDelegate?
+    var textFieldHeight: CGFloat = 56.0
     
     lazy var textField: UITextField = {
         let field = UITextField(frame: CGRectZero)
@@ -56,8 +49,10 @@ class NewBoardComposeView: UIView {
         return button
     }()
     
-    override init(frame: CGRect) {
+    
+    init(frame: CGRect, textFieldHeight: CGFloat) {
         super.init(frame: frame)
+        
         layer.borderColor = boardBorderColor.CGColor
         layer.borderWidth = 1.0
         layer.masksToBounds = true
@@ -68,14 +63,14 @@ class NewBoardComposeView: UIView {
         addSubview(textField)
         addSubview(cancelButton)
         addSubview(doneButton)
-
+        
         textField.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.translatesAutoresizingMaskIntoConstraints = false
-
+        
         let views = ["textField":textField, "cancelButton":cancelButton, "doneButton":doneButton]
         let fieldHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[textField]-10-|", options: [], metrics: nil, views: views)
-        let fieldVerticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[textField(==56)]-10-[doneButton(==36)]", options: [], metrics: nil, views: views)
+        let fieldVerticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[textField(==textFieldHeight)]-10-[doneButton(==36)]", options: [], metrics: ["textFieldHeight": textFieldHeight], views: views)
         let buttonHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:[cancelButton(==64)]-5-[doneButton(==64)]-10-|", options: [.AlignAllCenterY], metrics: nil, views: views)
         let buttonEqualHeight = NSLayoutConstraint(item: cancelButton, attribute: .Height, relatedBy: .Equal, toItem: doneButton, attribute: .Height, multiplier: 1.0, constant: 0.0)
         
@@ -84,15 +79,20 @@ class NewBoardComposeView: UIView {
         NSLayoutConstraint.activateConstraints(vflConstraints + constraints)
     }
     
+    convenience override init(frame: CGRect) {
+        self.init(frame: frame, textFieldHeight: 56.0)
+    }
+    
     func cancelButtonClicked(sender: UIButton) {
-        delegate?.newBoardComposeView(newBoardComposeView: self, didClickCancelButton: sender)
+        textField.resignFirstResponder()
+        delegate?.textComposeView(textComposeView: self, didClickCancelButton: sender)
     }
     
     func doneButtonClicked(sender: UIButton) {
         if let text = textField.text {
             let trimedText = text.trim()
             if trimedText.characters.count > 0 {
-                delegate?.newBoardComposeView(newBoardComposeView: self, didClickDoneButton: sender, withBoardTitle: trimedText)
+                delegate?.textComposeView(textComposeView: self, didClickDoneButton: doneButton, withText: trimedText)
             }
         }
     }
@@ -102,17 +102,16 @@ class NewBoardComposeView: UIView {
     }
 }
 
-extension NewBoardComposeView: UITextFieldDelegate {
+extension TextComposeView: UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if let text = textField.text {
             let trimedText = text.trim()
             if trimedText.characters.count > 0 {
-                delegate?.newBoardComposeView(newBoardComposeView: self, didClickDoneButton: doneButton, withBoardTitle: trimedText)
+                delegate?.textComposeView(textComposeView: self, didClickDoneButton: doneButton, withText: trimedText)
             } else {
                 return false
             }
         }
-        textField.resignFirstResponder()
         return true
     }
 }

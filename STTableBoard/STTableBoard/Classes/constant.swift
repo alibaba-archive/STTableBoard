@@ -45,6 +45,8 @@ let headerViewHeight: CGFloat = 48.0
 let footerViewHeight: CGFloat = 48.0
 let newBoardButtonViewHeight: CGFloat = 56.0
 let newBoardComposeViewHeight: CGFloat = 122.0
+let newCellComposeViewTextFieldHeight: CGFloat = 40.0
+let newCellComposeViewHeight: CGFloat = 106.0
 let scaleForPage: CGFloat = 1.0
 let scaleForScroll: CGFloat = 0.5
 let defaultScrollViewScrollVelocity: CGFloat = 50.0
@@ -55,6 +57,7 @@ let minimumMovingRowInterval: NSTimeInterval = 0.2
 let boardBackgroundColor: UIColor = UIColor(red: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
 let tableBoardBackgroundColor: UIColor = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 1.0)
 let boardBorderColor: UIColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
+let boardFooterButtonTitleColor: UIColor = UIColor(red: 166.0/255.0, green: 166.0/255.0, blue: 166.0/255.0, alpha: 1.0)
 
 // new board button colors
 let dashedLineColor: UIColor = UIColor(red: 221.0/255.0, green: 221.0/255.0, blue: 221.0/255.0, alpha: 1.0)

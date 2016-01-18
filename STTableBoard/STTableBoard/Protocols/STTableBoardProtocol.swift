@@ -28,7 +28,7 @@ public protocol STTableBoardDataSource: class {
     func tableBoard(tableBoard tableBoard: STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath)
     func tableBoard(tableBoard tableBoard: STTableBoard, moveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int)
     func tableBoard(tableBoard tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String?
-
+    func tableBoard(tableBoard tableBoard: STTableBoard, didAddRowAtBoard board: Int, withRowTitle title: String)
 }
 
 public extension STTableBoardDataSource {

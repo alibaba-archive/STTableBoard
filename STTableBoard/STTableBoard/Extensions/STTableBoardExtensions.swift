@@ -425,21 +425,22 @@ extension STTableBoard {
             }, completion: nil)
     }
     
-    func showNewBoardComposeView() {
-        newBoardComposeView.textField.becomeFirstResponder()
-        newBoardComposeView.textField.text = nil
-        newBoardComposeView.alpha = 1.0
+    func showTextComposeView() {
+        textComposeView.textField.becomeFirstResponder()
+        textComposeView.textField.text = nil
+        textComposeView.alpha = 1.0
         newBoardButtonView.alpha = 0.0
         UIView.animateWithDuration(0.2) { () -> Void in
-            self.newBoardComposeView.frame.size.height = newBoardComposeViewHeight
+            self.textComposeView.frame.size.height = newBoardComposeViewHeight
         }
     }
     
-    func hiddenNewBoardComposeView() {
+    func hiddenTextComposeView() {
+        self.textComposeView.textField.text = nil
         self.newBoardButtonView.alpha = 1.0
         UIView.animateWithDuration(0.2, animations: { () -> Void in
-            self.newBoardComposeView.alpha = 0.0
-            self.newBoardComposeView.frame.size.height = newBoardButtonViewHeight
+            self.textComposeView.alpha = 0.0
+            self.textComposeView.frame.size.height = newBoardButtonViewHeight
             })
     }
 }

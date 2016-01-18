@@ -8,7 +8,8 @@
 
 protocol STBoardViewDelegate: class {
     func boardFootViewDidBeClicked()
-    func boardView(boardView: STBoardView, didClickButton button: UIButton)
+    func boardView(boardView: STBoardView, didClickBoardMenuButton button: UIButton)
+    func boardView(boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String)
 }
 
 import UIKit
@@ -22,6 +23,19 @@ class STBoardView: UIView {
     var bottomShadowBar: UIImageView!
     
     weak var delegate: STBoardViewDelegate?
+    var footerViewHeightConstant: CGFloat = footerViewHeight {
+        didSet {
+            footerViewHeightConstraint.constant = footerViewHeightConstant
+            UIView.animateWithDuration(0.33) { [unowned self]() -> Void in
+                self.layoutIfNeeded()
+            }
+        }
+    }
+    
+    lazy var footerViewHeightConstraint: NSLayoutConstraint = {
+        let constraint = NSLayoutConstraint(item: self.footerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: footerViewHeight)
+        return constraint
+    }()
     
     var snapshot: UIView {
         get {
@@ -104,8 +118,10 @@ class STBoardView: UIView {
         let headerViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[headerView]|", options: [], metrics: nil, views: ["headerView":headerView])
         let tableViewHorizontalConstraints  = NSLayoutConstraint.constraintsWithVisualFormat("H:|[tableView]|", options: [], metrics: nil, views: ["tableView":tableView])
         let footerViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[footerView]|", options: [], metrics: nil, views: ["footerView":footerView])
-        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[headerView(==headerViewHeight)][tableView][footerView(==footerViewHeight)]|", options: [], metrics: ["headerViewHeight":headerViewHeight, "footerViewHeight":footerViewHeight], views: ["headerView":headerView, "tableView":tableView, "footerView":footerView])
-        NSLayoutConstraint.activateConstraints(headerViewHorizontalConstraints + tableViewHorizontalConstraints + footerViewHorizontalConstraints + verticalConstraints)
+        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[headerView(==headerViewHeight)][tableView][footerView]|", options: [], metrics: ["headerViewHeight":headerViewHeight], views: ["headerView":headerView, "tableView":tableView, "footerView":footerView])
+        
+        let horizontalConstraints = headerViewHorizontalConstraints + tableViewHorizontalConstraints + footerViewHorizontalConstraints
+        NSLayoutConstraint.activateConstraints(horizontalConstraints + verticalConstraints + [footerViewHeightConstraint])
         
         //shadowView
         let topShadowBarImage = UIImage(named: "topShadow", inBundle: currentBundle, compatibleWithTraitCollection: nil)
