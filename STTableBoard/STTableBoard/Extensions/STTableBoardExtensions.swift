@@ -170,22 +170,9 @@ extension STTableBoard {
     }
     
     func moveRowToPosition(tableView: STShadowTableView?, recognizer: UIGestureRecognizer) {
-
+        guard let tableView = tableView, dataSource = dataSource else { return }
         
-        guard let tableView = tableView else { return }
-        
-        let positionInTableView = recognizer.locationInView(tableView)
-        var realPoint = positionInTableView
-        switch (isScrolling, scrollDirection) {
-        case (true, ScrollDirection.Left):
-            realPoint = CGPoint(x: positionInTableView.x + scrollView.presentContenOffset()!.x / currentScale, y: positionInTableView.y)
-        case (true, ScrollDirection.Right):
-            realPoint = CGPoint(x: positionInTableView.x - (scrollView.contentOffset.x - scrollView.presentContenOffset()!.x) / currentScale, y: positionInTableView.y)
-        default:
-            break
-        }
-        
-        if let indexPath = tableView.indexPathForRowAtPoint(realPoint), dataSource = dataSource {
+        func moveRowToIndexPath(indexPath: NSIndexPath) {
             if let lastMovingTime = lastMovingTime {
                 guard NSDate().timeIntervalSinceDate(lastMovingTime) > minimumMovingRowInterval else { return }
             }
@@ -212,6 +199,27 @@ extension STTableBoard {
             }
             sourceIndexPath = indexPath.convertToSTIndexPath(tableView.index)
             lastMovingTime = NSDate()
+        }
+        
+        let positionInTableView = recognizer.locationInView(tableView)
+        
+        if tableView.height == 0.0 {
+           let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            moveRowToIndexPath(indexPath)
+        } else {
+            var realPoint = positionInTableView
+            switch (isScrolling, scrollDirection) {
+            case (true, ScrollDirection.Left):
+                realPoint = CGPoint(x: positionInTableView.x + scrollView.presentContenOffset()!.x / currentScale, y: positionInTableView.y)
+            case (true, ScrollDirection.Right):
+                realPoint = CGPoint(x: positionInTableView.x - (scrollView.contentOffset.x - scrollView.presentContenOffset()!.x) / currentScale, y: positionInTableView.y)
+            default:
+                break
+            }
+            
+            if let indexPath = tableView.indexPathForRowAtPoint(realPoint) {
+                moveRowToIndexPath(indexPath)
+            }
         }
     }
     
