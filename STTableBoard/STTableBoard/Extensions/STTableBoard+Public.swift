@@ -54,11 +54,11 @@ public extension STTableBoard {
         containerView.addSubview(textComposeView)
     }
     
-    func reloadBoardAtIndex(index: Int) {
+    func reloadBoardAtIndex(index: Int, animated: Bool) {
         guard index < boards.count else { fatalError("index is not exist!!") }
         let board = boards[index]
         board.tableView.reloadData()
-        autoAdjustTableBoardHeight(board, animated: true)
+        autoAdjustTableBoardHeight(board, animated: animated)
     }
     
     func reloadBoardTitleAtIndex(index: Int) {
