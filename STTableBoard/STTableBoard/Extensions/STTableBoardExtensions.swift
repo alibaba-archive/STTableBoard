@@ -618,6 +618,8 @@ extension STTableBoard {
 extension STTableBoard {
     func showBoardMenu(button: UIButton, boardIndex: Int, boardTitle: String?) {
         let frame = boardMenuFrameBelowMenuButton(button)
+        boardMenuShadowView.frame = frame
+        view.addSubview(boardMenuShadowView)
         boardMenu.view.frame = frame
         boardMenu.boardIndex = boardIndex
         boardMenu.boardMenuTitle = boardTitle
@@ -632,6 +634,7 @@ extension STTableBoard {
     }
     
     func hiddenBoardMenu() {
+        boardMenuShadowView.removeFromSuperview()
         boardMenu.view.removeFromSuperview()
         boardMenu.removeFromParentViewController()
         boardMenuMaskView.removeFromSuperview()

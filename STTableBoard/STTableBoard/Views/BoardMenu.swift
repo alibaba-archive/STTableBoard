@@ -39,8 +39,8 @@ class BoardMenu: UINavigationController {
         let layer = view.layer
         layer.masksToBounds = true
         layer.cornerRadius = 6.0
-        layer.borderColor = boardBorderColor.CGColor
-        layer.borderWidth = 1.0
+//        layer.borderColor = boardBorderColor.CGColor
+//        layer.borderWidth = 1.0
         
     }
 

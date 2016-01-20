@@ -91,9 +91,21 @@ public class STTableBoard: UIViewController {
     
     lazy var boardMenuMaskView: UIView = {
         let view = UIView(frame: self.view.bounds)
-        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        view.backgroundColor = UIColor.clearColor()
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "boardMenuMaskViewTapped:")
         view.addGestureRecognizer(tapGesture)
+        return view
+    }()
+
+    lazy var boardMenuShadowView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.whiteColor()
+        let layer = view.layer
+        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        layer.shadowOpacity = 0.25
+        layer.shadowRadius = 30.0
+        layer.cornerRadius = 6.0
         return view
     }()
     
@@ -201,7 +213,7 @@ public class STTableBoard: UIViewController {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         coordinator.animateAlongsideTransition({ [unowned self](context) -> Void in
             let newSize = CGSize(width: size.width - (self.contentInset.left + self.contentInset.right + self.sizeOffset.width), height: size.height - (self.contentInset.top + self.contentInset.bottom + self.sizeOffset.height))
-            self.relayoutAllViews(newSize)
+            self.relayoutAllViews(newSize, hideBoardMenu: true)
             }) { [unowned self](contenxt) -> Void in
                 switch (currentOrientation, currentDevice) {
                 case (_, .Pad):
@@ -215,7 +227,7 @@ public class STTableBoard: UIViewController {
         }
     }
     
-    func relayoutAllViews(size: CGSize) {
+    func relayoutAllViews(size: CGSize, hideBoardMenu: Bool) {
         scrollView.frame = CGRect(origin: CGPointZero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
         containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
@@ -225,7 +237,7 @@ public class STTableBoard: UIViewController {
         }
         originContentSize = CGSize(width: originContentSize.width, height: size.height)
         
-        if boardMenuVisible {
+        if boardMenuVisible && hideBoardMenu {
             hiddenBoardMenu()
         }
     }
@@ -255,14 +267,14 @@ extension STTableBoard {
                 adjustHeight = screenHeight - CGRectGetMinY(keyboardFrame)
             }
             UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
-                self.relayoutAllViews(CGSize(width: self.view.width, height: self.view.height - adjustHeight))
+                self.relayoutAllViews(CGSize(width: self.view.width, height: self.view.height - adjustHeight), hideBoardMenu: false)
             })
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
         UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
-            self.relayoutAllViews(self.originFrame.size)
+            self.relayoutAllViews(self.originFrame.size, hideBoardMenu: false)
             })
     }
 }
