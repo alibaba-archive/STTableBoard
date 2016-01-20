@@ -153,7 +153,6 @@ public class STTableBoard: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupProperty()
-        addNotification()
     }
 
     override public func viewWillAppear(animated: Bool) {
@@ -164,10 +163,12 @@ public class STTableBoard: UIViewController {
     override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         scrollView.pinchGestureRecognizer?.enabled = false
+        addNotification()
     }
 
     override public func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     //MARK: - init helper
@@ -243,12 +244,18 @@ public class STTableBoard: UIViewController {
 //MARK: - response method
 extension STTableBoard {
     func keyboardWillShow(notification: NSNotification) {
-        if let userInfo = notification.userInfo, let keyboardFrameValue = userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue {
+        if let userInfo = notification.userInfo, let keyboardFrameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardFrame = keyboardFrameValue.CGRectValue()
             let keyboardHeight = CGRectGetHeight(keyboardFrame)
+            let screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
+            
+            var adjustHeight = keyboardHeight
             originFrame = self.view.frame
+            if screenHeight - CGRectGetMinY(keyboardFrame) < keyboardHeight {
+                adjustHeight = screenHeight - CGRectGetMinY(keyboardFrame)
+            }
             UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
-                self.relayoutAllViews(CGSize(width: self.view.width, height: self.view.height - keyboardHeight))
+                self.relayoutAllViews(CGSize(width: self.view.width, height: self.view.height - adjustHeight))
             })
         }
     }
