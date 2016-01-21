@@ -118,6 +118,7 @@ extension STTableBoard: NewBoardButtonDelegate {
 //MARK: - TextComposeViewDelegate
 extension STTableBoard: TextComposeViewDelegate {
     func textComposeView(textComposeView view: TextComposeView, didClickDoneButton button: UIButton, withText text: String) {
+        view.textField.resignFirstResponder()
         hiddenTextComposeView()
         guard let delegate = delegate, dataSource = dataSource else { return }
         delegate.tableBoard(tableBoard: self, willAddNewBoardAtIndex: numberOfPage - 1, withBoardTitle: text)
@@ -134,6 +135,7 @@ extension STTableBoard: TextComposeViewDelegate {
         boardView.index = index
         boardView.tableView.delegate = self
         boardView.tableView.dataSource = self
+        boardView.delegate = self
         registerCellClasses.forEach({ (classAndIdentifier) -> () in
             boardView.tableView.registerClass(classAndIdentifier.0, forCellReuseIdentifier: classAndIdentifier.1)
         })
@@ -178,10 +180,6 @@ extension STTableBoard: STBoardViewDelegate {
         tableView.endUpdates()
         autoAdjustTableBoardHeight(boardView, animated: false)
         tableView.scrollToRowAtIndexPath(insertedIndexPath, atScrollPosition: .Top, animated: true)
-    }
-    
-    func boardFootViewDidBeClicked() {
-        
     }
 }
 

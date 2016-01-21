@@ -55,12 +55,10 @@ class STBoardHeaderView: UIView {
             multiplier: 1.0,
             constant: 0)
         
-        let buttonWidth = NSLayoutConstraint(item: actionButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 44.0)
-        let buttonHeight = NSLayoutConstraint(item: actionButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 19.0)
+        let buttonWidth = NSLayoutConstraint(item: actionButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 49.0)
         let buttonCenterY = NSLayoutConstraint(item: actionButton, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0)
         let buttonVerticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[actionButton]|", options: [], metrics: nil, views: ["titleLabel":titleLable, "actionButton":actionButton])
         
-//        NSLayoutConstraint.activateConstraints(horizontalConstraits + [titleLableVerticalConstrait, buttonWidth, buttonHeight, buttonCenterY])
         NSLayoutConstraint.activateConstraints(horizontalConstraits + buttonVerticalConstraints + [titleLableVerticalConstrait, buttonWidth, buttonCenterY])
     }
     

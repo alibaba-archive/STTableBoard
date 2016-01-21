@@ -52,6 +52,7 @@ let scaleForScroll: CGFloat = 0.5
 let defaultScrollViewScrollVelocity: CGFloat = 50.0
 let currentBundle = NSBundle(forClass: STTableBoard.self)
 let minimumMovingRowInterval: NSTimeInterval = 0.2
+let boardmenuMaxSpacingToEdge: CGFloat = 20.0
 
 //Color
 let boardBackgroundColor: UIColor = UIColor(red: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)

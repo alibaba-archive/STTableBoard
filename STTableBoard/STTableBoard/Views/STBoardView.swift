@@ -7,7 +7,6 @@
 //
 
 protocol STBoardViewDelegate: class {
-    func boardFootViewDidBeClicked()
     func boardView(boardView: STBoardView, didClickBoardMenuButton button: UIButton)
     func boardView(boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String)
 }

@@ -526,30 +526,29 @@ extension STTableBoard {
         var frame: CGRect = CGRectZero
         let height: CGFloat = 144.0
         let width: CGFloat = boardWidth + 60.0
+        let verticalSpacing: CGFloat = 5.0
         switch (tableBoardMode, currentOrientation, currentDevice) {
         case (.Page, _, _), (.Scroll, .Portrait, .Phone):
-            let y: CGFloat = CGRectGetMaxY(buttonFrameInView) + 20.0
+            let y: CGFloat = CGRectGetMaxY(buttonFrameInView) + verticalSpacing
             let x: CGFloat = 0.0
             frame = CGRect(x: x, y: y, width: width, height: height)
         case (.Scroll, _, _):
-            let maxMargin: CGFloat = 20.0
-            let y: CGFloat = CGRectGetMaxY(buttonFrameInView) + 20.0
-            let boardMenuLeftToEdge = CGRectGetMinX(buttonFrameInView) - width / 2
-            let boardMenuRightToEdge = view.width - (CGRectGetMaxX(buttonFrameInView) + width / 2)
+            let y: CGFloat = CGRectGetMaxY(buttonFrameInView) + verticalSpacing
+            let boardMenuLeftToEdge = CGRectGetMinX(buttonFrameInView) + CGRectGetWidth(buttonFrameInView)/2 - width / 2
+            let boardMenuRightToEdge = view.width - (CGRectGetMaxX(buttonFrameInView) - CGRectGetWidth(buttonFrameInView) / 2 + width / 2)
             var x: CGFloat = 0
             switch (boardMenuLeftToEdge, boardMenuRightToEdge) {
-            case (_, _) where boardMenuLeftToEdge > maxMargin && boardMenuRightToEdge > maxMargin:
+            case (_, _) where boardMenuLeftToEdge > boardmenuMaxSpacingToEdge && boardMenuRightToEdge > boardmenuMaxSpacingToEdge:
                 x = boardMenuLeftToEdge
-            case (_, _) where boardMenuLeftToEdge > maxMargin && boardMenuRightToEdge <= maxMargin:
-                x = view.width - maxMargin - width
-            case (_, _) where boardMenuLeftToEdge <= maxMargin:
-                x = maxMargin
+            case (_, _) where boardMenuLeftToEdge > boardmenuMaxSpacingToEdge && boardMenuRightToEdge <= boardmenuMaxSpacingToEdge:
+                x = view.width - boardmenuMaxSpacingToEdge - width
+            case (_, _) where boardMenuLeftToEdge <= boardmenuMaxSpacingToEdge:
+                x = boardmenuMaxSpacingToEdge
             default:
-                x = maxMargin
+                x = boardmenuMaxSpacingToEdge
             }
             frame = CGRect(x: x, y: y, width: width, height: height)
         }
-        
         return frame
     }
     
@@ -557,6 +556,12 @@ extension STTableBoard {
         let buttonFrameInView = view.convertRect(button.frame, fromView: button.superview)
         boardMenuPopover.center.x = CGRectGetMinX(buttonFrameInView) + buttonFrameInView.width / 2
         boardMenuPopover.center.y = CGRectGetMinY(boardMenu.view.frame) - boardMenuPopover.height / 2
+        if view.width - CGRectGetMaxX(boardMenu.view.frame) == boardmenuMaxSpacingToEdge {
+            let x = CGRectGetMaxX(boardMenu.view.frame) - boardMenuPopover.width
+            boardMenuPopover.frame.origin.x = x
+        } else if CGRectGetMinX(boardMenu.view.frame) == boardmenuMaxSpacingToEdge {
+            boardMenuPopover.frame.origin.x = boardmenuMaxSpacingToEdge
+        }
     }
 }
 
