@@ -193,8 +193,16 @@ extension STTableBoard: BoardMenuDelegate {
                 hiddenBoardMenu()
             }
         case .BoardDeleted:
-            let index = boardMenu.boardIndex
-            removeBoardAtIndex(index)
+            let alertControllerStyle: UIAlertControllerStyle = (currentDevice == .Pad ? .Alert : .ActionSheet)
+            let alertController = UIAlertController(title: nil, message: "Are you sure to delete the board", preferredStyle: alertControllerStyle)
+            let deleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: { [unowned self](action) -> Void in
+                let index = boardMenu.boardIndex
+                self.removeBoardAtIndex(index)
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            alertController.addAction(deleteAction)
+            alertController.addAction(cancelAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
         }
     }
 }

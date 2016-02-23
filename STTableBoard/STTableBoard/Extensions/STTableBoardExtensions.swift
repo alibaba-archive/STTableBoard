@@ -558,8 +558,10 @@ extension STTableBoard {
         boardMenuPopover.center.y = CGRectGetMinY(boardMenu.view.frame) - boardMenuPopover.height / 2
         if view.width - CGRectGetMaxX(boardMenu.view.frame) == boardmenuMaxSpacingToEdge {
             let x = CGRectGetMaxX(boardMenu.view.frame) - boardMenuPopover.width
-            boardMenuPopover.frame.origin.x = x
-        } else if CGRectGetMinX(boardMenu.view.frame) == boardmenuMaxSpacingToEdge {
+            if boardMenuPopover.frame.origin.x > x {
+                boardMenuPopover.frame.origin.x = x
+            }
+        } else if CGRectGetMinX(boardMenu.view.frame) == boardmenuMaxSpacingToEdge && CGRectGetMinX(boardMenuPopover.frame) < boardmenuMaxSpacingToEdge {
             boardMenuPopover.frame.origin.x = boardmenuMaxSpacingToEdge
         }
     }

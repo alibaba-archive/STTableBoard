@@ -55,8 +55,8 @@ let minimumMovingRowInterval: NSTimeInterval = 0.2
 let boardmenuMaxSpacingToEdge: CGFloat = 20.0
 
 //Color
-let boardBackgroundColor: UIColor = UIColor(red: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
-let tableBoardBackgroundColor: UIColor = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 1.0)
+let boardBackgroundColor: UIColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1.0)
+let tableBoardBackgroundColor: UIColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
 let boardBorderColor: UIColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
 let boardFooterButtonTitleColor: UIColor = UIColor(red: 166.0/255.0, green: 166.0/255.0, blue: 166.0/255.0, alpha: 1.0)
 
