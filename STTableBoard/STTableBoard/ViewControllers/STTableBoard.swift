@@ -68,7 +68,7 @@ public class STTableBoard: UIViewController {
     }
     
     lazy var newBoardButtonView: NewBoardButton = {
-        let view = NewBoardButton(frame: CGRectZero)
+        let view = NewBoardButton(frame: CGRect.zero)
         view.image = UIImage(named: "icon_addBoard", inBundle: currentBundle, compatibleWithTraitCollection: nil)
         view.title = "Add Stage..."
         view.delegate = self
@@ -76,7 +76,7 @@ public class STTableBoard: UIViewController {
     }()
     
     lazy var textComposeView: TextComposeView = {
-        let view = TextComposeView(frame: CGRectZero)
+        let view = TextComposeView(frame: CGRect.zero)
         view.delegate = self
         view.alpha = 0.0
         return view
@@ -196,7 +196,7 @@ public class STTableBoard: UIViewController {
         scrollView.bounces = false
         view.addSubview(scrollView)
 
-        containerView = UIView(frame: CGRect(origin: CGPointZero, size: scrollView.contentSize))
+        containerView = UIView(frame: CGRect(origin: CGPoint.zero, size: scrollView.contentSize))
         scrollView.addSubview(containerView)
         containerView.backgroundColor = tableBoardBackgroundColor
         scrollView.backgroundColor = tableBoardBackgroundColor
@@ -228,10 +228,10 @@ public class STTableBoard: UIViewController {
     }
     
     func relayoutAllViews(size: CGSize, hideBoardMenu: Bool) {
-        scrollView.frame = CGRect(origin: CGPointZero, size: size)
+        scrollView.frame = CGRect(origin: CGPoint.zero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
-        containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
-        boardMenuMaskView.frame = CGRect(origin: CGPointZero, size: size)
+        containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
+        boardMenuMaskView.frame = CGRect(origin: CGPoint.zero, size: size)
         boards.forEach { (board) -> () in
             autoAdjustTableBoardHeight(board, animated: true)
         }
@@ -244,7 +244,7 @@ public class STTableBoard: UIViewController {
     
     func resetContentSize() {
         scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
-        containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
+        containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
     }
     
     func addNotification() {

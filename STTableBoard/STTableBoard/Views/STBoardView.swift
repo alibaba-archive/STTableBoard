@@ -97,9 +97,9 @@ class STBoardView: UIView {
         layer.borderColor = boardBorderColor.CGColor
         layer.borderWidth = 0.5
         
-        headerView = STBoardHeaderView(frame: CGRectZero)
-        footerView = STBoardFooterView(frame: CGRectZero)
-        tableView = STShadowTableView(frame: CGRectZero, style: .Plain)
+        headerView = STBoardHeaderView(frame: CGRect.zero)
+        footerView = STBoardFooterView(frame: CGRect.zero)
+        tableView = STShadowTableView(frame: CGRect.zero, style: .Plain)
         headerView.backgroundColor = boardBackgroundColor
         footerView.backgroundColor = boardBackgroundColor
         tableView.backgroundColor = boardBackgroundColor

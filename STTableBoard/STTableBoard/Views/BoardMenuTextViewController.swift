@@ -20,7 +20,7 @@ class BoardMenuTextViewController: UIViewController {
     }
     
     var textField: UITextField = {
-        let textField = UITextField(frame: CGRectZero)
+        let textField = UITextField(frame: CGRect.zero)
         textField.returnKeyType = .Done
         let indentView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 5))
         textField.leftView = indentView

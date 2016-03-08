@@ -24,7 +24,7 @@ class STBoardFooterView: UIView {
     }()
     
     lazy var textComposeView: TextComposeView = {
-        let view = TextComposeView(frame: CGRect(x: 0, y: 0, width: self.width, height: self.height), textFieldHeight: newCellComposeViewTextFieldHeight)
+        let view = TextComposeView(frame: CGRect(x: 0, y: 0, width: self.width, height: self.height), textFieldHeight: newCellComposeViewTextFieldHeight, cornerRadius: 0.0)
         view.delegate = self
         return view
     }()
@@ -47,7 +47,7 @@ class STBoardFooterView: UIView {
     
     func addButtonTapped(sender: UIButton) {
         boardView.footerViewHeightConstant = newCellComposeViewHeight
-        textComposeView.frame = CGRect(origin: CGPointZero, size: CGSize(width: self.width, height: newCellComposeViewHeight))
+        textComposeView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: self.width, height: newCellComposeViewHeight))
         showTextComposeView()
 //        let tableView = boardView.tableView
 //        let indexPath = NSIndexPath(forRow: tableView.numberOfRowsInSection(0) - 1, inSection: 0)

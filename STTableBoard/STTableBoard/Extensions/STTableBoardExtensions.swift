@@ -523,7 +523,7 @@ extension STTableBoard {
     
     func boardMenuFrameBelowMenuButton(button: UIButton) -> CGRect {
         let buttonFrameInView = view.convertRect(button.frame, fromView: button.superview)
-        var frame: CGRect = CGRectZero
+        var frame: CGRect = CGRect.zero
         let height: CGFloat = 144.0
         let width: CGFloat = boardWidth + 60.0
         let verticalSpacing: CGFloat = 5.0

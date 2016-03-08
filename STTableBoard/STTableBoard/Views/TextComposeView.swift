@@ -19,7 +19,7 @@ class TextComposeView: UIView {
     var textFieldHeight: CGFloat = 56.0
     
     lazy var textField: UITextField = {
-        let field = UITextField(frame: CGRectZero)
+        let field = UITextField(frame: CGRect.zero)
         field.borderStyle = .RoundedRect
         field.font = UIFont.systemFontOfSize(15.0)
         field.textColor = UIColor(red: 56/255.0, green: 56/255.0, blue: 56/255.0, alpha: 1.0)
@@ -29,34 +29,36 @@ class TextComposeView: UIView {
     }()
     
     lazy var cancelButton: UIButton = {
-        let button = UIButton(frame: CGRectZero)
+        let button = UIButton(frame: CGRect.zero)
         button.setTitle("取消", forState: .Normal)
         button.setTitleColor(cancelButtonTextColor, forState: .Normal)
         button.backgroundColor = UIColor.clearColor()
         button.clipsToBounds = true
         button.addTarget(self, action: "cancelButtonClicked:", forControlEvents: .TouchUpInside)
+        button.titleLabel?.font = UIFont.systemFontOfSize(15.0)
         return button
     }()
     
     lazy var doneButton: UIButton = {
-        let button = UIButton(frame: CGRectZero)
+        let button = UIButton(frame: CGRect.zero)
         button.setTitle("确定", forState: .Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         button.backgroundColor = UIColor.clearColor()
         button.setBackgroundImage(UIImage(named: "doneButton_background", inBundle: currentBundle, compatibleWithTraitCollection: nil), forState: .Normal)
         button.clipsToBounds = true
         button.addTarget(self, action: "doneButtonClicked:", forControlEvents: .TouchUpInside)
+        button.titleLabel?.font = UIFont.systemFontOfSize(15.0)
         return button
     }()
     
     
-    init(frame: CGRect, textFieldHeight: CGFloat) {
+    init(frame: CGRect, textFieldHeight: CGFloat, cornerRadius: CGFloat) {
         super.init(frame: frame)
         
         layer.borderColor = boardBorderColor.CGColor
         layer.borderWidth = 1.0
         layer.masksToBounds = true
-        layer.cornerRadius = 4.0
+        layer.cornerRadius = cornerRadius
         backgroundColor = boardBackgroundColor
         
         clipsToBounds = true
@@ -80,7 +82,7 @@ class TextComposeView: UIView {
     }
     
     convenience override init(frame: CGRect) {
-        self.init(frame: frame, textFieldHeight: 56.0)
+        self.init(frame: frame, textFieldHeight: 56.0, cornerRadius: 4.0)
     }
     
     func cancelButtonClicked(sender: UIButton) {

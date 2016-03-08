@@ -17,22 +17,23 @@ class BoardCardCell: STBoardCell {
     }()
     
     private lazy var titleLabel: UILabel = {
-        let label = UILabel(frame: CGRectZero)
+        let label = UILabel(frame: CGRect.zero)
         label.numberOfLines = 2
         label.textAlignment = .Left
         label.font = UIFont.systemFontOfSize(15.0)
         label.lineBreakMode = .ByTruncatingTail
+        label.textColor = UIColor(red: 56/255.0, green: 56/255.0, blue: 56/255.0, alpha: 1.0)
         return label
     }()
     
     private lazy var checkBoxView: CheckBoxView = {
-        let view = CheckBoxView(frame: CGRectZero)
+        let view = CheckBoxView(frame: CGRect.zero)
         view.checked = false
         return view
     }()
     
     private lazy var avatarView: RoundAvatarImageView = {
-        let view = RoundAvatarImageView(frame: CGRectZero)
+        let view = RoundAvatarImageView(frame: CGRect.zero)
         return view
     }()
     
@@ -99,7 +100,7 @@ class BoardCardCell: STBoardCell {
         super.layoutSubviews()
         if !hasLoadTag {
             cardView.layoutIfNeeded()
-            let badge: BadgeView = BadgeView(frame: CGRectZero)
+            let badge: BadgeView = BadgeView(frame: CGRect.zero)
             badge.image = UIImage(named: "dueDate_icon")
             badge.backgroundImage = UIImage(named: "dueDate_background")
             badge.text = "16 Oct"
@@ -108,7 +109,7 @@ class BoardCardCell: STBoardCell {
             badge.sizeToFit()
             badge.textFont = UIFont.systemFontOfSize(10.0)
             
-            let bbadge: BadgeView = BadgeView(frame: CGRectZero)
+            let bbadge: BadgeView = BadgeView(frame: CGRect.zero)
             bbadge.image = UIImage(named: "tag_icon")
             bbadge.backgroundImage = UIImage(named: "tag_background")
             bbadge.text = "交互设计"
@@ -117,7 +118,7 @@ class BoardCardCell: STBoardCell {
             bbadge.sizeToFit()
             bbadge.textFont = UIFont.systemFontOfSize(10.0)
             
-            let cbadge: BadgeView = BadgeView(frame: CGRectZero)
+            let cbadge: BadgeView = BadgeView(frame: CGRect.zero)
             cbadge.image = UIImage(named: "subtask_icon")
             cbadge.imageWidth = 9.0
             cbadge.text = "2/3"

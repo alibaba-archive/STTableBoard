@@ -27,7 +27,7 @@ class NewBoardButton: UIView {
     weak var delegate: NewBoardButtonDelegate?
     
     private lazy var imageView: UIImageView = {
-        let view = UIImageView(frame: CGRectZero)
+        let view = UIImageView(frame: CGRect.zero)
         view.contentMode = .ScaleAspectFill
         return view
     }()
@@ -38,7 +38,7 @@ class NewBoardButton: UIView {
     }()
     
     private lazy var titleLabel: UILabel = {
-        let label = UILabel(frame: CGRectZero)
+        let label = UILabel(frame: CGRect.zero)
         label.numberOfLines = 1
         label.textColor = newBoardButtonTextColor
         label.font = UIFont.systemFontOfSize(17.0)

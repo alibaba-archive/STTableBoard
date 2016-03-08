@@ -62,7 +62,7 @@ public class BadgeView: UIView {
     }
     
     private lazy var imageView: UIImageView = {
-        let imageView: UIImageView = UIImageView(frame: CGRectZero)
+        let imageView: UIImageView = UIImageView(frame: CGRect.zero)
         return imageView
     }()
     
@@ -72,7 +72,7 @@ public class BadgeView: UIView {
     }()
     
     private lazy var titleLabel: UILabel = {
-        let label: UILabel = UILabel(frame: CGRectZero)
+        let label: UILabel = UILabel(frame: CGRect.zero)
         label.textAlignment = .Left
         label.font = self.textFont
         label.numberOfLines = 1
@@ -89,7 +89,7 @@ public class BadgeView: UIView {
     }
 
     override public func intrinsicContentSize() -> CGSize {
-        var size = titleLabel.text?.sizeWithAttributes([NSFontAttributeName: textFont]) ?? CGSizeZero
+        var size = titleLabel.text?.sizeWithAttributes([NSFontAttributeName: textFont]) ?? CGSize.zero
         
         size.height += 2 * titlePaddingY
         if let _ = image {

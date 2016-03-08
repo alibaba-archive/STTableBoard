@@ -70,7 +70,7 @@ extension STTableBoard: UIScrollViewDelegate {
                 scrollToPage(scrollView, page: pageAtPoint(tapPosition) - 1, targetContentOffset: nil)
             }
         }
-        containerView.frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
+        containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
         boards.forEach { (board) -> () in
             autoAdjustTableBoardHeight(board, animated: true)
         }

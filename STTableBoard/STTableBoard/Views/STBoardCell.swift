@@ -12,19 +12,17 @@ public class STBoardCell: UITableViewCell {
     
     var snapshot: UIView {
         get {
-            UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0);
+            UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0)
             self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
             let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext();
+            UIGraphicsEndImageContext()
             
             let snapshot = UIImageView(image: image)
             let layer = snapshot.layer
-            layer.masksToBounds = false;
-            layer.cornerRadius = 0.0;
-            layer.shadowOffset = CGSizeMake(-5.0, 0.0);
-            layer.shadowRadius = 5.0;
-            layer.shadowOpacity = 0.4;
-            return snapshot;
+            layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
+            layer.shadowRadius = 5.0
+            layer.shadowOpacity = 0.4
+            return snapshot
         }
     }
     
