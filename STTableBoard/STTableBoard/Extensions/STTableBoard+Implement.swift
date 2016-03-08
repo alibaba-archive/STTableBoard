@@ -112,6 +112,10 @@ extension STTableBoard: UITableViewDataSource {
 extension STTableBoard: NewBoardButtonDelegate {
     func newBoardButtonDidBeClicked(newBoardButton button: NewBoardButton) {
         showTextComposeView()
+        guard let boardView = boardViewForVisibleTextComposeView else { return }
+        boardView.hideTextComposeView()
+        boardViewForVisibleTextComposeView = nil
+        isAddBoardTextComposeViewVisible = true
     }
 }
 
@@ -133,6 +137,7 @@ extension STTableBoard: TextComposeViewDelegate {
         boardView.headerView.addGestureRecognizer(self.longPressGestureForBoard)
         boardView.tableView.addGestureRecognizer(self.longPressGestureForCell)
         boardView.index = index
+        boardView.tableBoard = self
         boardView.tableView.delegate = self
         boardView.tableView.dataSource = self
         boardView.delegate = self

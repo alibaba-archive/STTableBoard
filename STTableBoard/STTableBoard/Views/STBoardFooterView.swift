@@ -49,6 +49,15 @@ class STBoardFooterView: UIView {
         boardView.footerViewHeightConstant = newCellComposeViewHeight
         textComposeView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: self.width, height: newCellComposeViewHeight))
         showTextComposeView()
+        if boardView.tableBoard.isAddBoardTextComposeViewVisible {
+            boardView.tableBoard.hiddenTextComposeView()
+            boardView.tableBoard.isAddBoardTextComposeViewVisible = false
+        } else if let boardViewForVisibleTextComposeView = boardView.tableBoard.boardViewForVisibleTextComposeView {
+            if boardViewForVisibleTextComposeView != boardView {
+                boardViewForVisibleTextComposeView.hideTextComposeView()
+            }
+        }
+        boardView.tableBoard.boardViewForVisibleTextComposeView = boardView
 //        let tableView = boardView.tableView
 //        let indexPath = NSIndexPath(forRow: tableView.numberOfRowsInSection(0) - 1, inSection: 0)
 //        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)

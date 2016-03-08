@@ -20,6 +20,7 @@ class STBoardView: UIView {
     var tableView: STShadowTableView!
     var topShadowBar: UIImageView!
     var bottomShadowBar: UIImageView!
+    weak var tableBoard: STTableBoard!
     
     weak var delegate: STBoardViewDelegate?
     var footerViewHeightConstant: CGFloat = footerViewHeight {
@@ -177,4 +178,7 @@ class STBoardView: UIView {
         bottomShadowBar.hidden = (offsetY == 0 && tableView.height == tableView.contentSize.height) || (offsetY + tableView.height >= tableView.contentSize.height)
     }
 
+    func hideTextComposeView() {
+        footerView.hideTextComposeView()
+    }
 }

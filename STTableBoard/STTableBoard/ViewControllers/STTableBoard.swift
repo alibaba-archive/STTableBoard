@@ -160,6 +160,10 @@ public class STTableBoard: UIViewController {
     
     //Board Menu property 
     var boardMenuVisible: Bool = false
+    
+    //Text Compose property
+    var boardViewForVisibleTextComposeView: STBoardView?
+    var isAddBoardTextComposeViewVisible: Bool = false
 
     //MARK: - life cycle
     override public func viewDidLoad() {

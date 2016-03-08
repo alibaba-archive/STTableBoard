@@ -30,6 +30,7 @@ public extension STTableBoard {
             boardView.headerView.addGestureRecognizer(self.longPressGestureForBoard)
             boardView.tableView.addGestureRecognizer(self.longPressGestureForCell)
             boardView.index = i
+            boardView.tableBoard = self
             boardView.tableView.delegate = self
             boardView.tableView.dataSource = self
             boardView.delegate = self
