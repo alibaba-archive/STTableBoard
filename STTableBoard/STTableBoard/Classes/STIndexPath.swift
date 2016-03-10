@@ -12,7 +12,7 @@ public class STIndexPath {
     public let row: Int
     public let board: Int
 
-    init(forRow row: Int, inBoard board: Int) {
+    public init(forRow row: Int, inBoard board: Int) {
         self.row = row
         self.board = board
     }

@@ -13,12 +13,13 @@ class ViewController: UIViewController {
     
     var dataArray: [[String]] = []
     var titleArray: [String] = []
+    let tableBoard: STTableBoard! = STTableBoard()
     
     override func viewDidLoad() {
         self.automaticallyAdjustsScrollViewInsets = false
         super.viewDidLoad()
         self.title = "Teambition"
-        
+        addAddButton()
         dataArray = [
             ["七里香1","七里香2","七里香3","七里香4","最后的战役1","最后的战役2","最后的战役3","晴天1","晴天2","晴天3","晴天4","晴天5","爱情悬崖1","爱情悬崖2","爱情悬崖3","爱情悬崖4","彩虹1","彩虹2","彩虹3","彩虹4"],
             ["彩虹","星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴"],
@@ -57,15 +58,25 @@ class ViewController: UIViewController {
 //            ["星晴1","星晴2","星晴3"]
 //        ]
         
-        let table = STTableBoard()
-        table.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
+        tableBoard.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
 //        table.sizeOffset = CGSize(width: 80, height: 0)
-        table.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
-        table.delegate = self
-        table.dataSource = self
-        self.addChildViewController(table)
-        view.addSubview(table.view)
-        table.didMoveToParentViewController(self)
+        tableBoard.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
+        tableBoard.delegate = self
+        tableBoard.dataSource = self
+        self.addChildViewController(tableBoard)
+        view.addSubview(tableBoard.view)
+        tableBoard.didMoveToParentViewController(self)
+    }
+    
+    func addAddButton() {
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "doneButtonClick")
+        navigationItem.rightBarButtonItem = doneButton
+    }
+    
+    func doneButtonClick() {
+        let indexPath1 = STIndexPath(forRow: dataArray[1].count, inBoard: 1)
+        dataArray[1].append("wtf")
+        tableBoard.insertRowAtIndexPath(indexPath1, withRowAnimation: .Fade, atScrollPosition: .Bottom)
     }
     
     override func didReceiveMemoryWarning() {
@@ -124,11 +135,13 @@ extension ViewController: STTableBoardDataSource {
     }
     
     func tableBoard(tableBoard tableBoard: STTableBoard, boardTitleBeChangedTo title: String, inBoard board: Int) {
-       titleArray[board] = title
+        titleArray[board] = title
     }
     
     func tableBoard(tableBoard tableBoard: STTableBoard, didAddRowAtBoard board: Int, withRowTitle title: String) {
-       dataArray[board].append(title)
+        let indexPath = STIndexPath(forRow: dataArray[board].count, inBoard: board)
+        dataArray[board].append(title)
+        tableBoard.insertRowAtIndexPath(indexPath, withRowAnimation: .Fade, atScrollPosition: .Bottom)
     }
 }
 

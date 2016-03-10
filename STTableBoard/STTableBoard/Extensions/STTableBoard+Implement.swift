@@ -177,14 +177,14 @@ extension STTableBoard: STBoardViewDelegate {
     
     func boardView(boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String) {
         dataSource?.tableBoard(tableBoard: self, didAddRowAtBoard: boardView.index, withRowTitle: title)
-        let tableView = boardView.tableView
-        let numberOfRows = tableView.numberOfRowsInSection(0)
-        let insertedIndexPath = NSIndexPath(forRow: numberOfRows - 1, inSection: 0)
-        tableView.beginUpdates()
-        tableView.insertRowsAtIndexPaths([insertedIndexPath], withRowAnimation: .Automatic)
-        tableView.endUpdates()
-        autoAdjustTableBoardHeight(boardView, animated: false)
-        tableView.scrollToRowAtIndexPath(insertedIndexPath, atScrollPosition: .Top, animated: true)
+//        let tableView = boardView.tableView
+//        let numberOfRows = tableView.numberOfRowsInSection(0)
+//        let insertedIndexPath = NSIndexPath(forRow: numberOfRows - 1, inSection: 0)
+//        tableView.beginUpdates()
+//        tableView.insertRowsAtIndexPaths([insertedIndexPath], withRowAnimation: .Automatic)
+//        tableView.endUpdates()
+//        autoAdjustTableBoardHeight(boardView, animated: false)
+//        tableView.scrollToRowAtIndexPath(insertedIndexPath, atScrollPosition: .Top, animated: true)
     }
 }
 
