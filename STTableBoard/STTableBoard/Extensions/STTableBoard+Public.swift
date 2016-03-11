@@ -21,7 +21,7 @@ public extension STTableBoard {
         }
         newBoardButtonView.removeFromSuperview()
         
-        for i in 0..<numberOfPage - 1 {
+        for i in 0..<numberOfPage - (showAddBoardButton ? 1 : 0) {
             let x = leading + CGFloat(i) * (boardWidth + pageSpacing)
             let y = top
             let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
@@ -48,11 +48,13 @@ public extension STTableBoard {
             containerView.addSubview(cardView)
         }
         
-        let newBoardButtonViewFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: top, width: boardWidth, height: newBoardButtonViewHeight)
-        newBoardButtonView.frame = newBoardButtonViewFrame
-        textComposeView.frame = newBoardButtonViewFrame
-        containerView.addSubview(newBoardButtonView)
-        containerView.addSubview(textComposeView)
+        if showAddBoardButton {
+            let newBoardButtonViewFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: top, width: boardWidth, height: newBoardButtonViewHeight)
+            newBoardButtonView.frame = newBoardButtonViewFrame
+            textComposeView.frame = newBoardButtonViewFrame
+            containerView.addSubview(newBoardButtonView)
+            containerView.addSubview(textComposeView)
+        }
     }
     
     func reloadBoardAtIndex(index: Int, animated: Bool) {

@@ -35,7 +35,7 @@ public class STTableBoard: UIViewController {
     var numberOfPage: Int {
         get {
             guard let page = self.dataSource?.numberOfBoardsInTableBoard(self) else { return 1 }
-            return page + 1
+            return page + (showAddBoardButton ? 1 : 0)
         }
     }
     
@@ -131,6 +131,9 @@ public class STTableBoard: UIViewController {
     //Delegate Property
     public weak var dataSource: STTableBoardDataSource?
     public weak var delegate: STTableBoardDelegate?
+    
+    //Public Property
+    public var showAddBoardButton: Bool = false
 
     //Move Row Or Board Property
     var snapshot: UIView!

@@ -63,6 +63,7 @@ class ViewController: UIViewController {
         tableBoard.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
         tableBoard.delegate = self
         tableBoard.dataSource = self
+//        tableBoard.showAddBoardButton = true
         self.addChildViewController(tableBoard)
         view.addSubview(tableBoard.view)
         tableBoard.didMoveToParentViewController(self)
