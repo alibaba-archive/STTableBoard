@@ -124,40 +124,12 @@ extension STTableBoard: TextComposeViewDelegate {
     func textComposeView(textComposeView view: TextComposeView, didClickDoneButton button: UIButton, withText text: String) {
         view.textField.resignFirstResponder()
         hiddenTextComposeView()
-        guard let delegate = delegate, dataSource = dataSource else { return }
+        guard let delegate = delegate else { return }
         delegate.tableBoard(tableBoard: self, willAddNewBoardAtIndex: numberOfPage - 1, withBoardTitle: text)
-        resetContentSize()
-        
-        let index = numberOfPage - 2
-        let x = leading + CGFloat(index) * (boardWidth + pageSpacing)
-        let y = top
-        let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
-        
-        let boardView: STBoardView = STBoardView(frame: boardViewFrame)
-        boardView.headerView.addGestureRecognizer(self.longPressGestureForBoard)
-        boardView.tableView.addGestureRecognizer(self.longPressGestureForCell)
-        boardView.index = index
-        boardView.tableBoard = self
-        boardView.tableView.delegate = self
-        boardView.tableView.dataSource = self
-        boardView.delegate = self
-        registerCellClasses.forEach({ (classAndIdentifier) -> () in
-            boardView.tableView.registerClass(classAndIdentifier.0, forCellReuseIdentifier: classAndIdentifier.1)
-        })
-        autoAdjustTableBoardHeight(boardView, animated: false)
-        boards.append(boardView)
-        containerView.addSubview(boardView)
-        
-        guard let boardTitle = dataSource.tableBoard(tableBoard: self, titleForBoardInBoard: index) else { return }
-        boardView.title = boardTitle
-        boardView.alpha = 0.0
-        
-        let newFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: newBoardButtonView.minY, width: newBoardButtonView.width, height: newBoardButtonView.height)
-        textComposeView.frame = newFrame
-        UIView.animateWithDuration(0.5) { () -> Void in
-            boardView.alpha = 1.0
-            self.newBoardButtonView.frame = newFrame
-        }
+//        resetContentSize()
+//        
+//        let index = numberOfPage - 2
+//        insertBoardAtIndex(index, animation: true)
     }
     
     func textComposeView(textComposeView view: TextComposeView, didClickCancelButton button: UIButton) {

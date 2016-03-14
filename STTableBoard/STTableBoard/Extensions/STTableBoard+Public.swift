@@ -22,32 +22,9 @@ public extension STTableBoard {
         newBoardButtonView.removeFromSuperview()
         
         for i in 0..<numberOfPage - (showAddBoardButton ? 1 : 0) {
-            let x = leading + CGFloat(i) * (boardWidth + pageSpacing)
-            let y = top
-            let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
-            
-            let boardView: STBoardView = STBoardView(frame: boardViewFrame)
-            boardView.headerView.addGestureRecognizer(self.longPressGestureForBoard)
-            boardView.tableView.addGestureRecognizer(self.longPressGestureForCell)
-            boardView.index = i
-            boardView.tableBoard = self
-            boardView.tableView.delegate = self
-            boardView.tableView.dataSource = self
-            boardView.delegate = self
-            registerCellClasses.forEach({ (classAndIdentifier) -> () in
-                boardView.tableView.registerClass(classAndIdentifier.0, forCellReuseIdentifier: classAndIdentifier.1)
-            })
-            autoAdjustTableBoardHeight(boardView, animated: false)
-            boards.append(boardView)
-            
-            guard let dataSource = dataSource, let boardTitle = dataSource.tableBoard(tableBoard: self, titleForBoardInBoard: i) else { return }
-            boardView.title = boardTitle
+            insertBoardAtIndex(i, animation: false)
         }
-        
-        boards.forEach { (cardView) -> () in
-            containerView.addSubview(cardView)
-        }
-        
+
         if showAddBoardButton {
             let newBoardButtonViewFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: top, width: boardWidth, height: newBoardButtonViewHeight)
             newBoardButtonView.frame = newBoardButtonViewFrame
@@ -117,5 +94,9 @@ public extension STTableBoard {
         tableView.endUpdates()
         autoAdjustTableBoardHeight(board, animated: true)
         tableView.scrollToRowAtIndexPath(indexPath.convertToNSIndexPath(), atScrollPosition: scrollPosition, animated: true)
+    }
+    
+    func insertBoardAtIndex(index: Int, withAnimation animation: Bool) {
+        insertBoardAtIndex(index, animation: animation)
     }
 }

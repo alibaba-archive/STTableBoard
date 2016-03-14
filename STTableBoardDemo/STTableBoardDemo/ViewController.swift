@@ -63,7 +63,7 @@ class ViewController: UIViewController {
         tableBoard.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
         tableBoard.delegate = self
         tableBoard.dataSource = self
-//        tableBoard.showAddBoardButton = true
+        tableBoard.showAddBoardButton = true
         self.addChildViewController(tableBoard)
         view.addSubview(tableBoard.view)
         tableBoard.didMoveToParentViewController(self)
@@ -99,6 +99,7 @@ extension ViewController: STTableBoardDelegate {
     func tableBoard(tableBoard tableBoard: STTableBoard, willAddNewBoardAtIndex index: Int, withBoardTitle title: String) {
         dataArray.append([])
         titleArray.append(title)
+        tableBoard.insertBoardAtIndex(index, withAnimation: true)
     }
 }
 

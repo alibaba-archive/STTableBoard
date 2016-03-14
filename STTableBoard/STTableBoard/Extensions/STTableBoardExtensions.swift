@@ -565,6 +565,47 @@ extension STTableBoard {
             boardMenuPopover.frame.origin.x = boardmenuMaxSpacingToEdge
         }
     }
+    
+    func insertBoardAtIndex(index: Int, animation: Bool) {
+        if animation {
+            resetContentSize()
+        }
+        let x = leading + CGFloat(index) * (boardWidth + pageSpacing)
+        let y = top
+        let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
+        
+        let boardView: STBoardView = STBoardView(frame: boardViewFrame)
+        boardView.headerView.addGestureRecognizer(self.longPressGestureForBoard)
+        boardView.tableView.addGestureRecognizer(self.longPressGestureForCell)
+        boardView.index = index
+        boardView.tableBoard = self
+        boardView.tableView.delegate = self
+        boardView.tableView.dataSource = self
+        boardView.delegate = self
+        registerCellClasses.forEach({ (classAndIdentifier) -> () in
+            boardView.tableView.registerClass(classAndIdentifier.0, forCellReuseIdentifier: classAndIdentifier.1)
+        })
+        autoAdjustTableBoardHeight(boardView, animated: false)
+        boards.append(boardView)
+        containerView.addSubview(boardView)
+        
+        guard let dataSource = dataSource, let boardTitle = dataSource.tableBoard(tableBoard: self, titleForBoardInBoard: index) else { return }
+        boardView.title = boardTitle
+        if animation {
+            boardView.alpha = 0
+            UIView.animateWithDuration(0.5) { () -> Void in
+                boardView.alpha = 1.0
+            }
+        }
+        
+        if showAddBoardButton && animation {
+            let newFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: newBoardButtonView.minY, width: newBoardButtonView.width, height: newBoardButtonView.height)
+            textComposeView.frame = newFrame
+            UIView.animateWithDuration(0.5) { () -> Void in
+                self.newBoardButtonView.frame = newFrame
+            }
+        }
+    }
 }
 
 //MARK: - UITableView help method
