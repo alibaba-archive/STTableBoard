@@ -1,2 +1,2 @@
 # STTableBoard
-a table board like trello
+task board for Teambition
