@@ -44,14 +44,14 @@ public extension STTableBoard {
     func reloadBoardTitleAtIndex(index: Int) {
         guard index < boards.count else { fatalError("index is not exist!!") }
         let board = boards[index]
-        board.title = dataSource?.tableBoard(tableBoard: self, titleForBoardInBoard: index)
+        board.title = dataSource?.tableBoard(self, titleForBoardInBoard: index)
     }
     
     func removeBoardAtIndex(index: Int) {
         hiddenBoardMenu()
         guard index < boards.count else { fatalError("index is not exist!!") }
         guard let delegate = delegate else { return }
-        delegate.tableBoard(tableBoard: self, willRemoveBoardAtIndex: index)
+        delegate.tableBoard(self, willRemoveBoardAtIndex: index)
         let board = boards[index]
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             board.alpha = 0.0

@@ -81,7 +81,7 @@ extension STTableBoard: UIScrollViewDelegate {
 extension STTableBoard: UITableViewDelegate {
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         guard let board = (tableView as! STShadowTableView).index,
-            heightForRow = delegate?.tableBoard(tableBoard: self, heightForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) else { return 44.0 }
+            heightForRow = delegate?.tableBoard(self, heightForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) else { return 44.0 }
         return heightForRow
     }
 }
@@ -94,13 +94,13 @@ extension STTableBoard: UITableViewDataSource {
     
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let board = (tableView as! STShadowTableView).index,
-            numberOfRows = dataSource?.tableBoard(tableBoard: self, numberOfRowsInBoard: board) else { return 0 }
+            numberOfRows = dataSource?.tableBoard(self, numberOfRowsInBoard: board) else { return 0 }
         return numberOfRows
     }
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let board = (tableView as! STShadowTableView).index,
-            cell = dataSource?.tableBoard(tableBoard: self, cellForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) as? STBoardCell else { fatalError("board or cell can not be nill") }
+            cell = dataSource?.tableBoard(self, cellForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) as? STBoardCell else { fatalError("board or cell can not be nill") }
         cell.backgroundColor = UIColor.clearColor()
         cell.contentView.backgroundColor = UIColor.clearColor()
         cell.moving = false
@@ -125,11 +125,7 @@ extension STTableBoard: TextComposeViewDelegate {
         view.textField.resignFirstResponder()
         hiddenTextComposeView()
         guard let delegate = delegate else { return }
-        delegate.tableBoard(tableBoard: self, willAddNewBoardAtIndex: numberOfPage - 1, withBoardTitle: text)
-//        resetContentSize()
-//        
-//        let index = numberOfPage - 2
-//        insertBoardAtIndex(index, animation: true)
+        delegate.tableBoard(self, willAddNewBoardAtIndex: numberOfPage - 1, withBoardTitle: text)
     }
     
     func textComposeView(textComposeView view: TextComposeView, didClickCancelButton button: UIButton) {
@@ -148,15 +144,7 @@ extension STTableBoard: STBoardViewDelegate {
     }
     
     func boardView(boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String) {
-        dataSource?.tableBoard(tableBoard: self, didAddRowAtBoard: boardView.index, withRowTitle: title)
-//        let tableView = boardView.tableView
-//        let numberOfRows = tableView.numberOfRowsInSection(0)
-//        let insertedIndexPath = NSIndexPath(forRow: numberOfRows - 1, inSection: 0)
-//        tableView.beginUpdates()
-//        tableView.insertRowsAtIndexPaths([insertedIndexPath], withRowAnimation: .Automatic)
-//        tableView.endUpdates()
-//        autoAdjustTableBoardHeight(boardView, animated: false)
-//        tableView.scrollToRowAtIndexPath(insertedIndexPath, atScrollPosition: .Top, animated: true)
+        dataSource?.tableBoard(self, didAddRowAtBoard: boardView.index, withRowTitle: title)
     }
 }
 
@@ -165,7 +153,7 @@ extension STTableBoard: BoardMenuDelegate {
         switch type {
         case .BoardTitleChanged:
             if let userInfo = userInfo, let newTitle = userInfo[newBoardTitleKey] as? String {
-                delegate?.tableBoard(tableBoard: self, boardTitleBeChangedTo: newTitle, inBoard: boardMenu.boardIndex)
+                delegate?.tableBoard(self, boardTitleBeChangedTo: newTitle, inBoard: boardMenu.boardIndex)
                 reloadBoardTitleAtIndex(boardMenu.boardIndex)
                 hiddenBoardMenu()
             }

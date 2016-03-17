@@ -140,7 +140,9 @@ public class STTableBoard: UIViewController {
     var snapshotCenterOffset: CGPoint!
     var snapshotOffsetForLeftBounds: CGFloat!
     var sourceIndexPath: STIndexPath!
+    var originIndexPath: STIndexPath!
     var sourceIndex: Int = -1
+    var originIndex: Int = -1
     var isMoveBoardFromPageMode: Bool = false
     var lastMovingTime: NSDate!
 

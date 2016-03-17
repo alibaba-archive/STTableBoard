@@ -87,16 +87,16 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: STTableBoardDelegate {
-    func tableBoard(tableBoard tableBoard: STTableBoard, heightForRowAtIndexPath indexPath: STIndexPath) -> CGFloat {
+    func tableBoard(tableBoard: STTableBoard, heightForRowAtIndexPath indexPath: STIndexPath) -> CGFloat {
         return 80.0
     }
     
-    func tableBoard(tableBoard tableBoard: STTableBoard, willRemoveBoardAtIndex index: Int) {
+    func tableBoard(tableBoard: STTableBoard, willRemoveBoardAtIndex index: Int) {
         dataArray.removeAtIndex(index)
         titleArray.removeAtIndex(index)
     }
     
-    func tableBoard(tableBoard tableBoard: STTableBoard, willAddNewBoardAtIndex index: Int, withBoardTitle title: String) {
+    func tableBoard(tableBoard: STTableBoard, willAddNewBoardAtIndex index: Int, withBoardTitle title: String) {
         dataArray.append([])
         titleArray.append(title)
         tableBoard.insertBoardAtIndex(index, withAnimation: true)
@@ -104,8 +104,7 @@ extension ViewController: STTableBoardDelegate {
 }
 
 extension ViewController: STTableBoardDataSource {
-    
-    func tableBoard(tableBoard tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String? {
+    func tableBoard(tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String? {
         return titleArray[board]
     }
     
@@ -113,38 +112,67 @@ extension ViewController: STTableBoardDataSource {
         return dataArray.count
     }
     
-    func tableBoard(tableBoard tableBoard: STTableBoard, numberOfRowsInBoard board: Int) -> Int {
+    func tableBoard(tableBoard: STTableBoard, numberOfRowsInBoard board: Int) -> Int {
         return dataArray[board].count
     }
     
-    func tableBoard(tableBoard tableBoard: STTableBoard, cellForRowAtIndexPath indexPath: STIndexPath) -> UITableViewCell {
+    func tableBoard(tableBoard: STTableBoard, cellForRowAtIndexPath indexPath: STIndexPath) -> UITableViewCell {
         let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath) as! BoardCardCell
         cell.titleText = dataArray[indexPath.board][indexPath.row]
         return cell
     }
+
+    func tableBoard(tableBoard: STTableBoard, boardTitleBeChangedTo title: String, inBoard board: Int) {
+        titleArray[board] = title
+    }
     
-    func tableBoard(tableBoard tableBoard: STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) {
+    func tableBoard(tableBoard: STTableBoard, didAddRowAtBoard board: Int, withRowTitle title: String) {
+        let indexPath = STIndexPath(forRow: dataArray[board].count, inBoard: board)
+        dataArray[board].append(title)
+        tableBoard.insertRowAtIndexPath(indexPath, withRowAnimation: .Fade, atScrollPosition: .Bottom)
+    }
+    
+    // move row
+    func tableBoard(tableBoard: STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) {
         let data = dataArray[sourceIndexPath.board][sourceIndexPath.row]
         dataArray[sourceIndexPath.board].removeAtIndex(sourceIndexPath.row)
         dataArray[destinationIndexPath.board].insert(data, atIndex: destinationIndexPath.row)
     }
     
-    func tableBoard(tableBoard tableBoard: STTableBoard, moveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int) {
+    func tableBoard(tableBoard: STTableBoard, shouldMoveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) -> Bool {
+        if destinationIndexPath.board == 1 && destinationIndexPath.row == 1 {
+            return false
+        }
+        return true
+    }
+    
+    func tableBoard(tableBoard: STTableBoard, canMoveRowAtIndexPath indexPath: STIndexPath) -> Bool {
+        if indexPath.board == 0 && indexPath.row == 2 {
+            return false
+        }
+        return true
+    }
+    
+    func tableBoard(tableBoard: STTableBoard, didEndMoveRowAtOriginIndexPath originIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) {
+        print("originIndexPath \(originIndexPath), destinationIndexPath \(destinationIndexPath)")
+    }
+    
+    // move board
+    func tableBoard(tableBoard: STTableBoard, moveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int) {
         let sourceData = dataArray[sourceIndex]
         let destinationData = dataArray[destinationIndex]
         dataArray[sourceIndex] = destinationData
         dataArray[destinationIndex] = sourceData
     }
     
-    func tableBoard(tableBoard tableBoard: STTableBoard, boardTitleBeChangedTo title: String, inBoard board: Int) {
-        titleArray[board] = title
+    func tableBoard(tableBoard: STTableBoard, canMoveBoardAtIndex index: Int) -> Bool {
+        if index == 0 {
+            return false
+        }
+        return true
     }
     
-    func tableBoard(tableBoard tableBoard: STTableBoard, didAddRowAtBoard board: Int, withRowTitle title: String) {
-        let indexPath = STIndexPath(forRow: dataArray[board].count, inBoard: board)
-        dataArray[board].append(title)
-        tableBoard.insertRowAtIndexPath(indexPath, withRowAnimation: .Fade, atScrollPosition: .Bottom)
+    func tableBoard(tableBoard: STTableBoard, didEndMoveBoardAtOriginIndex originIndex: Int, toIndex destinationIndex: Int) {
+        print("originIndex \(originIndex), destinationIndex \(destinationIndex)")
     }
 }
-
-
