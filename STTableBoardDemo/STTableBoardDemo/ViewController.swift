@@ -101,6 +101,10 @@ extension ViewController: STTableBoardDelegate {
         titleArray.append(title)
         tableBoard.insertBoardAtIndex(index, withAnimation: true)
     }
+    
+    func tableBoard(tableBoard: STTableBoard, didSelectRowAtIndexPath indexPath: STIndexPath) {
+        print("board \(indexPath.board) row \(indexPath.row)")
+    }
 }
 
 extension ViewController: STTableBoardDataSource {

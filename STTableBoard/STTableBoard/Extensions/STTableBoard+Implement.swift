@@ -84,6 +84,11 @@ extension STTableBoard: UITableViewDelegate {
             heightForRow = delegate?.tableBoard(self, heightForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) else { return 44.0 }
         return heightForRow
     }
+    
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let board = (tableView as! STShadowTableView).index else { return }
+        delegate?.tableBoard(self, didSelectRowAtIndexPath: indexPath.convertToSTIndexPath(board))
+    }
 }
 
 //MARK: - UITableViewDataSource
