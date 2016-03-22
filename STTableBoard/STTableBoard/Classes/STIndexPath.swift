@@ -17,3 +17,11 @@ public class STIndexPath {
         self.board = board
     }
 }
+
+public func ==(left: STIndexPath, right: STIndexPath) -> Bool {
+    return left.board == right.board && left.row == right.row
+}
+
+public func !=(left: STIndexPath, right: STIndexPath) -> Bool {
+    return left.board != right.board || left.row != right.row
+}
