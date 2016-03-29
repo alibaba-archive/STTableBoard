@@ -99,4 +99,10 @@ public extension STTableBoard {
     func insertBoardAtIndex(index: Int, withAnimation animation: Bool) {
         insertBoardAtIndex(index, animation: animation)
     }
+    
+    func cellForRowAtIndexPath(indexPath: STIndexPath) -> STBoardCell? {
+        let board = boards[indexPath.board]
+        guard let tableView = board.tableView else { return nil }
+        return tableView.cellForRowAtIndexPath(indexPath.convertToNSIndexPath()) as? STBoardCell
+    }
 }

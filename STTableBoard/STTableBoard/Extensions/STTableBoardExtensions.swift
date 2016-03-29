@@ -350,7 +350,7 @@ extension STTableBoard {
                 timer.invalidate()
                 tableViewAutoScrollTimer = nil
             } else if tableViewAutoScrollTimer == nil {
-                tableViewAutoScrollTimer = NSTimer.scheduledTimerWithTimeInterval((1.0 / 60.0), target: self, selector: "tableViewAutoScrollTimerFired:", userInfo: [timerUserInfoTableViewKey : tableView], repeats: true)
+                tableViewAutoScrollTimer = NSTimer.scheduledTimerWithTimeInterval((1.0 / 60.0), target: self, selector: #selector(STTableBoard.tableViewAutoScrollTimerFired(_:)), userInfo: [timerUserInfoTableViewKey : tableView], repeats: true)
             }
         }
     }

@@ -19,7 +19,7 @@ class STBoardFooterView: UIView {
         button.setTitleColor(boardFooterButtonTitleColor, forState: .Normal)
         button.contentHorizontalAlignment = .Left
         button.contentEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0);
-        button.addTarget(self, action: "addButtonTapped:", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(STBoardFooterView.addButtonTapped(_:)), forControlEvents: .TouchUpInside)
         return button
     }()
     

@@ -33,7 +33,7 @@ class NewBoardButton: UIView {
     }()
     
     private lazy var tapGesture: UITapGestureRecognizer = {
-        let gesture = UITapGestureRecognizer(target: self, action: "viewDidBeClicked")
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(NewBoardButton.viewDidBeClicked))
         return gesture
     }()
     

@@ -27,7 +27,7 @@ class STBoardHeaderView: UIView {
     private lazy var actionButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "boardHeaderButton", inBundle: currentBundle, compatibleWithTraitCollection: nil), forState: .Normal)
-        button.addTarget(self, action: "actionButtonBeClicked:", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(STBoardHeaderView.actionButtonBeClicked(_:)), forControlEvents: .TouchUpInside)
         return button
     }()
 

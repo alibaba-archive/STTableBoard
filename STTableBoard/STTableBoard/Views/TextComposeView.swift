@@ -34,7 +34,7 @@ class TextComposeView: UIView {
         button.setTitleColor(cancelButtonTextColor, forState: .Normal)
         button.backgroundColor = UIColor.clearColor()
         button.clipsToBounds = true
-        button.addTarget(self, action: "cancelButtonClicked:", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(TextComposeView.cancelButtonClicked(_:)), forControlEvents: .TouchUpInside)
         button.titleLabel?.font = UIFont.systemFontOfSize(15.0)
         return button
     }()
@@ -46,7 +46,7 @@ class TextComposeView: UIView {
         button.backgroundColor = UIColor.clearColor()
         button.setBackgroundImage(UIImage(named: "doneButton_background", inBundle: currentBundle, compatibleWithTraitCollection: nil), forState: .Normal)
         button.clipsToBounds = true
-        button.addTarget(self, action: "doneButtonClicked:", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(TextComposeView.doneButtonClicked(_:)), forControlEvents: .TouchUpInside)
         button.titleLabel?.font = UIFont.systemFontOfSize(15.0)
         return button
     }()

@@ -41,20 +41,20 @@ public class STTableBoard: UIViewController {
     
     var longPressGestureForCell: UILongPressGestureRecognizer {
         get {
-            let gesture = UILongPressGestureRecognizer(target: self, action: "handleLongPressGestureForCell:")
+            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(STTableBoard.handleLongPressGestureForCell(_:)))
             return gesture
         }
     }
     
     var longPressGestureForBoard: UILongPressGestureRecognizer {
         get {
-            let gesture = UILongPressGestureRecognizer(target: self, action: "handleLongPressGestureForBoard:")
+            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(STTableBoard.handleLongPressGestureForBoard(_:)))
             return gesture
         }
     }
     
     lazy var doubleTapGesture: UITapGestureRecognizer = {
-        let gesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleDoubleTap:")
+        let gesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(STTableBoard.handleDoubleTap(_:)))
         gesture.delegate = self
         gesture.numberOfTapsRequired = 2
         gesture.numberOfTouchesRequired = 1
@@ -92,7 +92,7 @@ public class STTableBoard: UIViewController {
     lazy var boardMenuMaskView: UIView = {
         let view = UIView(frame: self.view.bounds)
         view.backgroundColor = UIColor.clearColor()
-        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "boardMenuMaskViewTapped:")
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(STTableBoard.boardMenuMaskViewTapped(_:)))
         view.addGestureRecognizer(tapGesture)
         return view
     }()
@@ -257,8 +257,8 @@ public class STTableBoard: UIViewController {
     }
     
     func addNotification() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(STTableBoard.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(STTableBoard.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
 }
 

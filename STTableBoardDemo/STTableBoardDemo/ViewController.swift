@@ -70,7 +70,7 @@ class ViewController: UIViewController {
     }
     
     func addAddButton() {
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "doneButtonClick")
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ViewController.doneButtonClick))
         navigationItem.rightBarButtonItem = doneButton
     }
     
@@ -104,6 +104,9 @@ extension ViewController: STTableBoardDelegate {
     
     func tableBoard(tableBoard: STTableBoard, didSelectRowAtIndexPath indexPath: STIndexPath) {
         print("board \(indexPath.board) row \(indexPath.row)")
+        if let cell = tableBoard.cellForRowAtIndexPath(indexPath) as? BoardCardCell {
+            print("cell's title \(cell.titleText)")
+        }
     }
 }
 
