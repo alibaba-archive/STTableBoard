@@ -10,7 +10,7 @@ import UIKit
 
 public class STTableBoard: UIViewController {
     
-    var boardWidth: CGFloat {
+    public var boardWidth: CGFloat {
         get {
             if currentDevice == .Pad {
                 return self.customBoardWidth
