@@ -398,7 +398,7 @@ extension STTableBoard {
     func caculateBoardHeight(board: STBoardView) -> CGFloat {
         guard let tableView = board.tableView else { return 0.0 }
         let numberOfRows = tableView.numberOfRowsInSection(0)
-        var tableViewContentHeight: CGFloat = headerViewHeight + footerViewHeight
+        var tableViewContentHeight: CGFloat = headerViewHeight + board.footerViewHeightConstant
         if numberOfRows > 0 {
             for i in 0..<numberOfRows {
                 tableViewContentHeight += self.tableView(tableView, heightForRowAtIndexPath: NSIndexPath(forRow: i, inSection: 0))

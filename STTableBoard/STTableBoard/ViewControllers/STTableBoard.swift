@@ -28,6 +28,7 @@ public class STTableBoard: UIViewController {
     }
     var maxBoardHeight: CGFloat {
         get {
+//            print("maxBoardHeight \(self.containerView.height - (top + bottom))")
             return self.containerView.height - (top + bottom)
         }
     }
@@ -222,6 +223,7 @@ public class STTableBoard: UIViewController {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         coordinator.animateAlongsideTransition({ [unowned self](context) -> Void in
             let newSize = CGSize(width: size.width - (self.contentInset.left + self.contentInset.right + self.sizeOffset.width), height: size.height - (self.contentInset.top + self.contentInset.bottom + self.sizeOffset.height))
+//            print("newSize :\(newSize)")
             self.relayoutAllViews(newSize, hideBoardMenu: true)
             }) { [unowned self](contenxt) -> Void in
                 switch (currentOrientation, currentDevice) {
@@ -240,6 +242,11 @@ public class STTableBoard: UIViewController {
         scrollView.frame = CGRect(origin: CGPoint.zero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
         containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
+//        print("********************")
+//        print("scrollView.frame \(scrollView.frame)")
+//        print("scrollView.contentSize \(scrollView.contentSize)")
+//        print("containerView.frame \(containerView.frame)")
+//        print("********************")
         boardMenuMaskView.frame = CGRect(origin: CGPoint.zero, size: size)
         boards.forEach { (board) -> () in
             autoAdjustTableBoardHeight(board, animated: true)

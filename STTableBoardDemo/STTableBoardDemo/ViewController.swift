@@ -22,10 +22,10 @@ class ViewController: UIViewController {
         addAddButton()
         dataArray = [
             ["七里香1","七里香2","七里香3","七里香4","最后的战役1","最后的战役2","最后的战役3","晴天1","晴天2","晴天3","晴天4","晴天5","爱情悬崖1","爱情悬崖2","爱情悬崖3","爱情悬崖4","彩虹1","彩虹2","彩虹3","彩虹4"],
-            ["彩虹","星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴"],
-            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
-            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"],
-            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6"]
+//            ["彩虹","星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴星晴"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"],
+            ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"]
         ]
         
         titleArray = ["七里香", "星晴", "彩虹", "彩虹", "彩虹"]
@@ -57,13 +57,18 @@ class ViewController: UIViewController {
 //            ["最后的战役1","最后的战役2","最后的战役3"],
 //            ["星晴1","星晴2","星晴3"]
 //        ]
+     
+      
         
         tableBoard.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
+        tableBoard.sizeOffset = CGSize(width: 80.0, height: 0)
 //        table.sizeOffset = CGSize(width: 80, height: 0)
         tableBoard.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
         tableBoard.delegate = self
         tableBoard.dataSource = self
         tableBoard.showAddBoardButton = true
+        view.frame.size.height -= 64.0
+        tableBoard.view.frame.size = view.frame.size
         self.addChildViewController(tableBoard)
         view.addSubview(tableBoard.view)
         tableBoard.didMoveToParentViewController(self)
