@@ -130,4 +130,8 @@ public extension STTableBoard {
         guard let tableView = board.tableView else { return nil }
         return tableView.cellForRowAtIndexPath(indexPath.convertToNSIndexPath()) as? STBoardCell
     }
+
+    func isEmpty(board: Int) -> Bool {
+        return boards[board].tableView.height == 0
+    }
 }
