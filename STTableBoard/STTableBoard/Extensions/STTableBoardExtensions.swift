@@ -424,7 +424,7 @@ extension STTableBoard {
     
     func tableBoard(tableBoard: STTableBoard, moveBoardAtIndex sourceIndex:Int, toIndex destinationIndex:Int) {
         
-        guard sourceIndex != destinationIndex , let dataSource = dataSource else { return }
+        guard sourceIndex != destinationIndex , let dataSource = dataSource where dataSource.tableBoard(self, shouldMoveBoardAtIndex: sourceIndex, toIndex: destinationIndex) else { return }
         dataSource.tableBoard(self, moveBoardAtIndex: sourceIndex, toIndex: destinationIndex)
         
         let sourceBoard = boards[sourceIndex]

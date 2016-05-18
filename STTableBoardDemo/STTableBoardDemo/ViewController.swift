@@ -157,6 +157,13 @@ extension ViewController: STTableBoardDataSource {
         }
         return true
     }
+
+    func tableBoard(tableBoard: STTableBoard, shouldMoveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int) -> Bool {
+        if destinationIndex == dataArray.count - 1 {
+            return false
+        }
+        return true
+    }
     
     func tableBoard(tableBoard: STTableBoard, didEndMoveBoardAtOriginIndex originIndex: Int, toIndex destinationIndex: Int) {
         print("originIndex \(originIndex), destinationIndex \(destinationIndex)")
