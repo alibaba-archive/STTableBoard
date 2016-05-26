@@ -36,7 +36,7 @@ public protocol STTableBoardDataSource: class {
     // move row
     func tableBoard(tableBoard: STTableBoard, canMoveRowAtIndexPath indexPath: STIndexPath) -> Bool
     func tableBoard(tableBoard: STTableBoard, shouldMoveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) -> Bool
-    func tableBoard(tableBoard: STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath)
+    func tableBoard(tableBoard: STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, inout toIndexPath destinationIndexPath: STIndexPath)
     func tableBoard(tableBoard: STTableBoard, didEndMoveRowAtOriginIndexPath originIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath)
     
     // move board
@@ -64,7 +64,7 @@ public extension STTableBoardDataSource {
         return true
     }
 
-    func tableBoard(tableBoard:STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) {
+    func tableBoard(tableBoard:STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, inout toIndexPath destinationIndexPath: STIndexPath) {
         return
     }
 

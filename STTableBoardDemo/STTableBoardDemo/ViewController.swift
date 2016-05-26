@@ -119,7 +119,8 @@ extension ViewController: STTableBoardDataSource {
     }
     
     // move row
-    func tableBoard(tableBoard: STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) {
+    func tableBoard(tableBoard: STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, inout toIndexPath destinationIndexPath: STIndexPath) {
+        destinationIndexPath = STIndexPath(forRow: 0, inBoard: destinationIndexPath.board)
         let data = dataArray[sourceIndexPath.board][sourceIndexPath.row]
         dataArray[sourceIndexPath.board].removeAtIndex(sourceIndexPath.row)
         dataArray[destinationIndexPath.board].insert(data, atIndex: destinationIndexPath.row)

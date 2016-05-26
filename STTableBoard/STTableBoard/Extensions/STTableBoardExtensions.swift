@@ -193,13 +193,15 @@ extension STTableBoard {
             if let lastMovingTime = lastMovingTime {
                 guard NSDate().timeIntervalSinceDate(lastMovingTime) > minimumMovingRowInterval else { return }
             }
-            dataSource.tableBoard(self, moveRowAtIndexPath: sourceIndexPath, toIndexPath: indexPath.convertToSTIndexPath(tableView.index))
+            var destinationIndexPath: STIndexPath = indexPath.convertToSTIndexPath(tableView.index)
+            dataSource.tableBoard(self, moveRowAtIndexPath: sourceIndexPath, toIndexPath: &destinationIndexPath)
+            let newIndexPath = destinationIndexPath.convertToNSIndexPath()
             if sourceIndexPath.board == tableView.index {
                 tableView.beginUpdates()
                 tableView.deleteRowsAtIndexPaths([sourceIndexPath.convertToNSIndexPath()], withRowAnimation: .Fade)
-                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .None)
                 tableView.endUpdates()
-                let cell = tableView.cellForRowAtIndexPath(indexPath) as! STBoardCell
+                let cell = tableView.cellForRowAtIndexPath(newIndexPath) as! STBoardCell
                 cell.moving = true
             } else {
                 let sourceTableView = boards[sourceIndexPath.board].tableView
@@ -208,13 +210,13 @@ extension STTableBoard {
                 sourceTableView.endUpdates()
                 rowDidBeRemovedFromTableView(sourceTableView)
                 tableView.beginUpdates()
-                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
                 tableView.endUpdates()
                 rowDidBeInsertedIntoTableView(tableView)
-                let cell = tableView.cellForRowAtIndexPath(indexPath) as! STBoardCell
+                let cell = tableView.cellForRowAtIndexPath(newIndexPath) as! STBoardCell
                 cell.moving = true
             }
-            sourceIndexPath = indexPath.convertToSTIndexPath(tableView.index)
+            sourceIndexPath = newIndexPath.convertToSTIndexPath(tableView.index)
             lastMovingTime = NSDate()
         }
         
