@@ -55,14 +55,14 @@ let minimumMovingRowInterval: NSTimeInterval = 0.2
 let boardmenuMaxSpacingToEdge: CGFloat = 20.0
 
 //Color
-let boardBackgroundColor: UIColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1.0)
-let tableBoardBackgroundColor: UIColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
+let boardBackgroundColor: UIColor = UIColor(red: 234.0/255.0, green: 235.0/255.0, blue: 236.0/255.0, alpha: 1.0)
+let tableBoardBackgroundColor: UIColor = UIColor(red: 243.0/255.0, green: 243.0/255.0, blue: 243.0/255.0, alpha: 1.0)
 let boardBorderColor: UIColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
 let boardFooterButtonTitleColor: UIColor = UIColor(red: 166.0/255.0, green: 166.0/255.0, blue: 166.0/255.0, alpha: 1.0)
 
 // new board button colors
 let dashedLineColor: UIColor = UIColor(red: 221.0/255.0, green: 221.0/255.0, blue: 221.0/255.0, alpha: 1.0)
-let newBoardButtonBackgroundColor: UIColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
+let newBoardButtonBackgroundColor: UIColor = UIColor(red: 234.0/255.0, green: 235.0/255.0, blue: 236.0/255.0, alpha: 1.0)
 let newBoardButtonTextColor: UIColor = UIColor(red: 189.0/255.0, green: 189.0/255.0, blue: 189.0/255.0, alpha: 1.0)
 let cancelButtonTextColor: UIColor = UIColor(red: 166/255.0, green: 166/255.0, blue: 166/255.0, alpha: 1.0)
 
