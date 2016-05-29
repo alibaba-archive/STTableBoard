@@ -30,8 +30,8 @@ class ViewController: UIViewController {
         
         titleArray = ["七里香", "星晴", "彩虹", "彩虹", "彩虹", "Empty"]
         
-        tableBoard.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
-        tableBoard.sizeOffset = CGSize(width: 80.0, height: 0)
+//        tableBoard.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
+//        tableBoard.sizeOffset = CGSize(width: 0.0, height: 64)
         tableBoard.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
         tableBoard.delegate = self
         tableBoard.dataSource = self
@@ -153,9 +153,9 @@ extension ViewController: STTableBoardDataSource {
     }
     
     func tableBoard(tableBoard: STTableBoard, canMoveBoardAtIndex index: Int) -> Bool {
-        if index == 0 {
-            return false
-        }
+//        if index == 0 {
+//            return false
+//        }
         return true
     }
 

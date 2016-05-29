@@ -385,10 +385,10 @@ extension STTableBoard {
     func stopAnimation() {
         CATransaction.begin()
         scrollView.layer.removeAllAnimations()
-        snapshot.layer.removeAllAnimations()
+        snapshot?.layer.removeAllAnimations()
         CATransaction.commit()
         scrollView.setContentOffset(CGPoint(x: scrollView.layer.presentationLayer()!.bounds.origin.x, y: 0), animated: false)
-        snapshot.center = CGPoint(x: self.snapshotOffsetForLeftBounds + scrollView.presentContenOffset()!.x / currentScale, y: snapshot.center.y)
+        snapshot?.center = CGPoint(x: self.snapshotOffsetForLeftBounds + scrollView.presentContenOffset()!.x / currentScale, y: snapshot.center.y)
         isScrolling = false
         scrollDirection = .None
         
