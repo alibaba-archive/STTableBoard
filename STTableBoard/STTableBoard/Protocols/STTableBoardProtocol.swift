@@ -44,6 +44,9 @@ public protocol STTableBoardDataSource: class {
     func tableBoard(tableBoard: STTableBoard, shouldMoveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int) -> Bool
     func tableBoard(tableBoard: STTableBoard, moveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int)
     func tableBoard(tableBoard: STTableBoard, didEndMoveBoardAtOriginIndex originIndex: Int, toIndex destinationIndex: Int)
+
+    // scale table board
+    func tableBoard(tableBoar: STTableBoard, scaleTableBoad isScaled: Bool)
 }
 
 public extension STTableBoardDataSource {
@@ -86,6 +89,10 @@ public extension STTableBoardDataSource {
     }
     
     func tableBoard(tableBoard: STTableBoard, didEndMoveBoardAtOriginIndex originIndex: Int, toIndex destinationIndex: Int) {
+        return
+    }
+
+    func tableBoard(tableBoar: STTableBoard, scaleTableBoad isScaled: Bool) {
         return
     }
 }

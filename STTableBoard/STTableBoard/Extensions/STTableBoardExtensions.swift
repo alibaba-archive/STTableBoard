@@ -12,6 +12,7 @@ import UIKit
 extension STTableBoard {
     func handleDoubleTap(recognizer: UIGestureRecognizer) {
         tapPosition = recognizer.locationInView(containerView)
+        dataSource?.tableBoard(self, scaleTableBoad: tableBoardMode == .Page)
         switchMode()
     }
 

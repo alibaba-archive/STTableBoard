@@ -171,4 +171,8 @@ extension ViewController: STTableBoardDataSource {
     func tableBoard(tableBoard: STTableBoard, didEndMoveBoardAtOriginIndex originIndex: Int, toIndex destinationIndex: Int) {
         print("originIndex \(originIndex), destinationIndex \(destinationIndex)")
     }
+
+    func tableBoard(tableBoar: STTableBoard, scaleTableBoad isScaled: Bool) {
+        print("isScaled : \(isScaled)")
+    }
 }
