@@ -25,17 +25,16 @@ class ViewController: UIViewController {
             ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"],
             ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"],
             ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"],
-            []
         ]
         
-        titleArray = ["七里香", "星晴", "彩虹", "彩虹", "彩虹", "Empty"]
+        titleArray = ["七里香", "星晴", "彩虹", "彩虹"]
         
 //        tableBoard.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
 //        tableBoard.sizeOffset = CGSize(width: 0.0, height: 64)
         tableBoard.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
         tableBoard.delegate = self
         tableBoard.dataSource = self
-        tableBoard.showAddBoardButton = true
+        tableBoard.showAddBoardButton = false
         view.frame.size.height -= 64.0
         tableBoard.view.frame.size = view.frame.size
         self.addChildViewController(tableBoard)
@@ -86,6 +85,9 @@ extension ViewController: STTableBoardDelegate {
         if let cell = tableBoard.cellForRowAtIndexPath(indexPath) as? BoardCardCell {
             print("cell's title \(cell.titleText)")
         }
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = UIColor.whiteColor()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

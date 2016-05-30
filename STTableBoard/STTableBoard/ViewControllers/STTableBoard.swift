@@ -171,6 +171,8 @@ public class STTableBoard: UIViewController {
     var boardViewForVisibleTextComposeView: STBoardView?
     var isAddBoardTextComposeViewVisible: Bool = false
 
+    private var isFirstLoading: Bool = true
+
     //MARK: - life cycle
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -179,7 +181,10 @@ public class STTableBoard: UIViewController {
 
     override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        reloadData()
+        if isFirstLoading {
+            reloadData()
+            isFirstLoading = false
+        }
     }
 
     override public func viewDidAppear(animated: Bool) {
