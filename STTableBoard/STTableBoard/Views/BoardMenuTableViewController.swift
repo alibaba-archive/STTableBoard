@@ -17,7 +17,9 @@ class BoardMenuTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
+        tableView.tableFooterView = UIView()
+        tableView.separatorColor = UIColor(white: 221 / 255.0, alpha: 1)
     }
 
     override func didReceiveMemoryWarning() {
