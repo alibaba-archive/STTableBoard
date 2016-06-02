@@ -50,8 +50,7 @@ public extension STTableBoard {
     func removeBoardAtIndex(index: Int) {
         hiddenBoardMenu()
         guard index < boards.count else { fatalError("index is not exist!!") }
-        guard let delegate = delegate else { return }
-        delegate.tableBoard(self, willRemoveBoardAtIndex: index)
+        guard let delegate = delegate where delegate.tableBoard(self, willRemoveBoardAtIndex: index) else { return }
         let board = boards[index]
         if let boardViewForVisibleTextComposeView = boardViewForVisibleTextComposeView where boardViewForVisibleTextComposeView.index == index {
             boardViewForVisibleTextComposeView.hideTextComposeView()

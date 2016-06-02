@@ -11,7 +11,7 @@ import UIKit
 public protocol STTableBoardDelegate: class {
     func tableBoard(tableBoard:STTableBoard, heightForRowAtIndexPath indexPath: STIndexPath) -> CGFloat
     func tableBoard(tableBoard: STTableBoard, willAddNewBoardAtIndex index: Int, withBoardTitle title: String)
-    func tableBoard(tableBoard: STTableBoard, willRemoveBoardAtIndex index: Int)
+    func tableBoard(tableBoard: STTableBoard, willRemoveBoardAtIndex index: Int) -> Bool
     func tableBoard(tableBoard: STTableBoard, boardTitleBeChangedTo title: String, inBoard board: Int)
     func tableBoard(tableBoard: STTableBoard, didSelectRowAtIndexPath indexPath: STIndexPath)
 }
