@@ -73,6 +73,7 @@ class STBoardFooterView: UIView {
     
     func hideTextComposeView() {
         titleButton.hidden = false
+        textComposeView.textField.resignFirstResponder()
         textComposeView.removeFromSuperview()
         textComposeView.textField.text = nil
         boardView.footerViewHeightConstant = footerViewHeight

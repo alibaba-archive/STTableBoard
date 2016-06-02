@@ -53,6 +53,9 @@ public extension STTableBoard {
         guard let delegate = delegate else { return }
         delegate.tableBoard(self, willRemoveBoardAtIndex: index)
         let board = boards[index]
+        if let boardViewForVisibleTextComposeView = boardViewForVisibleTextComposeView where boardViewForVisibleTextComposeView.index == index {
+            boardViewForVisibleTextComposeView.hideTextComposeView()
+        }
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             board.alpha = 0.0
             }) { [unowned self](finished) -> Void in
