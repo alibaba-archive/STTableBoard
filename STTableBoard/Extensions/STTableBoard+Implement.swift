@@ -141,11 +141,19 @@ extension STTableBoard: TextComposeViewDelegate {
 //MARK: - STBoardViewDelegate
 extension STTableBoard: STBoardViewDelegate {
     func boardView(boardView: STBoardView, didClickBoardMenuButton button: UIButton) {
-        if boardMenuVisible {
-            hiddenBoardMenu()
-        } else {
-            showBoardMenu(button, boardIndex: boardView.index, boardTitle: boardView.title)
+        switch currentDevice {
+        case .Pad:
+            if boardMenuVisible {
+                hiddenBoardMenu()
+            } else {
+                showBoardMenu(button, boardIndex: boardView.index, boardTitle: boardView.title)
+            }
+        case .Phone:
+            showBoardMenuActionSheet(boardView.index, boardTitle: boardView.title)
+        default:
+            break
         }
+
     }
     
     func boardView(boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String) {
@@ -167,6 +175,7 @@ extension STTableBoard: BoardMenuDelegate {
             let alertController = UIAlertController(title: nil, message: localizedString["STTableBoard.DeleteBoard.Alert.Message"], preferredStyle: alertControllerStyle)
             let deleteAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .Destructive, handler: { [unowned self](action) -> Void in
                 let index = boardMenu.boardIndex
+                self.hiddenBoardMenu()
                 self.removeBoardAtIndex(index)
             })
             let cancelAction = UIAlertAction(title: localizedString["STTableBoard.Cancel"], style: .Cancel, handler: nil)

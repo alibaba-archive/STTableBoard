@@ -713,6 +713,55 @@ extension STTableBoard {
     func boardMenuMaskViewTapped(recognizer: UIGestureRecognizer) {
         hiddenBoardMenu()
     }
+
+    func showBoardMenuActionSheet(boardIndex: Int, boardTitle: String?) {
+        func showEditBoardTitleAlert() {
+            let alert = UIAlertController(title: localizedString["STTableBoard.BoardMenuTextViewController.Title"], message: nil, preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: localizedString["STTableBoard.OK"], style: .Destructive) { (action) in
+                let textField = alert.textFields!.first!
+                guard let text = textField.text where !text.isEmpty else { return }
+                self.delegate?.tableBoard(self, boardTitleBeChangedTo: text, inBoard: boardIndex)
+                self.reloadBoardTitleAtIndex(boardIndex)
+                self.addNotification()
+            }
+            let cancelAction = UIAlertAction(title: localizedString["STTableBoard.Cancel"], style: .Cancel) { (action) in
+                self.addNotification()
+            }
+            alert.addTextFieldWithConfigurationHandler { (textFiled) in
+                textFiled.borderStyle = .None
+                textFiled.text = boardTitle
+                textFiled.becomeFirstResponder()
+            }
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            NSNotificationCenter.defaultCenter().removeObserver(self)
+            presentViewController(alert, animated: true, completion: nil)
+        }
+
+        func showDeleteBoardAlert() {
+            let alertController = UIAlertController(title: nil, message: localizedString["STTableBoard.DeleteBoard.Alert.Message"], preferredStyle: .ActionSheet)
+            let deleteAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .Destructive, handler: { [unowned self](action) -> Void in
+                self.removeBoardAtIndex(boardIndex)
+                })
+            let cancelAction = UIAlertAction(title: localizedString["STTableBoard.Cancel"], style: .Cancel, handler: nil)
+            alertController.addAction(deleteAction)
+            alertController.addAction(cancelAction)
+            presentViewController(alertController, animated: true, completion: nil)
+        }
+
+        let boardMenuActionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let cancelAction = UIAlertAction(title: localizedString["STTableBoard.Cancel"], style: .Cancel, handler: nil)
+        let editBoardTitleAction = UIAlertAction(title: localizedString["STTableBoard.EditBoardNameCell.Title"], style: .Default) { (action) in
+            showEditBoardTitleAlert()
+        }
+        let deleteBoardTitleAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .Destructive) { (action) in
+            showDeleteBoardAlert()
+        }
+        boardMenuActionSheet.addAction(editBoardTitleAction)
+        boardMenuActionSheet.addAction(deleteBoardTitleAction)
+        boardMenuActionSheet.addAction(cancelAction)
+        presentViewController(boardMenuActionSheet, animated: true, completion: nil)
+    }
 }
 
 
