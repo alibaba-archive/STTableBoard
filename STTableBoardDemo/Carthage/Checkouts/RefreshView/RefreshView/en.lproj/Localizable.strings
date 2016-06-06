@@ -1,0 +1,10 @@
+/* 
+  LocalizedString.strings
+  RefreshView
+
+  Created by bruce on 16/5/12.
+  Copyright © 2016年 ZouLiangming. All rights reserved.
+*/
+
+"NoMoreData" = "No more data";
+"Loading" = "Loading...";

@@ -26,6 +26,7 @@
 		EB793B511C1E618300BF1148 /* STShadowTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B461C1E618300BF1148 /* STShadowTableView.swift */; };
 		EB793B531C1E61D200BF1148 /* constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B521C1E61D200BF1148 /* constant.swift */; };
 		EB7C97C41C21B2C300C68649 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7C97C31C21B2C300C68649 /* Images.xcassets */; };
+		EBB220691D04F90E0085C31F /* RefreshView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB220681D04F90E0085C31F /* RefreshView.framework */; };
 		EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */; };
 		EBCFC04F1C3E528A00B29AE5 /* BoardMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCFC04E1C3E528A00B29AE5 /* BoardMenuTableViewController.swift */; };
 		EBD0BD841C48E4900056C1BA /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0BD831C48E4900056C1BA /* StringExtension.swift */; };
@@ -54,6 +55,7 @@
 		EB793B461C1E618300BF1148 /* STShadowTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STShadowTableView.swift; sourceTree = "<group>"; };
 		EB793B521C1E61D200BF1148 /* constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constant.swift; sourceTree = "<group>"; };
 		EB7C97C31C21B2C300C68649 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
+		EBB220681D04F90E0085C31F /* RefreshView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RefreshView.framework; path = Carthage/Build/iOS/RefreshView.framework; sourceTree = "<group>"; };
 		EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardHeaderView.swift; sourceTree = "<group>"; };
 		EBCFC04E1C3E528A00B29AE5 /* BoardMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardMenuTableViewController.swift; sourceTree = "<group>"; };
 		EBD0BD831C48E4900056C1BA /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBB220691D04F90E0085C31F /* RefreshView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +85,7 @@
 		EB793B091C1E608900BF1148 = {
 			isa = PBXGroup;
 			children = (
+				EBB2206A1D04F9100085C31F /* Frameworks */,
 				EB793B151C1E608900BF1148 /* STTableBoard */,
 				EB793B141C1E608900BF1148 /* Products */,
 			);
@@ -156,6 +160,14 @@
 				EBCFC0421C3E496300B29AE5 /* Board */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		EBB2206A1D04F9100085C31F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EBB220681D04F90E0085C31F /* RefreshView.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		EBCFC0421C3E496300B29AE5 /* Board */ = {
@@ -412,6 +424,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = STTableBoard/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -432,6 +448,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = STTableBoard/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

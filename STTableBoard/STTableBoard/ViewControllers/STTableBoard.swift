@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RefreshView
 
 public class STTableBoard: UIViewController {
     
@@ -26,9 +27,15 @@ public class STTableBoard: UIViewController {
             }
         }
     }
+
+    public var showLoadingView: Bool = false {
+        didSet {
+            scrollView.showLoadingView = showLoadingView
+        }
+    }
+
     var maxBoardHeight: CGFloat {
         get {
-//            print("maxBoardHeight \(self.containerView.height - (top + bottom))")
             return self.containerView.height - (top + bottom)
         }
     }
