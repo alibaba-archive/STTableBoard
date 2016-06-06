@@ -17,13 +17,13 @@
 		EB793BAF1C1E653400BF1148 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB793BAD1C1E653400BF1148 /* Main.storyboard */; };
 		EB793BB11C1E653400BF1148 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB793BB01C1E653400BF1148 /* Assets.xcassets */; };
 		EB793BB41C1E653400BF1148 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB793BB21C1E653400BF1148 /* LaunchScreen.storyboard */; };
-		EBB2206E1D04FB470085C31F /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB2206D1D04FB470085C31F /* STTableBoard.framework */; };
-		EBB2206F1D04FB470085C31F /* STTableBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBB2206D1D04FB470085C31F /* STTableBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EBB220741D04FD140085C31F /* RefreshView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB220721D04FCEF0085C31F /* RefreshView.framework */; };
 		EBB220751D04FD140085C31F /* RefreshView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBB220721D04FCEF0085C31F /* RefreshView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EBB662CD1C2131A700FB94A1 /* STCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662CC1C2131A700FB94A1 /* STCardCell.swift */; };
 		EBC6E9AA1C2BEC2E00073795 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC6E9A91C2BEC2E00073795 /* CardView.swift */; };
 		EBC8A1811C2A6F8000D9FD15 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */; };
+		EBD4D23C1D04FFCD00353EC0 /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD4D23B1D04FFCD00353EC0 /* STTableBoard.framework */; };
+		EBD4D23D1D04FFCD00353EC0 /* STTableBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBD4D23B1D04FFCD00353EC0 /* STTableBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,8 +33,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EBB2206F1D04FB470085C31F /* STTableBoard.framework in Embed Frameworks */,
 				EBB220751D04FD140085C31F /* RefreshView.framework in Embed Frameworks */,
+				EBD4D23D1D04FFCD00353EC0 /* STTableBoard.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,11 +54,11 @@
 		EB793BB01C1E653400BF1148 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB793BB31C1E653400BF1148 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB793BB51C1E653400BF1148 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EBB2206D1D04FB470085C31F /* STTableBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = STTableBoard.framework; path = "/Users/StormXX/Library/Developer/Xcode/DerivedData/STTableBoard-fgyhyehgmzhkqbbuoedisrfmcnmg/Build/Products/Debug-iphonesimulator/STTableBoard.framework"; sourceTree = "<absolute>"; };
 		EBB220721D04FCEF0085C31F /* RefreshView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RefreshView.framework; path = Carthage/Build/iOS/RefreshView.framework; sourceTree = "<group>"; };
 		EBB662CC1C2131A700FB94A1 /* STCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STCardCell.swift; sourceTree = "<group>"; };
 		EBC6E9A91C2BEC2E00073795 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
+		EBD4D23B1D04FFCD00353EC0 /* STTableBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = STTableBoard.framework; path = "/Users/StormXX/Library/Developer/Xcode/DerivedData/STTableBoard-fgyhyehgmzhkqbbuoedisrfmcnmg/Build/Products/Debug-iphoneos/STTableBoard.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBB2206E1D04FB470085C31F /* STTableBoard.framework in Frameworks */,
 				EBB220741D04FD140085C31F /* RefreshView.framework in Frameworks */,
+				EBD4D23C1D04FFCD00353EC0 /* STTableBoard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,8 +106,8 @@
 		EB793B9D1C1E653400BF1148 = {
 			isa = PBXGroup;
 			children = (
+				EBD4D23B1D04FFCD00353EC0 /* STTableBoard.framework */,
 				EBB220721D04FCEF0085C31F /* RefreshView.framework */,
-				EBB2206D1D04FB470085C31F /* STTableBoard.framework */,
 				EB793BA81C1E653400BF1148 /* STTableBoardDemo */,
 				EB793BA71C1E653400BF1148 /* Products */,
 			);

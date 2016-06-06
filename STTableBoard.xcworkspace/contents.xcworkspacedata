@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:STTableBoard/STTableBoard.xcodeproj">
+      location = "group:STTableBoard.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:STTableBoardDemo/STTableBoardDemo.xcodeproj">
+      location = "group:STTableBoardDemo.xcodeproj">
    </FileRef>
 </Workspace>
