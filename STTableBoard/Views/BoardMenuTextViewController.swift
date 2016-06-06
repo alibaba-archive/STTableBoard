@@ -35,7 +35,7 @@ class BoardMenuTextViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "编辑阶段名称"
+        self.title = localizedString["STTableBoard.BoardMenuTextViewController.Title"]
         self.view.backgroundColor = boardMenuTextViewControllerBackgroundColor
         textField.backgroundColor = UIColor.whiteColor()
         

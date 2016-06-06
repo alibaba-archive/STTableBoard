@@ -13,7 +13,20 @@ class ViewController: UIViewController {
     
     var dataArray: [[String]] = []
     var titleArray: [String] = []
-    let tableBoard: STTableBoard! = STTableBoard()
+    var localizedString: [String: String] = [
+        "STTableBoard.AddRow": "Add Task...",
+        "STTableBoard.AddBoard": "Add Stage...",
+        "STTableBoard.BoardMenuTextViewController.Title": "编辑阶段名称",
+        "STTableBoard.EditBoardNameCell.Title": "编辑阶段",
+        "STTableBoard.DeleteBoardCell.Title": "删除阶段",
+        "STTableBoard.DeleteBoard.Alert.Message": "确定要删除这个阶段吗？",
+        "STTableBoard.Delete": "删除",
+        "STTableBoard.Cancel": "取消"
+    ]
+    lazy var tableBoard: STTableBoard = {
+        let table = STTableBoard(localizedStrings: self.localizedString)
+        return table
+    }()
     
     override func viewDidLoad() {
         self.automaticallyAdjustsScrollViewInsets = false
@@ -35,7 +48,7 @@ class ViewController: UIViewController {
         tableBoard.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
         tableBoard.delegate = self
         tableBoard.dataSource = self
-        tableBoard.showAddBoardButton = false
+        tableBoard.showAddBoardButton = true
         view.frame.size.height -= 64.0
         tableBoard.view.frame.size = view.frame.size
         self.addChildViewController(tableBoard)

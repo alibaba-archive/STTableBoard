@@ -14,7 +14,7 @@ class STBoardFooterView: UIView {
 
     lazy var titleButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Add a Task...", forState: .Normal)
+        button.setTitle(localizedString["STTableBoard.AddRow"], forState: .Normal)
         button.titleLabel?.font = UIFont.systemFontOfSize(15.0)
         button.setTitleColor(boardFooterButtonTitleColor, forState: .Normal)
         button.contentHorizontalAlignment = .Left

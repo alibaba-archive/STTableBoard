@@ -68,11 +68,11 @@ extension BoardMenuTableViewController {
     private func configCell(cell: UITableViewCell, indexPath: NSIndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0,0):
-            cell.textLabel?.text = "编辑阶段"
+            cell.textLabel?.text = localizedString["STTableBoard.EditBoardNameCell.Title"]
             cell.imageView?.image = UIImage(named: "BoardMenu_Icon_Edit", inBundle: currentBundle, compatibleWithTraitCollection: nil)
             cell.accessoryType = .DisclosureIndicator
         case (0,1):
-            cell.textLabel?.text = "删除阶段"
+            cell.textLabel?.text = localizedString["STTableBoard.DeleteBoardCell.Title"]
             cell.imageView?.image = UIImage(named: "BoardMenu_Icon_Delete", inBundle: currentBundle, compatibleWithTraitCollection: nil)
             cell.accessoryType = .None
         default:

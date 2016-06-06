@@ -94,3 +94,13 @@ var currentOrientation: STTableBoardOrientation {
     }
 }
 
+var localizedString: [String: String] = [
+    "STTableBoard.AddRow": "添加任务...",
+    "STTableBoard.AddBoard": "添加阶段...",
+    "STTableBoard.BoardMenuTextViewController.Title": "编辑阶段名称",
+    "STTableBoard.EditBoardNameCell.Title": "编辑阶段",
+    "STTableBoard.DeleteBoardCell.Title": "删除阶段",
+    "STTableBoard.DeleteBoard.Alert.Message": "确定要删除这个阶段吗？",
+    "STTableBoard.Delete": "删除",
+    "STTableBoard.Cancel": "取消"
+]

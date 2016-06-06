@@ -33,22 +33,11 @@
 		EBEA1D041C3A6A39000B56BF /* NewBoardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		EB466E951D0500C1005DDB1C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EB466E911D0500C1005DDB1C /* STTableBoardDemo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EB793BA61C1E653400BF1148;
-			remoteInfo = STTableBoardDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		EB1263FA1C477CC700D3C42E /* BoardMenuTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardMenuTextViewController.swift; sourceTree = "<group>"; };
 		EB2D5E9C1C42A51E00029B8F /* STTableBoard+Implement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STTableBoard+Implement.swift"; sourceTree = "<group>"; };
 		EB2D5E9E1C42A5C700029B8F /* STTableBoard+Public.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STTableBoard+Public.swift"; sourceTree = "<group>"; };
 		EB3D687D1C3B6C7E00C6EAFD /* TextComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextComposeView.swift; sourceTree = "<group>"; };
-		EB466E911D0500C1005DDB1C /* STTableBoardDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = STTableBoardDemo.xcodeproj; sourceTree = "<group>"; };
 		EB4945461C40AAAA00B3573E /* BoardMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardMenu.swift; sourceTree = "<group>"; };
 		EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardFooterView.swift; sourceTree = "<group>"; };
 		EB793B131C1E608900BF1148 /* STTableBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STTableBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,18 +82,9 @@
 			name = Component;
 			sourceTree = "<group>";
 		};
-		EB466E921D0500C1005DDB1C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				EB466E961D0500C1005DDB1C /* STTableBoardDemo.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		EB793B091C1E608900BF1148 = {
 			isa = PBXGroup;
 			children = (
-				EB466E911D0500C1005DDB1C /* STTableBoardDemo.xcodeproj */,
 				EBB2206A1D04F9100085C31F /* Frameworks */,
 				EB793B151C1E608900BF1148 /* STTableBoard */,
 				EB793B141C1E608900BF1148 /* Products */,
@@ -296,28 +276,12 @@
 			mainGroup = EB793B091C1E608900BF1148;
 			productRefGroup = EB793B141C1E608900BF1148 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = EB466E921D0500C1005DDB1C /* Products */;
-					ProjectRef = EB466E911D0500C1005DDB1C /* STTableBoardDemo.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				EB793B121C1E608900BF1148 /* STTableBoard */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		EB466E961D0500C1005DDB1C /* STTableBoardDemo.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = STTableBoardDemo.app;
-			remoteRef = EB466E951D0500C1005DDB1C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EB793B111C1E608900BF1148 /* Resources */ = {

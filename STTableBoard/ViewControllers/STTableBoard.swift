@@ -78,7 +78,7 @@ public class STTableBoard: UIViewController {
     lazy var newBoardButtonView: NewBoardButton = {
         let view = NewBoardButton(frame: CGRect.zero)
         view.image = UIImage(named: "icon_addBoard", inBundle: currentBundle, compatibleWithTraitCollection: nil)
-        view.title = "Add Stage..."
+        view.title = localizedString["STTableBoard.AddBoard"]
         view.delegate = self
         return view
     }()
@@ -181,6 +181,16 @@ public class STTableBoard: UIViewController {
     private var isFirstLoading: Bool = true
 
     //MARK: - life cycle
+
+    public init(localizedStrings: [String: String]) {
+        super.init(nibName: nil, bundle: nil)
+        localizedString = localizedStrings
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupProperty()

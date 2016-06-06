@@ -164,12 +164,12 @@ extension STTableBoard: BoardMenuDelegate {
             }
         case .BoardDeleted:
             let alertControllerStyle: UIAlertControllerStyle = (currentDevice == .Pad ? .Alert : .ActionSheet)
-            let alertController = UIAlertController(title: nil, message: "Are you sure to delete the board", preferredStyle: alertControllerStyle)
-            let deleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: { [unowned self](action) -> Void in
+            let alertController = UIAlertController(title: nil, message: localizedString["STTableBoard.DeleteBoard.Alert.Message"], preferredStyle: alertControllerStyle)
+            let deleteAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .Destructive, handler: { [unowned self](action) -> Void in
                 let index = boardMenu.boardIndex
                 self.removeBoardAtIndex(index)
             })
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: localizedString["STTableBoard.Cancel"], style: .Cancel, handler: nil)
             alertController.addAction(deleteAction)
             alertController.addAction(cancelAction)
             self.presentViewController(alertController, animated: true, completion: nil)
