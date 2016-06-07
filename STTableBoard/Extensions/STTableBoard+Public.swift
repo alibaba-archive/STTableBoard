@@ -135,4 +135,14 @@ public extension STTableBoard {
     func isEmpty(board: Int) -> Bool {
         return boards[board].tableView.height == 0
     }
+
+    func endRefreshing(board: Int) {
+        let boardView = boards[board]
+        boardView.tableView.refreshFooter?.endRefreshing()
+    }
+
+    func showRefreshFooter(board: Int, showRefreshFooter: Bool) {
+        let boardView = boards[board]
+        boardView.tableView.refreshFooter?.showLoadingView = showRefreshFooter
+    }
 }

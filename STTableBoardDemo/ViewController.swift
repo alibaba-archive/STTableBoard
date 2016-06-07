@@ -189,7 +189,18 @@ extension ViewController: STTableBoardDataSource {
         print("originIndex \(originIndex), destinationIndex \(destinationIndex)")
     }
 
-    func tableBoard(tableBoar: STTableBoard, scaleTableBoad isScaled: Bool) {
+    func tableBoard(tableBoard: STTableBoard, scaleTableBoard isScaled: Bool) {
         print("isScaled : \(isScaled)")
+    }
+
+    func tableBoard(tableBoard: STTableBoard, showRefreshFooterAtBoard boardIndex: Int) -> Bool {
+        if boardIndex == dataArray.count - 1 {
+            return true
+        }
+        return false
+    }
+
+    func tableBoard(tableBoard: STTableBoard, boardIndexForFooterRefreshing boardIndex: Int) {
+        tableBoard.endRefreshing(boardIndex)
     }
 }

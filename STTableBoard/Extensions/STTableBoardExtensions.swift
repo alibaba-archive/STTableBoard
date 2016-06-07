@@ -12,7 +12,7 @@ import UIKit
 extension STTableBoard {
     func handleDoubleTap(recognizer: UIGestureRecognizer) {
         tapPosition = recognizer.locationInView(containerView)
-        dataSource?.tableBoard(self, scaleTableBoad: tableBoardMode == .Page)
+        dataSource?.tableBoard(self, scaleTableBoard: tableBoardMode == .Page)
         switchMode()
     }
 
@@ -594,7 +594,8 @@ extension STTableBoard {
         let y = top
         let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
         
-        let boardView: STBoardView = STBoardView(frame: boardViewFrame)
+        guard let showRefreshFooter = dataSource?.tableBoard(self, showRefreshFooterAtBoard: index) else { return }
+        let boardView: STBoardView = STBoardView(frame: boardViewFrame,showRefreshFooter: showRefreshFooter)
         boardView.headerView.addGestureRecognizer(self.longPressGestureForBoard)
         boardView.tableView.addGestureRecognizer(self.longPressGestureForCell)
         boardView.index = index

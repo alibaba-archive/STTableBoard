@@ -12,6 +12,7 @@ protocol STBoardViewDelegate: class {
 }
 
 import UIKit
+import RefreshView
 
 class STBoardView: UIView {
     
@@ -82,9 +83,9 @@ class STBoardView: UIView {
         }
     }
     
-    override init(frame: CGRect) {
+     init(frame: CGRect, showRefreshFooter: Bool) {
         super.init(frame: frame)
-        setupProperty()
+        setupProperty(showRefreshFooter)
         tableView.addObserver(self, forKeyPath: "contentOffset", options: [.New, .Old], context: nil)
     }
     
@@ -92,7 +93,7 @@ class STBoardView: UIView {
         tableView.removeObserver(self, forKeyPath: "contentOffset")
     }
     
-    func setupProperty() {
+    func setupProperty(showRefreshFooter: Bool) {
         backgroundColor = boardBackgroundColor
         let layer = self.layer
         layer.cornerRadius = 5.0
@@ -166,7 +167,15 @@ class STBoardView: UIView {
             attribute: .NotAnAttribute,
             multiplier: 1.0, constant: bottomShadowBarHeight)
         
-        NSLayoutConstraint.activateConstraints(topShadowBarHorizontalConstraints + bottomShadowBarHorizontalConstraints + [topShadowBarTopConstraint, topShadowBarHeightConstraint, bottomShadowBarBottomConstraint, bottomShadowBarHeightConstraint] )
+        NSLayoutConstraint.activateConstraints(topShadowBarHorizontalConstraints + bottomShadowBarHorizontalConstraints + [topShadowBarTopConstraint, topShadowBarHeightConstraint, bottomShadowBarBottomConstraint, bottomShadowBarHeightConstraint])
+
+        // refresh footer
+        guard showRefreshFooter else { return }
+        tableView.refreshFooter = CustomRefreshFooterView.footerWithRefreshingBlock({ [weak self] in
+            if let weakSelf = self, dataSource = weakSelf.tableBoard.dataSource {
+                dataSource.tableBoard(weakSelf.tableBoard, boardIndexForFooterRefreshing: weakSelf.index)
+            }
+        })
     }
 
     required init?(coder aDecoder: NSCoder) {

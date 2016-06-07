@@ -46,7 +46,11 @@ public protocol STTableBoardDataSource: class {
     func tableBoard(tableBoard: STTableBoard, didEndMoveBoardAtOriginIndex originIndex: Int, toIndex destinationIndex: Int)
 
     // scale table board
-    func tableBoard(tableBoar: STTableBoard, scaleTableBoad isScaled: Bool)
+    func tableBoard(tableBoard: STTableBoard, scaleTableBoard isScaled: Bool)
+
+    // footer refresh handle
+    func tableBoard(tableBoard: STTableBoard, showRefreshFooterAtBoard boardIndex: Int) -> Bool
+    func tableBoard(tableBoard: STTableBoard, boardIndexForFooterRefreshing boardIndex: Int)
 }
 
 public extension STTableBoardDataSource {
@@ -92,7 +96,15 @@ public extension STTableBoardDataSource {
         return
     }
 
-    func tableBoard(tableBoar: STTableBoard, scaleTableBoad isScaled: Bool) {
+    func tableBoard(tableBoard: STTableBoard, scaleTableBoard isScaled: Bool) {
+        return
+    }
+
+    func tableBoard(tableBoard: STTableBoard, showRefreshFooterAtBoard boardIndex: Int) -> Bool {
+        return false
+    }
+
+    func tableBoard(tableBoard: STTableBoard, boardIndexForFooterRefreshing boardIndex: Int) {
         return
     }
 }
