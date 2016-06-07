@@ -31,6 +31,8 @@ public protocol STTableBoardDataSource: class {
     func tableBoard(tableBoard: STTableBoard, numberOfRowsInBoard board: Int) -> Int
     func tableBoard(tableBoard: STTableBoard, cellForRowAtIndexPath indexPath: STIndexPath) -> UITableViewCell
     func tableBoard(tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String?
+    
+    func tableBoard(tableBoard: STTableBoard, willBeginAddingRowAtBoard board: Int)
     func tableBoard(tableBoard: STTableBoard, didAddRowAtBoard board: Int, withRowTitle title: String)
 
     // move row
@@ -60,6 +62,11 @@ public extension STTableBoardDataSource {
 
     func tableBoard(tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String? {
         return nil
+    }
+    
+    // Add row
+    func tableBoard(tableBoard: STTableBoard, willBeginAddingRowAtBoard board: Int) {
+        return
     }
 
     // move row
