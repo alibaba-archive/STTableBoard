@@ -201,6 +201,10 @@ extension ViewController: STTableBoardDataSource {
     }
 
     func tableBoard(tableBoard: STTableBoard, boardIndexForFooterRefreshing boardIndex: Int) {
-        tableBoard.endRefreshing(boardIndex)
+//        tableBoard.endRefreshing(boardIndex)
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC)), dispatch_get_main_queue(), {
+           tableBoard.endRefreshing(boardIndex)
+        });
+        print("1")
     }
 }
