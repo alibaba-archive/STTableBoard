@@ -7,8 +7,13 @@
 //
 
 protocol STBoardViewDelegate: class {
+    func boardViewDidBeginEditingAtBottomRow(boardView view: STBoardView)
     func boardView(boardView: STBoardView, didClickBoardMenuButton button: UIButton)
     func boardView(boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String)
+}
+
+extension STBoardViewDelegate {
+    func boardViewDidBeginEditingAtBottomRow(boardView view: STBoardView) {}
 }
 
 import UIKit
@@ -191,5 +196,9 @@ class STBoardView: UIView {
 
     func hideTextComposeView() {
         footerView.hideTextComposeView()
+    }
+    
+    func footerViewBeginEditing() {
+        delegate?.boardViewDidBeginEditingAtBottomRow(boardView: self)
     }
 }

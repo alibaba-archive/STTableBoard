@@ -10,7 +10,7 @@ import UIKit
 
 class STBoardHeaderView: UIView {
     
-    var boardView: STBoardView!
+    weak var boardView: STBoardView?
     
     var title: String? {
         didSet {
@@ -63,7 +63,9 @@ class STBoardHeaderView: UIView {
     }
     
     func actionButtonBeClicked(sender: UIButton) {
-        boardView.delegate?.boardView(boardView, didClickBoardMenuButton: sender)
+        if let boardView = boardView {
+            boardView.delegate?.boardView(boardView, didClickBoardMenuButton: sender)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {

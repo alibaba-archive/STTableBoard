@@ -10,7 +10,7 @@ import UIKit
 
 class STBoardFooterView: UIView {
     
-    var boardView: STBoardView!
+    weak var boardView: STBoardView?
 
     lazy var titleButton: UIButton = {
         let button = UIButton()
@@ -46,18 +46,19 @@ class STBoardFooterView: UIView {
     }
     
     func addButtonTapped(sender: UIButton) {
-        boardView.footerViewHeightConstant = newCellComposeViewHeight
+        boardView?.footerViewHeightConstant = newCellComposeViewHeight
         textComposeView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: self.width, height: newCellComposeViewHeight))
         showTextComposeView()
-        if boardView.tableBoard.isAddBoardTextComposeViewVisible {
-            boardView.tableBoard.hiddenTextComposeView()
-            boardView.tableBoard.isAddBoardTextComposeViewVisible = false
-        } else if let boardViewForVisibleTextComposeView = boardView.tableBoard.boardViewForVisibleTextComposeView {
+        if boardView?.tableBoard.isAddBoardTextComposeViewVisible ?? false {
+            boardView?.tableBoard.hiddenTextComposeView()
+            boardView?.tableBoard.isAddBoardTextComposeViewVisible = false
+        } else if let boardViewForVisibleTextComposeView = boardView?.tableBoard.boardViewForVisibleTextComposeView {
             if boardViewForVisibleTextComposeView != boardView {
                 boardViewForVisibleTextComposeView.hideTextComposeView()
             }
         }
-        boardView.tableBoard.boardViewForVisibleTextComposeView = boardView
+        
+        boardView?.tableBoard.boardViewForVisibleTextComposeView = boardView
 //        let tableView = boardView.tableView
 //        let indexPath = NSIndexPath(forRow: tableView.numberOfRowsInSection(0) - 1, inSection: 0)
 //        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
@@ -76,7 +77,7 @@ class STBoardFooterView: UIView {
         textComposeView.textField.resignFirstResponder()
         textComposeView.removeFromSuperview()
         textComposeView.textField.text = nil
-        boardView.footerViewHeightConstant = footerViewHeight
+        boardView?.footerViewHeightConstant = footerViewHeight
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -87,11 +88,18 @@ class STBoardFooterView: UIView {
 extension STBoardFooterView: TextComposeViewDelegate {
     func textComposeView(textComposeView view: TextComposeView, didClickDoneButton button: UIButton, withText text: String) {
         textComposeView.textField.text = nil
-        boardView.delegate?.boardView(boardView, didClickDoneButtonForAddNewRow: button, withRowTitle: text)
+        
+        if let boardView = boardView {
+            boardView.delegate?.boardView(boardView, didClickDoneButtonForAddNewRow: button, withRowTitle: text)
+        }
     }
     
     func textComposeView(textComposeView view: TextComposeView, didClickCancelButton button: UIButton) {
         hideTextComposeView()
+    }
+    
+    func textComposeViewDidBeginEditing(textComposeView view: TextComposeView) {
+        boardView?.footerViewBeginEditing()
     }
 }
 

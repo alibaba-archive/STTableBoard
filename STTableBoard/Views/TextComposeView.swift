@@ -7,8 +7,13 @@
 //
 
 protocol TextComposeViewDelegate: class {
+    func textComposeViewDidBeginEditing(textComposeView view: TextComposeView)
     func textComposeView(textComposeView view: TextComposeView, didClickDoneButton button: UIButton, withText text: String)
     func textComposeView(textComposeView view: TextComposeView, didClickCancelButton button: UIButton)
+}
+
+extension TextComposeViewDelegate {
+    func textComposeViewDidBeginEditing(textComposeView view: TextComposeView) {}
 }
 
 import UIKit
@@ -115,5 +120,9 @@ extension TextComposeView: UITextFieldDelegate {
             }
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        delegate?.textComposeViewDidBeginEditing(textComposeView: self)
     }
 }

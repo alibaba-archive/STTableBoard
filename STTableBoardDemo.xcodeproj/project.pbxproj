@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4E6A4161D069D55006E7B30 /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E6A4151D069D55006E7B30 /* STTableBoard.framework */; };
+		D4E6A4171D069D55006E7B30 /* STTableBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4E6A4151D069D55006E7B30 /* STTableBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EB68A9961C27E0FC00D3FB98 /* BoardCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68A9951C27E0FC00D3FB98 /* BoardCardCell.swift */; };
 		EB68A9991C27E4CB00D3FB98 /* RoundAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68A9981C27E4CB00D3FB98 /* RoundAvatarImageView.swift */; };
 		EB6DB26D1C2A8B6A00C4A481 /* BadgeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6DB26A1C2A8B6A00C4A481 /* BadgeListView.swift */; };
@@ -22,8 +24,6 @@
 		EBB662CD1C2131A700FB94A1 /* STCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662CC1C2131A700FB94A1 /* STCardCell.swift */; };
 		EBC6E9AA1C2BEC2E00073795 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC6E9A91C2BEC2E00073795 /* CardView.swift */; };
 		EBC8A1811C2A6F8000D9FD15 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */; };
-		EBD4D23C1D04FFCD00353EC0 /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD4D23B1D04FFCD00353EC0 /* STTableBoard.framework */; };
-		EBD4D23D1D04FFCD00353EC0 /* STTableBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBD4D23B1D04FFCD00353EC0 /* STTableBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,7 +34,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				EBB220751D04FD140085C31F /* RefreshView.framework in Embed Frameworks */,
-				EBD4D23D1D04FFCD00353EC0 /* STTableBoard.framework in Embed Frameworks */,
+				D4E6A4171D069D55006E7B30 /* STTableBoard.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -42,6 +42,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D4E6A4151D069D55006E7B30 /* STTableBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = STTableBoard.framework; path = "/Users/zetasq/Library/Developer/Xcode/DerivedData/STTableBoard-ahxzcucbkrfqeygdaxepkbewgkoo/Build/Products/Debug-iphoneos/STTableBoard.framework"; sourceTree = "<absolute>"; };
 		EB68A9951C27E0FC00D3FB98 /* BoardCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardCardCell.swift; sourceTree = "<group>"; };
 		EB68A9981C27E4CB00D3FB98 /* RoundAvatarImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundAvatarImageView.swift; sourceTree = "<group>"; };
 		EB6DB26A1C2A8B6A00C4A481 /* BadgeListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BadgeListView.swift; path = BadgeListView/BadgeListView.swift; sourceTree = "<group>"; };
@@ -67,7 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBB220741D04FD140085C31F /* RefreshView.framework in Frameworks */,
-				EBD4D23C1D04FFCD00353EC0 /* STTableBoard.framework in Frameworks */,
+				D4E6A4161D069D55006E7B30 /* STTableBoard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +107,7 @@
 		EB793B9D1C1E653400BF1148 = {
 			isa = PBXGroup;
 			children = (
+				D4E6A4151D069D55006E7B30 /* STTableBoard.framework */,
 				EBD4D23B1D04FFCD00353EC0 /* STTableBoard.framework */,
 				EBB220721D04FCEF0085C31F /* RefreshView.framework */,
 				EB793BA81C1E653400BF1148 /* STTableBoardDemo */,
@@ -178,7 +180,7 @@
 				TargetAttributes = {
 					EB793BA51C1E653400BF1148 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = L9RXQ34KZ8;
+						DevelopmentTeam = DHNJ8N28ZZ;
 					};
 				};
 			};
