@@ -22,6 +22,9 @@ extension STTableBoard: UIGestureRecognizerDelegate {
 
 //MARK: - UIScrollViewDelegate
 extension STTableBoard: UIScrollViewDelegate {
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
+        hiddenKeyBoard()
+    }
     public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard tableBoardMode == .Page && scrollView == self.scrollView else { return }
         if !decelerate {
@@ -117,10 +120,10 @@ extension STTableBoard: UITableViewDataSource {
 extension STTableBoard: NewBoardButtonDelegate {
     func newBoardButtonDidBeClicked(newBoardButton button: NewBoardButton) {
         showTextComposeView()
+        isAddBoardTextComposeViewVisible = true
         guard let boardView = boardViewForVisibleTextComposeView else { return }
         boardView.hideTextComposeView()
         boardViewForVisibleTextComposeView = nil
-        isAddBoardTextComposeViewVisible = true
     }
 }
 

@@ -456,12 +456,23 @@ extension STTableBoard {
     }
     
     func hiddenTextComposeView() {
+        self.textComposeView.textField.resignFirstResponder()
         self.textComposeView.textField.text = nil
         self.newBoardButtonView.alpha = 1.0
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.textComposeView.alpha = 0.0
             self.textComposeView.frame.size.height = newBoardButtonViewHeight
             })
+    }
+
+    func hiddenKeyBoard() {
+        if let boardView = boardViewForVisibleTextComposeView {
+            boardView.hideTextComposeView()
+        }
+        if isAddBoardTextComposeViewVisible {
+            hiddenTextComposeView()
+            isAddBoardTextComposeViewVisible = false
+        }
     }
 }
 
