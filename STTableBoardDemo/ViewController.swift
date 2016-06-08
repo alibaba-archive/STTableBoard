@@ -50,6 +50,7 @@ class ViewController: UIViewController {
         tableBoard.delegate = self
         tableBoard.dataSource = self
         tableBoard.showAddBoardButton = true
+        tableBoard.keyboardInset = 44
         view.frame.size.height -= 64.0
         tableBoard.view.frame.size = view.frame.size
         self.addChildViewController(tableBoard)

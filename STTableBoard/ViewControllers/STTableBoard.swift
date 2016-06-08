@@ -125,6 +125,7 @@ public class STTableBoard: UIViewController {
     
     public var contentInset: UIEdgeInsets = UIEdgeInsetsZero
     public var sizeOffset: CGSize = CGSize(width: 0, height: 0)
+    public var keyboardInset: CGFloat = 0
     
     var currentPage: Int = 0
     var registerCellClasses:[(AnyClass, String)] = []
@@ -202,17 +203,21 @@ public class STTableBoard: UIViewController {
             reloadData()
             isFirstLoading = false
         }
+        addNotification()
     }
 
     override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         scrollView.pinchGestureRecognizer?.enabled = false
-        addNotification()
+    }
+
+    public override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override public func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     //MARK: - init helper
@@ -304,6 +309,7 @@ extension STTableBoard {
             if screenHeight - CGRectGetMinY(keyboardFrame) < keyboardHeight {
                 adjustHeight = screenHeight - CGRectGetMinY(keyboardFrame)
             }
+            adjustHeight -= keyboardInset
             UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
                 self.relayoutAllViews(CGSize(width: self.view.width, height: self.view.height - adjustHeight), hideBoardMenu: false)
             })
