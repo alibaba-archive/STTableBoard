@@ -162,11 +162,13 @@ public extension STTableBoard {
     }
 
     func endRefreshing(board: Int) {
+        guard board < boards.count else { return }
         let boardView = boards[board]
         boardView.tableView.refreshFooter?.endRefreshing()
     }
 
     func showRefreshFooter(board: Int, showRefreshFooter: Bool) {
+        guard board < boards.count else { return }
         let boardView = boards[board]
         boardView.tableView.refreshFooter?.showLoadingView = showRefreshFooter
     }
