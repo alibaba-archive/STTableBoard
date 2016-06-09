@@ -104,5 +104,6 @@ var localizedString: [String: String] = [
     "STTableBoard.Delete": "删除",
     "STTableBoard.Cancel": "取消",
     "STTableBoard.OK": "确定",
-    "STTableBoard.Create": "创建"
+    "STTableBoard.Create": "创建",
+    "STTableBoard.RefreshFooter.text": "载入中..."
 ]

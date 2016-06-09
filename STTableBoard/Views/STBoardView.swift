@@ -176,7 +176,7 @@ class STBoardView: UIView {
 
         // refresh footer
         guard showRefreshFooter else { return }
-        tableView.refreshFooter = CustomRefreshFooterView.footerWithRefreshingBlock({ [weak self] in
+        tableView.refreshFooter = CustomRefreshFooterView.footerWithLoadingText(localizedString["STTableBoard.RefreshFooter.text"] ?? "Loading...", startLoading: { [weak self] in
             if let weakSelf = self, dataSource = weakSelf.tableBoard.dataSource {
                 dataSource.tableBoard(weakSelf.tableBoard, boardIndexForFooterRefreshing: weakSelf.index)
             }

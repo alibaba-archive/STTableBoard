@@ -23,7 +23,8 @@ class ViewController: UIViewController {
         "STTableBoard.Delete": "删除",
         "STTableBoard.Cancel": "Cancel",
         "STTableBoard.OK": "确定",
-        "STTableBoard.Create": "Create"
+        "STTableBoard.Create": "Create",
+        "STTableBoard.RefreshFooter.text": "Fuck Loading..."
     ]
     lazy var tableBoard: STTableBoard = {
         let table = STTableBoard(localizedStrings: self.localizedString)
