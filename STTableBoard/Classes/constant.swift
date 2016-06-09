@@ -103,5 +103,6 @@ var localizedString: [String: String] = [
     "STTableBoard.DeleteBoard.Alert.Message": "确定要删除这个阶段吗？",
     "STTableBoard.Delete": "删除",
     "STTableBoard.Cancel": "取消",
-    "STTableBoard.OK": "确定"
+    "STTableBoard.OK": "确定",
+    "STTableBoard.Create": "创建"
 ]

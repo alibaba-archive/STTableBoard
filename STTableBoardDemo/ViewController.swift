@@ -21,8 +21,9 @@ class ViewController: UIViewController {
         "STTableBoard.DeleteBoardCell.Title": "删除阶段",
         "STTableBoard.DeleteBoard.Alert.Message": "确定要删除这个阶段吗？",
         "STTableBoard.Delete": "删除",
-        "STTableBoard.Cancel": "取消",
-        "STTableBoard.OK": "确定"
+        "STTableBoard.Cancel": "Cancel",
+        "STTableBoard.OK": "确定",
+        "STTableBoard.Create": "Create"
     ]
     lazy var tableBoard: STTableBoard = {
         let table = STTableBoard(localizedStrings: self.localizedString)

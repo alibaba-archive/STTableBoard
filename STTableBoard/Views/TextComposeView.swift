@@ -35,7 +35,7 @@ class TextComposeView: UIView {
     
     lazy var cancelButton: UIButton = {
         let button = UIButton(frame: CGRect.zero)
-        button.setTitle("取消", forState: .Normal)
+        button.setTitle(localizedString["STTableBoard.Cancel"], forState: .Normal)
         button.setTitleColor(cancelButtonTextColor, forState: .Normal)
         button.backgroundColor = UIColor.clearColor()
         button.clipsToBounds = true
@@ -46,7 +46,7 @@ class TextComposeView: UIView {
     
     lazy var doneButton: UIButton = {
         let button = UIButton(frame: CGRect.zero)
-        button.setTitle("确定", forState: .Normal)
+        button.setTitle(localizedString["STTableBoard.Create"], forState: .Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         button.backgroundColor = UIColor.clearColor()
         button.setBackgroundImage(UIImage(named: "doneButton_background", inBundle: currentBundle, compatibleWithTraitCollection: nil), forState: .Normal)
