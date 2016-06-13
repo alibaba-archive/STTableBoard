@@ -56,9 +56,12 @@ public extension STTableBoard {
         }
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             board.alpha = 0.0
-            }) { [unowned self](finished) -> Void in
-                self.boards.removeAtIndex(index)
-                self.reloadData()
+            }) { [weak self](finished) -> Void in
+                if let weakSelf = self {
+                    board.removeFromSuperview()
+                    weakSelf.boards.removeAtIndex(index)
+                    weakSelf.reloadData()
+                }
         }
     }
     
@@ -73,7 +76,7 @@ public extension STTableBoard {
             }
         }
         
-        indexPathsDic.forEach { [unowned self](keyAndValue) -> () in
+        indexPathsDic.forEach { (keyAndValue) -> () in
             let boardIndex = keyAndValue.0
             let indexPaths: [NSIndexPath] = keyAndValue.1.map({ (indexPath) -> NSIndexPath in
                 return indexPath.convertToNSIndexPath()
@@ -98,7 +101,7 @@ public extension STTableBoard {
             }
         }
         
-        indexPathsDic.forEach { [unowned self](keyAndValue) -> () in
+        indexPathsDic.forEach { (keyAndValue) -> () in
             let boardIndex = keyAndValue.0
             let indexPaths: [NSIndexPath] = keyAndValue.1.map({ (indexPath) -> NSIndexPath in
                 return indexPath.convertToNSIndexPath()
@@ -137,7 +140,7 @@ public extension STTableBoard {
             }
         }
         
-        indexPathsDic.forEach { [unowned self](keyAndValue) -> () in
+        indexPathsDic.forEach { (keyAndValue) -> () in
             let boardIndex = keyAndValue.0
             let indexPaths: [NSIndexPath] = keyAndValue.1.map({ (indexPath) -> NSIndexPath in
                 return indexPath.convertToNSIndexPath()

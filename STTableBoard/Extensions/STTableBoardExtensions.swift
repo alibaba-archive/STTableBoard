@@ -93,11 +93,11 @@ extension STTableBoard {
             originIndex = -1
         }
         
-        UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
+        UIView.animateWithDuration(0.33, animations: { () -> Void in
 //            self.snapshot.frame = board.frame
             self.snapshot.center = board.center
             self.updateSnapViewStatus(.Origin)
-            }) { [unowned self](finished) -> Void in
+            }) { (finished) -> Void in
                 board.moving = false
                 self.snapshot.removeFromSuperview()
                 self.snapshot = nil
@@ -147,7 +147,7 @@ extension STTableBoard {
         snapshot.center = containerView.convertPoint(cell.center, fromView: tableView)
         containerView.addSubview(snapshot)
         snapshotCenterOffset = caculatePointOffset(originViewCenter: cell.center, position: positionInTableView, fromView: tableView)
-        UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
+        UIView.animateWithDuration(0.33, animations: { () -> Void in
             self.updateSnapViewStatus(.Moving)
             cell.moving = true
             }, completion:nil)
@@ -161,7 +161,7 @@ extension STTableBoard {
         UIView.animateWithDuration(0.33, animations: { () -> Void in
             self.snapshot.center = self.containerView.convertPoint(cell.center, fromView: sourceTableView)
             self.updateSnapViewStatus(.Origin)
-            }, completion: { [unowned self](finished) -> Void in
+            }, completion: { (finished) -> Void in
                 cell.moving = false
                 self.snapshot.removeFromSuperview()
                 self.snapshot = nil
@@ -752,7 +752,7 @@ extension STTableBoard {
 
         func showDeleteBoardAlert() {
             let alertController = UIAlertController(title: nil, message: localizedString["STTableBoard.DeleteBoard.Alert.Message"], preferredStyle: .ActionSheet)
-            let deleteAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .Destructive, handler: { [unowned self](action) -> Void in
+            let deleteAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .Destructive, handler: { (action) -> Void in
                 self.removeBoardAtIndex(boardIndex)
                 })
             let cancelAction = UIAlertAction(title: localizedString["STTableBoard.Cancel"], style: .Cancel, handler: nil)

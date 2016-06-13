@@ -34,8 +34,10 @@ class STBoardView: UIView {
             footerViewHeightConstraint.constant = footerViewHeightConstant
             UIView.animateWithDuration(0.33, animations: {
                 self.layoutIfNeeded()
-            }) { [unowned self](finished) in
-                self.tableBoard.autoAdjustTableBoardHeight(self, animated: true)
+            }) { [weak self](finished) in
+                if let weakSelf = self {
+                    weakSelf.tableBoard.autoAdjustTableBoardHeight(weakSelf, animated: true)
+                }
             }
         }
     }

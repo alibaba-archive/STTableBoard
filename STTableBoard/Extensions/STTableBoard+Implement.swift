@@ -180,7 +180,7 @@ extension STTableBoard: BoardMenuDelegate {
         case .BoardDeleted:
             let alertControllerStyle: UIAlertControllerStyle = (currentDevice == .Pad ? .Alert : .ActionSheet)
             let alertController = UIAlertController(title: nil, message: localizedString["STTableBoard.DeleteBoard.Alert.Message"], preferredStyle: alertControllerStyle)
-            let deleteAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .Destructive, handler: { [unowned self](action) -> Void in
+            let deleteAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .Destructive, handler: { (action) -> Void in
                 let index = boardMenu.boardIndex
                 self.hiddenBoardMenu()
                 self.removeBoardAtIndex(index)

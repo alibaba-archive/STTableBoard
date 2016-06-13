@@ -248,11 +248,11 @@ public class STTableBoard: UIViewController {
 
     public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        coordinator.animateAlongsideTransition({ [unowned self](context) -> Void in
+        coordinator.animateAlongsideTransition({ (context) -> Void in
             let newSize = CGSize(width: size.width - (self.contentInset.left + self.contentInset.right + self.sizeOffset.width), height: size.height - (self.contentInset.top + self.contentInset.bottom + self.sizeOffset.height))
 //            print("newSize :\(newSize)")
             self.relayoutAllViews(newSize, hideBoardMenu: true)
-            }) { [unowned self](contenxt) -> Void in
+            }) { (contenxt) -> Void in
                 switch (currentOrientation, currentDevice) {
                 case (_, .Pad):
                     self.tableBoardMode = .Scroll
@@ -310,14 +310,14 @@ extension STTableBoard {
                 adjustHeight = screenHeight - CGRectGetMinY(keyboardFrame)
             }
             adjustHeight -= keyboardInset
-            UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
+            UIView.animateWithDuration(0.33, animations: { () -> Void in
                 self.relayoutAllViews(CGSize(width: self.view.width, height: self.view.height - adjustHeight), hideBoardMenu: false)
             })
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        UIView.animateWithDuration(0.33, animations: { [unowned self]() -> Void in
+        UIView.animateWithDuration(0.33, animations: { () -> Void in
             self.relayoutAllViews(self.originFrame.size, hideBoardMenu: false)
             })
     }
