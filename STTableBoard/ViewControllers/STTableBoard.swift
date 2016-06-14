@@ -209,6 +209,9 @@ public class STTableBoard: UIViewController {
     override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         scrollView.pinchGestureRecognizer?.enabled = false
+        if !isFirstLoading {
+            relayoutAllViews(view.bounds.size, hideBoardMenu: true)
+        }
     }
 
     public override func viewWillDisappear(animated: Bool) {
@@ -266,6 +269,7 @@ public class STTableBoard: UIViewController {
     }
     
     func relayoutAllViews(size: CGSize, hideBoardMenu: Bool) {
+        guard !CGSizeEqualToSize(size, scrollView.frame.size) else { return }
         scrollView.frame = CGRect(origin: CGPoint.zero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
         containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
