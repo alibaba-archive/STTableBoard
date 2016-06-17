@@ -23,7 +23,9 @@ extension STTableBoard: UIGestureRecognizerDelegate {
 //MARK: - UIScrollViewDelegate
 extension STTableBoard: UIScrollViewDelegate {
     public func scrollViewDidScroll(scrollView: UIScrollView) {
-        hiddenKeyBoard()
+        if scrollView == self.scrollView {
+            hiddenKeyBoard()
+        }
     }
     public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard tableBoardMode == .Page && scrollView == self.scrollView else { return }
