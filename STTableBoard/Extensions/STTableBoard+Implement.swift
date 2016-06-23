@@ -185,6 +185,7 @@ extension STTableBoard: BoardMenuDelegate {
             let deleteAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .Destructive, handler: { (action) -> Void in
                 let index = boardMenu.boardIndex
                 self.hiddenBoardMenu()
+                guard let delegate = self.delegate where delegate.tableBoard(self, willRemoveBoardAtIndex: index) else { return }
                 self.removeBoardAtIndex(index)
             })
             let cancelAction = UIAlertAction(title: localizedString["STTableBoard.Cancel"], style: .Cancel, handler: nil)

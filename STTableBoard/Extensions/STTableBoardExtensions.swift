@@ -763,6 +763,7 @@ extension STTableBoard {
         func showDeleteBoardAlert() {
             let alertController = UIAlertController(title: nil, message: localizedString["STTableBoard.DeleteBoard.Alert.Message"], preferredStyle: .ActionSheet)
             let deleteAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .Destructive, handler: { (action) -> Void in
+                guard let delegate = self.delegate where delegate.tableBoard(self, willRemoveBoardAtIndex: boardIndex) else { return }
                 self.removeBoardAtIndex(boardIndex)
                 })
             let cancelAction = UIAlertAction(title: localizedString["STTableBoard.Cancel"], style: .Cancel, handler: nil)
