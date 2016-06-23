@@ -22,7 +22,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5696" y="-247"/>
+            <point key="canvasLocation" x="6508" y="-247"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="iTX-Yf-CxE">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MCG-XP-LLh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rE3-ew-6bE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1UV-4b-W38" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4947" y="-247"/>
         </scene>
     </scenes>
 </document>

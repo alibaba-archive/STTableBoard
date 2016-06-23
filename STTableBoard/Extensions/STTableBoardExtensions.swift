@@ -392,7 +392,6 @@ extension STTableBoard {
         snapshot?.center = CGPoint(x: self.snapshotOffsetForLeftBounds + scrollView.presentContenOffset()!.x / currentScale, y: snapshot.center.y)
         isScrolling = false
         scrollDirection = .None
-        
     }
 }
 
@@ -618,7 +617,8 @@ extension STTableBoard {
             boardView.tableView.registerClass(classAndIdentifier.0, forCellReuseIdentifier: classAndIdentifier.1)
         })
         autoAdjustTableBoardHeight(boardView, animated: false)
-        boards.append(boardView)
+//        boards.append(boardView)
+        boards.insert(boardView, atIndex: index)
         containerView.addSubview(boardView)
         
         guard let dataSource = dataSource, let boardTitle = dataSource.tableBoard(self, titleForBoardInBoard: index) else { return }
@@ -627,6 +627,16 @@ extension STTableBoard {
             boardView.alpha = 0
             UIView.animateWithDuration(0.5) { () -> Void in
                 boardView.alpha = 1.0
+            }
+        }
+
+        if boards.count > index + 1 {
+            for i in (index + 1)...(boards.count - 1) {
+                let otherBoardView = boards[i]
+                let newFrame = CGRect(x: leading + CGFloat(i) * (boardWidth + pageSpacing), y: otherBoardView.minY, width: otherBoardView.width, height: otherBoardView.height)
+                UIView.animateWithDuration(0.5) { () -> Void in
+                    otherBoardView.frame = newFrame
+                }
             }
         }
         
@@ -775,6 +785,3 @@ extension STTableBoard {
         presentViewController(boardMenuActionSheet, animated: true, completion: nil)
     }
 }
-
-
-

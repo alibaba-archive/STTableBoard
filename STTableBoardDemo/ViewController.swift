@@ -59,9 +59,14 @@ class ViewController: UIViewController {
         tableBoard.didMoveToParentViewController(self)
 //        tableBoard.showLoadingView = true
     }
+
+    deinit {
+        print("no retain cycle")
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
     }
     
     func addAddButton() {
