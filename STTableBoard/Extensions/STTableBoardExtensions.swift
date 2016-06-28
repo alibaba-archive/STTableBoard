@@ -647,6 +647,7 @@ extension STTableBoard {
                 self.newBoardButtonView.frame = newFrame
             }
         }
+        pageControl.numberOfPages = numberOfPage
     }
 }
 

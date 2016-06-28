@@ -53,12 +53,15 @@ let defaultScrollViewScrollVelocity: CGFloat = 50.0
 let currentBundle = NSBundle(forClass: STTableBoard.self)
 let minimumMovingRowInterval: NSTimeInterval = 0.2
 let boardmenuMaxSpacingToEdge: CGFloat = 20.0
+let pageControlHeight: CGFloat = 20.0
 
 //Color
 let boardBackgroundColor: UIColor = UIColor(red: 234.0/255.0, green: 235.0/255.0, blue: 236.0/255.0, alpha: 1.0)
 let tableBoardBackgroundColor: UIColor = UIColor(red: 243.0/255.0, green: 243.0/255.0, blue: 243.0/255.0, alpha: 1.0)
 let boardBorderColor: UIColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
 let boardFooterButtonTitleColor: UIColor = UIColor(red: 166.0/255.0, green: 166.0/255.0, blue: 166.0/255.0, alpha: 1.0)
+let currentPageIndicatorTintColor: UIColor = UIColor(red: 184.0/255.0, green: 184.0/255.0, blue: 184.0/255.0, alpha: 1.0)
+let pageIndicatorTintColor: UIColor = UIColor(red: 221.0/255.0, green: 221.0/255.0, blue: 221.0/255.0, alpha: 1.0)
 
 // new board button colors
 let dashedLineColor: UIColor = UIColor(red: 221.0/255.0, green: 221.0/255.0, blue: 221.0/255.0, alpha: 1.0)
@@ -73,7 +76,6 @@ let boardMenuTextFieldBorderColor: UIColor = UIColor(red: 226.0/255.0, green: 22
 // board menu userInfo keys
 let newBoardTitleKey = "newBoardTitle"
 let boardIndexKey = "boardIndex"
-
 
 var currentDevice: UIUserInterfaceIdiom {
     get {

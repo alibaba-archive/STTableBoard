@@ -36,7 +36,7 @@ public class STTableBoard: UIViewController {
 
     var maxBoardHeight: CGFloat {
         get {
-            return self.containerView.height - (top + bottom)
+            return self.containerView.height - (top + bottom) 
         }
     }
 
@@ -127,22 +127,49 @@ public class STTableBoard: UIViewController {
     public var sizeOffset: CGSize = CGSize(width: 0, height: 0)
     public var keyboardInset: CGFloat = 0
     
-    var currentPage: Int = 0
+    var currentPage: Int = 0 {
+        didSet {
+            pageControl.currentPage = currentPage
+        }
+    }
     var registerCellClasses:[(AnyClass, String)] = []
-    var tableBoardMode: STTableBoardMode = .Page
+    var tableBoardMode: STTableBoardMode = .Page {
+        didSet {
+            switch tableBoardMode {
+            case .Page:
+                showPageControl = true
+            case .Scroll:
+                showPageControl = false
+            }
+        }
+    }
     public var customBoardWidth: CGFloat = 280
     
     //Views Property
     var boards: [STBoardView] = []
     var scrollView: UIScrollView!
     var containerView: UIView!
+    lazy var pageControl: STPageControl = {
+        let control = STPageControl(frame: CGRect.zero)
+        control.backgroundColor = UIColor.clearColor()
+        control.currentPageIndicatorTintColor = currentPageIndicatorTintColor
+        control.pageIndicatorTintColor = pageIndicatorTintColor
+        control.currentPage = self.currentPage
+        control.numberOfPages = self.numberOfPage
+        control.enabled = false
+        return control
+    }()
 
     //Delegate Property
     public weak var dataSource: STTableBoardDataSource?
     public weak var delegate: STTableBoardDelegate?
     
     //Public Property
-    public var showAddBoardButton: Bool = false
+    public var showAddBoardButton: Bool = false {
+        didSet {
+            pageControl.showAddDots = showAddBoardButton
+        }
+    }
 
     //Move Row Or Board Property
     var snapshot: UIView!
@@ -154,6 +181,11 @@ public class STTableBoard: UIViewController {
     var originIndex: Int = -1
     var isMoveBoardFromPageMode: Bool = false
     var lastMovingTime: NSDate!
+    var showPageControl: Bool = false {
+        didSet {
+            self.pageControl.hidden = !showPageControl
+        }
+    }
 
     //ScrollView Auto Scroll property
     var isScrolling: Bool = false
@@ -236,6 +268,9 @@ public class STTableBoard: UIViewController {
         scrollView.bounces = false
         view.addSubview(scrollView)
 
+        pageControl.frame = CGRect(x: 0, y: view.height - pageControlHeight, width: view.width, height: pageControlHeight)
+        view.addSubview(pageControl)
+
         containerView = UIView(frame: CGRect(origin: CGPoint.zero, size: scrollView.contentSize))
         scrollView.addSubview(containerView)
         containerView.backgroundColor = tableBoardBackgroundColor
@@ -243,7 +278,9 @@ public class STTableBoard: UIViewController {
 
         if currentDevice == .Pad {
             tableBoardMode = .Scroll
+            showPageControl = false
         } else if currentDevice == .Phone {
+            showPageControl = true
             tableBoardMode = .Page
             containerView.addGestureRecognizer(doubleTapGesture)
         }
@@ -273,6 +310,7 @@ public class STTableBoard: UIViewController {
         scrollView.frame = CGRect(origin: CGPoint.zero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
         containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
+        pageControl.frame = CGRect(x: 0, y: size.height - pageControl.height, width: size.width, height: pageControlHeight)
 //        print("********************")
 //        print("scrollView.frame \(scrollView.frame)")
 //        print("scrollView.contentSize \(scrollView.contentSize)")
@@ -292,6 +330,7 @@ public class STTableBoard: UIViewController {
     func resetContentSize() {
         scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
         containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
+        pageControl.frame = CGRect(x: 0, y: view.height - pageControl.height, width: view.width, height: pageControlHeight)
     }
     
     func addNotification() {

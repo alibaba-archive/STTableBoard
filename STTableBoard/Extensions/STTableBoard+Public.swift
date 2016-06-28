@@ -25,6 +25,9 @@ public extension STTableBoard {
             insertBoardAtIndex(i, animation: false)
         }
 
+        pageControl.currentPage = currentPage
+        pageControl.numberOfPages = numberOfPage
+
         if showAddBoardButton {
             let newBoardButtonViewFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: top, width: boardWidth, height: newBoardButtonViewHeight)
             newBoardButtonView.frame = newBoardButtonViewFrame
@@ -62,6 +65,7 @@ public extension STTableBoard {
                     weakSelf.reloadData()
                 }
         }
+        pageControl.numberOfPages = numberOfPage
     }
     
     func insertRowsAtIndexPaths(indexPaths: [STIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
