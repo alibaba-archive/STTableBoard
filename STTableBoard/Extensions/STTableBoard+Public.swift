@@ -25,6 +25,7 @@ public extension STTableBoard {
             insertBoardAtIndex(i, animation: false)
         }
 
+        currentPage = 0
         pageControl.currentPage = currentPage
         pageControl.numberOfPages = numberOfPage
 
