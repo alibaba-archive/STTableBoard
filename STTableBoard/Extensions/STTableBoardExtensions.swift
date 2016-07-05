@@ -633,6 +633,7 @@ extension STTableBoard {
         if boards.count > index + 1 {
             for i in (index + 1)...(boards.count - 1) {
                 let otherBoardView = boards[i]
+                otherBoardView.index += 1
                 let newFrame = CGRect(x: leading + CGFloat(i) * (boardWidth + pageSpacing), y: otherBoardView.minY, width: otherBoardView.width, height: otherBoardView.height)
                 UIView.animateWithDuration(0.5) { () -> Void in
                     otherBoardView.frame = newFrame

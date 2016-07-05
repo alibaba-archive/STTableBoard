@@ -66,7 +66,10 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        tableBoard.exchangeBoardAtIndex(1, destinationIndex: 3, animation: true)
+        (dataArray[0], dataArray[1]) = (dataArray[1], dataArray[0])
+        tableBoard.exchangeBoardAtIndex(0, destinationIndex: 1, animation: true)
+        let indexPath = STIndexPath(forRow: 0, inBoard: 1)
+        tableBoard.reloadRowAtIndexPath([indexPath], withRowAnimation: .Automatic)
     }
     
     func addAddButton() {

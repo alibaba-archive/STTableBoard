@@ -10,7 +10,7 @@ import UIKit
 
 //MARK: - public method
 public extension STTableBoard {
-    public func reloadData() {
+    public func reloadData(resetPage: Bool = true) {
         resetContentSize()
         
         if boards.count != 0 {
@@ -25,7 +25,9 @@ public extension STTableBoard {
             insertBoardAtIndex(i, animation: false)
         }
 
-        currentPage = 0
+        if resetPage {
+            currentPage = 0
+        }
         pageControl.currentPage = currentPage
         pageControl.numberOfPages = numberOfPage
 
@@ -37,6 +39,7 @@ public extension STTableBoard {
             containerView.addSubview(textComposeView)
         }
     }
+
     
     func reloadBoardAtIndex(index: Int, animated: Bool) {
         guard index < boards.count else { fatalError("index is not exist!!") }
@@ -63,7 +66,7 @@ public extension STTableBoard {
                 if let weakSelf = self {
                     board.removeFromSuperview()
                     weakSelf.boards.removeAtIndex(index)
-                    weakSelf.reloadData()
+                    weakSelf.reloadData(false)
                 }
         }
         pageControl.numberOfPages = numberOfPage
@@ -74,11 +77,11 @@ public extension STTableBoard {
         insertBoardAtIndex(index, animation: animation)
     }
     
-    func exchangeBoardAtIndex(sourceIndex: Int, destinationIndex: Int, animation: Bool) {
-        guard sourceIndex != destinationIndex && sourceIndex < boards.count && destinationIndex < boards.count else { return }
-        let x1 = leading + CGFloat(sourceIndex) * (boardWidth + pageSpacing)
+    func exchangeBoardAtIndex(originIndex: Int, destinationIndex: Int, animation: Bool) {
+        guard originIndex != destinationIndex && originIndex < boards.count && destinationIndex < boards.count else { return }
+        let x1 = leading + CGFloat(originIndex) * (boardWidth + pageSpacing)
         let x2 = leading + CGFloat(destinationIndex) * (boardWidth + pageSpacing)
-        let originBoard = boards[sourceIndex]
+        let originBoard = boards[originIndex]
         let destinationBoard = boards[destinationIndex]
         if animation {
             UIView.animateWithDuration(0.5, animations: {
@@ -89,7 +92,9 @@ public extension STTableBoard {
             originBoard.frame.origin.x = x2
             destinationBoard.frame.origin.x = x1
         }
-        (boards[sourceIndex], boards[destinationIndex]) = (boards[destinationIndex], boards[sourceIndex])
+        originBoard.index = destinationIndex
+        destinationBoard.index = originIndex
+        (boards[originIndex], boards[destinationIndex]) = (boards[destinationIndex], boards[originIndex])
     }
     
     func insertRowsAtIndexPaths(indexPaths: [STIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
