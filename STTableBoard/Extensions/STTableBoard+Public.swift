@@ -68,6 +68,29 @@ public extension STTableBoard {
         }
         pageControl.numberOfPages = numberOfPage
     }
+
+    
+    func insertBoardAtIndex(index: Int, withAnimation animation: Bool) {
+        insertBoardAtIndex(index, animation: animation)
+    }
+    
+    func exchangeBoardAtIndex(sourceIndex: Int, destinationIndex: Int, animation: Bool) {
+        guard sourceIndex != destinationIndex && sourceIndex < boards.count && destinationIndex < boards.count else { return }
+        let x1 = leading + CGFloat(sourceIndex) * (boardWidth + pageSpacing)
+        let x2 = leading + CGFloat(destinationIndex) * (boardWidth + pageSpacing)
+        let originBoard = boards[sourceIndex]
+        let destinationBoard = boards[destinationIndex]
+        if animation {
+            UIView.animateWithDuration(0.5, animations: {
+                originBoard.frame.origin.x = x2
+                destinationBoard.frame.origin.x = x1
+            })
+        } else {
+            originBoard.frame.origin.x = x2
+            destinationBoard.frame.origin.x = x1
+        }
+        (boards[sourceIndex], boards[destinationIndex]) = (boards[destinationIndex], boards[sourceIndex])
+    }
     
     func insertRowsAtIndexPaths(indexPaths: [STIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
         var indexPathsDic: [String: [STIndexPath]] = [:]
@@ -127,10 +150,6 @@ public extension STTableBoard {
         tableView.endUpdates()
         autoAdjustTableBoardHeight(board, animated: true)
         tableView.scrollToRowAtIndexPath(indexPath.convertToNSIndexPath(), atScrollPosition: scrollPosition, animated: true)
-    }
-    
-    func insertBoardAtIndex(index: Int, withAnimation animation: Bool) {
-        insertBoardAtIndex(index, animation: animation)
     }
 
     func reloadRowAtIndexPath(indexPaths: [STIndexPath], withRowAnimation animation: UITableViewRowAnimation) {

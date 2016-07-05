@@ -66,7 +66,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+        tableBoard.exchangeBoardAtIndex(1, destinationIndex: 3, animation: true)
     }
     
     func addAddButton() {
@@ -146,7 +146,7 @@ extension ViewController: STTableBoardDataSource {
     
     // move row
     func tableBoard(tableBoard: STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, inout toIndexPath destinationIndexPath: STIndexPath) {
-        destinationIndexPath = STIndexPath(forRow: 0, inBoard: destinationIndexPath.board)
+//        destinationIndexPath = STIndexPath(forRow: 0, inBoard: destinationIndexPath.board)
         let data = dataArray[sourceIndexPath.board][sourceIndexPath.row]
         dataArray[sourceIndexPath.board].removeAtIndex(sourceIndexPath.row)
         dataArray[destinationIndexPath.board].insert(data, atIndex: destinationIndexPath.row)
