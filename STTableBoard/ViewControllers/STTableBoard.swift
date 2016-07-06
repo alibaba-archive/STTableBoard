@@ -213,6 +213,10 @@ public class STTableBoard: UIViewController {
 
     private var isFirstLoading: Bool = true
 
+    // Current Working Gesture
+    var currentLongPressGestureForCell: UILongPressGestureRecognizer? = nil
+    var currentLongPressGestureForBoard: UILongPressGestureRecognizer? = nil
+    
     //MARK: - life cycle
 
     public init(localizedStrings: [String: String]) {

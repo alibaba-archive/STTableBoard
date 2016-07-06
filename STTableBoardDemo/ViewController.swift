@@ -66,10 +66,14 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        (dataArray[0], dataArray[1]) = (dataArray[1], dataArray[0])
-        tableBoard.exchangeBoardAtIndex(0, destinationIndex: 1, animation: true)
-        let indexPath = STIndexPath(forRow: 0, inBoard: 1)
-        tableBoard.reloadRowAtIndexPath([indexPath], withRowAnimation: .Automatic)
+//        (dataArray[0], dataArray[1]) = (dataArray[1], dataArray[0])
+//        tableBoard.exchangeBoardAtIndex(0, destinationIndex: 1, animation: true)
+//        let indexPath = STIndexPath(forRow: 0, inBoard: 1)
+//        tableBoard.reloadRowAtIndexPath([indexPath], withRowAnimation: .Automatic)
+        delay(5) {
+            self.tableBoard.stopMovingBoard()
+            self.tableBoard.stopMovingCell()
+        }
     }
     
     func addAddButton() {
@@ -86,7 +90,13 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
+    func delay(seconds: Int, function: () -> Void) {
+        let triggerTime = (Int64(NSEC_PER_SEC) * Int64(seconds))
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, triggerTime), dispatch_get_main_queue(), { () -> Void in
+            function()
+        })
+    }
 }
 
 extension ViewController: STTableBoardDelegate {

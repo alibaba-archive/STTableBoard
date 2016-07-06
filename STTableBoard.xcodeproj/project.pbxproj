@@ -26,7 +26,6 @@
 		EB793B511C1E618300BF1148 /* STShadowTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B461C1E618300BF1148 /* STShadowTableView.swift */; };
 		EB793B531C1E61D200BF1148 /* constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B521C1E61D200BF1148 /* constant.swift */; };
 		EB7C97C41C21B2C300C68649 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7C97C31C21B2C300C68649 /* Images.xcassets */; };
-		EB8BE8B51D227A7C009D3C2A /* UIPageControl+UpdateDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8BE8B41D227A7C009D3C2A /* UIPageControl+UpdateDots.swift */; };
 		EB8BE8B81D22801A009D3C2A /* STPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8BE8B71D22801A009D3C2A /* STPageControl.swift */; };
 		EBB220691D04F90E0085C31F /* RefreshView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB220681D04F90E0085C31F /* RefreshView.framework */; };
 		EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */; };
@@ -57,7 +56,6 @@
 		EB793B461C1E618300BF1148 /* STShadowTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STShadowTableView.swift; sourceTree = "<group>"; };
 		EB793B521C1E61D200BF1148 /* constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constant.swift; sourceTree = "<group>"; };
 		EB7C97C31C21B2C300C68649 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
-		EB8BE8B41D227A7C009D3C2A /* UIPageControl+UpdateDots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageControl+UpdateDots.swift"; sourceTree = "<group>"; };
 		EB8BE8B71D22801A009D3C2A /* STPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPageControl.swift; path = Vender/STPageControl.swift; sourceTree = "<group>"; };
 		EBB220681D04F90E0085C31F /* RefreshView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RefreshView.framework; path = Carthage/Build/iOS/RefreshView.framework; sourceTree = "<group>"; };
 		EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardHeaderView.swift; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 				EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */,
 				EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */,
 				EBD0BD831C48E4900056C1BA /* StringExtension.swift */,
-				EB8BE8B41D227A7C009D3C2A /* UIPageControl+UpdateDots.swift */,
 			);
 			name = CommonExtension;
 			sourceTree = "<group>";
@@ -325,7 +322,6 @@
 				EB793B4E1C1E618300BF1148 /* STTableBoard.swift in Sources */,
 				EB793B531C1E61D200BF1148 /* constant.swift in Sources */,
 				EB1263FB1C477CC700D3C42E /* BoardMenuTextViewController.swift in Sources */,
-				EB8BE8B51D227A7C009D3C2A /* UIPageControl+UpdateDots.swift in Sources */,
 				EB793B4D1C1E618300BF1148 /* STTableBoardProtocol.swift in Sources */,
 				EB8BE8B81D22801A009D3C2A /* STPageControl.swift in Sources */,
 				EB2D5E9D1C42A51E00029B8F /* STTableBoard+Implement.swift in Sources */,

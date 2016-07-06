@@ -203,4 +203,14 @@ public extension STTableBoard {
         let boardView = boards[board]
         boardView.tableView.refreshFooter?.showLoadingView = showRefreshFooter
     }
+
+    func stopMovingCell() {
+        guard let recognizer = currentLongPressGestureForCell else { return }
+        recognizer.enabled = false
+    }
+
+    func stopMovingBoard() {
+        guard let recognizer = currentLongPressGestureForBoard else { return }
+        recognizer.enabled = false
+    }
 }

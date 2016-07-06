@@ -45,6 +45,10 @@ extension STTableBoard {
             moveSnapshotToPosition(positionInContainerView)
             autoScrollInScrollView()
             moveBoardToPosition(positionInContainerView)
+        case .Cancelled:
+            guard let _ = snapshot else { return }
+            endMovingBoard(false)
+            recognizer.enabled = true
         default:
             guard let _ = snapshot else { return }
             endMovingBoard()
@@ -71,9 +75,12 @@ extension STTableBoard {
             }, completion: nil)
         sourceIndex = board.index
         originIndex = board.index
+        if let longPressRecognizer = recognizer as? UILongPressGestureRecognizer {
+            currentLongPressGestureForBoard = longPressRecognizer
+        }
     }
     
-    func endMovingBoard() {
+    func endMovingBoard(callDataSource: Bool = true) {
         guard sourceIndex != -1 else { return }
         let board = boards[sourceIndex]
         
@@ -88,7 +95,9 @@ extension STTableBoard {
             } else {
                 scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
             }
-            dataSource?.tableBoard(self, didEndMoveBoardAtOriginIndex: originIndex, toIndex: sourceIndex)
+            if callDataSource {
+                dataSource?.tableBoard(self, didEndMoveBoardAtOriginIndex: originIndex, toIndex: sourceIndex)
+            }
             sourceIndex = -1
             originIndex = -1
         }
@@ -102,6 +111,9 @@ extension STTableBoard {
                 self.snapshot.removeFromSuperview()
                 self.snapshot = nil
                 resetBoard()
+        }
+        if let _ = currentLongPressGestureForBoard {
+            currentLongPressGestureForBoard = nil
         }
     }
     
@@ -131,6 +143,10 @@ extension STTableBoard {
             autoScrollInScrollView()
             autoScrollInTableView(tableView)
             moveRowToPosition(tableView, recognizer: recognizer)
+        case .Cancelled:
+            guard let _ = snapshot else { return }
+            endMovingRow(false)
+            recognizer.enabled = true
         default:
             guard let _ = snapshot else { return }
             endMovingRow()
@@ -153,9 +169,12 @@ extension STTableBoard {
             }, completion:nil)
         sourceIndexPath = STIndexPath(forRow: indexPath.row, inBoard: tableView.index)
         originIndexPath = STIndexPath(forRow: indexPath.row, inBoard: tableView.index)
+        if let longpressRecognizer = recognizer as? UILongPressGestureRecognizer {
+            currentLongPressGestureForCell = longpressRecognizer
+        }
     }
 
-    func endMovingRow() {
+    func endMovingRow(callDataSource: Bool = true) {
         let sourceTableView = boards[sourceIndexPath.board].tableView
         guard let cell = sourceTableView.cellForRowAtIndexPath(sourceIndexPath.convertToNSIndexPath()) as? STBoardCell else {return}
         UIView.animateWithDuration(0.33, animations: { () -> Void in
@@ -165,7 +184,9 @@ extension STTableBoard {
                 cell.moving = false
                 self.snapshot.removeFromSuperview()
                 self.snapshot = nil
-                self.dataSource?.tableBoard(self, didEndMoveRowAtOriginIndexPath: self.originIndexPath, toIndexPath: self.sourceIndexPath)
+                if callDataSource {
+                    self.dataSource?.tableBoard(self, didEndMoveRowAtOriginIndexPath: self.originIndexPath, toIndexPath: self.sourceIndexPath)
+                }
                 self.sourceIndexPath = nil
                 self.originIndexPath = nil
             })
@@ -179,6 +200,9 @@ extension STTableBoard {
         }
         scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
         lastMovingTime = nil
+        if let _ = currentLongPressGestureForCell {
+            currentLongPressGestureForCell = nil
+        }
     }
     
     func moveSnapshotToPosition(position: CGPoint) {
