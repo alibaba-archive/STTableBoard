@@ -158,7 +158,6 @@ extension STTableBoard: STBoardViewDelegate {
         default:
             break
         }
-
     }
     
     func boardView(boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String) {

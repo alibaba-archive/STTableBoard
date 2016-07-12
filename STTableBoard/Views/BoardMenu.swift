@@ -16,6 +16,7 @@ class BoardMenu: UINavigationController {
     private var boardMenuTableViewController: BoardMenuTableViewController!
     
     weak var boardMenuDelegate: BoardMenuDelegate?
+    weak var tableBoard: STTableBoard?
     var boardIndex: Int = 0
     var boardMenuTitle: String? {
         didSet{

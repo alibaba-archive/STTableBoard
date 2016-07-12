@@ -150,6 +150,16 @@ extension ViewController: STTableBoardDataSource {
     func tableBoard(tableBoard: STTableBoard, boardTitleBeChangedTo title: String, inBoard board: Int) {
         titleArray[board] = title
     }
+
+    func tableBoard(tableBoard: STTableBoard, canEditBoardTitleInBoard board: Int) -> Bool {
+//        let alertController = UIAlertController(title: nil, message: "fuck", preferredStyle: .Alert)
+//        let cancelAction = UIAlertAction(title: "cancel", style: .Cancel, handler: nil)
+//        alertController.addAction(cancelAction)
+//        presentViewController(alertController, animated: true, completion: nil)
+//        return false
+        return true
+    }
+
     
     func tableBoard(tableBoard: STTableBoard, didAddRowAtBoard board: Int, withRowTitle title: String) {
         let indexPath = STIndexPath(forRow: dataArray[board].count, inBoard: board)

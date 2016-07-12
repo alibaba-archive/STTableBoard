@@ -94,6 +94,7 @@ public class STTableBoard: UIViewController {
     lazy var boardMenu: BoardMenu = {
         let menu = BoardMenu()
         menu.boardMenuDelegate = self
+        menu.tableBoard = self
         return menu
     }()
     

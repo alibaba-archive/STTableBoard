@@ -14,6 +14,7 @@ public protocol STTableBoardDelegate: class {
     func tableBoard(tableBoard: STTableBoard, willRemoveBoardAtIndex index: Int) -> Bool
     func tableBoard(tableBoard: STTableBoard, boardTitleBeChangedTo title: String, inBoard board: Int)
     func tableBoard(tableBoard: STTableBoard, didSelectRowAtIndexPath indexPath: STIndexPath)
+    func tableBoard(tableBoard: STTableBoard, canEditBoardTitleInBoard board: Int) -> Bool
 }
 
 public extension STTableBoardDelegate {

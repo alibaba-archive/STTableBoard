@@ -51,11 +51,15 @@ class BoardMenuTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        guard let boardMenu = self.navigationController as? BoardMenu else { return }
+        guard let boardMenu = self.navigationController as? BoardMenu, let tableBoard = boardMenu.tableBoard else { return }
         if isEditBoardTitleCell(indexPath) {
-            let textViewController = BoardMenuTextViewController()
-            textViewController.boardTitle = boardMenu.boardMenuTitle
-            self.navigationController?.pushViewController(textViewController, animated: true)
+            if let canEditTitle = tableBoard.delegate?.tableBoard(tableBoard, canEditBoardTitleInBoard: boardMenu.boardIndex) where canEditTitle {
+                let textViewController = BoardMenuTextViewController()
+                textViewController.boardTitle = boardMenu.boardMenuTitle
+                self.navigationController?.pushViewController(textViewController, animated: true)
+            } else {
+                return
+            }
         } else if isDeleteBoardCell(indexPath) {
             boardMenu.boardMenuDelegate?.boardMenu(boardMenu, boardMenuHandleType: BoardMenuHandleType.BoardDeleted, userInfo: nil)
         } else {
