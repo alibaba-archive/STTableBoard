@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         dataArray = [
             ["七里香1","七里香2","七里香3","七里香4","最后的战役1","最后的战役2","最后的战役3","晴天1","晴天2","晴天3","晴天4","晴天5","爱情悬崖1","爱情悬崖2","爱情悬崖3","爱情悬崖4","彩虹1","彩虹2","彩虹3","彩虹4"],
             ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"],
-            [],
+            ["恩"],
             ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"],
             ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"]
         ]
@@ -224,16 +224,18 @@ extension ViewController: STTableBoardDataSource {
     }
 
     func tableBoard(tableBoard: STTableBoard, showRefreshFooterAtBoard boardIndex: Int) -> Bool {
-        if boardIndex == dataArray.count - 1 {
-            return true
-        }
-        return false
+//        if boardIndex == dataArray.count - 1 {
+//            return true
+//        }
+//        return false
+        return true
     }
 
     func tableBoard(tableBoard: STTableBoard, boardIndexForFooterRefreshing boardIndex: Int) {
 //        tableBoard.endRefreshing(boardIndex)
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC)), dispatch_get_main_queue(), {
-           tableBoard.endRefreshing(boardIndex)
+            tableBoard.endRefreshing(boardIndex)
+            tableBoard.showRefreshFooter(boardIndex, showRefreshFooter: false)
         });
         print("1")
     }

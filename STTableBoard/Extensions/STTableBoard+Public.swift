@@ -149,12 +149,20 @@ public extension STTableBoard {
     
     func insertRowAtIndexPath(indexPath: STIndexPath, withRowAnimation animation: UITableViewRowAnimation, atScrollPosition scrollPosition: UITableViewScrollPosition) {
         let board = boards[indexPath.board]
+        let showLoadingView = board.tableView.refreshFooter?.showLoadingView ?? false
+        if showLoadingView {
+            board.tableView.refreshFooter?.showLoadingView = false
+        }
         guard let tableView = board.tableView else { return }
         tableView.beginUpdates()
         tableView.insertRowsAtIndexPaths([indexPath.convertToNSIndexPath()], withRowAnimation: animation)
         tableView.endUpdates()
         autoAdjustTableBoardHeight(board, animated: true)
         tableView.scrollToRowAtIndexPath(indexPath.convertToNSIndexPath(), atScrollPosition: scrollPosition, animated: true)
+        if showLoadingView {
+            board.tableView.refreshFooter?.showLoadingView = true
+            board.tableView.refreshFooter?.endRefreshing()
+        }
     }
 
     func reloadRowAtIndexPath(indexPaths: [STIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
