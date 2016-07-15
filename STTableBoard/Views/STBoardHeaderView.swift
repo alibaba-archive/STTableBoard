@@ -14,13 +14,30 @@ class STBoardHeaderView: UIView {
     
     var title: String? {
         didSet {
-            titleLable.text = title
+            titleLabel.text = title
         }
     }
-    private lazy var titleLable: UILabel = {
+
+    var number: Int = 0 {
+        didSet {
+            numberLabel.text = " · \(number)"
+        }
+    }
+
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .Left
         label.font = UIFont.systemFontOfSize(17.0)
+        label.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
+        label.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
+        return label
+    }()
+
+    private lazy var numberLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .Left
+        label.font = UIFont.systemFontOfSize(17.0)
+        label.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
         return label
     }()
     
@@ -37,29 +54,39 @@ class STBoardHeaderView: UIView {
     }
     
     func setupProperty() {
-        addSubview(titleLable)
+        addSubview(titleLabel)
+        addSubview(numberLabel)
         addSubview(actionButton)
         
-        titleLable.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        numberLabel.translatesAutoresizingMaskIntoConstraints = false
         actionButton.translatesAutoresizingMaskIntoConstraints = false
         
         let leading: CGFloat = 20.0
         let spacing: CGFloat = 0.0
         let trailing: CGFloat = 0.0
-        let horizontalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("H:|-leading-[titleLabel]-spacing-[actionButton]-trailing-|", options: [], metrics: ["leading":leading, "trailing":trailing, "spacing":spacing], views: ["titleLabel":titleLable, "actionButton":actionButton])
-        let titleLableVerticalConstrait = NSLayoutConstraint(item: titleLable,
+        let horizontalConstraits = NSLayoutConstraint.constraintsWithVisualFormat("H:|-leading-[titleLabel]-spacing@500-[numberLabel]-spacing-[actionButton]-trailing-|", options: [], metrics: ["leading":leading, "trailing":trailing, "spacing":spacing], views: ["titleLabel":titleLabel, "numberLabel":numberLabel, "actionButton":actionButton])
+        let titleLabelVerticalConstrait = NSLayoutConstraint(item: titleLabel,
             attribute: .CenterY,
             relatedBy: .Equal,
             toItem: self,
             attribute: .CenterY,
             multiplier: 1.0,
             constant: 0)
+        let numberLabelConstraits = NSLayoutConstraint(item: numberLabel,
+                                                       attribute: .CenterY,
+                                                       relatedBy: .Equal,
+                                                       toItem: self,
+                                                       attribute: .CenterY,
+                                                       multiplier: 1.0,
+                                                       constant: 0)
         
         let buttonWidth = NSLayoutConstraint(item: actionButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 49.0)
         let buttonCenterY = NSLayoutConstraint(item: actionButton, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0)
-        let buttonVerticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[actionButton]|", options: [], metrics: nil, views: ["titleLabel":titleLable, "actionButton":actionButton])
+        let buttonVerticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[actionButton]|", options: [], metrics: nil, views: ["actionButton":actionButton])
         
-        NSLayoutConstraint.activateConstraints(horizontalConstraits + buttonVerticalConstraints + [titleLableVerticalConstrait, buttonWidth, buttonCenterY])
+        NSLayoutConstraint.activateConstraints(horizontalConstraits + buttonVerticalConstraints + [titleLabelVerticalConstrait, numberLabelConstraits, buttonWidth, buttonCenterY])
+        
     }
     
     func actionButtonBeClicked(sender: UIButton) {

@@ -647,6 +647,7 @@ extension STTableBoard {
         
         guard let dataSource = dataSource, let boardTitle = dataSource.tableBoard(self, titleForBoardInBoard: index) else { return }
         boardView.title = boardTitle
+        boardView.number = dataSource.tableBoard(self, numberForBoardInBoard: index)
         if animation {
             boardView.alpha = 0
             UIView.animateWithDuration(0.5) { () -> Void in

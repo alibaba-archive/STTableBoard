@@ -44,7 +44,7 @@ class ViewController: UIViewController {
             ["彩虹1","彩虹2","彩虹3","彩虹4","彩虹5","彩虹6","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3","最后的战役1","最后的战役2","最后的战役3"]
         ]
         
-        titleArray = ["七里香", "星晴", "彩虹", "彩虹", "aha"]
+        titleArray = ["七里香11111111111111111", "星晴", "彩虹", "彩虹", "aha"]
         
 //        tableBoard.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
 //        tableBoard.sizeOffset = CGSize(width: 0.0, height: 64)
@@ -131,6 +131,10 @@ extension ViewController: STTableBoardDelegate {
 extension ViewController: STTableBoardDataSource {
     func tableBoard(tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String? {
         return titleArray[board]
+    }
+
+    func tableBoard(tableBoard: STTableBoard, numberForBoardInBoard board: Int) -> Int {
+        return dataArray[board].count
     }
     
     func numberOfBoardsInTableBoard(tableBoard: STTableBoard) -> Int {

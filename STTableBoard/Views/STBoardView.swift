@@ -89,6 +89,15 @@ class STBoardView: UIView {
             self.headerView.title = newValue
         }
     }
+
+    var number: Int {
+        get {
+            return self.headerView.number
+        }
+        set {
+            self.headerView.number = newValue
+        }
+    }
     
      init(frame: CGRect, showRefreshFooter: Bool) {
         super.init(frame: frame)

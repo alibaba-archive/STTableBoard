@@ -53,6 +53,12 @@ public extension STTableBoard {
         let board = boards[index]
         board.title = dataSource?.tableBoard(self, titleForBoardInBoard: index)
     }
+
+    func reloadBoardNumberAtIndex(index: Int) {
+        guard index < boards.count else { fatalError("index is not exist!!") }
+        let board = boards[index]
+        board.number = dataSource?.tableBoard(self, numberForBoardInBoard: index) ?? 0
+    }
     
     func removeBoardAtIndex(index: Int) {
         guard index < boards.count else { fatalError("index is not exist!!") }
