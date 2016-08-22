@@ -365,7 +365,9 @@ extension STTableBoard {
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        UIView.animateWithDuration(0.33, animations: { () -> Void in
+        guard let _ = self.originFrame else { return }
+        UIView.animateWithDuration(0.33, animations: { [weak self]() -> Void in
+            guard let `self` = self else { return }
             self.relayoutAllViews(self.originFrame.size, hideBoardMenu: false)
             })
     }

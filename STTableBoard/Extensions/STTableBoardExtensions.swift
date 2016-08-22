@@ -211,45 +211,12 @@ extension STTableBoard {
     }
     
     func moveRowToPosition(tableView: STShadowTableView?, recognizer: UIGestureRecognizer) {
-        guard let tableView = tableView, dataSource = dataSource else { return }
-        
-        func moveRowToIndexPath(indexPath: NSIndexPath) {
-            guard dataSource.tableBoard(self, shouldMoveRowAtIndexPath: sourceIndexPath, toIndexPath: indexPath.convertToSTIndexPath(tableView.index)) else { return }
-            if let lastMovingTime = lastMovingTime {
-                guard NSDate().timeIntervalSinceDate(lastMovingTime) > minimumMovingRowInterval else { return }
-            }
-            var destinationIndexPath: STIndexPath = indexPath.convertToSTIndexPath(tableView.index)
-            dataSource.tableBoard(self, moveRowAtIndexPath: sourceIndexPath, toIndexPath: &destinationIndexPath)
-            let newIndexPath = destinationIndexPath.convertToNSIndexPath()
-            if sourceIndexPath.board == tableView.index {
-                tableView.beginUpdates()
-                tableView.deleteRowsAtIndexPaths([sourceIndexPath.convertToNSIndexPath()], withRowAnimation: .Fade)
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .None)
-                tableView.endUpdates()
-                let cell = tableView.cellForRowAtIndexPath(newIndexPath) as! STBoardCell
-                cell.moving = true
-            } else {
-                let sourceTableView = boards[sourceIndexPath.board].tableView
-                sourceTableView.beginUpdates()
-                sourceTableView.deleteRowsAtIndexPaths([sourceIndexPath.convertToNSIndexPath()], withRowAnimation: .Fade)
-                sourceTableView.endUpdates()
-                rowDidBeRemovedFromTableView(sourceTableView)
-                tableView.beginUpdates()
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
-                tableView.endUpdates()
-                rowDidBeInsertedIntoTableView(tableView)
-                let cell = tableView.cellForRowAtIndexPath(newIndexPath) as! STBoardCell
-                cell.moving = true
-            }
-            sourceIndexPath = newIndexPath.convertToSTIndexPath(tableView.index)
-            lastMovingTime = NSDate()
-        }
-        
+        guard let tableView = tableView, _ = dataSource else { return }
         let positionInTableView = recognizer.locationInView(tableView)
         
         if tableView.height == 0.0 {
            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-            moveRowToIndexPath(indexPath)
+            moveRowToIndexPath(indexPath, tableView: tableView)
         } else {
             var realPoint = positionInTableView
             switch (isScrolling, scrollDirection) {
@@ -262,9 +229,41 @@ extension STTableBoard {
             }
             
             if let indexPath = tableView.indexPathForRowAtPoint(realPoint) {
-                moveRowToIndexPath(indexPath)
+                moveRowToIndexPath(indexPath, tableView: tableView)
             }
         }
+    }
+
+    private func moveRowToIndexPath(indexPath: NSIndexPath, tableView: STShadowTableView) {
+        guard dataSource!.tableBoard(self, shouldMoveRowAtIndexPath: sourceIndexPath, toIndexPath: indexPath.convertToSTIndexPath(tableView.index)) else { return }
+        if let lastMovingTime = lastMovingTime {
+            guard NSDate().timeIntervalSinceDate(lastMovingTime) > minimumMovingRowInterval else { return }
+        }
+        var destinationIndexPath: STIndexPath = indexPath.convertToSTIndexPath(tableView.index)
+        dataSource!.tableBoard(self, moveRowAtIndexPath: sourceIndexPath, toIndexPath: &destinationIndexPath)
+        let newIndexPath = destinationIndexPath.convertToNSIndexPath()
+        if sourceIndexPath.board == tableView.index {
+            tableView.beginUpdates()
+            tableView.deleteRowsAtIndexPaths([sourceIndexPath.convertToNSIndexPath()], withRowAnimation: .Fade)
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .None)
+            tableView.endUpdates()
+            let cell = tableView.cellForRowAtIndexPath(newIndexPath) as! STBoardCell
+            cell.moving = true
+        } else {
+            let sourceTableView = boards[sourceIndexPath.board].tableView
+            sourceTableView.beginUpdates()
+            sourceTableView.deleteRowsAtIndexPaths([sourceIndexPath.convertToNSIndexPath()], withRowAnimation: .Fade)
+            sourceTableView.endUpdates()
+            rowDidBeRemovedFromTableView(sourceTableView)
+            tableView.beginUpdates()
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+            tableView.endUpdates()
+            rowDidBeInsertedIntoTableView(tableView)
+            let cell = tableView.cellForRowAtIndexPath(newIndexPath) as! STBoardCell
+            cell.moving = true
+        }
+        sourceIndexPath = newIndexPath.convertToSTIndexPath(tableView.index)
+        lastMovingTime = NSDate()
     }
     
     func updateSnapViewStatus(status: SnapViewStatus) {
