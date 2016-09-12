@@ -70,10 +70,10 @@ class ViewController: UIViewController {
 //        tableBoard.exchangeBoardAtIndex(0, destinationIndex: 1, animation: true)
 //        let indexPath = STIndexPath(forRow: 0, inBoard: 1)
 //        tableBoard.reloadRowAtIndexPath([indexPath], withRowAnimation: .Automatic)
-        delay(5) {
-            self.tableBoard.stopMovingBoard()
-            self.tableBoard.stopMovingCell()
-        }
+//        delay(5) {
+//            self.tableBoard.stopMovingBoard()
+//            self.tableBoard.stopMovingCell()
+//        }
     }
     
     func addAddButton() {
@@ -82,9 +82,10 @@ class ViewController: UIViewController {
     }
     
     func doneButtonClick() {
-        let indexPath1 = STIndexPath(forRow: dataArray[1].count, inBoard: 1)
-        dataArray[1].append("wtf")
-        tableBoard.insertRowAtIndexPath(indexPath1, withRowAnimation: .Fade, atScrollPosition: .Bottom)
+//        let indexPath1 = STIndexPath(forRow: dataArray[1].count, inBoard: 1)
+//        dataArray[1].append("wtf")
+//        tableBoard.insertRowAtIndexPath(indexPath1, withRowAnimation: .Fade, atScrollPosition: .Bottom)
+        tableBoard.reloadData(false, resetMode: true)
     }
     
     override func didReceiveMemoryWarning() {

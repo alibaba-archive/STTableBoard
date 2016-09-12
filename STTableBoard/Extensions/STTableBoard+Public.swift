@@ -10,7 +10,7 @@ import UIKit
 
 //MARK: - public method
 public extension STTableBoard {
-    public func reloadData(resetPage: Bool = true) {
+    public func reloadData(resetPage: Bool = true, resetMode: Bool = false) {
         resetContentSize()
         
         if boards.count != 0 {
@@ -37,6 +37,10 @@ public extension STTableBoard {
             textComposeView.frame = newBoardButtonViewFrame
             containerView.addSubview(newBoardButtonView)
             containerView.addSubview(textComposeView)
+        }
+
+        if resetMode && currentDevice == .Phone && tableBoardMode == .Scroll {
+            switchMode()
         }
     }
 
