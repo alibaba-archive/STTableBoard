@@ -10,17 +10,17 @@ import UIKit
 
 class RoundAvatarImageView: UIView {
     
-    private lazy var avatarImageView: UIImageView = {
+    fileprivate lazy var avatarImageView: UIImageView = {
         let imageView: UIImageView = UIImageView(frame: self.bounds)
-        imageView.contentMode = .ScaleToFill
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
     
-    private lazy var maskImageView: UIImageView = {
+    fileprivate lazy var maskImageView: UIImageView = {
         let imageView: UIImageView = UIImageView(frame: self.bounds)
-        imageView.backgroundColor = UIColor.clearColor()
+        imageView.backgroundColor = UIColor.clear
         imageView.image = UIImage(named: "avatarMask")
-        imageView.contentMode = .ScaleToFill
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
     

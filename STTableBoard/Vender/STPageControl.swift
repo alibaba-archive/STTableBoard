@@ -11,11 +11,11 @@ import UIKit
 class STPageControl: UIPageControl {
 
     var showAddDots: Bool = true
-    private var customDotImageView: UIImageView? = nil
+    fileprivate var customDotImageView: UIImageView? = nil
 
     // Image
-    let activeAddPageControlImage = UIImage(named: "active_add", inBundle: currentBundle, compatibleWithTraitCollection: nil)
-    let inactiveAddPageControlImage = UIImage(named: "inactive_add", inBundle: currentBundle, compatibleWithTraitCollection: nil)
+    let activeAddPageControlImage = UIImage(named: "active_add", in: currentBundle, compatibleWith: nil)
+    let inactiveAddPageControlImage = UIImage(named: "inactive_add", in: currentBundle, compatibleWith: nil)
 
     override var currentPage: Int {
         didSet {
@@ -40,7 +40,7 @@ class STPageControl: UIPageControl {
         super.init(coder: aDecoder)
     }
 
-    private func imageViewForSubView(view: UIView) -> UIImageView? {
+    fileprivate func imageViewForSubView(_ view: UIView) -> UIImageView? {
         var dot: UIImageView? = nil
         for subview in view.subviews {
             if let imageView = subview as? UIImageView {
@@ -57,9 +57,9 @@ class STPageControl: UIPageControl {
         return dot
     }
 
-    private func updateDots() {
+    fileprivate func updateDots() {
         guard showAddDots else { return }
-        if let view = subviews.last, dot = imageViewForSubView(view) {
+        if let view = subviews.last, let dot = imageViewForSubView(view) {
             if currentPage == subviews.count - 1 {
                 dot.image = activeAddPageControlImage
             } else {

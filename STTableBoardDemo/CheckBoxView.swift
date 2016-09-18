@@ -10,8 +10,8 @@ import UIKit
 
 class CheckBoxView: UIImageView{
     
-    private let uncheckedImageName = "checkbox"
-    private let checkedImageName = "checkbox"
+    fileprivate let uncheckedImageName = "checkbox"
+    fileprivate let checkedImageName = "checkbox"
     
     var checked: Bool = false {
         didSet {

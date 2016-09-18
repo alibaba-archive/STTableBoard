@@ -21,15 +21,15 @@ class BoardMenuTextViewController: UIViewController {
     
     var textField: UITextField = {
         let textField = UITextField(frame: CGRect.zero)
-        textField.returnKeyType = .Done
+        textField.returnKeyType = .done
         let indentView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 5))
         textField.leftView = indentView
-        textField.leftViewMode = .Always
+        textField.leftViewMode = .always
         let layer = textField.layer
         layer.masksToBounds = true
         layer.cornerRadius = 4.0
         layer.borderWidth = 1.0
-        layer.borderColor = boardMenuTextFieldBorderColor.CGColor
+        layer.borderColor = boardMenuTextFieldBorderColor.cgColor
         return textField
     }()
 
@@ -37,7 +37,7 @@ class BoardMenuTextViewController: UIViewController {
         super.viewDidLoad()
         self.title = localizedString["STTableBoard.BoardMenuTextViewController.Title"]
         self.view.backgroundColor = boardMenuTextViewControllerBackgroundColor
-        textField.backgroundColor = UIColor.whiteColor()
+        textField.backgroundColor = UIColor.white
         
         textField.delegate = self
         view.addSubview(textField)
@@ -47,14 +47,14 @@ class BoardMenuTextViewController: UIViewController {
         let metrics = ["leading": textFieldPaddingX, "trailling": textFieldPaddingX, "top": textFieldPaddingY, "bottom": textFieldPaddingY]
         let views = ["textField": textField]
         
-        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-leading-[textField]-trailling-|", options: [], metrics: metrics, views: views)
-        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[textField]-bottom-|", options: [], metrics: metrics, views: views)
-        let topConstraints = NSLayoutConstraint(item: textField, attribute: .Top, relatedBy: .Equal, toItem: self.topLayoutGuide, attribute: .Bottom, multiplier: 1.0, constant: textFieldPaddingY)
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-leading-[textField]-trailling-|", options: [], metrics: metrics, views: views)
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[textField]-bottom-|", options: [], metrics: metrics, views: views)
+        let topConstraints = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self.topLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: textFieldPaddingY)
         
-        NSLayoutConstraint.activateConstraints(horizontalConstraints + verticalConstraints + [topConstraints])
+        NSLayoutConstraint.activate(horizontalConstraints + verticalConstraints + [topConstraints])
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         textField.becomeFirstResponder()
     }
@@ -66,13 +66,14 @@ class BoardMenuTextViewController: UIViewController {
 }
 
 extension BoardMenuTextViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        if textField.text != boardTitle && textField.text?.characters.count > 0{
+        guard let text = textField.text else { return false }
+        if text != boardTitle && text.characters.count > 0{
             guard let boardMenu = self.navigationController as? BoardMenu else { return true }
-            boardMenu.boardMenuDelegate?.boardMenu(boardMenu, boardMenuHandleType: BoardMenuHandleType.BoardTitleChanged, userInfo: [newBoardTitleKey: textField.text])
+            boardMenu.boardMenuDelegate?.boardMenu(boardMenu, boardMenuHandleType: BoardMenuHandleType.boardTitleChanged, userInfo: [newBoardTitleKey: text])
         }
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
         return true
     }
 }

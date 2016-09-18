@@ -8,29 +8,29 @@
 import UIKit
 
 public enum BoardMenuHandleType {
-    case BoardTitleChanged
-    case BoardDeleted
+    case boardTitleChanged
+    case boardDeleted
 }
 
 enum SnapViewStatus {
-    case Moving
-    case Origin
+    case moving
+    case origin
 }
 
 enum ScrollDirection {
-    case Left
-    case Right
-    case None
+    case left
+    case right
+    case none
 }
 
 enum STTableBoardMode {
-    case Page
-    case Scroll
+    case page
+    case scroll
 }
 
 enum STTableBoardOrientation {
-    case Landscape
-    case Portrait
+    case landscape
+    case portrait
 }
 
 let timerUserInfoTableViewKey = "theTableView"
@@ -50,8 +50,8 @@ let newCellComposeViewHeight: CGFloat = 106.0
 let scaleForPage: CGFloat = 1.0
 let scaleForScroll: CGFloat = 0.5
 let defaultScrollViewScrollVelocity: CGFloat = 50.0
-let currentBundle = NSBundle(forClass: STTableBoard.self)
-let minimumMovingRowInterval: NSTimeInterval = 0.2
+let currentBundle = Bundle(for: STTableBoard.self)
+let minimumMovingRowInterval: TimeInterval = 0.2
 let boardmenuMaxSpacingToEdge: CGFloat = 20.0
 let pageControlHeight: CGFloat = 20.0
 
@@ -79,18 +79,18 @@ let boardIndexKey = "boardIndex"
 
 var currentDevice: UIUserInterfaceIdiom {
     get {
-        return UIDevice.currentDevice().userInterfaceIdiom
+        return UIDevice.current.userInterfaceIdiom
     }
 }
 
 var currentOrientation: STTableBoardOrientation {
     get {
-        var orientation: STTableBoardOrientation = .Portrait
-        switch UIApplication.sharedApplication().statusBarOrientation {
-        case .Portrait, .PortraitUpsideDown, .Unknown:
-            orientation = .Portrait
-        case .LandscapeLeft, .LandscapeRight:
-            orientation = .Landscape
+        var orientation: STTableBoardOrientation = .portrait
+        switch UIApplication.shared.statusBarOrientation {
+        case .portrait, .portraitUpsideDown, .unknown:
+            orientation = .portrait
+        case .landscapeLeft, .landscapeRight:
+            orientation = .landscape
         }
         return orientation
     }

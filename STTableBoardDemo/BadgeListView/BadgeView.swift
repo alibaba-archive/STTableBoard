@@ -8,72 +8,72 @@
 
 import UIKit
 
-public class BadgeView: UIView {
+open class BadgeView: UIView {
     
-    public var imageWidth: CGFloat = 10.0
+    open var imageWidth: CGFloat = 10.0
     
-    public var titlePaddingX: CGFloat = 5 {
+    open var titlePaddingX: CGFloat = 5 {
         didSet{
             resizeTitleLabel()
         }
     }
     
-    public var titlePaddingY: CGFloat = 2 {
+    open var titlePaddingY: CGFloat = 2 {
         didSet{
             resizeTitleLabel()
         }
     }
     
-    public var imagePaddingX: CGFloat = 5 {
+    open var imagePaddingX: CGFloat = 5 {
         didSet{
             resizeImageView()
         }
     }
     
-    public var textFont: UIFont = UIFont.systemFontOfSize(12.0) {
+    open var textFont: UIFont = UIFont.systemFont(ofSize: 12.0) {
         didSet {
             titleLabel.font = textFont
         }
     }
     
-    public var textColor: UIColor = UIColor.blackColor() {
+    open var textColor: UIColor = UIColor.black {
         didSet {
             titleLabel.textColor = textColor
         }
     }
     
-    public var text: String? {
+    open var text: String? {
         didSet {
             titleLabel.text = text
         }
     }
     
-    public var image: UIImage? {
+    open var image: UIImage? {
         didSet {
             imageView.image = image
             resizeImageView()
         }
     }
     
-    public var backgroundImage: UIImage? {
+    open var backgroundImage: UIImage? {
         didSet {
             backgroundImageView.image = backgroundImage
         }
     }
     
-    private lazy var imageView: UIImageView = {
+    fileprivate lazy var imageView: UIImageView = {
         let imageView: UIImageView = UIImageView(frame: CGRect.zero)
         return imageView
     }()
     
-    private lazy var backgroundImageView: UIImageView = {
+    fileprivate lazy var backgroundImageView: UIImageView = {
         let imageView: UIImageView = UIImageView(frame: self.bounds)
         return imageView
     }()
     
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let label: UILabel = UILabel(frame: CGRect.zero)
-        label.textAlignment = .Left
+        label.textAlignment = .left
         label.font = self.textFont
         label.numberOfLines = 1
         return label
@@ -81,15 +81,15 @@ public class BadgeView: UIView {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         addSubview(backgroundImageView)
         addSubview(imageView)
         addSubview(titleLabel)
-        self.frame.size = intrinsicContentSize()
+        self.frame.size = intrinsicContentSize
     }
 
-    override public func intrinsicContentSize() -> CGSize {
-        var size = titleLabel.text?.sizeWithAttributes([NSFontAttributeName: textFont]) ?? CGSize.zero
+    override open var intrinsicContentSize : CGSize {
+        var size = titleLabel.text?.size(attributes: [NSFontAttributeName: textFont]) ?? CGSize.zero
         
         size.height += 2 * titlePaddingY
         if let _ = image {
@@ -122,11 +122,11 @@ public class BadgeView: UIView {
         }
     }
     
-    public override func sizeToFit() {
+    open override func sizeToFit() {
         super.sizeToFit()
         resizeTitleLabel()
         resizeImageView()
-        self.frame.size = intrinsicContentSize()
+        self.frame.size = intrinsicContentSize
         resizeBackgroundImageView()
     }
     

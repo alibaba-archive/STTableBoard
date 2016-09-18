@@ -12,12 +12,12 @@ class CardView: UIView {
     
     let cornerRadius: CGFloat = 4.0
 
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-        let contentRect = CGRectInset(rect, 1.0, 2.0)
+        let contentRect = rect.insetBy(dx: 1.0, dy: 2.0)
         let roundedPath = UIBezierPath(roundedRect: contentRect, cornerRadius: cornerRadius)
-        CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
-        CGContextSetShadowWithColor(context, CGSize(width: 0.0, height: 0.8), 2.0, UIColor.blackColor().colorWithAlphaComponent(0.15).CGColor)
+        context?.setFillColor(UIColor.white.cgColor)
+        context?.setShadow(offset: CGSize(width: 0.0, height: 0.8), blur: 2.0, color: UIColor.black.withAlphaComponent(0.15).cgColor)
         roundedPath.fill()
     }
 

@@ -10,7 +10,7 @@ import UIKit
 
 extension UIScrollView {
     func presentContenOffset() -> CGPoint? {
-        guard let presentLayer = self.layer.presentationLayer() else { return nil }
+        guard let presentLayer = self.layer.presentation() else { return nil }
         return presentLayer.bounds.origin
     }
 }

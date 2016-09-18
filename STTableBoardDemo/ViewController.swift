@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         
 //        tableBoard.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
 //        tableBoard.sizeOffset = CGSize(width: 0.0, height: 64)
-        tableBoard.registerClasses(classAndIdentifier: [(BoardCardCell.self,"DefaultCell")])
+        tableBoard.registerClasses([(BoardCardCell.self,"DefaultCell")])
         tableBoard.delegate = self
         tableBoard.dataSource = self
         tableBoard.showAddBoardButton = true
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
         tableBoard.view.frame.size = view.frame.size
         self.addChildViewController(tableBoard)
         view.addSubview(tableBoard.view)
-        tableBoard.didMoveToParentViewController(self)
+        tableBoard.didMove(toParentViewController: self)
 //        tableBoard.showLoadingView = true
     }
 
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
         print("no retain cycle")
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        (dataArray[0], dataArray[1]) = (dataArray[1], dataArray[0])
 //        tableBoard.exchangeBoardAtIndex(0, destinationIndex: 1, animation: true)
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
     }
     
     func addAddButton() {
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ViewController.doneButtonClick))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(ViewController.doneButtonClick))
         navigationItem.rightBarButtonItem = doneButton
     }
     
@@ -92,143 +92,136 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
-    func delay(seconds: Int, function: () -> Void) {
+    func delay(_ seconds: Int, function: @escaping () -> Void) {
         let triggerTime = (Int64(NSEC_PER_SEC) * Int64(seconds))
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, triggerTime), dispatch_get_main_queue(), { () -> Void in
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(triggerTime) / Double(NSEC_PER_SEC), execute: { () -> Void in
             function()
         })
     }
 }
 
 extension ViewController: STTableBoardDelegate {
-    func tableBoard(tableBoard: STTableBoard, heightForRowAtIndexPath indexPath: STIndexPath) -> CGFloat {
+    func tableBoard(_ tableBoard: STTableBoard, heightForRowAt indexPath: STIndexPath) -> CGFloat {
         return 80.0
     }
     
-    func tableBoard(tableBoard: STTableBoard, willRemoveBoardAtIndex index: Int) -> Bool {
+    func tableBoard(_ tableBoard: STTableBoard, willRemoveBoardAt index: Int) -> Bool {
         guard index != 0 else { return false }
-        dataArray.removeAtIndex(index)
-        titleArray.removeAtIndex(index)
+        dataArray.remove(at: index)
+        titleArray.remove(at: index)
         return true
     }
     
-    func tableBoard(tableBoard: STTableBoard, willAddNewBoardAtIndex index: Int, withBoardTitle title: String) {
+    func tableBoard(_ tableBoard: STTableBoard, willAddNewBoardAt index: Int, with boardTitle: String) {
         dataArray.append([])
-        titleArray.append(title)
+        titleArray.append(boardTitle)
         tableBoard.insertBoardAtIndex(index, withAnimation: true)
     }
     
-    func tableBoard(tableBoard: STTableBoard, didSelectRowAtIndexPath indexPath: STIndexPath) {
+    func tableBoard(_ tableBoard: STTableBoard, didSelectRowAt indexPath: STIndexPath) {
         print("board \(indexPath.board) row \(indexPath.row)")
         if let cell = tableBoard.cellForRowAtIndexPath(indexPath) as? BoardCardCell {
             print("cell's title \(cell.titleText)")
         }
         let viewController = UIViewController()
-        viewController.view.backgroundColor = UIColor.whiteColor()
+        viewController.view.backgroundColor = UIColor.white
         navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    func tableBoard(_ tableBoard: STTableBoard, canEditBoardTitleAt boardIndex: Int) -> Bool {
+        return true
+    }
+
+    func tableBoard(_ tableBoard: STTableBoard, boardTitleBeChangedTo title: String, at boardIndex: Int) {
+        titleArray[boardIndex] = title
     }
 }
 
 extension ViewController: STTableBoardDataSource {
-    func tableBoard(tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String? {
-        return titleArray[board]
-    }
-
-    func tableBoard(tableBoard: STTableBoard, numberForBoardInBoard board: Int) -> Int {
-        return dataArray[board].count
-    }
-    
-    func numberOfBoardsInTableBoard(tableBoard: STTableBoard) -> Int {
+    func numberOfBoards(in tableBoard: STTableBoard) -> Int {
         return dataArray.count
     }
-    
-    func tableBoard(tableBoard: STTableBoard, numberOfRowsInBoard board: Int) -> Int {
-        return dataArray[board].count
+
+    func tableBoard(_ tableBoard: STTableBoard, numberOfRowsAt boardIndex: Int) -> Int {
+        return dataArray[boardIndex].count
     }
-    
-    func tableBoard(tableBoard: STTableBoard, cellForRowAtIndexPath indexPath: STIndexPath) -> UITableViewCell {
+
+    func tableBoard(_ tableBoard: STTableBoard, cellForRowAt indexPath: STIndexPath) -> UITableViewCell {
         let cell = tableBoard.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath) as! BoardCardCell
         cell.titleText = dataArray[indexPath.board][indexPath.row]
         return cell
     }
 
-    func tableBoard(tableBoard: STTableBoard, boardTitleBeChangedTo title: String, inBoard board: Int) {
-        titleArray[board] = title
+    func tableBoard(_ tableBoard: STTableBoard, titleForBoardAt boardIndex: Int) -> String? {
+        return titleArray[boardIndex]
     }
 
-    func tableBoard(tableBoard: STTableBoard, canEditBoardTitleInBoard board: Int) -> Bool {
-//        let alertController = UIAlertController(title: nil, message: "fuck", preferredStyle: .Alert)
-//        let cancelAction = UIAlertAction(title: "cancel", style: .Cancel, handler: nil)
-//        alertController.addAction(cancelAction)
-//        presentViewController(alertController, animated: true, completion: nil)
-//        return false
-        return true
+    func tableBoard(_ tableBoard: STTableBoard, numberForBoardAt boardIndex: Int) -> Int {
+        return dataArray[boardIndex].count
     }
 
-    
-    func tableBoard(tableBoard: STTableBoard, didAddRowAtBoard board: Int, withRowTitle title: String) {
-        let indexPath = STIndexPath(forRow: dataArray[board].count, inBoard: board)
-        dataArray[board].append(title)
-        tableBoard.insertRowAtIndexPath(indexPath, withRowAnimation: .Fade, atScrollPosition: .Bottom)
+    func tableBoard(_ tableBoard: STTableBoard, didAddRowAt boardIndex: Int, with rowTitle: String) {
+        let indexPath = STIndexPath(forRow: dataArray[boardIndex].count, inBoard: boardIndex)
+        dataArray[boardIndex].append(rowTitle)
+        tableBoard.insertRowAtIndexPath(indexPath, withRowAnimation: .fade, atScrollPosition: .bottom)
     }
     
     // move row
-    func tableBoard(tableBoard: STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, inout toIndexPath destinationIndexPath: STIndexPath) {
-//        destinationIndexPath = STIndexPath(forRow: 0, inBoard: destinationIndexPath.board)
-        let data = dataArray[sourceIndexPath.board][sourceIndexPath.row]
-        dataArray[sourceIndexPath.board].removeAtIndex(sourceIndexPath.row)
-        dataArray[destinationIndexPath.board].insert(data, atIndex: destinationIndexPath.row)
-    }
-    
-    func tableBoard(tableBoard: STTableBoard, shouldMoveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) -> Bool {
-        if destinationIndexPath.board == 1 && destinationIndexPath.row == 1 {
-            return false
-        }
-        return true
-    }
-    
-    func tableBoard(tableBoard: STTableBoard, canMoveRowAtIndexPath indexPath: STIndexPath) -> Bool {
+    func tableBoard(_ tableBoard: STTableBoard, canMoveRowAt indexPath: STIndexPath) -> Bool {
         if indexPath.board == 0 && indexPath.row == 2 {
             return false
         }
         return true
     }
+
+    func tableBoard(_ tableBoard: STTableBoard, shouldMoveRowAt sourceIndexPath: STIndexPath, to destinationIndexPath: STIndexPath) -> Bool {
+        if destinationIndexPath.board == 1 && destinationIndexPath.row == 1 {
+            return false
+        }
+        return true
+    }
+
+    func tableBoard(_ tableBoard: STTableBoard, moveRowAt sourceIndexPath: STIndexPath, to destinationIndexPath: inout STIndexPath) {
+//        destinationIndexPath = STIndexPath(forRow: 0, inBoard: destinationIndexPath.board)
+        let data = dataArray[sourceIndexPath.board][sourceIndexPath.row]
+        dataArray[sourceIndexPath.board].remove(at: sourceIndexPath.row)
+        dataArray[destinationIndexPath.board].insert(data, at: destinationIndexPath.row)
+    }
     
-    func tableBoard(tableBoard: STTableBoard, didEndMoveRowAtOriginIndexPath originIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) {
+    func tableBoard(_ tableBoard: STTableBoard, didEndMoveRowAt originIndexPath: STIndexPath, to destinationIndexPath: STIndexPath) {
         print("originIndexPath \(originIndexPath), destinationIndexPath \(destinationIndexPath)")
     }
     
     // move board
-    func tableBoard(tableBoard: STTableBoard, moveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int) {
+    func tableBoard(_ tableBoard: STTableBoard, canMoveBoardAt boardIndex: Int) -> Bool {
+        return true
+    }
+
+    func tableBoard(_ tableBoard: STTableBoard, shouldMoveBoardAt sourceIndex: Int, to destinationIndex: Int) -> Bool {
+        if destinationIndex == dataArray.count - 1 {
+            return false
+        }
+        return true
+    }
+
+    func tableBoard(_ tableBoard: STTableBoard, moveBoardAt sourceIndex: Int, to destinationIndex: Int) {
         let sourceData = dataArray[sourceIndex]
         let destinationData = dataArray[destinationIndex]
         dataArray[sourceIndex] = destinationData
         dataArray[destinationIndex] = sourceData
     }
     
-    func tableBoard(tableBoard: STTableBoard, canMoveBoardAtIndex index: Int) -> Bool {
-//        if index == 0 {
-//            return false
-//        }
-        return true
-    }
-
-    func tableBoard(tableBoard: STTableBoard, shouldMoveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int) -> Bool {
-        if destinationIndex == dataArray.count - 1 {
-            return false
-        }
-        return true
-    }
-    
-    func tableBoard(tableBoard: STTableBoard, didEndMoveBoardAtOriginIndex originIndex: Int, toIndex destinationIndex: Int) {
+    func tableBoard(_ tableBoard: STTableBoard, didEndMoveBoardAt originIndex: Int, to destinationIndex: Int) {
         print("originIndex \(originIndex), destinationIndex \(destinationIndex)")
     }
 
-    func tableBoard(tableBoard: STTableBoard, scaleTableBoard isScaled: Bool) {
+    // scale table board
+    func tableBoard(_ tableBoard: STTableBoard, scaleTableBoard isScaled: Bool) {
         print("isScaled : \(isScaled)")
     }
 
-    func tableBoard(tableBoard: STTableBoard, showRefreshFooterAtBoard boardIndex: Int) -> Bool {
+    // footer refresh handle
+    func tableBoard(_ tableBoard: STTableBoard, showRefreshFooterAt boardIndex: Int) -> Bool {
 //        if boardIndex == dataArray.count - 1 {
 //            return true
 //        }
@@ -236,9 +229,9 @@ extension ViewController: STTableBoardDataSource {
         return true
     }
 
-    func tableBoard(tableBoard: STTableBoard, boardIndexForFooterRefreshing boardIndex: Int) {
+    func tableBoard(_ tableBoard: STTableBoard, footerRefreshingAt boardIndex: Int) {
 //        tableBoard.endRefreshing(boardIndex)
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC)), dispatch_get_main_queue(), {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(1 * Int64(NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {
             tableBoard.endRefreshing(boardIndex)
             tableBoard.showRefreshFooter(boardIndex, showRefreshFooter: false)
         });

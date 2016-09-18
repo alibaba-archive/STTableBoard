@@ -6,14 +6,14 @@
 //  Copyright © 2016年 StormXX. All rights reserved.
 //
 protocol BoardMenuDelegate: class {
-    func boardMenu(boardMenu: BoardMenu, boardMenuHandleType type: BoardMenuHandleType, userInfo: [String: AnyObject?]?)
+    func boardMenu(_ boardMenu: BoardMenu, boardMenuHandleType type: BoardMenuHandleType, userInfo: [String: Any?]?)
 }
 
 import UIKit
 
 class BoardMenu: UINavigationController {
 
-    private var boardMenuTableViewController: BoardMenuTableViewController!
+    fileprivate var boardMenuTableViewController: BoardMenuTableViewController!
     
     weak var boardMenuDelegate: BoardMenuDelegate?
     weak var tableBoard: STTableBoard?
@@ -29,7 +29,7 @@ class BoardMenu: UINavigationController {
     }
     
     convenience init() {
-        let rootViewController = BoardMenuTableViewController(style: .Plain)
+        let rootViewController = BoardMenuTableViewController(style: .plain)
         self.init(rootViewController: rootViewController)
         self.boardMenuTableViewController = rootViewController
     }
@@ -54,7 +54,7 @@ class BoardMenu: UINavigationController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 

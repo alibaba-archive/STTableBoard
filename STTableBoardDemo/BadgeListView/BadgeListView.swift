@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class BadgeListView: UIView {
+open class BadgeListView: UIView {
     
     var rowContainerViews: [UIView] = []
     var badgeViews: [BadgeView] = []
@@ -24,7 +24,7 @@ public class BadgeListView: UIView {
     }
     
     
-    public func addBadge(badge: BadgeView) {
+    open func addBadge(_ badge: BadgeView) {
         badgeViews.append(badge)
         
         var currentRowContainerView: UIView!
@@ -32,7 +32,7 @@ public class BadgeListView: UIView {
             currentRow += 1
             currentRowWidth = badge.width
             currentRowContainerView = UIView()
-            let originYOfCurrentRowContainerView = rowContainerViews.flatMap({ view in view.height}).reduce(0, combine: {$0 + $1})
+            let originYOfCurrentRowContainerView = rowContainerViews.flatMap({ view in view.height}).reduce(0, {$0 + $1})
             badge.frame.origin = CGPoint(x: 0, y: 0)
             currentRowContainerView.frame = CGRect(x: 0, y: originYOfCurrentRowContainerView + (currentRow == 1 ? 0 : rowSpacing), width: currentRowWidth, height: badge.height)
             currentRowContainerView.addSubview(badge)
@@ -46,10 +46,10 @@ public class BadgeListView: UIView {
             currentRowContainerView.frame.size.height = max(currentRowContainerView.height, badge.height)
             currentRowContainerView.addSubview(badge)
         }
-        self.frame.size = intrinsicContentSize()
+        self.frame.size = intrinsicContentSize
     }
     
-    public func removeAllBadges() {
+    open func removeAllBadges() {
         badgeViews.forEach { (badgeView) -> () in
             badgeView.removeFromSuperview()
         }
@@ -58,14 +58,12 @@ public class BadgeListView: UIView {
         }
         badgeViews.removeAll()
         rowContainerViews.removeAll()
-        self.frame.size = intrinsicContentSize()
+        self.frame.size = intrinsicContentSize
     }
     
-    public override func intrinsicContentSize() -> CGSize {
-        super.intrinsicContentSize()
-        let height: CGFloat = rowContainerViews.flatMap({ view in view.height}).reduce(0, combine: {$0 + $1}) + CGFloat(rowContainerViews.count - 1) * rowSpacing
+    open override var intrinsicContentSize : CGSize {
+        let height: CGFloat = rowContainerViews.flatMap({ view in view.height}).reduce(0, {$0 + $1}) + CGFloat(rowContainerViews.count - 1) * rowSpacing
         return CGSize(width: self.width, height: height)
-        
     }
 
     required public init?(coder aDecoder: NSCoder) {

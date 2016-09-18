@@ -10,41 +10,41 @@ import UIKit
 import STTableBoard
 
 class BoardCardCell: STBoardCell {
-    private lazy var cardView: CardView = {
+    fileprivate lazy var cardView: CardView = {
         let view = CardView()
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear
         return view
     }()
     
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.numberOfLines = 2
-        label.textAlignment = .Left
-        label.font = UIFont.systemFontOfSize(15.0)
-        label.lineBreakMode = .ByTruncatingTail
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 15.0)
+        label.lineBreakMode = .byTruncatingTail
         label.textColor = UIColor(red: 56/255.0, green: 56/255.0, blue: 56/255.0, alpha: 1.0)
         return label
     }()
     
-    private lazy var checkBoxView: CheckBoxView = {
+    fileprivate lazy var checkBoxView: CheckBoxView = {
         let view = CheckBoxView(frame: CGRect.zero)
         view.checked = false
         return view
     }()
     
-    private lazy var avatarView: RoundAvatarImageView = {
+    fileprivate lazy var avatarView: RoundAvatarImageView = {
         let view = RoundAvatarImageView(frame: CGRect.zero)
         return view
     }()
     
-    private lazy var badgeListView: BadgeListView = {
+    fileprivate lazy var badgeListView: BadgeListView = {
         let view = BadgeListView()
         return view
     }()
     
     
     
-    private var hasLoadTag: Bool = false
+    fileprivate var hasLoadTag: Bool = false
     
     var titleText: String? {
         didSet {
@@ -76,24 +76,24 @@ class BoardCardCell: STBoardCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         badgeListView.translatesAutoresizingMaskIntoConstraints = false
         
-        let views = ["checkBoxView":checkBoxView, "avatarView":avatarView, "titleLabel":titleLabel]
+        let views = ["checkBoxView":checkBoxView, "avatarView":avatarView, "titleLabel":titleLabel] as [String : Any]
         
         let leading = 8, trailing = 8, top = 2, bottom = 2
-        let cardViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-leading-[cardView]-trailing-|", options: [], metrics: ["leading":leading, "trailing":trailing], views: ["cardView":cardView])
-        let cardViewVerticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-top-[cardView]-bottom-|", options: [], metrics: ["top":top, "bottom":bottom], views: ["cardView":cardView])
-        NSLayoutConstraint.activateConstraints(cardViewHorizontalConstraints + cardViewVerticalConstraints)
+        let cardViewHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-leading-[cardView]-trailing-|", options: [], metrics: ["leading":leading, "trailing":trailing], views: ["cardView":cardView])
+        let cardViewVerticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-top-[cardView]-bottom-|", options: [], metrics: ["top":top, "bottom":bottom], views: ["cardView":cardView])
+        NSLayoutConstraint.activate(cardViewHorizontalConstraints + cardViewVerticalConstraints)
         
         let checkBoxWidth: CGFloat = 16.0, avatarWidth: CGFloat = 24.0
-        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-12-[checkBoxView(==checkBoxWidth)]-8-[avatarView(==avatarWidth)]-8-[titleLabel]-10-|", options: [], metrics: ["checkBoxWidth":checkBoxWidth, "avatarWidth":avatarWidth], views: views)
-        let checkboxHeightConstraint = NSLayoutConstraint(item: checkBoxView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: checkBoxWidth)
-        let avatarHeightConstraints = NSLayoutConstraint(item: avatarView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: avatarWidth)
-        let checkboxTopConstraint = NSLayoutConstraint(item: checkBoxView, attribute: .Top, relatedBy: .Equal, toItem: cardView, attribute: .Top, multiplier: 1.0, constant: 13.0)
-        let avatarTopConstraint = NSLayoutConstraint(item: avatarView, attribute: .Top, relatedBy: .Equal, toItem: cardView, attribute: .Top, multiplier: 1.0, constant: 10.0)
-        let titleLabelTopConstraint = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: cardView, attribute: .Top, multiplier: 1.0, constant: 14.0)
-        let badgeListViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-36-[badgeListView]-8-|", options: [], metrics: nil, views: ["badgeListView":badgeListView])
-        let badgeListViewTopConstraint = NSLayoutConstraint(item: badgeListView, attribute: .Top, relatedBy: .Equal, toItem: titleLabel, attribute: .Bottom, multiplier: 1.0, constant: 12.0)
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "|-12-[checkBoxView(==checkBoxWidth)]-8-[avatarView(==avatarWidth)]-8-[titleLabel]-10-|", options: [], metrics: ["checkBoxWidth":checkBoxWidth, "avatarWidth":avatarWidth], views: views)
+        let checkboxHeightConstraint = NSLayoutConstraint(item: checkBoxView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: checkBoxWidth)
+        let avatarHeightConstraints = NSLayoutConstraint(item: avatarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: avatarWidth)
+        let checkboxTopConstraint = NSLayoutConstraint(item: checkBoxView, attribute: .top, relatedBy: .equal, toItem: cardView, attribute: .top, multiplier: 1.0, constant: 13.0)
+        let avatarTopConstraint = NSLayoutConstraint(item: avatarView, attribute: .top, relatedBy: .equal, toItem: cardView, attribute: .top, multiplier: 1.0, constant: 10.0)
+        let titleLabelTopConstraint = NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: cardView, attribute: .top, multiplier: 1.0, constant: 14.0)
+        let badgeListViewHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "|-36-[badgeListView]-8-|", options: [], metrics: nil, views: ["badgeListView":badgeListView])
+        let badgeListViewTopConstraint = NSLayoutConstraint(item: badgeListView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1.0, constant: 12.0)
         
-        NSLayoutConstraint.activateConstraints(horizontalConstraints + [checkboxHeightConstraint, checkboxTopConstraint, avatarHeightConstraints, avatarTopConstraint, titleLabelTopConstraint, badgeListViewTopConstraint] + badgeListViewHorizontalConstraints)
+        NSLayoutConstraint.activate(horizontalConstraints + [checkboxHeightConstraint, checkboxTopConstraint, avatarHeightConstraints, avatarTopConstraint, titleLabelTopConstraint, badgeListViewTopConstraint] + badgeListViewHorizontalConstraints)
     }
     
     override func layoutSubviews() {
@@ -104,27 +104,27 @@ class BoardCardCell: STBoardCell {
             badge.image = UIImage(named: "dueDate_icon")
             badge.backgroundImage = UIImage(named: "dueDate_background")
             badge.text = "16 Oct"
-            badge.textColor = UIColor.whiteColor()
+            badge.textColor = UIColor.white
             badge.imageWidth = 8.0
             badge.sizeToFit()
-            badge.textFont = UIFont.systemFontOfSize(10.0)
+            badge.textFont = UIFont.systemFont(ofSize: 10.0)
             
             let bbadge: BadgeView = BadgeView(frame: CGRect.zero)
             bbadge.image = UIImage(named: "tag_icon")
             bbadge.backgroundImage = UIImage(named: "tag_background")
             bbadge.text = "交互设计"
-            bbadge.textColor = UIColor.grayColor()
+            bbadge.textColor = UIColor.gray
             bbadge.imageWidth = 4.0
             bbadge.sizeToFit()
-            bbadge.textFont = UIFont.systemFontOfSize(10.0)
+            bbadge.textFont = UIFont.systemFont(ofSize: 10.0)
             
             let cbadge: BadgeView = BadgeView(frame: CGRect.zero)
             cbadge.image = UIImage(named: "subtask_icon")
             cbadge.imageWidth = 9.0
             cbadge.text = "2/3"
-            cbadge.textColor = UIColor.grayColor()
+            cbadge.textColor = UIColor.gray
             cbadge.sizeToFit()
-            cbadge.textFont = UIFont.systemFontOfSize(10.0)
+            cbadge.textFont = UIFont.systemFont(ofSize: 10.0)
             
             badgeListView.addBadge(badge)
             badgeListView.addBadge(bbadge)
