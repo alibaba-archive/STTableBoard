@@ -8,8 +8,8 @@
 
 protocol STBoardViewDelegate: class {
     func boardViewDidBeginEditingAtBottomRow(boardView view: STBoardView)
-    func boardView(boardView: STBoardView, didClickBoardMenuButton button: UIButton)
-    func boardView(boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String)
+    func boardView(_ boardView: STBoardView, didClickBoardMenuButton button: UIButton)
+    func boardView(_ boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String)
 }
 
 extension STBoardViewDelegate {
@@ -32,25 +32,25 @@ class STBoardView: UIView {
     var footerViewHeightConstant: CGFloat = footerViewHeight {
         didSet {
             footerViewHeightConstraint.constant = footerViewHeightConstant
-            UIView.animateWithDuration(0.33, animations: {
+            UIView.animate(withDuration: 0.33, animations: {
                 self.layoutIfNeeded()
-            }) { [weak self](finished) in
+            }, completion: { [weak self](finished) in
                 if let weakSelf = self {
                     weakSelf.tableBoard.autoAdjustTableBoardHeight(weakSelf, animated: true)
                 }
-            }
+            }) 
         }
     }
     
     lazy var footerViewHeightConstraint: NSLayoutConstraint = {
-        let constraint = NSLayoutConstraint(item: self.footerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: footerViewHeight)
+        let constraint = NSLayoutConstraint(item: self.footerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: footerViewHeight)
         return constraint
     }()
     
     var snapshot: UIView {
         get {
             UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0);
-            self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+            self.layer.render(in: UIGraphicsGetCurrentContext()!)
             let image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext();
             
@@ -58,7 +58,7 @@ class STBoardView: UIView {
             let layer = snapshot.layer
             layer.masksToBounds = false;
             layer.cornerRadius = 0.0;
-            layer.shadowOffset = CGSizeMake(-5.0, 0.0);
+            layer.shadowOffset = CGSize(width: -5.0, height: 0.0);
             layer.shadowRadius = 5.0;
             layer.shadowOpacity = 0.15;
             return snapshot;
@@ -102,24 +102,24 @@ class STBoardView: UIView {
      init(frame: CGRect, showRefreshFooter: Bool) {
         super.init(frame: frame)
         setupProperty(showRefreshFooter)
-        tableView.addObserver(self, forKeyPath: "contentOffset", options: [.New, .Old], context: nil)
+        tableView.addObserver(self, forKeyPath: "contentOffset", options: [.new, .old], context: nil)
     }
     
     deinit {
         tableView.removeObserver(self, forKeyPath: "contentOffset")
     }
     
-    func setupProperty(showRefreshFooter: Bool) {
+    func setupProperty(_ showRefreshFooter: Bool) {
         backgroundColor = boardBackgroundColor
         let layer = self.layer
         layer.cornerRadius = 5.0
         layer.masksToBounds = true
-        layer.borderColor = boardBorderColor.CGColor
+        layer.borderColor = boardBorderColor.cgColor
         layer.borderWidth = 0.5
         
         headerView = STBoardHeaderView(frame: CGRect.zero)
         footerView = STBoardFooterView(frame: CGRect.zero)
-        tableView = STShadowTableView(frame: CGRect.zero, style: .Plain)
+        tableView = STShadowTableView(frame: CGRect.zero, style: .plain)
         headerView.backgroundColor = boardBackgroundColor
         footerView.backgroundColor = boardBackgroundColor
         tableView.backgroundColor = boardBackgroundColor
@@ -134,17 +134,17 @@ class STBoardView: UIView {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         footerView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        let headerViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[headerView]|", options: [], metrics: nil, views: ["headerView":headerView])
-        let tableViewHorizontalConstraints  = NSLayoutConstraint.constraintsWithVisualFormat("H:|[tableView]|", options: [], metrics: nil, views: ["tableView":tableView])
-        let footerViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[footerView]|", options: [], metrics: nil, views: ["footerView":footerView])
-        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[headerView(==headerViewHeight)][tableView][footerView]|", options: [], metrics: ["headerViewHeight":headerViewHeight], views: ["headerView":headerView, "tableView":tableView, "footerView":footerView])
+        let headerViewHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[headerView]|", options: [], metrics: nil, views: ["headerView":headerView])
+        let tableViewHorizontalConstraints  = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: ["tableView":tableView])
+        let footerViewHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[footerView]|", options: [], metrics: nil, views: ["footerView":footerView])
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[headerView(==headerViewHeight)][tableView][footerView]|", options: [], metrics: ["headerViewHeight":headerViewHeight], views: ["headerView":headerView, "tableView":tableView, "footerView":footerView])
         
         let horizontalConstraints = headerViewHorizontalConstraints + tableViewHorizontalConstraints + footerViewHorizontalConstraints
-        NSLayoutConstraint.activateConstraints(horizontalConstraints + verticalConstraints + [footerViewHeightConstraint])
+        NSLayoutConstraint.activate(horizontalConstraints + verticalConstraints + [footerViewHeightConstraint])
         
         //shadowView
-        let topShadowBarImage = UIImage(named: "topShadow", inBundle: currentBundle, compatibleWithTraitCollection: nil)
-        let bottomShadowBarImage = UIImage(named: "bottomShadow", inBundle: currentBundle, compatibleWithTraitCollection: nil)
+        let topShadowBarImage = UIImage(named: "topShadow", in: currentBundle, compatibleWith: nil)
+        let bottomShadowBarImage = UIImage(named: "bottomShadow", in: currentBundle, compatibleWith: nil)
         topShadowBar = UIImageView(image: topShadowBarImage)
         bottomShadowBar = UIImageView(image: bottomShadowBarImage)
         
@@ -156,40 +156,40 @@ class STBoardView: UIView {
         
         let topShadowBarHeight: CGFloat = 5.0, bottomShadowBarHeight: CGFloat = 5.0
         
-        let topShadowBarHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[topShadowBar]|", options: [], metrics: nil, views: ["topShadowBar":topShadowBar])
-        let bottomShadowBarHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[bottomShadowBar]|", options: [], metrics: nil, views: ["bottomShadowBar":bottomShadowBar])
+        let topShadowBarHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[topShadowBar]|", options: [], metrics: nil, views: ["topShadowBar":topShadowBar])
+        let bottomShadowBarHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[bottomShadowBar]|", options: [], metrics: nil, views: ["bottomShadowBar":bottomShadowBar])
         let topShadowBarTopConstraint = NSLayoutConstraint(item: topShadowBar,
-            attribute: .Top,
-            relatedBy: .Equal,
+            attribute: .top,
+            relatedBy: .equal,
             toItem: headerView,
-            attribute: .Bottom,
+            attribute: .bottom,
             multiplier: 1.0, constant: 0.0)
         let topShadowBarHeightConstraint = NSLayoutConstraint(item: topShadowBar,
-            attribute: .Height,
-            relatedBy: .Equal,
+            attribute: .height,
+            relatedBy: .equal,
             toItem: nil,
-            attribute: .NotAnAttribute,
+            attribute: .notAnAttribute,
             multiplier: 1.0, constant: topShadowBarHeight)
         let bottomShadowBarBottomConstraint = NSLayoutConstraint(item: bottomShadowBar,
-            attribute: .Bottom,
-            relatedBy: .Equal,
+            attribute: .bottom,
+            relatedBy: .equal,
             toItem: footerView,
-            attribute: .Top,
+            attribute: .top,
             multiplier: 1.0, constant: 0.0)
         let bottomShadowBarHeightConstraint = NSLayoutConstraint(item: bottomShadowBar,
-            attribute: .Height,
-            relatedBy: .Equal,
+            attribute: .height,
+            relatedBy: .equal,
             toItem: nil,
-            attribute: .NotAnAttribute,
+            attribute: .notAnAttribute,
             multiplier: 1.0, constant: bottomShadowBarHeight)
         
-        NSLayoutConstraint.activateConstraints(topShadowBarHorizontalConstraints + bottomShadowBarHorizontalConstraints + [topShadowBarTopConstraint, topShadowBarHeightConstraint, bottomShadowBarBottomConstraint, bottomShadowBarHeightConstraint])
+        NSLayoutConstraint.activate(topShadowBarHorizontalConstraints + bottomShadowBarHorizontalConstraints + [topShadowBarTopConstraint, topShadowBarHeightConstraint, bottomShadowBarBottomConstraint, bottomShadowBarHeightConstraint])
 
         // refresh footer
         guard showRefreshFooter else { return }
         tableView.refreshFooter = CustomRefreshFooterView.footerWithLoadingText(localizedString["STTableBoard.RefreshFooter.text"] ?? "Loading...", startLoading: { [weak self] in
-            if let weakSelf = self, dataSource = weakSelf.tableBoard.dataSource {
-                dataSource.tableBoard(weakSelf.tableBoard, boardIndexForFooterRefreshing: weakSelf.index)
+            if let weakSelf = self, let dataSource = weakSelf.tableBoard.dataSource {
+                dataSource.tableBoard(weakSelf.tableBoard, footerRefreshingAt: weakSelf.index)
             }
         })
     }
@@ -198,11 +198,11 @@ class STBoardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        guard let change = change where keyPath == "contentOffset" else { return }
-        let offsetY = (change["new"] as! NSValue).CGPointValue().y
-        topShadowBar.hidden = (offsetY <= 0)
-        bottomShadowBar.hidden = (offsetY == 0 && tableView.height == tableView.contentSize.height) || (offsetY + tableView.height >= tableView.contentSize.height)
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard let change = change , keyPath == "contentOffset" else { return }
+        let offsetY = (change[.newKey] as! NSValue).cgPointValue.y
+        topShadowBar.isHidden = (offsetY <= 0)
+        bottomShadowBar.isHidden = (offsetY == 0 && tableView.height == tableView.contentSize.height) || (offsetY + tableView.height >= tableView.contentSize.height)
     }
 
     func hideTextComposeView() {

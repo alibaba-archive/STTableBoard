@@ -9,18 +9,18 @@
 import UIKit
 import RefreshView
 
-public class STTableBoard: UIViewController {
+open class STTableBoard: UIViewController {
     
-    public var boardWidth: CGFloat {
+    open var boardWidth: CGFloat {
         get {
-            if currentDevice == .Pad {
+            if currentDevice == .pad {
                 return self.customBoardWidth
             } else {
                 var width: CGFloat = 0
                 switch currentOrientation {
-                case .Portrait:
+                case .portrait:
                     width = self.view.width
-                case .Landscape:
+                case .landscape:
                     width = self.view.height
                 }
                 return width - (leading + trailing)
@@ -28,9 +28,9 @@ public class STTableBoard: UIViewController {
         }
     }
 
-    public var showLoadingView: Bool = false {
+    open var showLoadingView: Bool = false {
         didSet {
-            scrollView.showLoadingView = showLoadingView
+            scrollView.isShowLoadingView = showLoadingView
         }
     }
 
@@ -42,7 +42,7 @@ public class STTableBoard: UIViewController {
 
     var numberOfPage: Int {
         get {
-            guard let page = self.dataSource?.numberOfBoardsInTableBoard(self) else { return 1 }
+            guard let page = self.dataSource?.numberOfBoards(in: self) else { return 1 }
             return page + (showAddBoardButton ? 1 : 0)
         }
     }
@@ -77,7 +77,7 @@ public class STTableBoard: UIViewController {
     
     lazy var newBoardButtonView: NewBoardButton = {
         let view = NewBoardButton(frame: CGRect.zero)
-        view.image = UIImage(named: "icon_addBoard", inBundle: currentBundle, compatibleWithTraitCollection: nil)
+        view.image = UIImage(named: "icon_addBoard", in: currentBundle, compatibleWith: nil)
         view.title = localizedString["STTableBoard.AddBoard"]
         view.delegate = self
         return view
@@ -100,7 +100,7 @@ public class STTableBoard: UIViewController {
     
     lazy var boardMenuMaskView: UIView = {
         let view = UIView(frame: self.view.bounds)
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(STTableBoard.boardMenuMaskViewTapped(_:)))
         view.addGestureRecognizer(tapGesture)
         return view
@@ -108,9 +108,9 @@ public class STTableBoard: UIViewController {
 
     lazy var boardMenuShadowView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         let layer = view.layer
-        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         layer.shadowOpacity = 0.25
         layer.shadowRadius = 30.0
@@ -119,14 +119,14 @@ public class STTableBoard: UIViewController {
     }()
     
     lazy var boardMenuPopover: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "BoardMenu_Popover", inBundle: currentBundle, compatibleWithTraitCollection: nil))
+        let imageView = UIImageView(image: UIImage(named: "BoardMenu_Popover", in: currentBundle, compatibleWith: nil))
         imageView.sizeToFit()
         return imageView
     }()
     
-    public var contentInset: UIEdgeInsets = UIEdgeInsetsZero
-    public var sizeOffset: CGSize = CGSize(width: 0, height: 0)
-    public var keyboardInset: CGFloat = 0
+    open var contentInset: UIEdgeInsets = UIEdgeInsets.zero
+    open var sizeOffset: CGSize = CGSize(width: 0, height: 0)
+    open var keyboardInset: CGFloat = 0
     
     var currentPage: Int = 0 {
         didSet {
@@ -134,17 +134,17 @@ public class STTableBoard: UIViewController {
         }
     }
     var registerCellClasses:[(AnyClass, String)] = []
-    var tableBoardMode: STTableBoardMode = .Page {
+    var tableBoardMode: STTableBoardMode = .page {
         didSet {
             switch tableBoardMode {
-            case .Page:
+            case .page:
                 showPageControl = true
-            case .Scroll:
+            case .scroll:
                 showPageControl = false
             }
         }
     }
-    public var customBoardWidth: CGFloat = 280
+    open var customBoardWidth: CGFloat = 280
     
     //Views Property
     var boards: [STBoardView] = []
@@ -152,21 +152,21 @@ public class STTableBoard: UIViewController {
     var containerView: UIView!
     lazy var pageControl: STPageControl = {
         let control = STPageControl(frame: CGRect.zero)
-        control.backgroundColor = UIColor.clearColor()
+        control.backgroundColor = UIColor.clear
         control.currentPageIndicatorTintColor = currentPageIndicatorTintColor
         control.pageIndicatorTintColor = pageIndicatorTintColor
         control.currentPage = self.currentPage
         control.numberOfPages = self.numberOfPage
-        control.enabled = false
+        control.isEnabled = false
         return control
     }()
 
     //Delegate Property
-    public weak var dataSource: STTableBoardDataSource?
-    public weak var delegate: STTableBoardDelegate?
+    open weak var dataSource: STTableBoardDataSource?
+    open weak var delegate: STTableBoardDelegate?
     
     //Public Property
-    public var showAddBoardButton: Bool = false {
+    open var showAddBoardButton: Bool = false {
         didSet {
             pageControl.showAddDots = showAddBoardButton
         }
@@ -181,20 +181,20 @@ public class STTableBoard: UIViewController {
     var sourceIndex: Int = -1
     var originIndex: Int = -1
     var isMoveBoardFromPageMode: Bool = false
-    var lastMovingTime: NSDate!
+    var lastMovingTime: Date!
     var showPageControl: Bool = false {
         didSet {
-            self.pageControl.hidden = !showPageControl
+            self.pageControl.isHidden = !showPageControl
         }
     }
 
     //ScrollView Auto Scroll property
     var isScrolling: Bool = false
-    var scrollDirection: ScrollDirection = .None
+    var scrollDirection: ScrollDirection = .none
     var velocity: CGFloat = defaultScrollViewScrollVelocity
 
     //TableView Auto Scroll Property
-    var tableViewAutoScrollTimer: NSTimer?
+    var tableViewAutoScrollTimer: Timer?
     var tableViewAutoScrollDistance: CGFloat = 0
 
     //Zoom Property
@@ -212,7 +212,7 @@ public class STTableBoard: UIViewController {
     var boardViewForVisibleTextComposeView: STBoardView?
     var isAddBoardTextComposeViewVisible: Bool = false
 
-    private var isFirstLoading: Bool = true
+    fileprivate var isFirstLoading: Bool = true
 
     // Current Working Gesture
     var currentLongPressGestureForCell: UILongPressGestureRecognizer? = nil
@@ -229,12 +229,12 @@ public class STTableBoard: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         setupProperty()
     }
 
-    override public func viewWillAppear(animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isFirstLoading {
             reloadData()
@@ -243,25 +243,25 @@ public class STTableBoard: UIViewController {
         addNotification()
     }
 
-    override public func viewDidAppear(animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        scrollView.pinchGestureRecognizer?.enabled = false
+        scrollView.pinchGestureRecognizer?.isEnabled = false
         if !isFirstLoading {
             relayoutAllViews(view.bounds.size, hideBoardMenu: true)
         }
     }
 
-    public override func viewWillDisappear(animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
-    override public func viewDidDisappear(animated: Bool) {
+    override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
 
     //MARK: - init helper
-    private func setupProperty() {
+    fileprivate func setupProperty() {
         view.frame = CGRect(x: contentInset.left, y: contentInset.top, width: view.width - (contentInset.left + contentInset.right + sizeOffset.width), height: view.height - (contentInset.top + contentInset.bottom + sizeOffset.height))
         
         scrollView = UIScrollView(frame: view.bounds)
@@ -281,46 +281,41 @@ public class STTableBoard: UIViewController {
         containerView.backgroundColor = tableBoardBackgroundColor
         scrollView.backgroundColor = tableBoardBackgroundColor
 
-        if currentDevice == .Pad {
-            tableBoardMode = .Scroll
+        if currentDevice == .pad {
+            tableBoardMode = .scroll
             showPageControl = false
-        } else if currentDevice == .Phone {
+        } else if currentDevice == .phone {
             showPageControl = true
-            tableBoardMode = .Page
+            tableBoardMode = .page
             containerView.addGestureRecognizer(doubleTapGesture)
         }
     }
 
-    public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        coordinator.animateAlongsideTransition({ (context) -> Void in
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { (context) -> Void in
             let newSize = CGSize(width: size.width - (self.contentInset.left + self.contentInset.right + self.sizeOffset.width), height: size.height - (self.contentInset.top + self.contentInset.bottom + self.sizeOffset.height))
 //            print("newSize :\(newSize)")
             self.relayoutAllViews(newSize, hideBoardMenu: true)
             }) { (contenxt) -> Void in
                 switch (currentOrientation, currentDevice) {
-                case (_, .Pad):
-                    self.tableBoardMode = .Scroll
-                case (.Landscape, _):
-                    self.tableBoardMode = .Scroll
-                case (.Portrait, _):
-                    self.tableBoardMode = .Page
+                case (_, .pad):
+                    self.tableBoardMode = .scroll
+                case (.landscape, _):
+                    self.tableBoardMode = .scroll
+                case (.portrait, _):
+                    self.tableBoardMode = .page
                 }
                 self.scrollToActualPage(self.scrollView, offsetX: self.scrollView.contentOffset.x)
         }
     }
     
-    func relayoutAllViews(size: CGSize, hideBoardMenu: Bool) {
-        guard !CGSizeEqualToSize(size, scrollView.frame.size) else { return }
+    func relayoutAllViews(_ size: CGSize, hideBoardMenu: Bool) {
+        guard !size.equalTo(scrollView.frame.size) else { return }
         scrollView.frame = CGRect(origin: CGPoint.zero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
         containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
         pageControl.frame = CGRect(x: 0, y: size.height - pageControl.height, width: size.width, height: pageControlHeight)
-//        print("********************")
-//        print("scrollView.frame \(scrollView.frame)")
-//        print("scrollView.contentSize \(scrollView.contentSize)")
-//        print("containerView.frame \(containerView.frame)")
-//        print("********************")
         boardMenuMaskView.frame = CGRect(origin: CGPoint.zero, size: size)
         boards.forEach { (board) -> () in
             autoAdjustTableBoardHeight(board, animated: true)
@@ -339,34 +334,34 @@ public class STTableBoard: UIViewController {
     }
     
     func addNotification() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(STTableBoard.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(STTableBoard.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(STTableBoard.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(STTableBoard.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 }
 
 //MARK: - response method
 extension STTableBoard {
-    func keyboardWillShow(notification: NSNotification) {
+    func keyboardWillShow(_ notification: Notification) {
         if let userInfo = notification.userInfo, let keyboardFrameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardFrame = keyboardFrameValue.CGRectValue()
-            let keyboardHeight = CGRectGetHeight(keyboardFrame)
-            let screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
+            let keyboardFrame = keyboardFrameValue.cgRectValue
+            let keyboardHeight = keyboardFrame.height
+            let screenHeight = UIScreen.main.bounds.height
             
             var adjustHeight = keyboardHeight
             originFrame = self.view.frame
-            if screenHeight - CGRectGetMinY(keyboardFrame) < keyboardHeight {
-                adjustHeight = screenHeight - CGRectGetMinY(keyboardFrame)
+            if screenHeight - keyboardFrame.minY < keyboardHeight {
+                adjustHeight = screenHeight - keyboardFrame.minY
             }
             adjustHeight -= keyboardInset
-            UIView.animateWithDuration(0.33, animations: { () -> Void in
+            UIView.animate(withDuration: 0.33, animations: { () -> Void in
                 self.relayoutAllViews(CGSize(width: self.view.width, height: self.view.height - adjustHeight), hideBoardMenu: false)
             })
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    func keyboardWillHide(_ notification: Notification) {
         guard let _ = self.originFrame else { return }
-        UIView.animateWithDuration(0.33, animations: { [weak self]() -> Void in
+        UIView.animate(withDuration: 0.33, animations: { [weak self]() -> Void in
             guard let `self` = self else { return }
             self.relayoutAllViews(self.originFrame.size, hideBoardMenu: false)
             })

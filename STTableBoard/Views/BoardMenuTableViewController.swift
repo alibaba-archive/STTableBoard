@@ -15,13 +15,13 @@ class BoardMenuTableViewController: UITableViewController {
         super.init(style: style)
     }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
         tableView.tableFooterView = UIView()
         tableView.separatorColor = UIColor(white: 221 / 255.0, alpha: 1)
     }
@@ -30,30 +30,30 @@ class BoardMenuTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50.0
     }
 
     // MARK: - Table view data source
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MenuCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
         configCell(cell, indexPath: indexPath)
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         guard let boardMenu = self.navigationController as? BoardMenu, let tableBoard = boardMenu.tableBoard else { return }
         if isEditBoardTitleCell(indexPath) {
-            if let canEditTitle = tableBoard.delegate?.tableBoard(tableBoard, canEditBoardTitleInBoard: boardMenu.boardIndex) where canEditTitle {
+            if let canEditTitle = tableBoard.delegate?.tableBoard(tableBoard, canEditBoardTitleAt: boardMenu.boardIndex) , canEditTitle {
                 let textViewController = BoardMenuTextViewController()
                 textViewController.boardTitle = boardMenu.boardMenuTitle
                 self.navigationController?.pushViewController(textViewController, animated: true)
@@ -61,7 +61,7 @@ class BoardMenuTableViewController: UITableViewController {
                 return
             }
         } else if isDeleteBoardCell(indexPath) {
-            boardMenu.boardMenuDelegate?.boardMenu(boardMenu, boardMenuHandleType: BoardMenuHandleType.BoardDeleted, userInfo: nil)
+            boardMenu.boardMenuDelegate?.boardMenu(boardMenu, boardMenuHandleType: BoardMenuHandleType.boardDeleted, userInfo: nil)
         } else {
         
         }
@@ -73,26 +73,26 @@ class BoardMenuTableViewController: UITableViewController {
 }
 
 extension BoardMenuTableViewController {
-    private func configCell(cell: UITableViewCell, indexPath: NSIndexPath) {
+    fileprivate func configCell(_ cell: UITableViewCell, indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0,0):
             cell.textLabel?.text = localizedString["STTableBoard.EditBoardNameCell.Title"]
-            cell.imageView?.image = UIImage(named: "BoardMenu_Icon_Edit", inBundle: currentBundle, compatibleWithTraitCollection: nil)
-            cell.accessoryType = .DisclosureIndicator
+            cell.imageView?.image = UIImage(named: "BoardMenu_Icon_Edit", in: currentBundle, compatibleWith: nil)
+            cell.accessoryType = .disclosureIndicator
         case (0,1):
             cell.textLabel?.text = localizedString["STTableBoard.DeleteBoardCell.Title"]
-            cell.imageView?.image = UIImage(named: "BoardMenu_Icon_Delete", inBundle: currentBundle, compatibleWithTraitCollection: nil)
-            cell.accessoryType = .None
+            cell.imageView?.image = UIImage(named: "BoardMenu_Icon_Delete", in: currentBundle, compatibleWith: nil)
+            cell.accessoryType = .none
         default:
             break
         }
     }
     
-    func isEditBoardTitleCell(indexPath: NSIndexPath) -> Bool {
+    func isEditBoardTitleCell(_ indexPath: IndexPath) -> Bool {
         return indexPath.section == 0 && indexPath.row == 0
     }
     
-    func isDeleteBoardCell(indexPath: NSIndexPath) -> Bool {
+    func isDeleteBoardCell(_ indexPath: IndexPath) -> Bool {
         return indexPath.section == 0 && indexPath.row == 1
     }
 }

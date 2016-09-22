@@ -26,33 +26,33 @@ class NewBoardButton: UIView {
     
     weak var delegate: NewBoardButtonDelegate?
     
-    private lazy var imageView: UIImageView = {
+    fileprivate lazy var imageView: UIImageView = {
         let view = UIImageView(frame: CGRect.zero)
-        view.contentMode = .ScaleAspectFill
+        view.contentMode = .scaleAspectFill
         return view
     }()
     
-    private lazy var tapGesture: UITapGestureRecognizer = {
+    fileprivate lazy var tapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(NewBoardButton.viewDidBeClicked))
         return gesture
     }()
     
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.numberOfLines = 1
         label.textColor = newBoardButtonTextColor
-        label.font = UIFont.systemFontOfSize(17.0)
+        label.font = UIFont.systemFont(ofSize: 17.0)
         return label
     }()
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
         let roundedPath = UIBezierPath(roundedRect: rect, cornerRadius: 4.0)
-        CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
+        context?.setFillColor(UIColor.white.cgColor)
         newBoardButtonBackgroundColor.setFill()
         roundedPath.fill()
         
-        let roundedRect = CGRectInset(rect, 1.0, 1.0)
+        let roundedRect = rect.insetBy(dx: 1.0, dy: 1.0)
         let dashedPath = UIBezierPath(roundedRect: roundedRect, cornerRadius: 4.0)
         let pattern: [CGFloat] = [6,6]
         dashedPath.setLineDash(pattern, count: 2, phase: 0.0)
@@ -64,7 +64,7 @@ class NewBoardButton: UIView {
         super.init(frame: frame)
         addSubview(imageView)
         addSubview(titleLabel)
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         
         addGestureRecognizer(tapGesture)
         
@@ -72,10 +72,10 @@ class NewBoardButton: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let views: [String:UIView] = ["imageView":imageView, "titleLabel":titleLabel]
-        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(15)-[imageView(==18)]-(10)-[titleLabel]-(10)-|", options: .AlignAllCenterY, metrics: nil, views: views)
-        let imageViewHeight = NSLayoutConstraint(item: imageView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 18.0)
-        let imageViewCenterY = NSLayoutConstraint(item: imageView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0)
-        NSLayoutConstraint.activateConstraints(horizontalConstraints + [imageViewHeight, imageViewCenterY])
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(15)-[imageView(==18)]-(10)-[titleLabel]-(10)-|", options: .alignAllCenterY, metrics: nil, views: views)
+        let imageViewHeight = NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 18.0)
+        let imageViewCenterY = NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0)
+        NSLayoutConstraint.activate(horizontalConstraints + [imageViewHeight, imageViewCenterY])
     }
     
     func viewDidBeClicked() {

@@ -10,7 +10,7 @@ import UIKit
 
 //MARK: - UIGestureRecognizerDelegate
 extension STTableBoard: UIGestureRecognizerDelegate {
-    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         guard let touchedView = touch.view else { return false }
         if touchedView == containerView {
             return true
@@ -22,20 +22,20 @@ extension STTableBoard: UIGestureRecognizerDelegate {
 
 //MARK: - UIScrollViewDelegate
 extension STTableBoard: UIScrollViewDelegate {
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.scrollView {
             hiddenKeyBoard()
         }
     }
-    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        guard tableBoardMode == .Page && scrollView == self.scrollView else { return }
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard tableBoardMode == .page && scrollView == self.scrollView else { return }
         if !decelerate {
             scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
         }
     }
     
-    public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard tableBoardMode == .Page && scrollView == self.scrollView else { return }
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard tableBoardMode == .page && scrollView == self.scrollView else { return }
         if velocity.x != 0 {
             if velocity.x < 0 && currentPage > 0{
                 scrollToPage(scrollView, page: currentPage - 1, targetContentOffset: targetContentOffset)
@@ -45,30 +45,30 @@ extension STTableBoard: UIScrollViewDelegate {
         }
     }
     
-    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return containerView
     }
     
-    public func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
+    public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         switch tableBoardMode {
-        case .Scroll:
+        case .scroll:
             originContentOffset = scrollView.contentOffset
             originContentSize = scrollView.contentSize
-        case .Page:
+        case .page:
             scaledContentOffset = scrollView.contentOffset
         }
     }
     
-    public func scrollViewDidZoom(scrollView: UIScrollView) {
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         switch tableBoardMode {
-        case .Scroll:
+        case .scroll:
             scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: view.height)
             if scrollView.contentSize.width < originContentOffset.x * currentScale + scrollView.width {
                 scrollView.contentOffset = CGPoint(x: scrollView.contentSize.width - scrollView.width, y: 0)
             } else {
                 scrollView.contentOffset = CGPoint(x: originContentOffset.x * currentScale, y: 0)
             }
-        case .Page:
+        case .page:
             scrollView.contentSize = originContentSize
             scrollView.contentOffset = CGPoint(x: scaledContentOffset.x / scaleForScroll, y: 0)
             if !isMoveBoardFromPageMode {
@@ -84,35 +84,35 @@ extension STTableBoard: UIScrollViewDelegate {
 
 //MARK: - UITableViewDelegate
 extension STTableBoard: UITableViewDelegate {
-    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let board = (tableView as! STShadowTableView).index,
-            heightForRow = delegate?.tableBoard(self, heightForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) else { return 44.0 }
+            let heightForRow = delegate?.tableBoard(self, heightForRowAt: STIndexPath(forRow: indexPath.row, inBoard: board)) else { return 44.0 }
         return heightForRow
     }
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let board = (tableView as! STShadowTableView).index else { return }
-        delegate?.tableBoard(self, didSelectRowAtIndexPath: indexPath.convertToSTIndexPath(board))
+        delegate?.tableBoard(self, didSelectRowAt: indexPath.convertToSTIndexPath(board))
     }
 }
 
 //MARK: - UITableViewDataSource
 extension STTableBoard: UITableViewDataSource {
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let board = (tableView as! STShadowTableView).index,
-            numberOfRows = dataSource?.tableBoard(self, numberOfRowsInBoard: board) else { return 0 }
+            let numberOfRows = dataSource?.tableBoard(self, numberOfRowsAt: board) else { return 0 }
         return numberOfRows
     }
     
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let board = (tableView as! STShadowTableView).index,
-            cell = dataSource?.tableBoard(self, cellForRowAtIndexPath: STIndexPath(forRow: indexPath.row, inBoard: board)) as? STBoardCell else { fatalError("board or cell can not be nill") }
-        cell.backgroundColor = UIColor.clearColor()
-        cell.contentView.backgroundColor = UIColor.clearColor()
+            let cell = dataSource?.tableBoard(self, cellForRowAt: STIndexPath(forRow: indexPath.row, inBoard: board)) as? STBoardCell else { fatalError("board or cell can not be nill") }
+        cell.backgroundColor = UIColor.clear
+        cell.contentView.backgroundColor = UIColor.clear
         cell.moving = false
         return cell
     }
@@ -135,7 +135,7 @@ extension STTableBoard: TextComposeViewDelegate {
         view.textField.resignFirstResponder()
         hiddenTextComposeView()
         guard let delegate = delegate else { return }
-        delegate.tableBoard(self, willAddNewBoardAtIndex: numberOfPage - 1, withBoardTitle: text)
+        delegate.tableBoard(self, willAddNewBoardAt: numberOfPage - 1, with: text)
     }
     
     func textComposeView(textComposeView view: TextComposeView, didClickCancelButton button: UIButton) {
@@ -145,52 +145,52 @@ extension STTableBoard: TextComposeViewDelegate {
 
 //MARK: - STBoardViewDelegate
 extension STTableBoard: STBoardViewDelegate {
-    func boardView(boardView: STBoardView, didClickBoardMenuButton button: UIButton) {
+    func boardView(_ boardView: STBoardView, didClickBoardMenuButton button: UIButton) {
         switch currentDevice {
-        case .Pad:
+        case .pad:
             if boardMenuVisible {
                 hiddenBoardMenu()
             } else {
                 showBoardMenu(button, boardIndex: boardView.index, boardTitle: boardView.title)
             }
-        case .Phone:
+        case .phone:
             showBoardMenuActionSheet(boardView.index, boardTitle: boardView.title)
         default:
             break
         }
     }
     
-    func boardView(boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String) {
-        dataSource?.tableBoard(self, didAddRowAtBoard: boardView.index, withRowTitle: title)
+    func boardView(_ boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String) {
+        dataSource?.tableBoard(self, didAddRowAt: boardView.index, with: title)
     }
     
     func boardViewDidBeginEditingAtBottomRow(boardView view: STBoardView) {
-        dataSource?.tableBoard(self, willBeginAddingRowAtBoard: view.index)
+        dataSource?.tableBoard(self, willBeginAddingRowAt: view.index)
     }
 }
 
 extension STTableBoard: BoardMenuDelegate {
-    func boardMenu(boardMenu: BoardMenu, boardMenuHandleType type: BoardMenuHandleType, userInfo: [String : AnyObject?]?) {
+    func boardMenu(_ boardMenu: BoardMenu, boardMenuHandleType type: BoardMenuHandleType, userInfo: [String : Any?]?) {
         switch type {
-        case .BoardTitleChanged:
+        case .boardTitleChanged:
             if let userInfo = userInfo, let newTitle = userInfo[newBoardTitleKey] as? String {
-                delegate?.tableBoard(self, boardTitleBeChangedTo: newTitle, inBoard: boardMenu.boardIndex)
+                delegate?.tableBoard(self, boardTitleBeChangedTo: newTitle, at: boardMenu.boardIndex)
                 reloadBoardTitleAtIndex(boardMenu.boardIndex)
                 hiddenBoardMenu()
             }
-        case .BoardDeleted:
-            let alertControllerStyle: UIAlertControllerStyle = (currentDevice == .Pad ? .Alert : .ActionSheet)
+        case .boardDeleted:
+            let alertControllerStyle: UIAlertControllerStyle = (currentDevice == .pad ? .alert : .actionSheet)
             let alertController = UIAlertController(title: nil, message: localizedString["STTableBoard.DeleteBoard.Alert.Message"], preferredStyle: alertControllerStyle)
-            let deleteAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .Destructive, handler: { (action) -> Void in
+            let deleteAction = UIAlertAction(title: localizedString["STTableBoard.Delete"], style: .destructive, handler: { (action) -> Void in
                 let index = boardMenu.boardIndex
                 self.hiddenBoardMenu()
-                guard let delegate = self.delegate where delegate.tableBoard(self, willRemoveBoardAtIndex: index) else { return }
+                guard let delegate = self.delegate , delegate.tableBoard(self, willRemoveBoardAt: index) else { return }
                 self.removeBoardAtIndex(index)
             })
-            let cancelAction = UIAlertAction(title: localizedString["STTableBoard.Cancel"], style: .Cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: localizedString["STTableBoard.Cancel"], style: .cancel, handler: nil)
             alertController.addAction(deleteAction)
             alertController.addAction(cancelAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
 }

@@ -8,12 +8,12 @@
 
 import UIKit
 
-public class STBoardCell: UITableViewCell {
+open class STBoardCell: UITableViewCell {
     
     var snapshot: UIView {
         get {
             UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0)
-            self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+            self.layer.render(in: UIGraphicsGetCurrentContext()!)
             let image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             
@@ -35,22 +35,22 @@ public class STBoardCell: UITableViewCell {
         }
     }
     
-    override public func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .None
+        self.selectionStyle = .none
         // Initialization code
     }
     
     override public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.selectionStyle = .None
+        self.selectionStyle = .none
     }
 
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override public func setSelected(selected: Bool, animated: Bool) {
+    override open func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

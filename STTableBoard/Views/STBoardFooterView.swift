@@ -14,12 +14,12 @@ class STBoardFooterView: UIView {
 
     lazy var titleButton: UIButton = {
         let button = UIButton()
-        button.setTitle(localizedString["STTableBoard.AddRow"], forState: .Normal)
-        button.titleLabel?.font = UIFont.systemFontOfSize(15.0)
-        button.setTitleColor(boardFooterButtonTitleColor, forState: .Normal)
-        button.contentHorizontalAlignment = .Left
+        button.setTitle(localizedString["STTableBoard.AddRow"], for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
+        button.setTitleColor(boardFooterButtonTitleColor, for: .normal)
+        button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0);
-        button.addTarget(self, action: #selector(STBoardFooterView.addButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(STBoardFooterView.addButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -39,13 +39,13 @@ class STBoardFooterView: UIView {
         titleButton.translatesAutoresizingMaskIntoConstraints = false
         
         let views = ["titleButton": titleButton]
-        let titleButtonHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[titleButton]-|", options: [], metrics: nil, views: views)
-        let titleButtonVerticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[titleButton]-|", options: [], metrics: nil, views: views)
+        let titleButtonHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-[titleButton]-|", options: [], metrics: nil, views: views)
+        let titleButtonVerticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-[titleButton]-|", options: [], metrics: nil, views: views)
         
-        NSLayoutConstraint.activateConstraints(titleButtonHorizontalConstraints + titleButtonVerticalConstraints)
+        NSLayoutConstraint.activate(titleButtonHorizontalConstraints + titleButtonVerticalConstraints)
     }
     
-    func addButtonTapped(sender: UIButton) {
+    func addButtonTapped(_ sender: UIButton) {
         boardView?.footerViewHeightConstant = newCellComposeViewHeight
         textComposeView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: self.width, height: newCellComposeViewHeight))
         showTextComposeView()
@@ -65,7 +65,7 @@ class STBoardFooterView: UIView {
     }
     
     func showTextComposeView() {
-        titleButton.hidden = true
+        titleButton.isHidden = true
         addSubview(textComposeView)
         textComposeView.frame.size.height = newCellComposeViewHeight
         textComposeView.layoutIfNeeded()
@@ -73,7 +73,7 @@ class STBoardFooterView: UIView {
     }
     
     func hideTextComposeView() {
-        titleButton.hidden = false
+        titleButton.isHidden = false
         textComposeView.textField.resignFirstResponder()
         textComposeView.removeFromSuperview()
         textComposeView.textField.text = nil

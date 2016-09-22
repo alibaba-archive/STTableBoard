@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EB1B31AC1D06F660002102C9 /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD4D23B1D04FFCD00353EC0 /* STTableBoard.framework */; };
-		EB1B31AD1D06F660002102C9 /* STTableBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBD4D23B1D04FFCD00353EC0 /* STTableBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EB68A9961C27E0FC00D3FB98 /* BoardCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68A9951C27E0FC00D3FB98 /* BoardCardCell.swift */; };
 		EB68A9991C27E4CB00D3FB98 /* RoundAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68A9981C27E4CB00D3FB98 /* RoundAvatarImageView.swift */; };
 		EB6DB26D1C2A8B6A00C4A481 /* BadgeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6DB26A1C2A8B6A00C4A481 /* BadgeListView.swift */; };
@@ -24,6 +22,8 @@
 		EBB662CD1C2131A700FB94A1 /* STCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662CC1C2131A700FB94A1 /* STCardCell.swift */; };
 		EBC6E9AA1C2BEC2E00073795 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC6E9A91C2BEC2E00073795 /* CardView.swift */; };
 		EBC8A1811C2A6F8000D9FD15 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */; };
+		EBDF23811D8EE46F00E316AA /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDF23801D8EE46F00E316AA /* STTableBoard.framework */; };
+		EBDF23821D8EE46F00E316AA /* STTableBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBDF23801D8EE46F00E316AA /* STTableBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,7 +34,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				EBB220751D04FD140085C31F /* RefreshView.framework in Embed Frameworks */,
-				EB1B31AD1D06F660002102C9 /* STTableBoard.framework in Embed Frameworks */,
+				EBDF23821D8EE46F00E316AA /* STTableBoard.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,7 +58,7 @@
 		EBB662CC1C2131A700FB94A1 /* STCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STCardCell.swift; sourceTree = "<group>"; };
 		EBC6E9A91C2BEC2E00073795 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
-		EBD4D23B1D04FFCD00353EC0 /* STTableBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = STTableBoard.framework; path = "/Users/StormXX/Library/Developer/Xcode/DerivedData/STTableBoard-fgyhyehgmzhkqbbuoedisrfmcnmg/Build/Products/Debug-iphoneos/STTableBoard.framework"; sourceTree = "<absolute>"; };
+		EBDF23801D8EE46F00E316AA /* STTableBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = STTableBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +67,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBB220741D04FD140085C31F /* RefreshView.framework in Frameworks */,
-				EB1B31AC1D06F660002102C9 /* STTableBoard.framework in Frameworks */,
+				EBDF23811D8EE46F00E316AA /* STTableBoard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +106,7 @@
 		EB793B9D1C1E653400BF1148 = {
 			isa = PBXGroup;
 			children = (
-				EBD4D23B1D04FFCD00353EC0 /* STTableBoard.framework */,
+				EBDF23801D8EE46F00E316AA /* STTableBoard.framework */,
 				EBB220721D04FCEF0085C31F /* RefreshView.framework */,
 				EB793BA81C1E653400BF1148 /* STTableBoardDemo */,
 				EB793BA71C1E653400BF1148 /* Products */,
@@ -173,12 +173,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = StormXX;
 				TargetAttributes = {
 					EB793BA51C1E653400BF1148 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = L9RXQ34KZ8;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -266,8 +267,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -310,8 +313,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -330,6 +335,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -351,6 +357,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.StormXX.STTableBoardDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -372,6 +379,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.StormXX.STTableBoardDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

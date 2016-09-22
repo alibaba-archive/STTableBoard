@@ -14,7 +14,7 @@ class STShadowTableView: UITableView {
     
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
-        self.separatorStyle = .None
+        self.separatorStyle = .none
     }
 
     required init?(coder aDecoder: NSCoder) {

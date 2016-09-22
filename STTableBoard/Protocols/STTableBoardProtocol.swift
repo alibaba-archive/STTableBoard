@@ -9,115 +9,107 @@
 import UIKit
 
 public protocol STTableBoardDelegate: class {
-    func tableBoard(tableBoard:STTableBoard, heightForRowAtIndexPath indexPath: STIndexPath) -> CGFloat
-    func tableBoard(tableBoard: STTableBoard, willAddNewBoardAtIndex index: Int, withBoardTitle title: String)
-    func tableBoard(tableBoard: STTableBoard, willRemoveBoardAtIndex index: Int) -> Bool
-    func tableBoard(tableBoard: STTableBoard, boardTitleBeChangedTo title: String, inBoard board: Int)
-    func tableBoard(tableBoard: STTableBoard, didSelectRowAtIndexPath indexPath: STIndexPath)
-    func tableBoard(tableBoard: STTableBoard, canEditBoardTitleInBoard board: Int) -> Bool
+    func tableBoard(_ tableBoard: STTableBoard, heightForRowAt indexPath: STIndexPath) -> CGFloat
+    func tableBoard(_ tableBoard: STTableBoard, didSelectRowAt indexPath: STIndexPath)
+    func tableBoard(_ tableBoard: STTableBoard, willAddNewBoardAt index: Int, with boardTitle: String)
+    func tableBoard(_ tableBoard: STTableBoard, willRemoveBoardAt index: Int) -> Bool
+    func tableBoard(_ tableBoard: STTableBoard, canEditBoardTitleAt boardIndex: Int) -> Bool
+    func tableBoard(_ tableBoard: STTableBoard, boardTitleBeChangedTo title: String, at boardIndex: Int)
 }
 
 public extension STTableBoardDelegate {
-    func tableBoard(tableBoard:STTableBoard, heightForRowAtIndexPath indexPath: STIndexPath) -> CGFloat {
+    func tableBoard(_ tableBoard:STTableBoard, heightForRowAt indexPath: STIndexPath) -> CGFloat {
         return 44.0
     }
     
-    func tableBoard(tableBoard: STTableBoard, didSelectRowAtIndexPath indexPath: STIndexPath) {
+    func tableBoard(_ tableBoard: STTableBoard, didSelectRowAt indexPath: STIndexPath) {
         return
     }
+
+    func tableBoard(_ tableBoard: STTableBoard, canEditBoardTitleAt boardIndex: Int) -> Bool {
+        return true
+    }
+
+    func tableBoard(_ tableBoard: STTableBoard, boardTitleBeChangedTo title: String, at boardIndex: Int) {
+        return
+    }
+    
 }
 
 public protocol STTableBoardDataSource: class {
-    func numberOfBoardsInTableBoard(tableBoard: STTableBoard) -> Int
-    func tableBoard(tableBoard: STTableBoard, numberOfRowsInBoard board: Int) -> Int
-    func tableBoard(tableBoard: STTableBoard, cellForRowAtIndexPath indexPath: STIndexPath) -> UITableViewCell
-    func tableBoard(tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String?
-    func tableBoard(tableBoard: STTableBoard, numberForBoardInBoard board: Int) -> Int
+    func numberOfBoards(in tableBoard: STTableBoard) -> Int
+    func tableBoard(_ tableBoard: STTableBoard, numberOfRowsAt boardIndex: Int) -> Int
+    func tableBoard(_ tableBoard: STTableBoard, cellForRowAt indexPath: STIndexPath) -> UITableViewCell
+    func tableBoard(_ tableBoard: STTableBoard, titleForBoardAt boardIndex: Int) -> String?
+    func tableBoard(_ tableBoard: STTableBoard, numberForBoardAt boardIndex: Int) -> Int
     
-    func tableBoard(tableBoard: STTableBoard, willBeginAddingRowAtBoard board: Int)
-    func tableBoard(tableBoard: STTableBoard, didAddRowAtBoard board: Int, withRowTitle title: String)
+    // add row
+    func tableBoard(_ tableBoard: STTableBoard, willBeginAddingRowAt boardIndex: Int)
+    func tableBoard(_ tableBoard: STTableBoard, didAddRowAt boardIndex: Int, with rowTitle: String)
 
     // move row
-    func tableBoard(tableBoard: STTableBoard, canMoveRowAtIndexPath indexPath: STIndexPath) -> Bool
-    func tableBoard(tableBoard: STTableBoard, shouldMoveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) -> Bool
-    func tableBoard(tableBoard: STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, inout toIndexPath destinationIndexPath: STIndexPath)
-    func tableBoard(tableBoard: STTableBoard, didEndMoveRowAtOriginIndexPath originIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath)
+    func tableBoard(_ tableBoard: STTableBoard, canMoveRowAt indexPath: STIndexPath) -> Bool
+    func tableBoard(_ tableBoard: STTableBoard, shouldMoveRowAt sourceIndexPath: STIndexPath, to destinationIndexPath: STIndexPath) -> Bool
+    func tableBoard(_ tableBoard: STTableBoard, moveRowAt sourceIndexPath: STIndexPath, to destinationIndexPath: inout STIndexPath)
+    func tableBoard(_ tableBoard: STTableBoard, didEndMoveRowAt originIndexPath: STIndexPath, to destinationIndexPath: STIndexPath)
     
     // move board
-    func tableBoard(tableBoard: STTableBoard, canMoveBoardAtIndex index: Int) -> Bool
-    func tableBoard(tableBoard: STTableBoard, shouldMoveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int) -> Bool
-    func tableBoard(tableBoard: STTableBoard, moveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int)
-    func tableBoard(tableBoard: STTableBoard, didEndMoveBoardAtOriginIndex originIndex: Int, toIndex destinationIndex: Int)
+    func tableBoard(_ tableBoard: STTableBoard, canMoveBoardAt boardIndex: Int) -> Bool
+    func tableBoard(_ tableBoard: STTableBoard, shouldMoveBoardAt sourceIndex: Int, to destinationIndex: Int) -> Bool
+    func tableBoard(_ tableBoard: STTableBoard, moveBoardAt sourceIndex: Int, to destinationIndex: Int)
+    func tableBoard(_ tableBoard: STTableBoard, didEndMoveBoardAt originIndex: Int, to destinationIndex: Int)
 
     // scale table board
-    func tableBoard(tableBoard: STTableBoard, scaleTableBoard isScaled: Bool)
+    func tableBoard(_ tableBoard: STTableBoard, scaleTableBoard isScaled: Bool)
 
     // footer refresh handle
-    func tableBoard(tableBoard: STTableBoard, showRefreshFooterAtBoard boardIndex: Int) -> Bool
-    func tableBoard(tableBoard: STTableBoard, boardIndexForFooterRefreshing boardIndex: Int)
+    func tableBoard(_ tableBoard: STTableBoard, showRefreshFooterAt boardIndex: Int) -> Bool
+    func tableBoard(_ tableBoard: STTableBoard, footerRefreshingAt boardIndex: Int)
 }
 
 public extension STTableBoardDataSource {
-    func numberOfBoardsInTableBoard(tableBoard: STTableBoard) -> Int {
-        return 1
-    }
-
-    func tableBoard(tableBoard: STTableBoard, titleForBoardInBoard board: Int) -> String? {
+    func tableBoard(_ tableBoard: STTableBoard, titleForBoardAt boardIndex: Int) -> String? {
         return nil
     }
 
-    func tableBoard(tableBoard: STTableBoard, numberForBoardInBoard board: Int) -> Int {
+    func tableBoard(_ tableBoard: STTableBoard, numberForBoardAt boardIndex: Int) -> Int {
         return 0
     }
     
     // Add row
-    func tableBoard(tableBoard: STTableBoard, willBeginAddingRowAtBoard board: Int) {
+    func tableBoard(_ tableBoard: STTableBoard, willBeginAddingRowAt boardIndex: Int) {
         return
     }
 
     // move row
-    func tableBoard(tableBoard: STTableBoard, canMoveRowAtIndexPath indexPath: STIndexPath) -> Bool {
+    func tableBoard(_ tableBoard: STTableBoard, canMoveRowAt indexPath: STIndexPath) -> Bool {
         return true
     }
     
-    func tableBoard(tableBoard: STTableBoard, shouldMoveRowAtIndexPath sourceIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) -> Bool {
+    func tableBoard(_ tableBoard: STTableBoard, shouldMoveRowAt sourceIndexPath: STIndexPath, to destinationIndexPath: STIndexPath) -> Bool {
         return true
-    }
-
-    func tableBoard(tableBoard:STTableBoard, moveRowAtIndexPath sourceIndexPath: STIndexPath, inout toIndexPath destinationIndexPath: STIndexPath) {
-        return
-    }
-
-    func tableBoard(tableBoard: STTableBoard, didEndMoveRowAtOriginIndexPath originIndexPath: STIndexPath, toIndexPath destinationIndexPath: STIndexPath) {
-        return
     }
     
     // move board
-    func tableBoard(tableBoard: STTableBoard, canMoveBoardAtIndex index: Int) -> Bool {
+    func tableBoard(_ tableBoard: STTableBoard, canMoveBoardAt boardIndex: Int) -> Bool {
         return true
     }
 
-    func tableBoard(tableBoard: STTableBoard, shouldMoveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int) -> Bool {
+    func tableBoard(_ tableBoard: STTableBoard, shouldMoveBoardAt sourceIndex: Int, to destinationIndex: Int) -> Bool {
         return true
     }
 
-    func tableBoard(tableBoard: STTableBoard, moveBoardAtIndex sourceIndex: Int, toIndex destinationIndex: Int) {
-        return
-    }
-    
-    func tableBoard(tableBoard: STTableBoard, didEndMoveBoardAtOriginIndex originIndex: Int, toIndex destinationIndex: Int) {
+    // scale table board
+    func tableBoard(_ tableBoard: STTableBoard, scaleTableBoard isScaled: Bool) {
         return
     }
 
-    func tableBoard(tableBoard: STTableBoard, scaleTableBoard isScaled: Bool) {
-        return
-    }
-
-    func tableBoard(tableBoard: STTableBoard, showRefreshFooterAtBoard boardIndex: Int) -> Bool {
+    // footer refresh handle
+    func tableBoard(_ tableBoard: STTableBoard, showRefreshFooterAt boardIndex: Int) -> Bool {
         return false
     }
 
-    func tableBoard(tableBoard: STTableBoard, boardIndexForFooterRefreshing boardIndex: Int) {
+    func tableBoard(_ tableBoard: STTableBoard, footerRefreshingAt boardIndex: Int) {
         return
     }
 }
