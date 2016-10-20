@@ -407,11 +407,12 @@ extension STTableBoard {
     
     // stop the scrollView animation
     func stopAnimation() {
+        let contentOffsetX = scrollView.layer.presentation()!.bounds.origin.x
         CATransaction.begin()
         scrollView.layer.removeAllAnimations()
         snapshot?.layer.removeAllAnimations()
         CATransaction.commit()
-        scrollView.setContentOffset(CGPoint(x: scrollView.layer.presentation()!.bounds.origin.x, y: 0), animated: false)
+        scrollView.setContentOffset(CGPoint(x: contentOffsetX, y: 0), animated: false)
         snapshot?.center = CGPoint(x: self.snapshotOffsetForLeftBounds + scrollView.presentContenOffset()!.x / currentScale, y: snapshot.center.y)
         isScrolling = false
         scrollDirection = .none
@@ -713,6 +714,10 @@ extension STTableBoard {
         let page = Int(proportion)
         let actualPage = (offsetX - pageOffset * CGFloat(page)) > (pageOffset * 1 / 2) ?  page + 1 : page
         currentPage = actualPage
+        print("****************")
+        print("offSetX \(offsetX)")
+        print("page \(page)")
+        print("actualPage \(actualPage)")
         
         UIView.animate(withDuration: 0.33, animations: { () -> Void in
             scrollView.contentOffset = CGPoint(x: pageOffset * CGFloat(actualPage), y: 0)
