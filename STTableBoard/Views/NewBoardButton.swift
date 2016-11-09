@@ -40,7 +40,7 @@ class NewBoardButton: UIView {
     fileprivate lazy var titleLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.numberOfLines = 1
-        label.textColor = newBoardButtonTextColor
+        label.textColor = UIColor.grayTextColor
         label.font = UIFont.systemFont(ofSize: 17.0)
         return label
     }()
