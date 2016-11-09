@@ -28,6 +28,7 @@ class TextComposeView: UIView {
         field.borderStyle = .RoundedRect
         field.font = UIFont.systemFontOfSize(15.0)
         field.textColor = UIColor(red: 56/255.0, green: 56/255.0, blue: 56/255.0, alpha: 1.0)
+        field.tintColor = UIColor(red: 249/255.0, green: 87/255.0, blue: 89/255.0, alpha: 1.0)
         field.delegate = self
         field.returnKeyType = .Done
         return field
