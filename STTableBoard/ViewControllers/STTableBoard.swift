@@ -206,7 +206,7 @@ open class STTableBoard: UIViewController {
     var originContentOffset = CGPoint(x: 0, y: 0)
     var originContentSize = CGSize(width: 0, height: 0)
     var scaledContentOffset = CGPoint(x: 0, y: 0)
-    var currentScale: CGFloat = scaleForPage
+    public internal(set) var currentScale: CGFloat = scaleForPage
     var tapPosition: CGPoint = CGPoint(x: 0, y: 0)
     var originFrame: CGRect!
     
