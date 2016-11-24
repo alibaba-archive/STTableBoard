@@ -285,8 +285,13 @@ open class STTableBoard: UIViewController {
             tableBoardMode = .scroll
             showPageControl = false
         } else if currentDevice == .phone {
-            showPageControl = true
-            tableBoardMode = .page
+            if currentOrientation == .landscape {
+                tableBoardMode = .scroll
+                showPageControl = false
+            } else {
+                showPageControl = true
+                tableBoardMode = .page
+            }
             containerView.addGestureRecognizer(doubleTapGesture)
         }
     }
@@ -294,8 +299,9 @@ open class STTableBoard: UIViewController {
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (context) -> Void in
-            let newSize = CGSize(width: size.width - (self.contentInset.left + self.contentInset.right + self.sizeOffset.width), height: size.height - (self.contentInset.top + self.contentInset.bottom + self.sizeOffset.height))
-//            print("newSize :\(newSize)")
+            let width = self.view.width
+            let height = self.view.height
+            let newSize = CGSize(width: width - (self.contentInset.left + self.contentInset.right + self.sizeOffset.width), height: height - (self.contentInset.top + self.contentInset.bottom + self.sizeOffset.height))
             self.relayoutAllViews(newSize, hideBoardMenu: true)
             }) { (contenxt) -> Void in
                 switch (currentOrientation, currentDevice) {

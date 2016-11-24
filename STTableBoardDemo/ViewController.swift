@@ -52,11 +52,12 @@ class ViewController: UIViewController {
         tableBoard.delegate = self
         tableBoard.dataSource = self
         tableBoard.showAddBoardButton = true
-        view.frame.size.height -= 64.0
-        tableBoard.view.frame.size = view.frame.size
+//        view.frame.size.height -= 64.0
+//        tableBoard.view.frame.size = view.frame.size
         self.addChildViewController(tableBoard)
         view.addSubview(tableBoard.view)
         tableBoard.didMove(toParentViewController: self)
+        layoutView()
 //        tableBoard.showLoadingView = true
     }
 
@@ -97,6 +98,15 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(triggerTime) / Double(NSEC_PER_SEC), execute: { () -> Void in
             function()
         })
+    }
+
+    func layoutView() {
+        tableBoard.view.translatesAutoresizingMaskIntoConstraints = false
+        let views = ["tableBoard": tableBoard.view]
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableBoard]|", options: [], metrics: nil, views: views)
+        let top = NSLayoutConstraint(item: tableBoard.view, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0)
+        let bottom = NSLayoutConstraint(item: tableBoard.view, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
+        NSLayoutConstraint.activate(horizontalConstraints + [top, bottom])
     }
 }
 

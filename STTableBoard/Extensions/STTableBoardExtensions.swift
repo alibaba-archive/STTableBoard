@@ -17,7 +17,11 @@ extension STTableBoard {
     }
 
     func switchMode() {
-        let newMode: STTableBoardMode = tableBoardMode == .page ? .scroll : .page
+        let isLandscapeIniPhone = currentOrientation == .landscape && currentDevice == .phone
+        var newMode: STTableBoardMode = tableBoardMode == .page ? .scroll : .page
+        if isLandscapeIniPhone {
+            newMode = .scroll
+        }
         var newScale: CGFloat = 0.0
         switch newMode {
         case .page:
@@ -25,7 +29,11 @@ extension STTableBoard {
             tableBoardMode = .page
             currentScale = newScale
         case .scroll:
-            newScale = scaleForScroll
+            if isLandscapeIniPhone && currentScale == scaleForScroll {
+                newScale = scaleForPage
+            } else {
+                newScale = scaleForScroll
+            }
             tableBoardMode = .scroll
             currentScale = newScale
         }
@@ -59,7 +67,7 @@ extension STTableBoard {
     func startMovingBoard(_ recognizer: UIGestureRecognizer) {
         let positionInContainerView = recognizer.location(in: containerView)
         guard let board = boardAtPoint(positionInContainerView), let dataSource = self.dataSource , dataSource.tableBoard(self, canMoveBoardAt: board.index) else { return }
-        if currentDevice == .phone && tableBoardMode == .page {
+        if currentDevice == .phone && currentScale == scaleForPage {
             switchMode()
             isMoveBoardFromPageMode = true
         }
@@ -714,11 +722,7 @@ extension STTableBoard {
         let page = Int(proportion)
         let actualPage = (offsetX - pageOffset * CGFloat(page)) > (pageOffset * 1 / 2) ?  page + 1 : page
         currentPage = actualPage
-        print("****************")
-        print("offSetX \(offsetX)")
-        print("page \(page)")
-        print("actualPage \(actualPage)")
-        
+
         UIView.animate(withDuration: 0.33, animations: { () -> Void in
             scrollView.contentOffset = CGPoint(x: pageOffset * CGFloat(actualPage), y: 0)
         }) 
