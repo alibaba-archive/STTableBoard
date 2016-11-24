@@ -39,7 +39,7 @@ public extension STTableBoard {
             containerView.addSubview(textComposeView)
         }
 
-        if resetMode && currentDevice == .phone && tableBoardMode == .scroll {
+        if resetMode && currentDevice == .phone && tableBoardMode == .scroll && currentOrientation == .portrait {
             switchMode()
         }
     }

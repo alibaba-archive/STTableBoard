@@ -108,6 +108,9 @@ class ViewController: UIViewController {
         let bottom = NSLayoutConstraint(item: tableBoard.view, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
         NSLayoutConstraint.activate(horizontalConstraints + [top, bottom])
     }
+    @IBAction func reloadButtonTapped(_ sender: Any) {
+        tableBoard.reloadData(true, resetMode: true)
+    }
 }
 
 extension ViewController: STTableBoardDelegate {
