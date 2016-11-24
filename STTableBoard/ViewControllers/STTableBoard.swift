@@ -13,6 +13,9 @@ open class STTableBoard: UIViewController {
     
     open var boardWidth: CGFloat {
         get {
+            if let width = preferredBoardWidth {
+                return width - (leading + trailing)
+            }
             if currentDevice == .pad {
                 return self.customBoardWidth
             } else {
@@ -27,6 +30,8 @@ open class STTableBoard: UIViewController {
             }
         }
     }
+
+    open var preferredBoardWidth: CGFloat?
 
     open var showLoadingView: Bool = false {
         didSet {
