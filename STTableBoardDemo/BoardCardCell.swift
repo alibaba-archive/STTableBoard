@@ -15,7 +15,7 @@ class BoardCardCell: STBoardCell {
         view.backgroundColor = UIColor.clear
         return view
     }()
-    
+
     fileprivate lazy var titleLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.numberOfLines = 2

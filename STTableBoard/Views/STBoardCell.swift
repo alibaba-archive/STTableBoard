@@ -10,7 +10,7 @@ import UIKit
 
 open class STBoardCell: UITableViewCell {
     
-    var snapshot: UIView {
+    public var snapshot: UIView {
         get {
             UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0)
             self.layer.render(in: UIGraphicsGetCurrentContext()!)

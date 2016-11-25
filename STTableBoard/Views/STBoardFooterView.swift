@@ -15,8 +15,8 @@ class STBoardFooterView: UIView {
     lazy var titleButton: UIButton = {
         let button = UIButton()
         button.setTitle(localizedString["STTableBoard.AddRow"], for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
-        button.setTitleColor(boardFooterButtonTitleColor, for: .normal)
+        button.titleLabel?.font = TableBoardCommonConstant.labelFont
+        button.setTitleColor(UIColor.grayTextColor, for: .normal)
         button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0);
         button.addTarget(self, action: #selector(STBoardFooterView.addButtonTapped(_:)), for: .touchUpInside)
