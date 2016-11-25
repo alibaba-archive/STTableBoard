@@ -71,6 +71,7 @@ extension STTableBoard {
             switchMode()
             isMoveBoardFromPageMode = true
         }
+        hiddenKeyBoard()
         snapshot = board.snapshot
         snapshot.center = board.center
         containerView.addSubview(snapshot)
@@ -166,6 +167,7 @@ extension STTableBoard {
         let positionInTableView = recognizer.location(in: tableView)
         guard let indexPath = tableView.indexPathForRow(at: positionInTableView), let cell = tableView.cellForRow(at: indexPath) as? STBoardCell else {return}
         guard let dataSource = self.dataSource , dataSource.tableBoard(self, canMoveRowAt: indexPath.convertToSTIndexPath(tableView.index)) else { return }
+        hiddenKeyBoard()
         snapshot = cell.snapshot
         updateSnapViewStatus(.origin)
         snapshot.center = containerView.convert(cell.center, from: tableView)

@@ -30,6 +30,8 @@ public extension STTableBoard {
         }
         pageControl.currentPage = currentPage
         pageControl.numberOfPages = numberOfPage
+        boardViewForVisibleTextComposeView = nil
+        isAddBoardTextComposeViewVisible = false
 
         if showAddBoardButton {
             let newBoardButtonViewFrame = CGRect(x: leading + CGFloat(numberOfPage - 1) * (boardWidth + pageSpacing), y: top, width: boardWidth, height: newBoardButtonViewHeight)
