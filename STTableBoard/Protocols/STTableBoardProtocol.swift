@@ -15,6 +15,7 @@ public protocol STTableBoardDelegate: class {
     func tableBoard(_ tableBoard: STTableBoard, willRemoveBoardAt index: Int) -> Bool
     func tableBoard(_ tableBoard: STTableBoard, canEditBoardTitleAt boardIndex: Int) -> Bool
     func tableBoard(_ tableBoard: STTableBoard, boardTitleBeChangedTo title: String, at boardIndex: Int)
+    func tableBoard(_ tableBoard: STTableBoard, handlePinchGesture recognizer: UIPinchGestureRecognizer)
 }
 
 public extension STTableBoardDelegate {
@@ -33,7 +34,10 @@ public extension STTableBoardDelegate {
     func tableBoard(_ tableBoard: STTableBoard, boardTitleBeChangedTo title: String, at boardIndex: Int) {
         return
     }
-    
+
+    func tableBoard(_ tableBoard: STTableBoard, handlePinchGesture recognizer: UIPinchGestureRecognizer) {
+        return
+    }
 }
 
 public protocol STTableBoardDataSource: class {

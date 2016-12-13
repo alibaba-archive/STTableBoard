@@ -54,20 +54,25 @@ open class STTableBoard: UIViewController {
     
     var longPressGestureForCell: UILongPressGestureRecognizer {
         get {
-            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(STTableBoard.handleLongPressGestureForCell(_:)))
+            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureForCell(_:)))
             return gesture
         }
     }
     
     var longPressGestureForBoard: UILongPressGestureRecognizer {
         get {
-            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(STTableBoard.handleLongPressGestureForBoard(_:)))
+            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureForBoard(_:)))
             return gesture
         }
     }
+
+    lazy var pinchGesture: UIPinchGestureRecognizer = {
+        let gesture: UIPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
+        return gesture
+    }()
     
     lazy var doubleTapGesture: UITapGestureRecognizer = {
-        let gesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(STTableBoard.handleDoubleTap(_:)))
+        let gesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         gesture.delegate = self
         gesture.numberOfTapsRequired = 2
         gesture.numberOfTouchesRequired = 1
@@ -299,6 +304,7 @@ open class STTableBoard: UIViewController {
             }
             containerView.addGestureRecognizer(doubleTapGesture)
         }
+        containerView.addGestureRecognizer(pinchGesture)
     }
 
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -326,8 +332,10 @@ open class STTableBoard: UIViewController {
         scrollView.frame = CGRect(origin: CGPoint.zero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
         containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
-        pageControl.frame = CGRect(x: 0, y: size.height - pageControl.height, width: size.width, height: pageControlHeight)
         boardMenuMaskView.frame = CGRect(origin: CGPoint.zero, size: size)
+        UIView.animate(withDuration: 0.5, animations: { (finished) in
+            self.pageControl.frame = CGRect(x: 0, y: size.height - self.pageControl.height, width: size.width, height: pageControlHeight)
+        })
         boards.forEach { (board) -> () in
             autoAdjustTableBoardHeight(board, animated: true)
         }
@@ -336,6 +344,10 @@ open class STTableBoard: UIViewController {
         if boardMenuVisible && hideBoardMenu {
             hiddenBoardMenu()
         }
+    }
+
+    open func relayoutAllViews() {
+        relayoutAllViews(view.frame.size, hideBoardMenu: true)
     }
     
     func resetContentSize() {
