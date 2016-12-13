@@ -16,6 +16,10 @@ extension STTableBoard {
         switchMode()
     }
 
+    func handlePinch(_ recognizer: UIPinchGestureRecognizer) {
+        delegate?.tableBoard(self, handlePinchGesture: recognizer)
+    }
+
     func switchMode() {
         let isLandscapeIniPhone = currentOrientation == .landscape && currentDevice == .phone
         var newMode: STTableBoardMode = tableBoardMode == .page ? .scroll : .page

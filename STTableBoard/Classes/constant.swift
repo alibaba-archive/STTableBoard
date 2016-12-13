@@ -73,6 +73,7 @@ let pageControlHeight: CGFloat = 20.0
 //Color
 let boardBackgroundColor: UIColor = UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1.0)
 let tableBoardBackgroundColor: UIColor = UIColor(white: 1.0, alpha: 1.0)
+//let tableBoardBackgroundColor: UIColor = UIColor.lightGray
 let boardBorderColor: UIColor = UIColor(red: 229.0/255.0, green: 229.0/255.0, blue: 229.0/255.0, alpha: 1.0)
 //let boardFooterButtonTitleColor: UIColor = UIColor(red: 166.0/255.0, green: 166.0/255.0, blue: 166.0/255.0, alpha: 1.0)
 let currentPageIndicatorTintColor: UIColor = UIColor(red: 184.0/255.0, green: 184.0/255.0, blue: 184.0/255.0, alpha: 1.0)
