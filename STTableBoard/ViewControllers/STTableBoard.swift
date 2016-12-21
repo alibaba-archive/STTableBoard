@@ -13,20 +13,21 @@ open class STTableBoard: UIViewController {
     
     open var boardWidth: CGFloat {
         get {
-            if let width = preferredBoardWidth {
-                return width - (leading + trailing)
-            }
             if currentDevice == .pad {
                 return self.customBoardWidth
             } else {
-                var width: CGFloat = 0
-                switch currentOrientation {
-                case .portrait:
-                    width = self.view.width
-                case .landscape:
-                    width = self.view.height
+                if let width = preferredBoardWidth {
+                    return width - (leading + trailing)
+                } else {
+                    var width: CGFloat = 0
+                    switch currentOrientation {
+                    case .portrait:
+                        width = self.view.width
+                    case .landscape:
+                        width = self.view.height
+                    }
+                    return width - (leading + trailing)
                 }
-                return width - (leading + trailing)
             }
         }
     }

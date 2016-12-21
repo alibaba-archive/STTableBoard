@@ -154,6 +154,7 @@ extension ViewController {
         tableBoard.delegate = self
         tableBoard.dataSource = self
         tableBoard.showAddBoardButton = true
+        tableBoard.preferredBoardWidth = 280
         self.addChildViewController(tableBoard)
         view.addSubview(tableBoard.view)
         tableBoard.didMove(toParentViewController: self)
