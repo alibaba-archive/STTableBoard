@@ -152,8 +152,16 @@ public extension STTableBoard {
             })
             let board = self.boards[Int(boardIndex)!]
             guard let tableView = board.tableView else { return }
+            
+            var deleteIndexPaths = [IndexPath]()
+            for indexPath in indexPaths {
+                if let _ = tableView.cellForRow(at: indexPath) {
+                    deleteIndexPaths.append(indexPath)
+                }
+            }
+
             tableView.beginUpdates()
-            tableView.deleteRows(at: indexPaths, with: animation)
+            tableView.deleteRows(at: deleteIndexPaths, with: animation)
             tableView.endUpdates()
             self.autoAdjustTableBoardHeight(board, animated: true)
         }
