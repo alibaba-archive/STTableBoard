@@ -10,6 +10,7 @@ protocol STBoardViewDelegate: class {
     func boardViewDidBeginEditingAtBottomRow(boardView view: STBoardView)
     func boardView(_ boardView: STBoardView, didClickBoardMenuButton button: UIButton)
     func boardView(_ boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String)
+    func boardViewDidClickCancelButtonForAddNewRow(_ boardView: STBoardView)
 }
 
 extension STBoardViewDelegate {

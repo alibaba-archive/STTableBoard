@@ -50,6 +50,7 @@ public protocol STTableBoardDataSource: class {
     // add row
     func tableBoard(_ tableBoard: STTableBoard, willBeginAddingRowAt boardIndex: Int)
     func tableBoard(_ tableBoard: STTableBoard, didAddRowAt boardIndex: Int, with rowTitle: String)
+    func tableBoard(_ tableBoard: STTableBoard, didCancelAddRowAt boardIndex: Int)
 
     // move row
     func tableBoard(_ tableBoard: STTableBoard, canMoveRowAt indexPath: STIndexPath) -> Bool
@@ -82,6 +83,10 @@ public extension STTableBoardDataSource {
     
     // Add row
     func tableBoard(_ tableBoard: STTableBoard, willBeginAddingRowAt boardIndex: Int) {
+        return
+    }
+
+    func tableBoard(_ tableBoard: STTableBoard, didCancelAddRowAt boardIndex: Int) {
         return
     }
 

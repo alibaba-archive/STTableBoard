@@ -45,7 +45,7 @@ class STBoardFooterView: UIView {
         NSLayoutConstraint.activate(titleButtonHorizontalConstraints + titleButtonVerticalConstraints)
     }
     
-    func addButtonTapped(_ sender: UIButton) {
+    func addButtonTapped(_ sender: UIButton?) {
         boardView?.footerViewHeightConstant = newCellComposeViewHeight
         textComposeView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: self.width, height: newCellComposeViewHeight))
         showTextComposeView()
@@ -96,6 +96,9 @@ extension STBoardFooterView: TextComposeViewDelegate {
     
     func textComposeView(textComposeView view: TextComposeView, didClickCancelButton button: UIButton) {
         hideTextComposeView()
+        if let boardView = boardView {
+            boardView.delegate?.boardViewDidClickCancelButtonForAddNewRow(boardView)
+        }
     }
     
     func textComposeViewDidBeginEditing(textComposeView view: TextComposeView) {

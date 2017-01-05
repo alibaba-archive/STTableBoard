@@ -59,6 +59,9 @@ class ViewController: UIViewController {
         configureTableBoard()
         layoutView()
         addAddButton()
+        tableBoard.reloadData()
+        let f = tableBoard.boardFooterRect(at: 0)
+        print("viewDidLoad \(f)")
     }
 
     deinit {
@@ -67,14 +70,8 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        (dataArray[0], dataArray[1]) = (dataArray[1], dataArray[0])
-//        tableBoard.exchangeBoardAtIndex(0, destinationIndex: 1, animation: true)
-//        let indexPath = STIndexPath(forRow: 0, inBoard: 1)
-//        tableBoard.reloadRowAtIndexPath([indexPath], withRowAnimation: .Automatic)
-//        delay(5) {
-//            self.tableBoard.stopMovingBoard()
-//            self.tableBoard.stopMovingCell()
-//        }
+//        let f = tableBoard.boardFooterRect(at: 0)
+//        print("viewDidAppear \(f)")
     }
     
     func addAddButton() {
@@ -83,9 +80,6 @@ class ViewController: UIViewController {
     }
     
     func doneButtonClick() {
-//        let indexPath1 = STIndexPath(forRow: dataArray[1].count, inBoard: 1)
-//        dataArray[1].append("wtf")
-//        tableBoard.insertRowAtIndexPath(indexPath1, withRowAnimation: .Fade, atScrollPosition: .Bottom)
         tableBoard.reloadData(false, resetMode: true)
     }
     
@@ -154,7 +148,7 @@ extension ViewController {
         tableBoard.delegate = self
         tableBoard.dataSource = self
         tableBoard.showAddBoardButton = true
-        tableBoard.preferredBoardWidth = 280
+//        tableBoard.preferredBoardWidth = 280
         self.addChildViewController(tableBoard)
         view.addSubview(tableBoard.view)
         tableBoard.didMove(toParentViewController: self)

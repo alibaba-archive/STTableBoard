@@ -167,6 +167,10 @@ extension STTableBoard: STBoardViewDelegate {
     func boardViewDidBeginEditingAtBottomRow(boardView view: STBoardView) {
         dataSource?.tableBoard(self, willBeginAddingRowAt: view.index)
     }
+
+    func boardViewDidClickCancelButtonForAddNewRow(_ boardView: STBoardView) {
+        dataSource?.tableBoard(self, didCancelAddRowAt: boardView.index)
+    }
 }
 
 extension STTableBoard: BoardMenuDelegate {

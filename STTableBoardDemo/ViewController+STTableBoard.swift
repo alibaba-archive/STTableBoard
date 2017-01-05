@@ -88,6 +88,10 @@ extension ViewController: STTableBoardDataSource {
         dataArray[boardIndex].append(rowTitle)
         tableBoard.insertRowAtIndexPath(indexPath, withRowAnimation: .fade, atScrollPosition: .bottom)
     }
+
+    func tableBoard(_ tableBoard: STTableBoard, didCancelAddRowAt boardIndex: Int) {
+        print("didCancelAddRowAt \(boardIndex)")
+    }
     
     // move row
     func tableBoard(_ tableBoard: STTableBoard, canMoveRowAt indexPath: STIndexPath) -> Bool {

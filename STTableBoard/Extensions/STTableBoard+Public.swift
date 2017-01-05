@@ -233,4 +233,19 @@ public extension STTableBoard {
         guard let recognizer = currentLongPressGestureForBoard else { return }
         recognizer.isEnabled = false
     }
+
+    func boardFooterRect(at boardIndex: Int) -> CGRect {
+        guard 0..<boards.count ~= boardIndex else { return CGRect.zero }
+        let board = boards[boardIndex]
+        guard let boardFooter = board.footerView else { return CGRect.zero }
+        board.layoutIfNeeded()
+        return self.view.convert(boardFooter.frame, from: board)
+    }
+
+    func toggleBoardFooter(at boardIndex: Int) {
+        guard 0..<boards.count ~= boardIndex else { return }
+        let board = boards[boardIndex]
+        guard let boardFooter = board.footerView else { return }
+        boardFooter.addButtonTapped(nil)
+    }
 }
