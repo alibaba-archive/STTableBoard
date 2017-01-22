@@ -261,8 +261,9 @@ extension STTableBoard {
             tableView.deleteRows(at: [sourceIndexPath.ConvertToIndexPath()], with: .fade)
             tableView.insertRows(at: [newIndexPath], with: .none)
             tableView.endUpdates()
-            let cell = tableView.cellForRow(at: newIndexPath) as! STBoardCell
-            cell.moving = true
+            if let cell = tableView.cellForRow(at: newIndexPath) as? STBoardCell {
+                cell.moving = true
+            }
         } else {
             let sourceTableView = boards[sourceIndexPath.board].tableView
             sourceTableView?.beginUpdates()
@@ -273,8 +274,9 @@ extension STTableBoard {
             tableView.insertRows(at: [newIndexPath], with: .fade)
             tableView.endUpdates()
             rowDidBeInsertedIntoTableView(tableView)
-            let cell = tableView.cellForRow(at: newIndexPath) as! STBoardCell
-            cell.moving = true
+            if let cell = tableView.cellForRow(at: newIndexPath) as? STBoardCell {
+                cell.moving = true
+            }
         }
         sourceIndexPath = newIndexPath.convertToSTIndexPath(tableView.index)
         lastMovingTime = Date()
