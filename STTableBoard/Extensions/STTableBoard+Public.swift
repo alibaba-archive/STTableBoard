@@ -28,6 +28,9 @@ public extension STTableBoard {
         if resetPage {
             currentPage = 0
         }
+        if isAddBoardTextComposeViewVisible {
+            hiddenTextComposeView()
+        }
         pageControl.currentPage = currentPage
         pageControl.numberOfPages = numberOfPage
         boardViewForVisibleTextComposeView = nil
