@@ -49,7 +49,7 @@ class TextComposeView: UIView {
         button.setTitle(localizedString["STTableBoard.Create"], for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.backgroundColor = UIColor.clear
-        button.setBackgroundImage(UIImage(named: "doneButton_background", in: currentBundle, compatibleWith: nil), for: .normal)
+        button.setBackgroundImage(UIImage(named: "doneButton_background", in: currentBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(TextComposeView.doneButtonClicked(_:)), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
