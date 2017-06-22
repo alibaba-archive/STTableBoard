@@ -161,6 +161,23 @@ public extension STTableBoard {
             self.autoAdjustTableBoardHeight(board, animated: true)
         }
     }
+
+    func moveRowWithinBoard(at indexPath: STIndexPath, to newIndexPath: STIndexPath, reloadAfterMoving: Bool = false, with animation: UITableViewRowAnimation = .none) {
+        guard indexPath.board == newIndexPath.board else {
+            return
+        }
+        let boardIndex = indexPath.board
+        let board = self.boards[Int(boardIndex)]
+        guard let tableView = board.tableView else { return }
+        tableView.beginUpdates()
+        tableView.moveRow(at: indexPath.ConvertToIndexPath(), to: newIndexPath.ConvertToIndexPath())
+        tableView.endUpdates()
+        if reloadAfterMoving {
+            tableView.beginUpdates()
+            tableView.reloadRows(at: [newIndexPath.ConvertToIndexPath()], with: animation)
+            tableView.endUpdates()
+        }
+    }
     
     func insertRowAtIndexPath(_ indexPath: STIndexPath, withRowAnimation animation: UITableViewRowAnimation, atScrollPosition scrollPosition: UITableViewScrollPosition) {
         let board = boards[indexPath.board]
