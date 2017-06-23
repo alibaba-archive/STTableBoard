@@ -177,6 +177,7 @@ public extension STTableBoard {
             tableView.reloadRows(at: [newIndexPath.ConvertToIndexPath()], with: animation)
             tableView.endUpdates()
         }
+        self.autoAdjustTableBoardHeight(board, animated: true)
     }
     
     func insertRowAtIndexPath(_ indexPath: STIndexPath, withRowAnimation animation: UITableViewRowAnimation, atScrollPosition scrollPosition: UITableViewScrollPosition) {
