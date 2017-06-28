@@ -57,7 +57,7 @@ public extension STTableBoard {
         autoAdjustTableBoardHeight(board, animated: animated)
     }
     
-    func reloadBoardTitleAtIndex(_ index: Int) {
+    public func reloadBoardTitleAtIndex(_ index: Int) {
         guard index < boards.count else { fatalError("index is not exist!!") }
         let board = boards[index]
         board.title = dataSource?.tableBoard(self, titleForBoardAt: index)
@@ -69,7 +69,7 @@ public extension STTableBoard {
         board.number = dataSource?.tableBoard(self, numberForBoardAt: index) ?? 0
     }
     
-    func removeBoardAtIndex(_ index: Int) {
+    public func removeBoardAtIndex(_ index: Int) {
         guard index < boards.count else { fatalError("index is not exist!!") }
         let board = boards[index]
         if let boardViewForVisibleTextComposeView = boardViewForVisibleTextComposeView, boardViewForVisibleTextComposeView.index == index {

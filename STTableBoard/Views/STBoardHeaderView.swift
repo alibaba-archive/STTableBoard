@@ -46,7 +46,7 @@ class STBoardHeaderView: UIView {
     fileprivate lazy var actionButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "boardHeaderMoreButton", in: currentBundle, compatibleWith: nil), for: .normal)
-        button.addTarget(self, action: #selector(STBoardHeaderView.actionButtonBeClicked(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(self.actionButtonBeClicked(_:)), for: .touchUpInside)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -10)
         return button
     }()

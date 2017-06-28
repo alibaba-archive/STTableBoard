@@ -101,40 +101,6 @@ open class STTableBoard: UIViewController {
         return view
     }()
     
-    // BoardMenu Properties
-    lazy var boardMenu: BoardMenu = {
-        let menu = BoardMenu()
-        menu.boardMenuDelegate = self
-        menu.tableBoard = self
-        return menu
-    }()
-    
-    lazy var boardMenuMaskView: UIView = {
-        let view = UIView(frame: self.view.bounds)
-        view.backgroundColor = UIColor.clear
-        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(STTableBoard.boardMenuMaskViewTapped(_:)))
-        view.addGestureRecognizer(tapGesture)
-        return view
-    }()
-
-    lazy var boardMenuShadowView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.white
-        let layer = view.layer
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        layer.shadowOpacity = 0.25
-        layer.shadowRadius = 30.0
-        layer.cornerRadius = 6.0
-        return view
-    }()
-    
-    lazy var boardMenuPopover: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "BoardMenu_Popover", in: currentBundle, compatibleWith: nil))
-        imageView.sizeToFit()
-        return imageView
-    }()
-    
     open var contentInset: UIEdgeInsets = UIEdgeInsets.zero
     open var sizeOffset: CGSize = CGSize(width: 0, height: 0)
     open var keyboardInset: CGFloat = 0
@@ -216,9 +182,6 @@ open class STTableBoard: UIViewController {
     var tapPosition: CGPoint = CGPoint(x: 0, y: 0)
     var originFrame: CGRect!
     
-    //Board Menu property 
-    var boardMenuVisible: Bool = false
-    
     //Text Compose property
     var boardViewForVisibleTextComposeView: STBoardView?
     var isAddBoardTextComposeViewVisible: Bool = false
@@ -258,17 +221,13 @@ open class STTableBoard: UIViewController {
         super.viewDidAppear(animated)
         scrollView.pinchGestureRecognizer?.isEnabled = false
         if !isFirstLoading {
-            relayoutAllViews(view.bounds.size, hideBoardMenu: true)
+            relayoutAllViews(view.bounds.size)
         }
     }
 
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
-    }
-
-    override open func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
     }
 
     //MARK: - init helper
@@ -314,7 +273,7 @@ open class STTableBoard: UIViewController {
             let width = self.view.width
             let height = self.view.height
             let newSize = CGSize(width: width - (self.contentInset.left + self.contentInset.right + self.sizeOffset.width), height: height - (self.contentInset.top + self.contentInset.bottom + self.sizeOffset.height))
-            self.relayoutAllViews(newSize, hideBoardMenu: true)
+            self.relayoutAllViews(newSize)
             }) { (contenxt) -> Void in
                 switch (currentOrientation, currentDevice) {
                 case (_, .pad):
@@ -328,12 +287,11 @@ open class STTableBoard: UIViewController {
         }
     }
     
-    func relayoutAllViews(_ size: CGSize, hideBoardMenu: Bool) {
+    func relayoutAllViews(_ size: CGSize) {
         guard !size.equalTo(scrollView.frame.size) else { return }
         scrollView.frame = CGRect(origin: CGPoint.zero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
         containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
-        boardMenuMaskView.frame = CGRect(origin: CGPoint.zero, size: size)
         UIView.animate(withDuration: 0.5, animations: { (finished) in
             self.pageControl.frame = CGRect(x: 0, y: size.height - self.pageControl.height, width: size.width, height: pageControlHeight)
         })
@@ -341,14 +299,10 @@ open class STTableBoard: UIViewController {
             autoAdjustTableBoardHeight(board, animated: true)
         }
         originContentSize = CGSize(width: originContentSize.width, height: size.height)
-        
-        if boardMenuVisible && hideBoardMenu {
-            hiddenBoardMenu()
-        }
     }
 
     open func relayoutAllViews() {
-        relayoutAllViews(view.frame.size, hideBoardMenu: true)
+        relayoutAllViews(view.frame.size)
     }
     
     func resetContentSize() {
@@ -357,7 +311,7 @@ open class STTableBoard: UIViewController {
         pageControl.frame = CGRect(x: 0, y: view.height - pageControl.height, width: view.width, height: pageControlHeight)
     }
     
-    func addNotification() {
+    public func addNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(STTableBoard.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(STTableBoard.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -378,7 +332,7 @@ extension STTableBoard {
             }
             adjustHeight -= keyboardInset
             UIView.animate(withDuration: 0.33, animations: { () -> Void in
-                self.relayoutAllViews(CGSize(width: self.view.width, height: self.view.height - adjustHeight), hideBoardMenu: false)
+                self.relayoutAllViews(CGSize(width: self.view.width, height: self.view.height - adjustHeight))
             })
         }
     }
@@ -387,7 +341,7 @@ extension STTableBoard {
         guard let _ = self.originFrame else { return }
         UIView.animate(withDuration: 0.33, animations: { [weak self]() -> Void in
             guard let `self` = self else { return }
-            self.relayoutAllViews(self.originFrame.size, hideBoardMenu: false)
+            self.relayoutAllViews(self.originFrame.size)
             })
     }
 }
