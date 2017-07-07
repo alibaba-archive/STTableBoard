@@ -7,11 +7,6 @@
 //
 import UIKit
 
-public enum BoardMenuHandleType {
-    case boardTitleChanged
-    case boardDeleted
-}
-
 enum SnapViewStatus {
     case moving
     case origin
@@ -55,7 +50,7 @@ let top: CGFloat = 20.0
 let bottom: CGFloat = top
 let pageSpacing: CGFloat = leading / 2
 let overlap: CGFloat = pageSpacing * 3
-let rotateAngel: CGFloat = CGFloat(M_PI/36)
+let rotateAngel: CGFloat = .pi / 36
 let headerViewHeight: CGFloat = 30
 let footerViewHeight: CGFloat = 44.0
 let newBoardButtonViewHeight: CGFloat = 56.0
@@ -67,7 +62,6 @@ let scaleForScroll: CGFloat = 0.5
 let defaultScrollViewScrollVelocity: CGFloat = 50.0
 let currentBundle = Bundle(for: STTableBoard.self)
 let minimumMovingRowInterval: TimeInterval = 0.2
-let boardmenuMaxSpacingToEdge: CGFloat = 20.0
 let pageControlHeight: CGFloat = 20.0
 
 //Color
@@ -85,13 +79,6 @@ let newBoardButtonBackgroundColor: UIColor = boardBackgroundColor
 let newBoardButtonTextColor: UIColor = UIColor(red: 189.0/255.0, green: 189.0/255.0, blue: 189.0/255.0, alpha: 1.0)
 let cancelButtonTextColor: UIColor = UIColor(red: 166/255.0, green: 166/255.0, blue: 166/255.0, alpha: 1.0)
 
-// board menu colors
-let boardMenuTextViewControllerBackgroundColor: UIColor = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 1.0)
-let boardMenuTextFieldBorderColor: UIColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
-
-// board menu userInfo keys
-let newBoardTitleKey = "newBoardTitle"
-let boardIndexKey = "boardIndex"
 
 var currentDevice: UIUserInterfaceIdiom {
     get {

@@ -11,6 +11,10 @@ import STTableBoard
 
 // MARK: - STTableBoardDelegate
 extension ViewController: STTableBoardDelegate {
+    func tableBoard(_ tableBoard: STTableBoard, didTapMoreButtonAt index: Int, stageTitle: String?, button: UIButton) {
+        print("More button tapped")
+    }
+
     func tableBoard(_ tableBoard: STTableBoard, heightForRowAt indexPath: STIndexPath) -> CGFloat {
         return 80.0
     }
