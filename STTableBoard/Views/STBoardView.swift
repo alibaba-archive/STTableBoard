@@ -11,6 +11,7 @@ protocol STBoardViewDelegate: class {
     func boardView(_ boardView: STBoardView, didClickBoardMenuButton button: UIButton)
     func boardView(_ boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String)
     func boardViewDidClickCancelButtonForAddNewRow(_ boardView: STBoardView)
+    func customAddRowAction(for boardView: STBoardView) -> (() -> Void)?
 }
 
 extension STBoardViewDelegate {
