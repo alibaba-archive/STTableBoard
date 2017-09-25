@@ -31,7 +31,19 @@ extension ViewController: STTableBoardDelegate {
         titleArray.append(boardTitle)
         tableBoard.insertBoardAtIndex(index, withAnimation: true)
     }
-    
+
+    func customAddRowAction(for tableBoard: STTableBoard, at boardIndex: Int) -> (() -> Void)? {
+        if boardIndex == 0 || boardIndex == 3 {
+            return {
+                let alert = UIAlertController(title: "Custom Add Row Action", message: "boardIndex: \(boardIndex)", preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        return nil
+    }
+
     func tableBoard(_ tableBoard: STTableBoard, didSelectRowAt indexPath: STIndexPath) {
         print("board \(indexPath.board) row \(indexPath.row)")
         if let cell = tableBoard.cellForRowAtIndexPath(indexPath) as? BoardCardCell {

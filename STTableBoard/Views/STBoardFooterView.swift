@@ -46,6 +46,10 @@ class STBoardFooterView: UIView {
     }
     
     func addButtonTapped(_ sender: UIButton?) {
+        if let boardView = boardView, let customAction = boardView.delegate?.customAddRowAction(for: boardView) {
+            customAction()
+            return
+        }
         boardView?.footerViewHeightConstant = newCellComposeViewHeight
         textComposeView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: self.width, height: newCellComposeViewHeight))
         showTextComposeView()

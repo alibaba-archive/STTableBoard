@@ -160,5 +160,9 @@ extension STTableBoard: STBoardViewDelegate {
     func boardViewDidClickCancelButtonForAddNewRow(_ boardView: STBoardView) {
         dataSource?.tableBoard(self, didCancelAddRowAt: boardView.index)
     }
+
+    func customAddRowAction(for boardView: STBoardView) -> (() -> Void)? {
+        return dataSource?.customAddRowAction(for: self, at: boardView.index)
+    }
 }
 
