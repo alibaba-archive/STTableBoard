@@ -10,13 +10,13 @@ import UIKit
 
 //MARK: - double tap
 extension STTableBoard {
-    func handleDoubleTap(_ recognizer: UIGestureRecognizer) {
+    @objc func handleDoubleTap(_ recognizer: UIGestureRecognizer) {
         tapPosition = recognizer.location(in: containerView)
         dataSource?.tableBoard(self, scaleTableBoard: tableBoardMode == .page)
         switchMode()
     }
 
-    func handlePinch(_ recognizer: UIPinchGestureRecognizer) {
+    @objc func handlePinch(_ recognizer: UIPinchGestureRecognizer) {
         delegate?.tableBoard(self, handlePinchGesture: recognizer)
     }
 
@@ -47,7 +47,7 @@ extension STTableBoard {
 
 //MARK: - long press drag for board
 extension STTableBoard {
-    func handleLongPressGestureForBoard(_ recognizer: UIGestureRecognizer) {
+    @objc func handleLongPressGestureForBoard(_ recognizer: UIGestureRecognizer) {
         switch recognizer.state {
         case .began:
             startMovingBoard(recognizer)
@@ -142,7 +142,7 @@ extension STTableBoard {
 
 //MARK: - long press drag for cell
 extension STTableBoard {
-    func handleLongPressGestureForCell(_ recognizer: UIGestureRecognizer) {
+    @objc func handleLongPressGestureForCell(_ recognizer: UIGestureRecognizer) {
         switch recognizer.state {
         case .began:
             startMovingRow(recognizer)
@@ -404,7 +404,7 @@ extension STTableBoard {
         tableViewAutoScrollDistance = min(tableViewAutoScrollDistance, maximumDistance)
     }
     
-    func tableViewAutoScrollTimerFired(_ timer: Timer) {
+    @objc func tableViewAutoScrollTimerFired(_ timer: Timer) {
         guard let userInfo = timer.userInfo as? [String:AnyObject], let tableView = userInfo[timerUserInfoTableViewKey] as? STShadowTableView else { return }
         optimizeTableViewScrollDistance(tableView)
         

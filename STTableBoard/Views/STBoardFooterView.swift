@@ -45,7 +45,7 @@ class STBoardFooterView: UIView {
         NSLayoutConstraint.activate(titleButtonHorizontalConstraints + titleButtonVerticalConstraints)
     }
     
-    func addButtonTapped(_ sender: UIButton?) {
+    @objc func addButtonTapped(_ sender: UIButton?) {
         if let boardView = boardView, let customAction = boardView.delegate?.customAddRowAction(for: boardView) {
             customAction()
             return

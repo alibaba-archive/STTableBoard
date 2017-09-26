@@ -78,7 +78,7 @@ class NewBoardButton: UIView {
         NSLayoutConstraint.activate(horizontalConstraints + [imageViewHeight, imageViewCenterY])
     }
     
-    func viewDidBeClicked() {
+    @objc func viewDidBeClicked() {
         delegate?.newBoardButtonDidBeClicked(newBoardButton: self)
     }
 

@@ -29,8 +29,8 @@ class STBoardHeaderView: UIView {
         label.textAlignment = .left
         label.font = TableBoardCommonConstant.labelFont
         label.textColor = UIColor.darkGrayTextColor
-        label.setContentHuggingPriority(UILayoutPriorityDefaultHigh, for: .horizontal)
-        label.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, for: .horizontal)
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return label
     }()
 
@@ -39,7 +39,7 @@ class STBoardHeaderView: UIView {
         label.textAlignment = .left
         label.font = TableBoardCommonConstant.labelFont
         label.textColor = UIColor.darkGrayTextColor
-        label.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         return label
     }()
     
@@ -92,7 +92,7 @@ class STBoardHeaderView: UIView {
         
     }
     
-    func actionButtonBeClicked(_ sender: UIButton) {
+    @objc func actionButtonBeClicked(_ sender: UIButton) {
         if let boardView = boardView {
             boardView.delegate?.boardView(boardView, didClickBoardMenuButton: sender)
         }

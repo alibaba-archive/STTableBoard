@@ -79,7 +79,7 @@ class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = doneButton
     }
     
-    func doneButtonClick() {
+    @objc func doneButtonClick() {
         tableBoard.reloadData(false, resetMode: true)
     }
     
@@ -178,7 +178,7 @@ extension ViewController {
 
     fileprivate func layoutView() {
         tableBoard.view.translatesAutoresizingMaskIntoConstraints = false
-        let views = ["tableBoard": tableBoard.view]
+        let views: [String: Any] = ["tableBoard": tableBoard.view]
         let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableBoard]|", options: [], metrics: nil, views: views)
         let top = NSLayoutConstraint(item: tableBoard.view, attribute: .top, relatedBy: .equal, toItem: containerView, attribute: .bottom, multiplier: 1, constant: 0)
         let bottom = NSLayoutConstraint(item: tableBoard.view, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
@@ -196,9 +196,9 @@ extension ViewController {
     fileprivate func animateExitFullScreenView() {
         let constant = isBarHidden ? 0 : ExitFullScreenViewConstant.height
         bottomConstraintForExitFullScreenView.constant = constant
-        UIView.animate(withDuration: 0.33, animations: { (finished) in
+        UIView.animate(withDuration: 0.33) {
             self.view.layoutIfNeeded()
-        })
+        }
     }
 
     fileprivate func enterFullScreen() {
@@ -248,7 +248,7 @@ extension ViewController {
 }
 
 extension ViewController {
-    func exitFullScreenTapped() {
+    @objc func exitFullScreenTapped() {
         exitFullScreen()
     }
 }

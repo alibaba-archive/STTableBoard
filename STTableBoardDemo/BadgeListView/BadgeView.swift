@@ -89,7 +89,7 @@ open class BadgeView: UIView {
     }
 
     override open var intrinsicContentSize : CGSize {
-        var size = titleLabel.text?.size(attributes: [NSFontAttributeName: textFont]) ?? CGSize.zero
+        var size = titleLabel.text?.size(withAttributes: [.font: textFont]) ?? CGSize.zero
         
         size.height += 2 * titlePaddingY
         if let _ = image {

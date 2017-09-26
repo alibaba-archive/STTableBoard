@@ -47,7 +47,7 @@ extension ViewController: STTableBoardDelegate {
     func tableBoard(_ tableBoard: STTableBoard, didSelectRowAt indexPath: STIndexPath) {
         print("board \(indexPath.board) row \(indexPath.row)")
         if let cell = tableBoard.cellForRowAtIndexPath(indexPath) as? BoardCardCell {
-            print("cell's title \(cell.titleText)")
+            print("cell's title \(String(describing: cell.titleText))")
         }
         let viewController = UIViewController()
         viewController.view.backgroundColor = UIColor.white

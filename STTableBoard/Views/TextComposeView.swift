@@ -90,12 +90,12 @@ class TextComposeView: UIView {
         self.init(frame: frame, textFieldHeight: 56.0, cornerRadius: 4.0)
     }
     
-    func cancelButtonClicked(_ sender: UIButton) {
+    @objc func cancelButtonClicked(_ sender: UIButton) {
         textField.resignFirstResponder()
         delegate?.textComposeView(textComposeView: self, didClickCancelButton: sender)
     }
     
-    func doneButtonClicked(_ sender: UIButton) {
+    @objc func doneButtonClicked(_ sender: UIButton) {
         if let text = textField.text {
             let trimedText = text.trim()
             if trimedText.characters.count > 0 {

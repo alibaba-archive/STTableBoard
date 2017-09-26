@@ -292,9 +292,9 @@ open class STTableBoard: UIViewController {
         scrollView.frame = CGRect(origin: CGPoint.zero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
         containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
-        UIView.animate(withDuration: 0.5, animations: { (finished) in
+        UIView.animate(withDuration: 0.5) {
             self.pageControl.frame = CGRect(x: 0, y: size.height - self.pageControl.height, width: size.width, height: pageControlHeight)
-        })
+        }
         boards.forEach { (board) -> () in
             autoAdjustTableBoardHeight(board, animated: true)
         }
@@ -319,7 +319,7 @@ open class STTableBoard: UIViewController {
 
 //MARK: - response method
 extension STTableBoard {
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         if let userInfo = notification.userInfo, let keyboardFrameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardFrame = keyboardFrameValue.cgRectValue
             let keyboardHeight = keyboardFrame.height
@@ -337,7 +337,7 @@ extension STTableBoard {
         }
     }
     
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         guard let _ = self.originFrame else { return }
         UIView.animate(withDuration: 0.33, animations: { [weak self]() -> Void in
             guard let `self` = self else { return }
