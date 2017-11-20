@@ -98,7 +98,7 @@ class TextComposeView: UIView {
     @objc func doneButtonClicked(_ sender: UIButton) {
         if let text = textField.text {
             let trimedText = text.trim()
-            if trimedText.characters.count > 0 {
+            if !trimedText.isEmpty {
                 delegate?.textComposeView(textComposeView: self, didClickDoneButton: doneButton, withText: trimedText)
             }
         }
@@ -113,7 +113,7 @@ extension TextComposeView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = textField.text {
             let trimedText = text.trim()
-            if trimedText.characters.count > 0 {
+            if !trimedText.isEmpty {
                 delegate?.textComposeView(textComposeView: self, didClickDoneButton: doneButton, withText: trimedText)
             } else {
                 return false

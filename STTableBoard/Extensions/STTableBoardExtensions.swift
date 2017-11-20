@@ -599,8 +599,10 @@ extension STTableBoard {
         let y = top
         let boardViewFrame = CGRect(x: x, y: y, width: boardWidth, height: maxBoardHeight)
         
-        guard let showRefreshFooter = dataSource?.tableBoard(self, showRefreshFooterAt: index) else { return }
-        let boardView: STBoardView = STBoardView(frame: boardViewFrame,showRefreshFooter: showRefreshFooter)
+        guard let showRefreshFooter = dataSource?.tableBoard(self, showRefreshFooterAt: index), let shouldEnableAddRow = dataSource?.tableBoard(self, shouldEnableAddRowAt: index) else {
+            return
+        }
+        let boardView = STBoardView(frame: boardViewFrame, showRefreshFooter: showRefreshFooter, shouldEnableAddRow: shouldEnableAddRow)
         boardView.headerView.addGestureRecognizer(self.longPressGestureForBoard)
         boardView.tableView.addGestureRecognizer(self.longPressGestureForCell)
         boardView.index = index

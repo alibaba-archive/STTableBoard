@@ -32,6 +32,13 @@ extension ViewController: STTableBoardDelegate {
         tableBoard.insertBoardAtIndex(index, withAnimation: true)
     }
 
+    func tableBoard(_ tableBoard: STTableBoard, shouldEnableAddRowAt boardIndex: Int) -> Bool {
+        if boardIndex == 2 {
+            return false
+        }
+        return true
+    }
+
     func customAddRowAction(for tableBoard: STTableBoard, at boardIndex: Int) -> (() -> Void)? {
         if boardIndex == 0 || boardIndex == 3 {
             return {
