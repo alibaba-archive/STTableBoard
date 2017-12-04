@@ -34,6 +34,10 @@ class STBoardFooterView: UIView {
         setupProperty()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     func setupProperty() {
         addSubview(titleButton)
         titleButton.translatesAutoresizingMaskIntoConstraints = false
@@ -81,11 +85,8 @@ class STBoardFooterView: UIView {
         textComposeView.textField.resignFirstResponder()
         textComposeView.removeFromSuperview()
         textComposeView.textField.text = nil
-        boardView?.footerViewHeightConstant = footerViewHeight
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        let shouldEnableAddRow = boardView?.shouldEnableAddRow ?? true
+        boardView?.footerViewHeightConstant = shouldEnableAddRow ? footerViewNormalHeight : footerViewDisabledHeight
     }
 }
 

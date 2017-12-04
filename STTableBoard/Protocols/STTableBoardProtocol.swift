@@ -53,6 +53,7 @@ public protocol STTableBoardDataSource: class {
     func tableBoard(_ tableBoard: STTableBoard, willBeginAddingRowAt boardIndex: Int)
     func tableBoard(_ tableBoard: STTableBoard, didAddRowAt boardIndex: Int, with rowTitle: String)
     func tableBoard(_ tableBoard: STTableBoard, didCancelAddRowAt boardIndex: Int)
+    func tableBoard(_ tableBoard: STTableBoard, shouldEnableAddRowAt boardIndex: Int) -> Bool
     func customAddRowAction(for tableBoard: STTableBoard, at boardIndex: Int) -> (() -> Void)?
 
     // move row
@@ -91,6 +92,10 @@ public extension STTableBoardDataSource {
 
     func tableBoard(_ tableBoard: STTableBoard, didCancelAddRowAt boardIndex: Int) {
         return
+    }
+
+    func tableBoard(_ tableBoard: STTableBoard, shouldEnableAddRowAt boardIndex: Int) -> Bool {
+        return true
     }
 
     func customAddRowAction(for tableBoard: STTableBoard, at boardIndex: Int) -> (() -> Void)? {

@@ -31,7 +31,8 @@ class STBoardView: UIView {
     weak var tableBoard: STTableBoard!
     
     weak var delegate: STBoardViewDelegate?
-    var footerViewHeightConstant: CGFloat = footerViewHeight {
+    var shouldEnableAddRow = true
+    var footerViewHeightConstant: CGFloat = footerViewNormalHeight {
         didSet {
             footerViewHeightConstraint.constant = footerViewHeightConstant
             UIView.animate(withDuration: 0.33, animations: {
@@ -45,7 +46,7 @@ class STBoardView: UIView {
     }
     
     lazy var footerViewHeightConstraint: NSLayoutConstraint = {
-        let constraint = NSLayoutConstraint(item: self.footerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: footerViewHeight)
+        let constraint = NSLayoutConstraint(item: self.footerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: shouldEnableAddRow ? footerViewNormalHeight : footerViewDisabledHeight)
         return constraint
     }()
     
@@ -100,10 +101,10 @@ class STBoardView: UIView {
             self.headerView.number = newValue
         }
     }
-    
-     init(frame: CGRect, showRefreshFooter: Bool) {
+
+    init(frame: CGRect, showRefreshFooter: Bool, shouldEnableAddRow: Bool) {
         super.init(frame: frame)
-        setupProperty(showRefreshFooter)
+        setupProperty(showRefreshFooter: showRefreshFooter, shouldEnableAddRow: shouldEnableAddRow)
         tableView.addObserver(self, forKeyPath: "contentOffset", options: [.new, .old], context: nil)
     }
     
@@ -111,7 +112,7 @@ class STBoardView: UIView {
         tableView.removeObserver(self, forKeyPath: "contentOffset")
     }
     
-    func setupProperty(_ showRefreshFooter: Bool) {
+    func setupProperty(showRefreshFooter: Bool, shouldEnableAddRow: Bool) {
         backgroundColor = boardBackgroundColor
         let layer = self.layer
         layer.cornerRadius = 5.0
@@ -125,7 +126,11 @@ class STBoardView: UIView {
         headerView.backgroundColor = boardBackgroundColor
         footerView.backgroundColor = boardBackgroundColor
         tableView.backgroundColor = boardBackgroundColor
-        
+
+        self.shouldEnableAddRow = shouldEnableAddRow
+        footerViewHeightConstant = shouldEnableAddRow ? footerViewNormalHeight : footerViewDisabledHeight
+        footerView.isHidden = !shouldEnableAddRow
+
         headerView.boardView = self
         footerView.boardView = self
         
