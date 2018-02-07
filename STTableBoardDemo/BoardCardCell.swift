@@ -10,6 +10,8 @@ import UIKit
 import STTableBoard
 
 class BoardCardCell: STBoardCell {
+    static let reuseIdentifier = String(describing: self)
+
     fileprivate lazy var cardView: CardView = {
         let view = CardView()
         view.backgroundColor = .clear
@@ -56,7 +58,6 @@ class BoardCardCell: STBoardCell {
     }
 
     func setupProperty() {
-//        backgroundView = backgroundImageView
         contentView.addSubview(cardView)
         cardView.addSubview(checkBoxView)
         cardView.addSubview(avatarView)

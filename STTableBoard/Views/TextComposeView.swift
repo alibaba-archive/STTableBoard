@@ -15,7 +15,9 @@ protocol TextComposeViewDelegate: class {
 }
 
 extension TextComposeViewDelegate {
-    func textComposeViewDidBeginEditing(textComposeView view: TextComposeView) {}
+    func textComposeViewDidBeginEditing(textComposeView view: TextComposeView) {
+
+    }
 }
 
 class TextComposeView: UIView {

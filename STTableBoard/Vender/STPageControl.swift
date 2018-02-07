@@ -57,7 +57,9 @@ class STPageControl: UIPageControl {
     }
 
     fileprivate func updateDots() {
-        guard showAddDots else { return }
+        guard showAddDots else {
+            return
+        }
         if let view = subviews.last, let dot = imageViewForSubView(view) {
             if currentPage == subviews.count - 1 {
                 dot.image = activeAddPageControlImage

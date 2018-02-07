@@ -64,11 +64,7 @@ class STBoardFooterView: UIView {
                 boardViewForVisibleTextComposeView.hideTextComposeView()
             }
         }
-
         boardView?.tableBoard.boardViewForVisibleTextComposeView = boardView
-//        let tableView = boardView.tableView
-//        let indexPath = NSIndexPath(forRow: tableView.numberOfRowsInSection(0) - 1, inSection: 0)
-//        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
     }
 
     func showTextComposeView() {

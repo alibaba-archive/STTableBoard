@@ -15,7 +15,7 @@
 		EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B381C1E618300BF1148 /* STIndexPath.swift */; };
 		EB793B491C1E618300BF1148 /* STTableBoard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3B1C1E618300BF1148 /* STTableBoard+Extension.swift */; };
 		EB793B4A1C1E618300BF1148 /* UIColor+ChineseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3C1C1E618300BF1148 /* UIColor+ChineseColor.swift */; };
-		EB793B4B1C1E618300BF1148 /* UIScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */; };
+		EB793B4B1C1E618300BF1148 /* UIScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3D1C1E618300BF1148 /* UIScrollView+Extension.swift */; };
 		EB793B4C1C1E618300BF1148 /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */; };
 		EB793B4D1C1E618300BF1148 /* STTableBoardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B401C1E618300BF1148 /* STTableBoardProtocol.swift */; };
 		EB793B4E1C1E618300BF1148 /* STTableBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B421C1E618300BF1148 /* STTableBoard.swift */; };
@@ -42,7 +42,7 @@
 		EB793B381C1E618300BF1148 /* STIndexPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STIndexPath.swift; sourceTree = "<group>"; };
 		EB793B3B1C1E618300BF1148 /* STTableBoard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STTableBoard+Extension.swift"; sourceTree = "<group>"; };
 		EB793B3C1C1E618300BF1148 /* UIColor+ChineseColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ChineseColor.swift"; sourceTree = "<group>"; };
-		EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollViewExtension.swift; sourceTree = "<group>"; };
+		EB793B3D1C1E618300BF1148 /* UIScrollView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extension.swift"; sourceTree = "<group>"; };
 		EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		EB793B401C1E618300BF1148 /* STTableBoardProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableBoardProtocol.swift; sourceTree = "<group>"; };
 		EB793B421C1E618300BF1148 /* STTableBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableBoard.swift; sourceTree = "<group>"; };
@@ -205,7 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				EB793B3C1C1E618300BF1148 /* UIColor+ChineseColor.swift */,
-				EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */,
+				EB793B3D1C1E618300BF1148 /* UIScrollView+Extension.swift */,
 				EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */,
 				EBD0BD831C48E4900056C1BA /* String+Extension.swift */,
 			);
@@ -296,7 +296,7 @@
 				EB793B511C1E618300BF1148 /* STShadowTableView.swift in Sources */,
 				EB793B4C1C1E618300BF1148 /* UIView+Frame.swift in Sources */,
 				EB3D687E1C3B6C7E00C6EAFD /* TextComposeView.swift in Sources */,
-				EB793B4B1C1E618300BF1148 /* UIScrollViewExtension.swift in Sources */,
+				EB793B4B1C1E618300BF1148 /* UIScrollView+Extension.swift in Sources */,
 				EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */,
 				EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */,
 				EBD0BD841C48E4900056C1BA /* String+Extension.swift in Sources */,

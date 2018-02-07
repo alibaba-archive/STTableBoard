@@ -17,9 +17,15 @@ class STBoardHeaderView: UIView {
         }
     }
 
-    var number: Int = 0 {
+    var number = 0 {
         didSet {
             numberLabel.text = " · \(number)"
+        }
+    }
+
+    var shouldShowActionButton = true {
+        didSet {
+            actionButton.isHidden = !shouldShowActionButton
         }
     }
 
@@ -84,7 +90,6 @@ class STBoardHeaderView: UIView {
                                                        constant: 0)
 
         let buttonWidth = NSLayoutConstraint(item: actionButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 49.0)
-//        let buttonCenterY = NSLayoutConstraint(item: actionButton, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0)
         let buttonVerticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[actionButton]|", options: [], metrics: nil, views: ["actionButton": actionButton])
 
         NSLayoutConstraint.activate(horizontalConstraits + buttonVerticalConstraints + [titleLabelVerticalConstrait, numberLabelConstraits, buttonWidth])

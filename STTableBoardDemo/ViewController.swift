@@ -20,15 +20,12 @@ struct ExitFullScreenViewConstant {
 
 class ViewController: UIViewController {
 
-    var dataArray = [[String]]()
+    var dataArray1 = [[String]]()
+    var dataArray2 = [[String]]()
     var titleArray = [String]()
     var localizedString: [String: String] = [
         "STTableBoard.AddRow": "Add Task...",
         "STTableBoard.AddBoard": "Add Stage...",
-        "STTableBoard.BoardMenuTextViewController.Title": "编辑阶段名称",
-        "STTableBoard.EditBoardNameCell.Title": "编辑阶段",
-        "STTableBoard.DeleteBoardCell.Title": "删除阶段",
-        "STTableBoard.DeleteBoard.Alert.Message": "确定要删除这个阶段吗？",
         "STTableBoard.Delete": "删除",
         "STTableBoard.Cancel": "Cancel",
         "STTableBoard.OK": "确定",
@@ -68,12 +65,6 @@ class ViewController: UIViewController {
         print("no retain cycle")
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        let f = tableBoard.boardFooterRect(at: 0)
-//        print("viewDidAppear \(f)")
-    }
-
     func addAddButton() {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(doneButtonClick))
         navigationItem.rightBarButtonItem = doneButton
@@ -81,10 +72,6 @@ class ViewController: UIViewController {
 
     @objc func doneButtonClick() {
         tableBoard.reloadData(false, resetMode: true)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 
     func delay(_ seconds: Int, function: @escaping () -> Void) {
@@ -132,20 +119,29 @@ extension ViewController {
     }
 
     fileprivate func configureTableBoard() {
-        dataArray = [
+        dataArray1 = [
             ["七里香1", "七里香2", "七里香3", "七里香4", "最后的战役1", "最后的战役2", "最后的战役3", "晴天1", "晴天2", "晴天3", "晴天4", "晴天5", "爱情悬崖1", "爱情悬崖2", "爱情悬崖3", "爱情悬崖4", "彩虹1", "彩虹2", "彩虹3", "彩虹4"],
             ["彩虹1", "彩虹2", "彩虹3", "彩虹4", "彩虹5", "彩虹6", "最后的战役1", "最后的战役2", "最后的战役3", "最后的战役1", "最后的战役2", "最后的战役3"],
             ["七里香1", "七里香2", "七里香3", "七里香4", "最后的战役1", "最后的战役2", "最后的战役3", "晴天1", "晴天2", "晴天3", "晴天4", "晴天5", "爱情悬崖1", "爱情悬崖2", "爱情悬崖3", "爱情悬崖4", "彩虹1", "彩虹2", "彩虹3", "彩虹4"],
-            ["七里香1", "七里香2", "七里香3", "七里香4", "最后的战役1", "最后的战役2", "最后的战役3", "晴天1", "晴天2", "晴天3", "晴天4", "晴天5", "爱情悬崖1", "爱情悬崖2", "爱情悬崖3", "爱情悬崖4", "彩虹1", "彩虹2", "彩虹3", "彩虹4"]
+            ["七里香1", "七里香2", "七里香3", "七里香4", "最后的战役1", "最后的战役2", "最后的战役3", "晴天1", "晴天2", "晴天3", "晴天4", "晴天5", "爱情悬崖1", "爱情悬崖2", "爱情悬崖3", "爱情悬崖4", "彩虹1", "彩虹2", "彩虹3", "彩虹4"],
+            []
+        ]
+        dataArray2 = [
+            ["雨下一整晚1", "雨下一整晚2", "雨下一整晚3", "雨下一整晚4", "红尘客栈1", "红尘客栈2", "红尘客栈3", "乔克叔叔1"],
+            ["以父之名1", "以父之名2", "以父之名3", "以父之名4", "以父之名5", "以父之名6", "世界末日1", "世界末日2", "世界末日3"],
+            ["等你下课1", "等你下课2", "等你下课3", "等你下课4", "梯田1", "梯田2"],
+            ["千里之外1", "千里之外2", "千里之外3", "千里之外4", "半岛铁盒1", "半岛铁盒2"],
+            []
         ]
 
-        titleArray = ["七里香11111111111111111", "星晴", "彩虹", "aa", "bb"]
+        titleArray = ["爷爷泡的茶七里香你比从前快乐又是十一月的萧邦", "星晴", "彩虹", "火车叨位去", "不完整的旋律"]
 
         //        tableBoard.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0)
         //        tableBoard.sizeOffset = CGSize(width: 0.0, height: 64)
         //        view.frame.size.height -= 64.0
         //        tableBoard.view.frame.size = view.frame.size
-        tableBoard.registerClasses([(BoardCardCell.self, "DefaultCell")])
+        tableBoard.registerCellClasses([(BoardCardCell.self, BoardCardCell.reuseIdentifier)])
+        tableBoard.registerHeaderFooterViewClasses([(ParentTaskHeaderView.self, ParentTaskHeaderView.reuseIdentifier)])
         tableBoard.delegate = self
         tableBoard.dataSource = self
         tableBoard.showAddBoardButton = true
@@ -258,7 +254,9 @@ extension UIViewController {
         //* This cannot be called before viewDidLayoutSubviews(), because the frame is not set before this time
 
         // bail if the current state matches the desired state
-        if isTabBarVisible == visible { return }
+        if isTabBarVisible == visible {
+            return
+        }
 
         // get a frame calculation ready
         let frame = self.tabBarController?.tabBar.frame
