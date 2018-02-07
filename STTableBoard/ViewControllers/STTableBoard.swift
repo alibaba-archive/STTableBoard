@@ -281,7 +281,7 @@ open class STTableBoard: UIViewController {
                 case (.landscape, _):
                     self.tableBoardMode = .scroll
                 case (.portrait, _):
-                    self.tableBoardMode = .page
+                    self.tableBoardMode = self.currentScale == scaleForPage ? .page : .scroll
                 }
                 self.scrollToActualPage(self.scrollView, offsetX: self.scrollView.contentOffset.x)
         }
