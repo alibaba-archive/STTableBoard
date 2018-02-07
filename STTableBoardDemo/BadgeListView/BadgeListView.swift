@@ -9,24 +9,22 @@
 import UIKit
 
 open class BadgeListView: UIView {
-    
+
     var rowContainerViews: [UIView] = []
     var badgeViews: [BadgeView] = []
     var currentRow: Int = 0
     var currentRowWidth: CGFloat = 0
-    
+
     var badgeSpacing: CGFloat = 5.0
     var rowSpacing: CGFloat = 2.0
-    
-    
+
     override public init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
-    
+
     open func addBadge(_ badge: BadgeView) {
         badgeViews.append(badge)
-        
+
         var currentRowContainerView: UIView!
         if currentRow == 0 || currentRowWidth + badge.width + badgeSpacing > frame.width {
             currentRow += 1
@@ -48,20 +46,20 @@ open class BadgeListView: UIView {
         }
         self.frame.size = intrinsicContentSize
     }
-    
+
     open func removeAllBadges() {
-        badgeViews.forEach { (badgeView) -> () in
+        badgeViews.forEach { (badgeView) -> Void in
             badgeView.removeFromSuperview()
         }
-        rowContainerViews.forEach { (containerView) -> () in
+        rowContainerViews.forEach { (containerView) -> Void in
             containerView.removeFromSuperview()
         }
         badgeViews.removeAll()
         rowContainerViews.removeAll()
         self.frame.size = intrinsicContentSize
     }
-    
-    open override var intrinsicContentSize : CGSize {
+
+    open override var intrinsicContentSize: CGSize {
         let height: CGFloat = rowContainerViews.flatMap({ view in view.height}).reduce(0, {$0 + $1}) + CGFloat(rowContainerViews.count - 1) * rowSpacing
         return CGSize(width: self.width, height: height)
     }
@@ -69,5 +67,5 @@ open class BadgeListView: UIView {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
 }

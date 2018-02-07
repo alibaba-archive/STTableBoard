@@ -18,10 +18,10 @@ open class STIndexPath {
     }
 }
 
-public func ==(left: STIndexPath, right: STIndexPath) -> Bool {
+public func == (left: STIndexPath, right: STIndexPath) -> Bool {
     return left.board == right.board && left.row == right.row
 }
 
-public func !=(left: STIndexPath, right: STIndexPath) -> Bool {
+public func != (left: STIndexPath, right: STIndexPath) -> Bool {
     return left.board != right.board || left.row != right.row
 }

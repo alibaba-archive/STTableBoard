@@ -8,17 +8,17 @@
 
 import UIKit
 
-class CheckBoxView: UIImageView{
-    
+class CheckBoxView: UIImageView {
+
     fileprivate let uncheckedImageName = "checkbox"
     fileprivate let checkedImageName = "checkbox"
-    
+
     var checked: Bool = false {
         didSet {
             self.image = checked ? UIImage(named: checkedImageName) : UIImage(named: uncheckedImageName)
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         checked = false

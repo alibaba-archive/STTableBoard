@@ -11,7 +11,7 @@ import UIKit
 class STPageControl: UIPageControl {
 
     var showAddDots: Bool = true
-    fileprivate var customDotImageView: UIImageView? = nil
+    fileprivate var customDotImageView: UIImageView?
 
     // Image
     let activeAddPageControlImage = UIImage(named: "active_add", in: currentBundle, compatibleWith: nil)

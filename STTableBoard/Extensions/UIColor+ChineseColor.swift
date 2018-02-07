@@ -8,6 +8,7 @@
 
 import UIKit
 
+// swiftlint:disable identifier_name
 extension UIColor {
     public class func 果灰() -> UIColor {return UIColor(red: CGFloat(126.0/255.0), green: CGFloat(205.0/255.0), blue: CGFloat(182.0/255.0), alpha: 1.0)}
     public class func 三绿() -> UIColor {return UIColor(red: CGFloat(170.0/255.0), green: CGFloat(255.0/255.0), blue: CGFloat(188.0/255.0), alpha: 1.0)}

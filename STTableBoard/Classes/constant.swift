@@ -80,24 +80,19 @@ let newBoardButtonBackgroundColor: UIColor = boardBackgroundColor
 let newBoardButtonTextColor: UIColor = UIColor(red: 189.0/255.0, green: 189.0/255.0, blue: 189.0/255.0, alpha: 1.0)
 let cancelButtonTextColor: UIColor = UIColor(red: 166/255.0, green: 166/255.0, blue: 166/255.0, alpha: 1.0)
 
-
 var currentDevice: UIUserInterfaceIdiom {
-    get {
-        return UIDevice.current.userInterfaceIdiom
-    }
+    return UIDevice.current.userInterfaceIdiom
 }
 
 var currentOrientation: STTableBoardOrientation {
-    get {
-        var orientation: STTableBoardOrientation = .portrait
-        switch UIApplication.shared.statusBarOrientation {
-        case .portrait, .portraitUpsideDown, .unknown:
-            orientation = .portrait
-        case .landscapeLeft, .landscapeRight:
-            orientation = .landscape
-        }
-        return orientation
+    var orientation: STTableBoardOrientation = .portrait
+    switch UIApplication.shared.statusBarOrientation {
+    case .portrait, .portraitUpsideDown, .unknown:
+        orientation = .portrait
+    case .landscapeLeft, .landscapeRight:
+        orientation = .landscape
     }
+    return orientation
 }
 
 var localizedString: [String: String] = [

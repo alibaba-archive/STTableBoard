@@ -10,44 +10,30 @@ import UIKit
 
 extension UIView {
     var width: CGFloat {
-        get {
-            return bounds.width
-        }
+        return bounds.width
     }
-    
+
     var height: CGFloat {
-        get {
-            return bounds.height
-        }
+        return bounds.height
     }
 
     var minX: CGFloat {
-        get {
-            return frame.minX
-        }
+        return frame.minX
     }
 
     var minY: CGFloat {
-        get {
-            return frame.minY
-        }
+        return frame.minY
     }
-    
+
     var maxX: CGFloat {
-        get {
-            return frame.maxX
-        }
+        return frame.maxX
     }
-    
+
     var maxY: CGFloat {
-        get {
-            return frame.maxY
-        }
+        return frame.maxY
     }
-    
+
     var absoluteCenter: CGPoint {
-        get {
-            return CGPoint(x: width / 2, y: height / 2)
-        }
+        return CGPoint(x: width / 2, y: height / 2)
     }
 }

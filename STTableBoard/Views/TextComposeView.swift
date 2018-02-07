@@ -19,10 +19,10 @@ extension TextComposeViewDelegate {
 import UIKit
 
 class TextComposeView: UIView {
-    
+
     weak var delegate: TextComposeViewDelegate?
     var textFieldHeight: CGFloat = 56.0
-    
+
     lazy var textField: UITextField = {
         let field = UITextField(frame: CGRect.zero)
         field.borderStyle = .roundedRect
@@ -32,7 +32,7 @@ class TextComposeView: UIView {
         field.returnKeyType = .done
         return field
     }()
-    
+
     lazy var cancelButton: UIButton = {
         let button = UIButton(frame: CGRect.zero)
         button.setTitle(localizedString["STTableBoard.Cancel"], for: .normal)
@@ -43,7 +43,7 @@ class TextComposeView: UIView {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
         return button
     }()
-    
+
     lazy var doneButton: UIButton = {
         let button = UIButton(frame: CGRect.zero)
         button.setTitle(localizedString["STTableBoard.Create"], for: .normal)
@@ -55,46 +55,45 @@ class TextComposeView: UIView {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
         return button
     }()
-    
-    
+
     init(frame: CGRect, textFieldHeight: CGFloat, cornerRadius: CGFloat) {
         super.init(frame: frame)
-        
+
         layer.borderColor = boardBorderColor.cgColor
         layer.borderWidth = 1.0
         layer.masksToBounds = true
         layer.cornerRadius = cornerRadius
         backgroundColor = boardBackgroundColor
-        
+
         clipsToBounds = true
         addSubview(textField)
         addSubview(cancelButton)
         addSubview(doneButton)
-        
+
         textField.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        let views: [String: Any] = ["textField":textField, "cancelButton":cancelButton, "doneButton":doneButton]
+
+        let views: [String: Any] = ["textField": textField, "cancelButton": cancelButton, "doneButton": doneButton]
         let fieldHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[textField]-10-|", options: [], metrics: nil, views: views)
         let fieldVerticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[textField(==textFieldHeight)]-10-[doneButton(==36)]", options: [], metrics: ["textFieldHeight": textFieldHeight], views: views)
         let buttonHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:[cancelButton(==64)]-5-[doneButton(==64)]-10-|", options: [.alignAllCenterY], metrics: nil, views: views)
         let buttonEqualHeight = NSLayoutConstraint(item: cancelButton, attribute: .height, relatedBy: .equal, toItem: doneButton, attribute: .height, multiplier: 1.0, constant: 0.0)
-        
+
         let vflConstraints = fieldHorizontalConstraints + fieldVerticalConstraints + buttonHorizontalConstraints
         let constraints = [buttonEqualHeight]
         NSLayoutConstraint.activate(vflConstraints + constraints)
     }
-    
+
     convenience override init(frame: CGRect) {
         self.init(frame: frame, textFieldHeight: 56.0, cornerRadius: 4.0)
     }
-    
+
     @objc func cancelButtonClicked(_ sender: UIButton) {
         textField.resignFirstResponder()
         delegate?.textComposeView(textComposeView: self, didClickCancelButton: sender)
     }
-    
+
     @objc func doneButtonClicked(_ sender: UIButton) {
         if let text = textField.text {
             let trimedText = text.trim()
@@ -103,7 +102,7 @@ class TextComposeView: UIView {
             }
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -121,7 +120,7 @@ extension TextComposeView: UITextFieldDelegate {
         }
         return true
     }
-    
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
         delegate?.textComposeViewDidBeginEditing(textComposeView: self)
     }

@@ -9,7 +9,7 @@
 import UIKit
 
 class CardView: UIView {
-    
+
     let cornerRadius: CGFloat = 4.0
 
     override func draw(_ rect: CGRect) {
