@@ -1,5 +1,5 @@
 //
-//  STTableBoardExtensions.swift
+//  STTableBoard+Extension.swift
 //  STTableBoard
 //
 //  Created by DangGu on 15/12/4.
@@ -168,7 +168,7 @@ extension STTableBoard {
     func startMovingRow(_ recognizer: UIGestureRecognizer) {
         guard let tableView = tableViewAtPoint(recognizer.location(in: containerView)) else { return }
         let positionInTableView = recognizer.location(in: tableView)
-        guard let indexPath = tableView.indexPathForRow(at: positionInTableView), let cell = tableView.cellForRow(at: indexPath) as? STBoardCell else {return}
+        guard let indexPath = tableView.indexPathForRow(at: positionInTableView), let cell = tableView.cellForRow(at: indexPath) as? STBoardCell else { return }
         guard let dataSource = self.dataSource, dataSource.tableBoard(self, canMoveRowAt: indexPath.toSTIndexPath(board: tableView.index)) else { return }
         hiddenKeyBoard()
         snapshot = cell.snapshot
@@ -189,7 +189,7 @@ extension STTableBoard {
 
     func endMovingRow(_ callDataSource: Bool = true) {
         let sourceTableView = boards[sourceIndexPath.board].tableView
-        guard let cell = sourceTableView?.cellForRow(at: sourceIndexPath.toIndexPath()) as? STBoardCell else {return}
+        guard let cell = sourceTableView?.cellForRow(at: sourceIndexPath.toIndexPath()) as? STBoardCell else { return }
         UIView.animate(withDuration: 0.33, animations: { () -> Void in
             self.snapshot.center = self.containerView.convert(cell.center, from: sourceTableView)
             self.updateSnapViewStatus(.origin)
@@ -282,7 +282,7 @@ extension STTableBoard {
     }
 
     func updateSnapViewStatus(_ status: SnapViewStatus) {
-        guard let snapshot = self.snapshot else {return}
+        guard let snapshot = self.snapshot else { return }
 
         switch status {
         case .moving:
@@ -311,7 +311,7 @@ extension STTableBoard {
             return newVelocity
         }
 
-        guard let snapshot = self.snapshot else {return}
+        guard let snapshot = self.snapshot else { return }
         let minX = snapshot.layer.presentation()!.frame.origin.x * currentScale
         let maxX = (snapshot.layer.presentation()!.frame.origin.x + snapshot.width) * currentScale
         let leftOffsetX = scrollView.presentContenOffset()!.x
@@ -391,7 +391,7 @@ extension STTableBoard {
                 timer.invalidate()
                 tableViewAutoScrollTimer = nil
             } else if tableViewAutoScrollTimer == nil {
-                tableViewAutoScrollTimer = Timer.scheduledTimer(timeInterval: (1.0 / 60.0), target: self, selector: #selector(STTableBoard.tableViewAutoScrollTimerFired(_:)), userInfo: [timerUserInfoTableViewKey: tableView], repeats: true)
+                tableViewAutoScrollTimer = Timer.scheduledTimer(timeInterval: (1.0 / 60.0), target: self, selector: #selector(tableViewAutoScrollTimerFired(_:)), userInfo: [timerUserInfoTableViewKey: tableView], repeats: true)
             }
         }
     }
@@ -404,7 +404,7 @@ extension STTableBoard {
     }
 
     @objc func tableViewAutoScrollTimerFired(_ timer: Timer) {
-        guard let userInfo = timer.userInfo as? [String: AnyObject], let tableView = userInfo[timerUserInfoTableViewKey] as? STShadowTableView else { return }
+        guard let userInfo = timer.userInfo as? [String: Any], let tableView = userInfo[timerUserInfoTableViewKey] as? STShadowTableView else { return }
         optimizeTableViewScrollDistance(tableView)
 
         tableView.contentOffset = CGPoint(x: tableView.contentOffset.x, y: tableView.contentOffset.y + tableViewAutoScrollDistance)

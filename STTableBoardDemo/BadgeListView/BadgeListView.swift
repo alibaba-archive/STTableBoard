@@ -10,9 +10,9 @@ import UIKit
 
 open class BadgeListView: UIView {
 
-    var rowContainerViews: [UIView] = []
-    var badgeViews: [BadgeView] = []
-    var currentRow: Int = 0
+    var rowContainerViews = [UIView]()
+    var badgeViews = [BadgeView]()
+    var currentRow = 0
     var currentRowWidth: CGFloat = 0
 
     var badgeSpacing: CGFloat = 5.0

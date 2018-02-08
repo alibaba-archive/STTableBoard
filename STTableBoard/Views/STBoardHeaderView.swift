@@ -9,7 +9,6 @@
 import UIKit
 
 class STBoardHeaderView: UIView {
-
     weak var boardView: STBoardView?
 
     var title: String? {
@@ -28,7 +27,7 @@ class STBoardHeaderView: UIView {
         let label = UILabel()
         label.textAlignment = .left
         label.font = TableBoardCommonConstant.labelFont
-        label.textColor = UIColor.darkGrayTextColor
+        label.textColor = .darkGrayTextColor
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return label
@@ -38,7 +37,7 @@ class STBoardHeaderView: UIView {
         let label = UILabel()
         label.textAlignment = .left
         label.font = TableBoardCommonConstant.labelFont
-        label.textColor = UIColor.darkGrayTextColor
+        label.textColor = .darkGrayTextColor
         label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         return label
     }()
@@ -46,7 +45,7 @@ class STBoardHeaderView: UIView {
     fileprivate lazy var actionButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "boardHeaderMoreButton", in: currentBundle, compatibleWith: nil), for: .normal)
-        button.addTarget(self, action: #selector(self.actionButtonBeClicked(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(actionButtonBeClicked(_:)), for: .touchUpInside)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -10)
         return button
     }()

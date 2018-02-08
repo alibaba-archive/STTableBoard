@@ -5,6 +5,7 @@
 //  Created by DangGu on 15/11/26.
 //  Copyright © 2015年 StormXX. All rights reserved.
 //
+
 import UIKit
 
 enum SnapViewStatus {
@@ -29,7 +30,7 @@ enum STTableBoardOrientation {
 }
 
 struct TableBoardCommonConstant {
-    static let labelFont: UIFont = UIFont.systemFont(ofSize: 15.0)
+    static let labelFont: UIFont = .systemFont(ofSize: 15.0)
 }
 
 struct BoardHeaderViewConstant {
@@ -39,8 +40,8 @@ struct BoardHeaderViewConstant {
 }
 
 extension UIColor {
-    static var darkGrayTextColor: UIColor { return UIColor(red: 56/255.0, green: 56/255.0, blue: 56/255.0, alpha: 1.0) }
-    static var grayTextColor: UIColor { return UIColor(red: 128/255.0, green: 128/255.0, blue: 128/255.0, alpha: 1.0) }
+    static var darkGrayTextColor: UIColor { return UIColor(red: 56 / 255.0, green: 56 / 255.0, blue: 56 / 255.0, alpha: 1.0) }
+    static var grayTextColor: UIColor { return UIColor(red: 128 / 255.0, green: 128 / 255.0, blue: 128 / 255.0, alpha: 1.0) }
 }
 
 let timerUserInfoTableViewKey = "theTableView"
@@ -66,19 +67,19 @@ let minimumMovingRowInterval: TimeInterval = 0.2
 let pageControlHeight: CGFloat = 20.0
 
 //Color
-let boardBackgroundColor: UIColor = UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1.0)
+let boardBackgroundColor: UIColor = UIColor(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0)
 let tableBoardBackgroundColor: UIColor = UIColor(white: 1.0, alpha: 1.0)
 //let tableBoardBackgroundColor: UIColor = UIColor.lightGray
-let boardBorderColor: UIColor = UIColor(red: 229.0/255.0, green: 229.0/255.0, blue: 229.0/255.0, alpha: 1.0)
-//let boardFooterButtonTitleColor: UIColor = UIColor(red: 166.0/255.0, green: 166.0/255.0, blue: 166.0/255.0, alpha: 1.0)
-let currentPageIndicatorTintColor: UIColor = UIColor(red: 184.0/255.0, green: 184.0/255.0, blue: 184.0/255.0, alpha: 1.0)
-let pageIndicatorTintColor: UIColor = UIColor(red: 221.0/255.0, green: 221.0/255.0, blue: 221.0/255.0, alpha: 1.0)
+let boardBorderColor: UIColor = UIColor(red: 229.0 / 255.0, green: 229.0 / 255.0, blue: 229.0 / 255.0, alpha: 1.0)
+//let boardFooterButtonTitleColor: UIColor = UIColor(red: 166.0 / 255.0, green: 166.0 / 255.0, blue: 166.0 / 255.0, alpha: 1.0)
+let currentPageIndicatorTintColor: UIColor = UIColor(red: 184.0 / 255.0, green: 184.0 / 255.0, blue: 184.0 / 255.0, alpha: 1.0)
+let pageIndicatorTintColor: UIColor = UIColor(red: 221.0 / 255.0, green: 221.0 / 255.0, blue: 221.0 / 255.0, alpha: 1.0)
 
 // new board button colors
-let dashedLineColor: UIColor = UIColor(red: 221.0/255.0, green: 221.0/255.0, blue: 221.0/255.0, alpha: 1.0)
+let dashedLineColor: UIColor = UIColor(red: 221.0 / 255.0, green: 221.0 / 255.0, blue: 221.0 / 255.0, alpha: 1.0)
 let newBoardButtonBackgroundColor: UIColor = boardBackgroundColor
-let newBoardButtonTextColor: UIColor = UIColor(red: 189.0/255.0, green: 189.0/255.0, blue: 189.0/255.0, alpha: 1.0)
-let cancelButtonTextColor: UIColor = UIColor(red: 166/255.0, green: 166/255.0, blue: 166/255.0, alpha: 1.0)
+let newBoardButtonTextColor: UIColor = UIColor(red: 189.0 / 255.0, green: 189.0 / 255.0, blue: 189.0 / 255.0, alpha: 1.0)
+let cancelButtonTextColor: UIColor = UIColor(red: 166 / 255.0, green: 166 / 255.0, blue: 166 / 255.0, alpha: 1.0)
 
 var currentDevice: UIUserInterfaceIdiom {
     return UIDevice.current.userInterfaceIdiom

@@ -74,7 +74,7 @@ open class STTableBoard: UIViewController {
     }
 
     lazy var newBoardButtonView: NewBoardButton = {
-        let view = NewBoardButton(frame: CGRect.zero)
+        let view = NewBoardButton(frame: .zero)
         view.image = UIImage(named: "icon_addBoard", in: currentBundle, compatibleWith: nil)
         view.title = localizedString["STTableBoard.AddBoard"]
         view.delegate = self
@@ -82,14 +82,14 @@ open class STTableBoard: UIViewController {
     }()
 
     lazy var textComposeView: TextComposeView = {
-        let view = TextComposeView(frame: CGRect.zero)
+        let view = TextComposeView(frame: .zero)
         view.delegate = self
         view.alpha = 0.0
         return view
     }()
 
-    open var contentInset: UIEdgeInsets = UIEdgeInsets.zero
-    open var sizeOffset: CGSize = CGSize(width: 0, height: 0)
+    open var contentInset: UIEdgeInsets = .zero
+    open var sizeOffset = CGSize(width: 0, height: 0)
     open var keyboardInset: CGFloat = 0
 
     var currentPage: Int = 0 {
@@ -97,7 +97,7 @@ open class STTableBoard: UIViewController {
             pageControl.currentPage = currentPage
         }
     }
-    var registerCellClasses: [(AnyClass, String)] = []
+    var registerCellClasses = [(AnyClass, String)]()
     var tableBoardMode: STTableBoardMode = .page {
         didSet {
             switch tableBoardMode {
@@ -111,12 +111,12 @@ open class STTableBoard: UIViewController {
     open var customBoardWidth: CGFloat = 280
 
     //Views Property
-    var boards: [STBoardView] = []
+    var boards = [STBoardView]()
     var scrollView: UIScrollView!
     var containerView: UIView!
     lazy var pageControl: STPageControl = {
-        let control = STPageControl(frame: CGRect.zero)
-        control.backgroundColor = UIColor.clear
+        let control = STPageControl(frame: .zero)
+        control.backgroundColor = .clear
         control.currentPageIndicatorTintColor = currentPageIndicatorTintColor
         control.pageIndicatorTintColor = pageIndicatorTintColor
         control.currentPage = self.currentPage
@@ -142,9 +142,9 @@ open class STTableBoard: UIViewController {
     var snapshotOffsetForLeftBounds: CGFloat!
     var sourceIndexPath: STIndexPath!
     var originIndexPath: STIndexPath!
-    var sourceIndex: Int = -1
-    var originIndex: Int = -1
-    var isMoveBoardFromPageMode: Bool = false
+    var sourceIndex = -1
+    var originIndex = -1
+    var isMoveBoardFromPageMode = false
     var lastMovingTime: Date!
     var showPageControl: Bool = false {
         didSet {
@@ -153,7 +153,7 @@ open class STTableBoard: UIViewController {
     }
 
     //ScrollView Auto Scroll property
-    var isScrolling: Bool = false
+    var isScrolling = false
     var scrollDirection: ScrollDirection = .none
     var velocity: CGFloat = defaultScrollViewScrollVelocity
 
@@ -166,14 +166,14 @@ open class STTableBoard: UIViewController {
     var originContentSize = CGSize(width: 0, height: 0)
     var scaledContentOffset = CGPoint(x: 0, y: 0)
     public internal(set) var currentScale: CGFloat = scaleForPage
-    var tapPosition: CGPoint = CGPoint(x: 0, y: 0)
+    var tapPosition = CGPoint(x: 0, y: 0)
     var originFrame: CGRect!
 
     //Text Compose property
     var boardViewForVisibleTextComposeView: STBoardView?
-    var isAddBoardTextComposeViewVisible: Bool = false
+    var isAddBoardTextComposeViewVisible = false
 
-    fileprivate var isFirstLoading: Bool = true
+    fileprivate var isFirstLoading = true
 
     // Current Working Gesture
     var currentLongPressGestureForCell: UILongPressGestureRecognizer?
@@ -233,7 +233,7 @@ open class STTableBoard: UIViewController {
         pageControl.frame = CGRect(x: 0, y: view.height - pageControlHeight, width: view.width, height: pageControlHeight)
         view.addSubview(pageControl)
 
-        containerView = UIView(frame: CGRect(origin: CGPoint.zero, size: scrollView.contentSize))
+        containerView = UIView(frame: CGRect(origin: .zero, size: scrollView.contentSize))
         scrollView.addSubview(containerView)
         containerView.backgroundColor = tableBoardBackgroundColor
         scrollView.backgroundColor = tableBoardBackgroundColor
@@ -276,9 +276,9 @@ open class STTableBoard: UIViewController {
 
     func relayoutAllViews(_ size: CGSize) {
         guard !size.equalTo(scrollView.frame.size) else { return }
-        scrollView.frame = CGRect(origin: CGPoint.zero, size: size)
+        scrollView.frame = CGRect(origin: .zero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
-        containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
+        containerView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
         UIView.animate(withDuration: 0.5) {
             self.pageControl.frame = CGRect(x: 0, y: size.height - self.pageControl.height, width: size.width, height: pageControlHeight)
         }
@@ -294,13 +294,13 @@ open class STTableBoard: UIViewController {
 
     func resetContentSize() {
         scrollView.contentSize = CGSize(width: contentViewWidth, height: view.height)
-        containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
+        containerView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
         pageControl.frame = CGRect(x: 0, y: view.height - pageControl.height, width: view.width, height: pageControlHeight)
     }
 
     public func addNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(STTableBoard.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(STTableBoard.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
     }
 }
 

@@ -9,8 +9,7 @@
 import UIKit
 
 class STPageControl: UIPageControl {
-
-    var showAddDots: Bool = true
+    var showAddDots = true
     fileprivate var customDotImageView: UIImageView?
 
     // Image
@@ -49,7 +48,7 @@ class STPageControl: UIPageControl {
             }
         }
         if dot == nil {
-            dot = UIImageView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: view.width, height: view.height)))
+            dot = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: view.width, height: view.height)))
             dot?.backgroundColor = tableBoardBackgroundColor
             customDotImageView = dot
             view.addSubview(dot!)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK: - public method
+// MARK: - public methods
 public extension STTableBoard {
     public func reloadData(_ resetPage: Bool = true, resetMode: Bool = false) {
         resetContentSize()
@@ -111,7 +111,7 @@ public extension STTableBoard {
     }
 
     func insertRowsAtIndexPaths(_ indexPaths: [STIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
-        var indexPathsDic: [String: [STIndexPath]] = [:]
+        var indexPathsDic = [String: [STIndexPath]]()
         indexPaths.forEach { (indexPath) -> Void in
             if var indexPathsInBoard = indexPathsDic[String(indexPath.board)] {
                 indexPathsInBoard.append(indexPath)
@@ -136,7 +136,7 @@ public extension STTableBoard {
     }
 
     func deleteRowsAtIndexPaths(_ indexPaths: [STIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
-        var indexPathsDic: [String: [STIndexPath]] = [:]
+        var indexPathsDic = [String: [STIndexPath]]()
         indexPaths.forEach { (indexPath) -> Void in
             if var indexPathsInBoard = indexPathsDic[String(indexPath.board)] {
                 indexPathsInBoard.append(indexPath)
@@ -197,7 +197,7 @@ public extension STTableBoard {
     }
 
     func reloadRowAtIndexPath(_ indexPaths: [STIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
-        var indexPathsDic: [String: [STIndexPath]] = [:]
+        var indexPathsDic = [String: [STIndexPath]]()
         indexPaths.forEach { (indexPath) -> Void in
             if var indexPathsInBoard = indexPathsDic[String(indexPath.board)] {
                 indexPathsInBoard.append(indexPath)
@@ -254,9 +254,9 @@ public extension STTableBoard {
     }
 
     func boardFooterRect(at boardIndex: Int) -> CGRect {
-        guard 0..<boards.count ~= boardIndex else { return CGRect.zero }
+        guard 0..<boards.count ~= boardIndex else { return .zero }
         let board = boards[boardIndex]
-        guard let boardFooter = board.footerView else { return CGRect.zero }
+        guard let boardFooter = board.footerView else { return .zero }
         board.layoutIfNeeded()
         return self.view.convert(boardFooter.frame, from: board)
     }

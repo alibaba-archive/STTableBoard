@@ -6,6 +6,8 @@
 //  Copyright © 2016年 StormXX. All rights reserved.
 //
 
+import UIKit
+
 protocol TextComposeViewDelegate: class {
     func textComposeViewDidBeginEditing(textComposeView view: TextComposeView)
     func textComposeView(textComposeView view: TextComposeView, didClickDoneButton button: UIButton, withText text: String)
@@ -16,43 +18,40 @@ extension TextComposeViewDelegate {
     func textComposeViewDidBeginEditing(textComposeView view: TextComposeView) {}
 }
 
-import UIKit
-
 class TextComposeView: UIView {
-
     weak var delegate: TextComposeViewDelegate?
     var textFieldHeight: CGFloat = 56.0
 
     lazy var textField: UITextField = {
-        let field = UITextField(frame: CGRect.zero)
+        let field = UITextField(frame: .zero)
         field.borderStyle = .roundedRect
-        field.font = UIFont.systemFont(ofSize: 15.0)
-        field.textColor = UIColor(red: 56/255.0, green: 56/255.0, blue: 56/255.0, alpha: 1.0)
+        field.font = .systemFont(ofSize: 15.0)
+        field.textColor = UIColor(red: 56.0 / 255.0, green: 56.0 / 255.0, blue: 56.0 / 255.0, alpha: 1.0)
         field.delegate = self
         field.returnKeyType = .done
         return field
     }()
 
     lazy var cancelButton: UIButton = {
-        let button = UIButton(frame: CGRect.zero)
+        let button = UIButton(frame: .zero)
         button.setTitle(localizedString["STTableBoard.Cancel"], for: .normal)
         button.setTitleColor(cancelButtonTextColor, for: .normal)
-        button.backgroundColor = UIColor.clear
+        button.backgroundColor = .clear
         button.clipsToBounds = true
-        button.addTarget(self, action: #selector(TextComposeView.cancelButtonClicked(_:)), for: .touchUpInside)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
+        button.addTarget(self, action: #selector(cancelButtonClicked(_:)), for: .touchUpInside)
+        button.titleLabel?.font = .systemFont(ofSize: 15.0)
         return button
     }()
 
     lazy var doneButton: UIButton = {
-        let button = UIButton(frame: CGRect.zero)
+        let button = UIButton(frame: .zero)
         button.setTitle(localizedString["STTableBoard.Create"], for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = UIColor.clear
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .clear
         button.setBackgroundImage(UIImage(named: "doneButton_background", in: currentBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.clipsToBounds = true
-        button.addTarget(self, action: #selector(TextComposeView.doneButtonClicked(_:)), for: .touchUpInside)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
+        button.addTarget(self, action: #selector(doneButtonClicked(_:)), for: .touchUpInside)
+        button.titleLabel?.font = .systemFont(ofSize: 15.0)
         return button
     }()
 

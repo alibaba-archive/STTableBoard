@@ -76,7 +76,7 @@ extension STTableBoard: UIScrollViewDelegate {
                 scrollToPage(scrollView, page: pageAtPoint(tapPosition) - 1, targetContentOffset: nil)
             }
         }
-        containerView.frame = CGRect(origin: CGPoint.zero, size: scrollView.contentSize)
+        containerView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
         boards.forEach { (board) -> Void in
             autoAdjustTableBoardHeight(board, animated: true)
         }
@@ -112,8 +112,8 @@ extension STTableBoard: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let board = (tableView as! STShadowTableView).index,
             let cell = dataSource?.tableBoard(self, cellForRowAt: STIndexPath(forRow: indexPath.row, inBoard: board)) as? STBoardCell else { fatalError("board or cell can not be nill") }
-        cell.backgroundColor = UIColor.clear
-        cell.contentView.backgroundColor = UIColor.clear
+        cell.backgroundColor = .clear
+        cell.contentView.backgroundColor = .clear
         cell.moving = false
         return cell
     }

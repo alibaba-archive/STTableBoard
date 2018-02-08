@@ -6,6 +6,9 @@
 //  Copyright © 2015年 StormXX. All rights reserved.
 //
 
+import UIKit
+import RefreshView
+
 protocol STBoardViewDelegate: class {
     func boardViewDidBeginEditingAtBottomRow(boardView view: STBoardView)
     func boardView(_ boardView: STBoardView, didClickBoardMenuButton button: UIButton)
@@ -17,9 +20,6 @@ protocol STBoardViewDelegate: class {
 extension STBoardViewDelegate {
     func boardViewDidBeginEditingAtBottomRow(boardView view: STBoardView) {}
 }
-
-import UIKit
-import RefreshView
 
 class STBoardView: UIView {
     var headerView: STBoardHeaderView!
@@ -117,9 +117,9 @@ class STBoardView: UIView {
         layer.borderColor = boardBorderColor.cgColor
         layer.borderWidth = 0.5
 
-        headerView = STBoardHeaderView(frame: CGRect.zero)
-        footerView = STBoardFooterView(frame: CGRect.zero)
-        tableView = STShadowTableView(frame: CGRect.zero, style: .plain)
+        headerView = STBoardHeaderView(frame: .zero)
+        footerView = STBoardFooterView(frame: .zero)
+        tableView = STShadowTableView(frame: .zero, style: .plain)
         headerView.backgroundColor = boardBackgroundColor
         footerView.backgroundColor = boardBackgroundColor
         tableView.backgroundColor = boardBackgroundColor

@@ -9,7 +9,6 @@
 import UIKit
 
 class STShadowTableView: UITableView {
-
     var index: Int!
 
     override init(frame: CGRect, style: UITableViewStyle) {
@@ -20,5 +19,4 @@ class STShadowTableView: UITableView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

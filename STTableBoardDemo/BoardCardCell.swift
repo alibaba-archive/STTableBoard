@@ -12,28 +12,28 @@ import STTableBoard
 class BoardCardCell: STBoardCell {
     fileprivate lazy var cardView: CardView = {
         let view = CardView()
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .clear
         return view
     }()
 
     fileprivate lazy var titleLabel: UILabel = {
-        let label = UILabel(frame: CGRect.zero)
+        let label = UILabel(frame: .zero)
         label.numberOfLines = 2
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 15.0)
+        label.font = .systemFont(ofSize: 15.0)
         label.lineBreakMode = .byTruncatingTail
-        label.textColor = UIColor(red: 56/255.0, green: 56/255.0, blue: 56/255.0, alpha: 1.0)
+        label.textColor = UIColor(red: 56.0 / 255.0, green: 56.0 / 255.0, blue: 56.0 / 255.0, alpha: 1.0)
         return label
     }()
 
     fileprivate lazy var checkBoxView: CheckBoxView = {
-        let view = CheckBoxView(frame: CGRect.zero)
+        let view = CheckBoxView(frame: .zero)
         view.checked = false
         return view
     }()
 
     fileprivate lazy var avatarView: RoundAvatarImageView = {
-        let view = RoundAvatarImageView(frame: CGRect.zero)
+        let view = RoundAvatarImageView(frame: .zero)
         return view
     }()
 
@@ -42,7 +42,7 @@ class BoardCardCell: STBoardCell {
         return view
     }()
 
-    fileprivate var hasLoadTag: Bool = false
+    fileprivate var hasLoadTag = false
 
     var titleText: String? {
         didSet {
@@ -62,7 +62,7 @@ class BoardCardCell: STBoardCell {
         cardView.addSubview(avatarView)
         cardView.addSubview(titleLabel)
         cardView.addSubview(badgeListView)
-        avatarView.image = UIImage(named: "avatar")
+        avatarView.image = #imageLiteral(resourceName: "avatar")
         setupConstrains()
     }
 
@@ -98,31 +98,31 @@ class BoardCardCell: STBoardCell {
         super.layoutSubviews()
         if !hasLoadTag {
             cardView.layoutIfNeeded()
-            let badge: BadgeView = BadgeView(frame: CGRect.zero)
-            badge.image = UIImage(named: "dueDate_icon")
-            badge.backgroundImage = UIImage(named: "dueDate_background")
+            let badge: BadgeView = BadgeView(frame: .zero)
+            badge.image = #imageLiteral(resourceName: "dueDate_icon")
+            badge.backgroundImage = #imageLiteral(resourceName: "dueDate_background")
             badge.text = "16 Oct"
-            badge.textColor = UIColor.white
+            badge.textColor = .white
             badge.imageWidth = 8.0
             badge.sizeToFit()
-            badge.textFont = UIFont.systemFont(ofSize: 10.0)
+            badge.textFont = .systemFont(ofSize: 10.0)
 
-            let bbadge: BadgeView = BadgeView(frame: CGRect.zero)
-            bbadge.image = UIImage(named: "tag_icon")
-            bbadge.backgroundImage = UIImage(named: "tag_background")
+            let bbadge: BadgeView = BadgeView(frame: .zero)
+            bbadge.image = #imageLiteral(resourceName: "tag_icon")
+            bbadge.backgroundImage = #imageLiteral(resourceName: "tag_background")
             bbadge.text = "交互设计"
-            bbadge.textColor = UIColor.gray
+            bbadge.textColor = .gray
             bbadge.imageWidth = 4.0
             bbadge.sizeToFit()
-            bbadge.textFont = UIFont.systemFont(ofSize: 10.0)
+            bbadge.textFont = .systemFont(ofSize: 10.0)
 
-            let cbadge: BadgeView = BadgeView(frame: CGRect.zero)
-            cbadge.image = UIImage(named: "subtask_icon")
+            let cbadge: BadgeView = BadgeView(frame: .zero)
+            cbadge.image = #imageLiteral(resourceName: "subtask_icon")
             cbadge.imageWidth = 9.0
             cbadge.text = "2/3"
-            cbadge.textColor = UIColor.gray
+            cbadge.textColor = .gray
             cbadge.sizeToFit()
-            cbadge.textFont = UIFont.systemFont(ofSize: 10.0)
+            cbadge.textFont = .systemFont(ofSize: 10.0)
 
             badgeListView.addBadge(badge)
             badgeListView.addBadge(bbadge)

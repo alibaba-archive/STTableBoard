@@ -1,5 +1,5 @@
 //
-//  StringExtension.swift
+//  String+Extension.swift
 //  STTableBoard
 //
 //  Created by DangGu on 16/1/15.

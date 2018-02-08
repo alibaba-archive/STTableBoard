@@ -20,8 +20,8 @@ struct ExitFullScreenViewConstant {
 
 class ViewController: UIViewController {
 
-    var dataArray: [[String]] = []
-    var titleArray: [String] = []
+    var dataArray = [[String]]()
+    var titleArray = [String]()
     var localizedString: [String: String] = [
         "STTableBoard.AddRow": "Add Task...",
         "STTableBoard.AddBoard": "Add Stage...",
@@ -45,10 +45,10 @@ class ViewController: UIViewController {
     fileprivate lazy var exitFullScreenView: UIView = self.makeExitFullScreenView()
     fileprivate var topConstraint: NSLayoutConstraint!
     fileprivate var bottomConstraintForExitFullScreenView: NSLayoutConstraint!
-    fileprivate var isBarHidden: Bool = false
+    fileprivate var isBarHidden = false
 
     fileprivate let enterFullScreenDuration: TimeInterval = 0.33
-    var isAnimatingForFullScreen: Bool = false
+    var isAnimatingForFullScreen = false
 
     override func viewDidLoad() {
         self.automaticallyAdjustsScrollViewInsets = false
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
     }
 
     func addAddButton() {
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(ViewController.doneButtonClick))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(doneButtonClick))
         navigationItem.rightBarButtonItem = doneButton
     }
 
@@ -111,13 +111,13 @@ extension ViewController {
 extension ViewController {
     fileprivate func makeContainerView() -> UIView {
         let view = UIView()
-        view.backgroundColor = UIColor.darkGray
+        view.backgroundColor = .darkGray
         return view
     }
 
     fileprivate func makeExitFullScreenView() -> UIView {
         let containerView = UIView()
-        containerView.backgroundColor = UIColor.white
+        containerView.backgroundColor = .white
         let exitButton = UIButton()
         exitButton.addTarget(self, action: #selector(exitFullScreenTapped), for: .touchUpInside)
         exitButton.setImage(#imageLiteral(resourceName: "exitFullScreen"), for: .normal)

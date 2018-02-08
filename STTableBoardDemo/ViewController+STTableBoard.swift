@@ -57,7 +57,7 @@ extension ViewController: STTableBoardDelegate {
             print("cell's title \(String(describing: cell.titleText))")
         }
         let viewController = UIViewController()
-        viewController.view.backgroundColor = UIColor.white
+        viewController.view.backgroundColor = .white
         navigationController?.pushViewController(viewController, animated: true)
     }
 

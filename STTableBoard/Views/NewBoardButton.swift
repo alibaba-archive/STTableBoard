@@ -5,14 +5,14 @@
 //  Created by DangGu on 16/1/4.
 //  Copyright © 2016年 StormXX. All rights reserved.
 //
+
+import UIKit
+
 protocol NewBoardButtonDelegate: class {
     func newBoardButtonDidBeClicked(newBoardButton button: NewBoardButton)
 }
 
-import UIKit
-
 class NewBoardButton: UIView {
-
     var title: String? {
         didSet {
             titleLabel.text = title
@@ -27,21 +27,21 @@ class NewBoardButton: UIView {
     weak var delegate: NewBoardButtonDelegate?
 
     fileprivate lazy var imageView: UIImageView = {
-        let view = UIImageView(frame: CGRect.zero)
+        let view = UIImageView(frame: .zero)
         view.contentMode = .scaleAspectFill
         return view
     }()
 
     fileprivate lazy var tapGesture: UITapGestureRecognizer = {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(NewBoardButton.viewDidBeClicked))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(viewDidBeClicked))
         return gesture
     }()
 
     fileprivate lazy var titleLabel: UILabel = {
-        let label = UILabel(frame: CGRect.zero)
+        let label = UILabel(frame: .zero)
         label.numberOfLines = 1
-        label.textColor = UIColor.grayTextColor
-        label.font = UIFont.systemFont(ofSize: 17.0)
+        label.textColor = .grayTextColor
+        label.font = .systemFont(ofSize: 17.0)
         return label
     }()
 
@@ -64,7 +64,7 @@ class NewBoardButton: UIView {
         super.init(frame: frame)
         addSubview(imageView)
         addSubview(titleLabel)
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
 
         addGestureRecognizer(tapGesture)
 

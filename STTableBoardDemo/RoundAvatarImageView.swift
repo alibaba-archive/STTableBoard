@@ -18,8 +18,8 @@ class RoundAvatarImageView: UIView {
 
     fileprivate lazy var maskImageView: UIImageView = {
         let imageView: UIImageView = UIImageView(frame: self.bounds)
-        imageView.backgroundColor = UIColor.clear
-        imageView.image = UIImage(named: "avatarMask")
+        imageView.backgroundColor = .clear
+        imageView.image = #imageLiteral(resourceName: "avatarMask")
         imageView.contentMode = .scaleToFill
         return imageView
     }()

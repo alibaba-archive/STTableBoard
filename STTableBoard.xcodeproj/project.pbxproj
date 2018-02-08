@@ -13,7 +13,7 @@
 		EB5655F11C22AC7400182CEA /* STBoardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5655F01C22AC7400182CEA /* STBoardFooterView.swift */; };
 		EB793B171C1E608900BF1148 /* STTableBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = EB793B161C1E608900BF1148 /* STTableBoard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B381C1E618300BF1148 /* STIndexPath.swift */; };
-		EB793B491C1E618300BF1148 /* STTableBoardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3B1C1E618300BF1148 /* STTableBoardExtensions.swift */; };
+		EB793B491C1E618300BF1148 /* STTableBoard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3B1C1E618300BF1148 /* STTableBoard+Extension.swift */; };
 		EB793B4A1C1E618300BF1148 /* UIColor+ChineseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3C1C1E618300BF1148 /* UIColor+ChineseColor.swift */; };
 		EB793B4B1C1E618300BF1148 /* UIScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */; };
 		EB793B4C1C1E618300BF1148 /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */; };
@@ -27,7 +27,7 @@
 		EB8BE8B81D22801A009D3C2A /* STPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8BE8B71D22801A009D3C2A /* STPageControl.swift */; };
 		EBB220691D04F90E0085C31F /* RefreshView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB220681D04F90E0085C31F /* RefreshView.framework */; };
 		EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */; };
-		EBD0BD841C48E4900056C1BA /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0BD831C48E4900056C1BA /* StringExtension.swift */; };
+		EBD0BD841C48E4900056C1BA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0BD831C48E4900056C1BA /* String+Extension.swift */; };
 		EBEA1D041C3A6A39000B56BF /* NewBoardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +40,7 @@
 		EB793B161C1E608900BF1148 /* STTableBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STTableBoard.h; sourceTree = "<group>"; };
 		EB793B181C1E608900BF1148 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB793B381C1E618300BF1148 /* STIndexPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STIndexPath.swift; sourceTree = "<group>"; };
-		EB793B3B1C1E618300BF1148 /* STTableBoardExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableBoardExtensions.swift; sourceTree = "<group>"; };
+		EB793B3B1C1E618300BF1148 /* STTableBoard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STTableBoard+Extension.swift"; sourceTree = "<group>"; };
 		EB793B3C1C1E618300BF1148 /* UIColor+ChineseColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ChineseColor.swift"; sourceTree = "<group>"; };
 		EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollViewExtension.swift; sourceTree = "<group>"; };
 		EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		EB8BE8B71D22801A009D3C2A /* STPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPageControl.swift; path = Vender/STPageControl.swift; sourceTree = "<group>"; };
 		EBB220681D04F90E0085C31F /* RefreshView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RefreshView.framework; path = Carthage/Build/iOS/RefreshView.framework; sourceTree = "<group>"; };
 		EBB662C91C210BF600FB94A1 /* STBoardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBoardHeaderView.swift; sourceTree = "<group>"; };
-		EBD0BD831C48E4900056C1BA /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		EBD0BD831C48E4900056C1BA /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		EBEA1D031C3A6A39000B56BF /* NewBoardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBoardButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,7 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				EBD0BD821C48E4650056C1BA /* CommonExtension */,
-				EB793B3B1C1E618300BF1148 /* STTableBoardExtensions.swift */,
+				EB793B3B1C1E618300BF1148 /* STTableBoard+Extension.swift */,
 				EB2D5E9C1C42A51E00029B8F /* STTableBoard+Implement.swift */,
 				EB2D5E9E1C42A5C700029B8F /* STTableBoard+Public.swift */,
 			);
@@ -207,7 +207,7 @@
 				EB793B3C1C1E618300BF1148 /* UIColor+ChineseColor.swift */,
 				EB793B3D1C1E618300BF1148 /* UIScrollViewExtension.swift */,
 				EB793B3E1C1E618300BF1148 /* UIView+Frame.swift */,
-				EBD0BD831C48E4900056C1BA /* StringExtension.swift */,
+				EBD0BD831C48E4900056C1BA /* String+Extension.swift */,
 			);
 			name = CommonExtension;
 			sourceTree = "<group>";
@@ -299,14 +299,14 @@
 				EB793B4B1C1E618300BF1148 /* UIScrollViewExtension.swift in Sources */,
 				EBB662CA1C210BF600FB94A1 /* STBoardHeaderView.swift in Sources */,
 				EB793B471C1E618300BF1148 /* STIndexPath.swift in Sources */,
-				EBD0BD841C48E4900056C1BA /* StringExtension.swift in Sources */,
+				EBD0BD841C48E4900056C1BA /* String+Extension.swift in Sources */,
 				EB793B501C1E618300BF1148 /* STBoardView.swift in Sources */,
 				EB793B4E1C1E618300BF1148 /* STTableBoard.swift in Sources */,
 				EB793B531C1E61D200BF1148 /* constant.swift in Sources */,
 				EB793B4D1C1E618300BF1148 /* STTableBoardProtocol.swift in Sources */,
 				EB8BE8B81D22801A009D3C2A /* STPageControl.swift in Sources */,
 				EB2D5E9D1C42A51E00029B8F /* STTableBoard+Implement.swift in Sources */,
-				EB793B491C1E618300BF1148 /* STTableBoardExtensions.swift in Sources */,
+				EB793B491C1E618300BF1148 /* STTableBoard+Extension.swift in Sources */,
 				EB2D5E9F1C42A5C700029B8F /* STTableBoard+Public.swift in Sources */,
 				EB5655F11C22AC7400182CEA /* STBoardFooterView.swift in Sources */,
 				EB793B4A1C1E618300BF1148 /* UIColor+ChineseColor.swift in Sources */,

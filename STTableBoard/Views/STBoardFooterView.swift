@@ -9,17 +9,16 @@
 import UIKit
 
 class STBoardFooterView: UIView {
-
     weak var boardView: STBoardView?
 
     lazy var titleButton: UIButton = {
         let button = UIButton()
         button.setTitle(localizedString["STTableBoard.AddRow"], for: .normal)
         button.titleLabel?.font = TableBoardCommonConstant.labelFont
-        button.setTitleColor(UIColor.grayTextColor, for: .normal)
+        button.setTitleColor(.grayTextColor, for: .normal)
         button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
-        button.addTarget(self, action: #selector(STBoardFooterView.addButtonTapped(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
 
@@ -55,7 +54,7 @@ class STBoardFooterView: UIView {
             return
         }
         boardView?.footerViewHeightConstant = newCellComposeViewHeight
-        textComposeView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: self.width, height: newCellComposeViewHeight))
+        textComposeView.frame = CGRect(origin: .zero, size: CGSize(width: self.width, height: newCellComposeViewHeight))
         showTextComposeView()
         if boardView?.tableBoard.isAddBoardTextComposeViewVisible ?? false {
             boardView?.tableBoard.hiddenTextComposeView()

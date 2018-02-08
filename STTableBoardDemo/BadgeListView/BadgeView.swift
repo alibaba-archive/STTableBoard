@@ -30,13 +30,13 @@ open class BadgeView: UIView {
         }
     }
 
-    open var textFont: UIFont = UIFont.systemFont(ofSize: 12.0) {
+    open var textFont: UIFont = .systemFont(ofSize: 12.0) {
         didSet {
             titleLabel.font = textFont
         }
     }
 
-    open var textColor: UIColor = UIColor.black {
+    open var textColor: UIColor = .black {
         didSet {
             titleLabel.textColor = textColor
         }
@@ -62,7 +62,7 @@ open class BadgeView: UIView {
     }
 
     fileprivate lazy var imageView: UIImageView = {
-        let imageView: UIImageView = UIImageView(frame: CGRect.zero)
+        let imageView: UIImageView = UIImageView(frame: .zero)
         return imageView
     }()
 
@@ -72,7 +72,7 @@ open class BadgeView: UIView {
     }()
 
     fileprivate lazy var titleLabel: UILabel = {
-        let label: UILabel = UILabel(frame: CGRect.zero)
+        let label: UILabel = UILabel(frame: .zero)
         label.textAlignment = .left
         label.font = self.textFont
         label.numberOfLines = 1
@@ -81,7 +81,7 @@ open class BadgeView: UIView {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = .clear
         addSubview(backgroundImageView)
         addSubview(imageView)
         addSubview(titleLabel)
