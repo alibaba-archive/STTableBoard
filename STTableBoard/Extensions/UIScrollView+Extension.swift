@@ -1,5 +1,5 @@
 //
-//  UIScrollViewExtension.swift
+//  UIScrollView+Extension.swift
 //  STTableBoard
 //
 //  Created by DangGu on 15/11/30.

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D3020305202C5486008306EB /* ParentTaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3020304202C5486008306EB /* ParentTaskHeaderView.swift */; };
 		EB68A9961C27E0FC00D3FB98 /* BoardCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68A9951C27E0FC00D3FB98 /* BoardCardCell.swift */; };
 		EB68A9991C27E4CB00D3FB98 /* RoundAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68A9981C27E4CB00D3FB98 /* RoundAvatarImageView.swift */; };
 		EB6DB26D1C2A8B6A00C4A481 /* BadgeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6DB26A1C2A8B6A00C4A481 /* BadgeListView.swift */; };
@@ -20,7 +21,6 @@
 		EBAF9C781DFFD1A800B258DE /* ViewController+STTableBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF9C771DFFD1A800B258DE /* ViewController+STTableBoard.swift */; };
 		EBB220741D04FD140085C31F /* RefreshView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB220721D04FCEF0085C31F /* RefreshView.framework */; };
 		EBB220751D04FD140085C31F /* RefreshView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBB220721D04FCEF0085C31F /* RefreshView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		EBB662CD1C2131A700FB94A1 /* STCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB662CC1C2131A700FB94A1 /* STCardCell.swift */; };
 		EBC6E9AA1C2BEC2E00073795 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC6E9A91C2BEC2E00073795 /* CardView.swift */; };
 		EBC8A1811C2A6F8000D9FD15 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */; };
 		EBDF23811D8EE46F00E316AA /* STTableBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDF23801D8EE46F00E316AA /* STTableBoard.framework */; };
@@ -43,6 +43,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D3020304202C5486008306EB /* ParentTaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentTaskHeaderView.swift; sourceTree = "<group>"; };
 		EB68A9951C27E0FC00D3FB98 /* BoardCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardCardCell.swift; sourceTree = "<group>"; };
 		EB68A9981C27E4CB00D3FB98 /* RoundAvatarImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundAvatarImageView.swift; sourceTree = "<group>"; };
 		EB6DB26A1C2A8B6A00C4A481 /* BadgeListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BadgeListView.swift; path = BadgeListView/BadgeListView.swift; sourceTree = "<group>"; };
@@ -57,7 +58,6 @@
 		EB793BB51C1E653400BF1148 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBAF9C771DFFD1A800B258DE /* ViewController+STTableBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+STTableBoard.swift"; sourceTree = "<group>"; };
 		EBB220721D04FCEF0085C31F /* RefreshView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RefreshView.framework; path = Carthage/Build/iOS/RefreshView.framework; sourceTree = "<group>"; };
-		EBB662CC1C2131A700FB94A1 /* STCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STCardCell.swift; sourceTree = "<group>"; };
 		EBC6E9A91C2BEC2E00073795 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		EBC8A1801C2A6F8000D9FD15 /* CheckBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		EBDF23801D8EE46F00E316AA /* STTableBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = STTableBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,7 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				EB68A9971C27E48400D3FB98 /* CardCell */,
-				EBB662CC1C2131A700FB94A1 /* STCardCell.swift */,
+				D3020304202C5486008306EB /* ParentTaskHeaderView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -245,7 +245,7 @@
 				EB793BAC1C1E653400BF1148 /* ViewController.swift in Sources */,
 				EBC6E9AA1C2BEC2E00073795 /* CardView.swift in Sources */,
 				EB793BAA1C1E653400BF1148 /* AppDelegate.swift in Sources */,
-				EBB662CD1C2131A700FB94A1 /* STCardCell.swift in Sources */,
+				D3020305202C5486008306EB /* ParentTaskHeaderView.swift in Sources */,
 				EB6DB26F1C2A8B6A00C4A481 /* UIViewExtension.swift in Sources */,
 				EBAF9C781DFFD1A800B258DE /* ViewController+STTableBoard.swift in Sources */,
 				EB6DB26D1C2A8B6A00C4A481 /* BadgeListView.swift in Sources */,

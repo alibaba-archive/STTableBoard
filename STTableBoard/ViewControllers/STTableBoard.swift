@@ -89,15 +89,17 @@ open class STTableBoard: UIViewController {
     }()
 
     open var contentInset: UIEdgeInsets = .zero
-    open var sizeOffset = CGSize(width: 0, height: 0)
+    open var sizeOffset: CGSize = .zero
     open var keyboardInset: CGFloat = 0
+    open internal(set) var dropMode: STTableBoardDropMode = .row
 
-    var currentPage: Int = 0 {
+    var currentPage = 0 {
         didSet {
             pageControl.currentPage = currentPage
         }
     }
-    var registerCellClasses = [(AnyClass, String)]()
+    var registeredCellClasses = [(AnyClass, String)]()
+    var registeredHeaderFooterViewClasses = [(AnyClass, String)]()
     var tableBoardMode: STTableBoardMode = .page {
         didSet {
             switch tableBoardMode {
@@ -142,6 +144,7 @@ open class STTableBoard: UIViewController {
     var snapshotOffsetForLeftBounds: CGFloat!
     var sourceIndexPath: STIndexPath!
     var originIndexPath: STIndexPath!
+    var destinationBoardIndex: Int!
     var sourceIndex = -1
     var originIndex = -1
     var isMoveBoardFromPageMode = false
@@ -162,11 +165,11 @@ open class STTableBoard: UIViewController {
     var tableViewAutoScrollDistance: CGFloat = 0
 
     //Zoom Property
-    var originContentOffset = CGPoint(x: 0, y: 0)
-    var originContentSize = CGSize(width: 0, height: 0)
-    var scaledContentOffset = CGPoint(x: 0, y: 0)
+    var originContentOffset: CGPoint = .zero
+    var originContentSize: CGSize = .zero
+    var scaledContentOffset: CGPoint = .zero
     public internal(set) var currentScale: CGFloat = scaleForPage
-    var tapPosition = CGPoint(x: 0, y: 0)
+    var tapPosition: CGPoint = .zero
     var originFrame: CGRect!
 
     //Text Compose property
@@ -275,7 +278,9 @@ open class STTableBoard: UIViewController {
     }
 
     func relayoutAllViews(_ size: CGSize) {
-        guard !size.equalTo(scrollView.frame.size) else { return }
+        guard !size.equalTo(scrollView.frame.size) else {
+            return
+        }
         scrollView.frame = CGRect(origin: .zero, size: size)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: size.height)
         containerView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
@@ -325,9 +330,13 @@ extension STTableBoard {
     }
 
     @objc func keyboardWillHide(_ notification: Notification) {
-        guard self.originFrame != nil else { return }
+        guard self.originFrame != nil else {
+            return
+        }
         UIView.animate(withDuration: 0.33, animations: { [weak self]() -> Void in
-            guard let `self` = self else { return }
+            guard let `self` = self else {
+                return
+            }
             self.relayoutAllViews(self.originFrame.size)
             })
     }

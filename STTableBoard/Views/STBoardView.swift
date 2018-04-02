@@ -18,19 +18,27 @@ protocol STBoardViewDelegate: class {
 }
 
 extension STBoardViewDelegate {
-    func boardViewDidBeginEditingAtBottomRow(boardView view: STBoardView) {}
+    func boardViewDidBeginEditingAtBottomRow(boardView view: STBoardView) {
+
+    }
 }
 
 class STBoardView: UIView {
     var headerView: STBoardHeaderView!
     var footerView: STBoardFooterView!
     var tableView: STShadowTableView!
-    var topShadowBar: UIImageView!
-    var bottomShadowBar: UIImageView!
+    var dropMessageLabel: UILabel!
+    var dropMaskView: UIView!
+
     weak var tableBoard: STTableBoard!
 
     weak var delegate: STBoardViewDelegate?
     var shouldEnableAddRow = true
+    var shouldShowActionButton = true {
+        didSet {
+            headerView.shouldShowActionButton = shouldShowActionButton
+        }
+    }
     var footerViewHeightConstant: CGFloat = footerViewNormalHeight {
         didSet {
             footerViewHeightConstraint.constant = footerViewHeightConstant
@@ -99,17 +107,12 @@ class STBoardView: UIView {
         }
     }
 
-    init(frame: CGRect, showRefreshFooter: Bool, shouldEnableAddRow: Bool) {
+    init(frame: CGRect, shouldShowActionButton: Bool, showRefreshFooter: Bool, shouldEnableAddRow: Bool) {
         super.init(frame: frame)
-        setupProperty(showRefreshFooter: showRefreshFooter, shouldEnableAddRow: shouldEnableAddRow)
-        tableView.addObserver(self, forKeyPath: "contentOffset", options: [.new, .old], context: nil)
+        setupProperty(shouldShowActionButton: shouldShowActionButton, showRefreshFooter: showRefreshFooter, shouldEnableAddRow: shouldEnableAddRow)
     }
 
-    deinit {
-        tableView.removeObserver(self, forKeyPath: "contentOffset")
-    }
-
-    func setupProperty(showRefreshFooter: Bool, shouldEnableAddRow: Bool) {
+    func setupProperty(shouldShowActionButton: Bool, showRefreshFooter: Bool, shouldEnableAddRow: Bool) {
         backgroundColor = boardBackgroundColor
         let layer = self.layer
         layer.cornerRadius = 5.0
@@ -120,10 +123,12 @@ class STBoardView: UIView {
         headerView = STBoardHeaderView(frame: .zero)
         footerView = STBoardFooterView(frame: .zero)
         tableView = STShadowTableView(frame: .zero, style: .plain)
+        headerView.shouldShowActionButton = shouldShowActionButton
         headerView.backgroundColor = boardBackgroundColor
         footerView.backgroundColor = boardBackgroundColor
         tableView.backgroundColor = boardBackgroundColor
 
+        self.shouldShowActionButton = shouldShowActionButton
         self.shouldEnableAddRow = shouldEnableAddRow
         footerViewHeightConstant = shouldEnableAddRow ? footerViewNormalHeight : footerViewDisabledHeight
         footerView.isHidden = !shouldEnableAddRow
@@ -146,51 +151,37 @@ class STBoardView: UIView {
         let horizontalConstraints = headerViewHorizontalConstraints + tableViewHorizontalConstraints + footerViewHorizontalConstraints
         NSLayoutConstraint.activate(horizontalConstraints + verticalConstraints + [footerViewHeightConstraint])
 
-        //shadowView
-        let topShadowBarImage = UIImage(named: "topShadow", in: currentBundle, compatibleWith: nil)
-        let bottomShadowBarImage = UIImage(named: "bottomShadow", in: currentBundle, compatibleWith: nil)
-        topShadowBar = UIImageView(image: topShadowBarImage)
-        bottomShadowBar = UIImageView(image: bottomShadowBarImage)
+        dropMessageLabel = UILabel()
+        dropMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+        dropMessageLabel.textColor = .darkGrayTextColor
+        if #available(iOS 8.2, *) {
+            dropMessageLabel.font = .systemFont(ofSize: 16, weight: .medium)
+        } else {
+            dropMessageLabel.font = .boldSystemFont(ofSize: 16)
+        }
+        dropMessageLabel.textAlignment = .left
+        dropMaskView = UIView()
+        dropMaskView.translatesAutoresizingMaskIntoConstraints = false
+        dropMaskView.backgroundColor = UIColor.white.withAlphaComponent(0.95)
+        dropMaskView.layer.cornerRadius = 5
+        dropMaskView.layer.borderWidth = 2
+        dropMaskView.layer.borderColor = UIColor.primaryBlueColor.cgColor
 
-        addSubview(topShadowBar)
-        addSubview(bottomShadowBar)
+        dropMaskView.addSubview(dropMessageLabel)
+        dropMaskView.addConstraint(NSLayoutConstraint(item: dropMessageLabel, attribute: .leading, relatedBy: .equal, toItem: dropMaskView, attribute: .leading, multiplier: 1, constant: 10))
+        dropMaskView.addConstraint(NSLayoutConstraint(item: dropMaskView, attribute: .trailing, relatedBy: .equal, toItem: dropMessageLabel, attribute: .trailing, multiplier: 1, constant: 10))
+        dropMaskView.addConstraint(NSLayoutConstraint(item: dropMessageLabel, attribute: .top, relatedBy: .equal, toItem: dropMaskView, attribute: .top, multiplier: 1, constant: 10))
+        addSubview(dropMaskView)
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[dropMaskView]|", options: [], metrics: nil, views: ["dropMaskView": dropMaskView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[dropMaskView]|", options: [], metrics: nil, views: ["dropMaskView": dropMaskView]))
 
-        topShadowBar.translatesAutoresizingMaskIntoConstraints = false
-        bottomShadowBar.translatesAutoresizingMaskIntoConstraints = false
-
-        let topShadowBarHeight: CGFloat = 5.0, bottomShadowBarHeight: CGFloat = 5.0
-
-        let topShadowBarHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[topShadowBar]|", options: [], metrics: nil, views: ["topShadowBar": topShadowBar])
-        let bottomShadowBarHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[bottomShadowBar]|", options: [], metrics: nil, views: ["bottomShadowBar": bottomShadowBar])
-        let topShadowBarTopConstraint = NSLayoutConstraint(item: topShadowBar,
-            attribute: .top,
-            relatedBy: .equal,
-            toItem: headerView,
-            attribute: .bottom,
-            multiplier: 1.0, constant: 0.0)
-        let topShadowBarHeightConstraint = NSLayoutConstraint(item: topShadowBar,
-            attribute: .height,
-            relatedBy: .equal,
-            toItem: nil,
-            attribute: .notAnAttribute,
-            multiplier: 1.0, constant: topShadowBarHeight)
-        let bottomShadowBarBottomConstraint = NSLayoutConstraint(item: bottomShadowBar,
-            attribute: .bottom,
-            relatedBy: .equal,
-            toItem: footerView,
-            attribute: .top,
-            multiplier: 1.0, constant: 0.0)
-        let bottomShadowBarHeightConstraint = NSLayoutConstraint(item: bottomShadowBar,
-            attribute: .height,
-            relatedBy: .equal,
-            toItem: nil,
-            attribute: .notAnAttribute,
-            multiplier: 1.0, constant: bottomShadowBarHeight)
-
-        NSLayoutConstraint.activate(topShadowBarHorizontalConstraints + bottomShadowBarHorizontalConstraints + [topShadowBarTopConstraint, topShadowBarHeightConstraint, bottomShadowBarBottomConstraint, bottomShadowBarHeightConstraint])
+        bringSubview(toFront: dropMaskView)
+        deactivateDropMask()
 
         // refresh footer
-        guard showRefreshFooter else { return }
+        guard showRefreshFooter else {
+            return
+        }
         tableView.refreshFooter = CustomRefreshFooterView.footerWithLoadingText(localizedString["STTableBoard.RefreshFooter.text"] ?? "Loading...", startLoading: { [weak self] in
             if let weakSelf = self, let dataSource = weakSelf.tableBoard.dataSource {
                 dataSource.tableBoard(weakSelf.tableBoard, footerRefreshingAt: weakSelf.index)
@@ -202,19 +193,19 @@ class STBoardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        guard let change = change, keyPath == "contentOffset" else { return }
-        // swiftlint:disable force_cast
-        let offsetY = (change[.newKey] as! NSValue).cgPointValue.y
-        topShadowBar.isHidden = (offsetY <= 0)
-        bottomShadowBar.isHidden = (offsetY == 0 && tableView.height == tableView.contentSize.height) || (offsetY + tableView.height >= tableView.contentSize.height)
-    }
-
     func hideTextComposeView() {
         footerView.hideTextComposeView()
     }
 
     func footerViewBeginEditing() {
         delegate?.boardViewDidBeginEditingAtBottomRow(boardView: self)
+    }
+
+    func activateDropMask() {
+        dropMaskView.alpha = 1
+    }
+
+    func deactivateDropMask() {
+        dropMaskView.alpha = 0
     }
 }

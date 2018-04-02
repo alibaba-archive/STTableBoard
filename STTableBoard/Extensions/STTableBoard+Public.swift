@@ -8,15 +8,13 @@
 
 import UIKit
 
-// MARK: - public methods
+// MARK: - Public methods
 public extension STTableBoard {
     public func reloadData(_ resetPage: Bool = true, resetMode: Bool = false) {
         resetContentSize()
 
         if boards.count != 0 {
-            boards.forEach({ (board) -> Void in
-                board.removeFromSuperview()
-            })
+            boards.forEach { $0.removeFromSuperview() }
             boards.removeAll(keepingCapacity: true)
         }
         newBoardButtonView.removeFromSuperview()
@@ -49,27 +47,43 @@ public extension STTableBoard {
         }
     }
 
-    func reloadBoardAtIndex(_ index: Int, animated: Bool) {
-        guard index < boards.count else { fatalError("index is not exist!!") }
+    public func reloadBoard(at index: Int, animated: Bool) {
+        guard index < boards.count else {
+            fatalError("index is not exist!!")
+        }
         let board = boards[index]
         board.tableView.reloadData()
         autoAdjustTableBoardHeight(board, animated: animated)
     }
 
-    public func reloadBoardTitleAtIndex(_ index: Int) {
-        guard index < boards.count else { fatalError("index is not exist!!") }
+    public func reloadBoardTitle(at index: Int) {
+        guard index < boards.count else {
+            fatalError("index is not exist!!")
+        }
         let board = boards[index]
         board.title = dataSource?.tableBoard(self, titleForBoardAt: index)
     }
 
-    func reloadBoardNumberAtIndex(_ index: Int) {
-        guard index < boards.count else { fatalError("index is not exist!!") }
+    public func reloadBoardNumber(at index: Int) {
+        guard index < boards.count else {
+            fatalError("index is not exist!!")
+        }
         let board = boards[index]
         board.number = dataSource?.tableBoard(self, numberForBoardAt: index) ?? 0
     }
 
-    public func removeBoardAtIndex(_ index: Int) {
-        guard index < boards.count else { fatalError("index is not exist!!") }
+    public func reloadBoardActionButton(at index: Int) {
+        guard index < boards.count else {
+            fatalError("index is not exist!!")
+        }
+        let board = boards[index]
+        board.shouldShowActionButton = dataSource?.tableBoard(self, shouldShowActionButtonAt: index) ?? true
+    }
+
+    public func removeBoard(at index: Int) {
+        guard index < boards.count else {
+            fatalError("index is not exist!!")
+        }
         let board = boards[index]
         if let boardViewForVisibleTextComposeView = boardViewForVisibleTextComposeView, boardViewForVisibleTextComposeView.index == index {
             boardViewForVisibleTextComposeView.hideTextComposeView()
@@ -86,17 +100,19 @@ public extension STTableBoard {
         pageControl.numberOfPages = numberOfPage
     }
 
-    func insertBoardAtIndex(_ index: Int, withAnimation animation: Bool) {
-        insertBoardAtIndex(index, animation: animation)
+    public func insertBoard(at index: Int, animated: Bool) {
+        insertBoardAtIndex(index, animation: animated)
     }
 
-    func exchangeBoardAtIndex(_ originIndex: Int, destinationIndex: Int, animation: Bool) {
-        guard originIndex != destinationIndex && originIndex < boards.count && destinationIndex < boards.count else { return }
+    public func exchangeBoard(originIndex: Int, destinationIndex: Int, animated: Bool) {
+        guard originIndex != destinationIndex && originIndex < boards.count && destinationIndex < boards.count else {
+            return
+        }
         let x1 = leading + CGFloat(originIndex) * (boardWidth + pageSpacing)
         let x2 = leading + CGFloat(destinationIndex) * (boardWidth + pageSpacing)
         let originBoard = boards[originIndex]
         let destinationBoard = boards[destinationIndex]
-        if animation {
+        if animated {
             UIView.animate(withDuration: 0.5, animations: {
                 originBoard.frame.origin.x = x2
                 destinationBoard.frame.origin.x = x1
@@ -109,8 +125,10 @@ public extension STTableBoard {
         destinationBoard.index = originIndex
         (boards[originIndex], boards[destinationIndex]) = (boards[destinationIndex], boards[originIndex])
     }
+}
 
-    func insertRowsAtIndexPaths(_ indexPaths: [STIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
+public extension STTableBoard {
+    public func insertRows(at indexPaths: [STIndexPath], with animation: UITableViewRowAnimation) {
         var indexPathsDic = [String: [STIndexPath]]()
         indexPaths.forEach { (indexPath) -> Void in
             if var indexPathsInBoard = indexPathsDic[String(indexPath.board)] {
@@ -127,7 +145,9 @@ public extension STTableBoard {
                 return indexPath.toIndexPath()
             })
             let board = self.boards[Int(boardIndex)!]
-            guard let tableView = board.tableView else { return }
+            guard let tableView = board.tableView else {
+                return
+            }
             tableView.beginUpdates()
             tableView.insertRows(at: indexPaths, with: animation)
             tableView.endUpdates()
@@ -135,7 +155,26 @@ public extension STTableBoard {
         }
     }
 
-    func deleteRowsAtIndexPaths(_ indexPaths: [STIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
+    public func insertSections(_ sections: IndexSet, atBoard boardIndex: Int, with animation: UITableViewRowAnimation) {
+        let board = boards[boardIndex]
+        guard let tableView = board.tableView else {
+            return
+        }
+        let showLoadingView = board.tableView.refreshFooter?.isShowLoadingView ?? false
+        if showLoadingView {
+            board.tableView.refreshFooter?.isShowLoadingView = false
+        }
+        tableView.beginUpdates()
+        tableView.insertSections(sections, with: animation)
+        tableView.endUpdates()
+        autoAdjustTableBoardHeight(board, animated: true)
+        if showLoadingView {
+            board.tableView.refreshFooter?.isShowLoadingView = true
+            board.tableView.refreshFooter?.endRefreshing()
+        }
+    }
+
+    public func deleteRows(at indexPaths: [STIndexPath], with animation: UITableViewRowAnimation) {
         var indexPathsDic = [String: [STIndexPath]]()
         indexPaths.forEach { (indexPath) -> Void in
             if var indexPathsInBoard = indexPathsDic[String(indexPath.board)] {
@@ -152,7 +191,9 @@ public extension STTableBoard {
                 return indexPath.toIndexPath()
             })
             let board = self.boards[Int(boardIndex)!]
-            guard let tableView = board.tableView else { return }
+            guard let tableView = board.tableView else {
+                return
+            }
             tableView.beginUpdates()
             tableView.deleteRows(at: indexPaths, with: animation)
             tableView.endUpdates()
@@ -160,13 +201,26 @@ public extension STTableBoard {
         }
     }
 
-    func moveRowWithinBoard(at indexPath: STIndexPath, to newIndexPath: STIndexPath, reloadAfterMoving: Bool = false, with animation: UITableViewRowAnimation = .none) {
+    public func deleteSections(_ sections: IndexSet, atBoard boardIndex: Int, with animation: UITableViewRowAnimation) {
+        let board = boards[boardIndex]
+        guard let tableView = board.tableView else {
+            return
+        }
+        tableView.beginUpdates()
+        tableView.deleteSections(sections, with: animation)
+        tableView.endUpdates()
+        autoAdjustTableBoardHeight(board, animated: true)
+    }
+
+    public func moveRowWithinBoard(at indexPath: STIndexPath, to newIndexPath: STIndexPath, reloadAfterMoving: Bool = false, with animation: UITableViewRowAnimation = .none) {
         guard indexPath.board == newIndexPath.board else {
             return
         }
         let boardIndex = indexPath.board
         let board = self.boards[Int(boardIndex)]
-        guard let tableView = board.tableView else { return }
+        guard let tableView = board.tableView else {
+            return
+        }
         tableView.beginUpdates()
         tableView.moveRow(at: indexPath.toIndexPath(), to: newIndexPath.toIndexPath())
         tableView.endUpdates()
@@ -178,13 +232,15 @@ public extension STTableBoard {
         self.autoAdjustTableBoardHeight(board, animated: true)
     }
 
-    func insertRowAtIndexPath(_ indexPath: STIndexPath, withRowAnimation animation: UITableViewRowAnimation, atScrollPosition scrollPosition: UITableViewScrollPosition) {
+    public func insertRow(at indexPath: STIndexPath, withRowAnimation animation: UITableViewRowAnimation, atScrollPosition scrollPosition: UITableViewScrollPosition) {
         let board = boards[indexPath.board]
+        guard let tableView = board.tableView else {
+            return
+        }
         let showLoadingView = board.tableView.refreshFooter?.isShowLoadingView ?? false
         if showLoadingView {
             board.tableView.refreshFooter?.isShowLoadingView = false
         }
-        guard let tableView = board.tableView else { return }
         tableView.beginUpdates()
         tableView.insertRows(at: [indexPath.toIndexPath()], with: animation)
         tableView.endUpdates()
@@ -196,7 +252,7 @@ public extension STTableBoard {
         }
     }
 
-    func reloadRowAtIndexPath(_ indexPaths: [STIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
+    public func reloadRows(at indexPaths: [STIndexPath], with animation: UITableViewRowAnimation) {
         var indexPathsDic = [String: [STIndexPath]]()
         indexPaths.forEach { (indexPath) -> Void in
             if var indexPathsInBoard = indexPathsDic[String(indexPath.board)] {
@@ -213,7 +269,9 @@ public extension STTableBoard {
                 return indexPath.toIndexPath()
             })
             let board = self.boards[Int(boardIndex)!]
-            guard let tableView = board.tableView else { return }
+            guard let tableView = board.tableView else {
+                return
+            }
             tableView.beginUpdates()
             tableView.reloadRows(at: indexPaths, with: animation)
             tableView.endUpdates()
@@ -221,50 +279,97 @@ public extension STTableBoard {
         }
     }
 
-    func cellForRowAtIndexPath(_ indexPath: STIndexPath) -> STBoardCell? {
+    public func reloadSections(_ sections: IndexSet, atBoard boardIndex: Int, with animation: UITableViewRowAnimation) {
+        let board = boards[boardIndex]
+        guard let tableView = board.tableView else {
+            return
+        }
+        tableView.beginUpdates()
+        tableView.reloadSections(sections, with: animation)
+        tableView.endUpdates()
+        autoAdjustTableBoardHeight(board, animated: true)
+    }
+
+    public func cellForRow(at indexPath: STIndexPath) -> STBoardCell? {
         let board = boards[indexPath.board]
-        guard let tableView = board.tableView else { return nil }
+        guard let tableView = board.tableView else {
+            return nil
+        }
         return tableView.cellForRow(at: indexPath.toIndexPath()) as? STBoardCell
     }
 
+    public func scrollToRow(at indexPath: STIndexPath, at scrollPosition: UITableViewScrollPosition, animated: Bool) {
+        let board = boards[indexPath.board]
+        guard let tableView = board.tableView else {
+            return
+        }
+        let showLoadingView = board.tableView.refreshFooter?.isShowLoadingView ?? false
+        if showLoadingView {
+            board.tableView.refreshFooter?.isShowLoadingView = false
+        }
+        tableView.scrollToRow(at: indexPath.toIndexPath(), at: scrollPosition, animated: animated)
+        if showLoadingView {
+            board.tableView.refreshFooter?.isShowLoadingView = true
+            board.tableView.refreshFooter?.endRefreshing()
+        }
+    }
+}
+
+public extension STTableBoard {
     func isEmpty(_ board: Int) -> Bool {
         return boards[board].tableView.height == 0
     }
 
     func endRefreshing(_ board: Int) {
-        guard board < boards.count else { return }
+        guard board < boards.count else {
+            return
+        }
         let boardView = boards[board]
         boardView.tableView.refreshFooter?.endRefreshing()
     }
 
     func showRefreshFooter(_ board: Int, showRefreshFooter: Bool) {
-        guard board < boards.count else { return }
+        guard board < boards.count else {
+            return
+        }
         let boardView = boards[board]
         boardView.tableView.refreshFooter?.isShowLoadingView = showRefreshFooter
     }
 
     func stopMovingCell() {
-        guard let recognizer = currentLongPressGestureForCell else { return }
+        guard let recognizer = currentLongPressGestureForCell else {
+            return
+        }
         recognizer.isEnabled = false
     }
 
     func stopMovingBoard() {
-        guard let recognizer = currentLongPressGestureForBoard else { return }
+        guard let recognizer = currentLongPressGestureForBoard else {
+            return
+        }
         recognizer.isEnabled = false
     }
 
     func boardFooterRect(at boardIndex: Int) -> CGRect {
-        guard 0..<boards.count ~= boardIndex else { return .zero }
+        guard 0..<boards.count ~= boardIndex else {
+            return .zero
+        }
         let board = boards[boardIndex]
-        guard let boardFooter = board.footerView else { return .zero }
+        guard let boardFooter = board.footerView else {
+            return .zero
+        }
         board.layoutIfNeeded()
-        return self.view.convert(boardFooter.frame, from: board)
+        return view.convert(boardFooter.frame, from: board)
     }
 
     func toggleBoardFooter(at boardIndex: Int) {
-        guard 0..<boards.count ~= boardIndex else { return }
+        guard 0..<boards.count ~= boardIndex else {
+            return
+        }
         let board = boards[boardIndex]
-        guard let boardFooter = board.footerView else { return }
+        guard let boardFooter = board.footerView else {
+            return
+        }
         boardFooter.addButtonTapped(nil)
     }
 }

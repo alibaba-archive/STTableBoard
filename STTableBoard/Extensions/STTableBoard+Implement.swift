@@ -8,16 +8,13 @@
 
 import UIKit
 
-// swiftlint:disable force_cast
 // MARK: - UIGestureRecognizerDelegate
 extension STTableBoard: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        guard let touchedView = touch.view else { return false }
-        if touchedView == containerView {
-            return true
-        } else {
+        guard let touchedView = touch.view else {
             return false
         }
+        return touchedView == containerView
     }
 }
 
@@ -29,14 +26,18 @@ extension STTableBoard: UIScrollViewDelegate {
         }
     }
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        guard tableBoardMode == .page && scrollView == self.scrollView else { return }
+        guard tableBoardMode == .page && scrollView == self.scrollView else {
+            return
+        }
         if !decelerate {
             scrollToActualPage(scrollView, offsetX: scrollView.contentOffset.x)
         }
     }
 
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard tableBoardMode == .page && scrollView == self.scrollView else { return }
+        guard tableBoardMode == .page && scrollView == self.scrollView else {
+            return
+        }
         if velocity.x != 0 {
             if velocity.x < 0 && currentPage > 0 {
                 scrollToPage(scrollView, page: currentPage - 1, targetContentOffset: targetContentOffset)
@@ -86,32 +87,68 @@ extension STTableBoard: UIScrollViewDelegate {
 // MARK: - UITableViewDelegate
 extension STTableBoard: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let board = (tableView as! STShadowTableView).index,
-            let heightForRow = delegate?.tableBoard(self, heightForRowAt: STIndexPath(forRow: indexPath.row, inBoard: board)) else { return 44.0 }
+        guard let board = tableView as? STShadowTableView, let heightForRow = delegate?.tableBoard(self, heightForRowAt: STIndexPath(forRow: indexPath.row, section: indexPath.section, inBoard: board.index)) else {
+            return 44.0
+        }
         return heightForRow
     }
 
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let board = tableView as? STShadowTableView, let view = delegate?.tableBoard(self, viewForHeaderInSection: section, atBoard: board.index) else {
+            return nil
+        }
+        return view
+    }
+
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard let board = tableView as? STShadowTableView, let height = delegate?.tableBoard(self, heightForHeaderInSection: section, atBoard: board.index) else {
+            return 0
+        }
+        return height
+    }
+
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let board = tableView as? STShadowTableView, let view = delegate?.tableBoard(self, viewForFooterInSection: section, atBoard: board.index) else {
+            return nil
+        }
+        return view
+    }
+
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard let board = tableView as? STShadowTableView, let height = delegate?.tableBoard(self, heightForFooterInSection: section, atBoard: board.index) else {
+            return 0
+        }
+        return height
+    }
+
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let board = (tableView as! STShadowTableView).index else { return }
-        delegate?.tableBoard(self, didSelectRowAt: indexPath.toSTIndexPath(board: board))
+        guard let board = tableView as? STShadowTableView else {
+            return
+        }
+        delegate?.tableBoard(self, didSelectRowAt: indexPath.toSTIndexPath(board: board.index))
     }
 }
 
 // MARK: - UITableViewDataSource
 extension STTableBoard: UITableViewDataSource {
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        guard let board = tableView as? STShadowTableView, let numberOfSections = dataSource?.tableBoard(self, numberOfSectionsAt: board.index) else {
+            return 1
+        }
+        return numberOfSections
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let board = (tableView as! STShadowTableView).index,
-            let numberOfRows = dataSource?.tableBoard(self, numberOfRowsAt: board) else { return 0 }
+        guard let board = tableView as? STShadowTableView, let numberOfRows = dataSource?.tableBoard(self, numberOfRowsInSection: section, atBoard: board.index) else {
+            return 0
+        }
         return numberOfRows
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let board = (tableView as! STShadowTableView).index,
-            let cell = dataSource?.tableBoard(self, cellForRowAt: STIndexPath(forRow: indexPath.row, inBoard: board)) as? STBoardCell else { fatalError("board or cell can not be nill") }
+        guard let board = tableView as? STShadowTableView, let cell = dataSource?.tableBoard(self, cellForRowAt: STIndexPath(forRow: indexPath.row, section: indexPath.section, inBoard: board.index)) as? STBoardCell else {
+            fatalError("board or cell can not be nill")
+        }
         cell.backgroundColor = .clear
         cell.contentView.backgroundColor = .clear
         cell.moving = false
@@ -124,7 +161,9 @@ extension STTableBoard: NewBoardButtonDelegate {
     func newBoardButtonDidBeClicked(newBoardButton button: NewBoardButton) {
         showTextComposeView()
         isAddBoardTextComposeViewVisible = true
-        guard let boardView = boardViewForVisibleTextComposeView else { return }
+        guard let boardView = boardViewForVisibleTextComposeView else {
+            return
+        }
         boardView.hideTextComposeView()
         boardViewForVisibleTextComposeView = nil
     }
@@ -135,8 +174,7 @@ extension STTableBoard: TextComposeViewDelegate {
     func textComposeView(textComposeView view: TextComposeView, didClickDoneButton button: UIButton, withText text: String) {
         view.textField.resignFirstResponder()
         hiddenTextComposeView()
-        guard let delegate = delegate else { return }
-        delegate.tableBoard(self, willAddNewBoardAt: numberOfPage - 1, with: text)
+        delegate?.tableBoard(self, willAddNewBoardAt: numberOfPage - 1, with: text)
     }
 
     func textComposeView(textComposeView view: TextComposeView, didClickCancelButton button: UIButton) {
@@ -147,7 +185,7 @@ extension STTableBoard: TextComposeViewDelegate {
 // MARK: - STBoardViewDelegate
 extension STTableBoard: STBoardViewDelegate {
     func boardView(_ boardView: STBoardView, didClickBoardMenuButton button: UIButton) {
-        delegate?.tableBoard(self, didTapMoreButtonAt: boardView.index, stageTitle: boardView.title, button: button)
+        delegate?.tableBoard(self, didTapMoreButtonAt: boardView.index, boardTitle: boardView.title, button: button)
     }
 
     func boardView(_ boardView: STBoardView, didClickDoneButtonForAddNewRow button: UIButton, withRowTitle title: String) {

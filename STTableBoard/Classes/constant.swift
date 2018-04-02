@@ -8,6 +8,11 @@
 
 import UIKit
 
+public enum STTableBoardDropMode {
+    case row
+    case board
+}
+
 enum SnapViewStatus {
     case moving
     case origin
@@ -42,6 +47,7 @@ struct BoardHeaderViewConstant {
 extension UIColor {
     static var darkGrayTextColor: UIColor { return UIColor(red: 56 / 255.0, green: 56 / 255.0, blue: 56 / 255.0, alpha: 1.0) }
     static var grayTextColor: UIColor { return UIColor(red: 128 / 255.0, green: 128 / 255.0, blue: 128 / 255.0, alpha: 1.0) }
+    static var primaryBlueColor: UIColor { return UIColor(red: 61 / 255.0, green: 168 / 255.0, blue: 245 / 255.0, alpha: 1.0) }
 }
 
 let timerUserInfoTableViewKey = "theTableView"
@@ -99,10 +105,6 @@ var currentOrientation: STTableBoardOrientation {
 var localizedString: [String: String] = [
     "STTableBoard.AddRow": "添加任务...",
     "STTableBoard.AddBoard": "添加阶段...",
-    "STTableBoard.BoardMenuTextViewController.Title": "编辑阶段名称",
-    "STTableBoard.EditBoardNameCell.Title": "编辑阶段",
-    "STTableBoard.DeleteBoardCell.Title": "删除阶段",
-    "STTableBoard.DeleteBoard.Alert.Message": "确定要删除这个阶段吗？",
     "STTableBoard.Delete": "删除",
     "STTableBoard.Cancel": "取消",
     "STTableBoard.OK": "确定",
