@@ -9,6 +9,7 @@
 import UIKit
 
 // MARK: - Public methods
+// swiftlint:disable identifier_name
 public extension STTableBoard {
     public func reloadData(_ resetPage: Bool = true, resetMode: Bool = false) {
         resetContentSize()
@@ -19,8 +20,8 @@ public extension STTableBoard {
         }
         newBoardButtonView.removeFromSuperview()
 
-        for i in 0..<numberOfPage - (showAddBoardButton ? 1 : 0) {
-            insertBoardAtIndex(i, animation: false)
+        for index in 0..<numberOfPage - (showAddBoardButton ? 1 : 0) {
+            insertBoardAtIndex(index, animation: false)
         }
 
         if resetPage {

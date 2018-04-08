@@ -57,8 +57,8 @@ class ViewController: UIViewController {
         layoutView()
         addAddButton()
         tableBoard.reloadData()
-        let f = tableBoard.boardFooterRect(at: 0)
-        print("viewDidLoad \(f)")
+        let footerRect = tableBoard.boardFooterRect(at: 0)
+        print("viewDidLoad \(footerRect)")
     }
 
     deinit {

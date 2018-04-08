@@ -9,6 +9,7 @@
 import UIKit
 
 // MARK: - double tap
+// swiftlint:disable identifier_name
 extension STTableBoard {
     @objc func handleDoubleTap(_ recognizer: UIGestureRecognizer) {
         tapPosition = recognizer.location(in: containerView)
