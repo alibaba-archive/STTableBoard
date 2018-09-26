@@ -175,7 +175,7 @@ class STBoardView: UIView {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[dropMaskView]|", options: [], metrics: nil, views: ["dropMaskView": dropMaskView]))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[dropMaskView]|", options: [], metrics: nil, views: ["dropMaskView": dropMaskView]))
 
-        bringSubview(toFront: dropMaskView)
+        bringSubviewToFront(dropMaskView)
         deactivateDropMask()
 
         // refresh footer

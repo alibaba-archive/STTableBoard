@@ -9,9 +9,9 @@
 import Foundation
 
 open class STIndexPath {
-    open let section: Int
-    open let row: Int
-    open let board: Int
+    public let section: Int
+    public let row: Int
+    public let board: Int
 
     public init(forRow row: Int, section: Int = 0, inBoard board: Int) {
         self.section = section

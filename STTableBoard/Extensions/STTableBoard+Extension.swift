@@ -637,26 +637,22 @@ extension STTableBoard {
 // MARK: - Position helper method
 extension STTableBoard {
     func boardAtPointInBoardArea(_ pointInContainerView: CGPoint) -> STBoardView? {
-        var returnedBoard: STBoardView? = nil
-
+        var returnedBoard: STBoardView?
         boards.forEach { (board) -> Void in
             if pointInContainerView.x > board.minX && pointInContainerView.x < board.maxX {
                 returnedBoard = board
             }
         }
-
         return returnedBoard
     }
 
     func boardAtPoint(_ pointInContainerView: CGPoint) -> STBoardView? {
-        var returnedBoard: STBoardView? = nil
-
+        var returnedBoard: STBoardView?
         boards.forEach { (board) -> Void in
             if board.frame.contains(pointInContainerView) {
                 returnedBoard = board
             }
         }
-
         return returnedBoard
     }
 

@@ -40,7 +40,7 @@ class STPageControl: UIPageControl {
     }
 
     fileprivate func imageViewForSubView(_ view: UIView) -> UIImageView? {
-        var dot: UIImageView? = nil
+        var dot: UIImageView?
         for subview in view.subviews {
             if let imageView = subview as? UIImageView {
                 dot = imageView

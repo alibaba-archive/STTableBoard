@@ -129,7 +129,7 @@ public extension STTableBoard {
 }
 
 public extension STTableBoard {
-    public func insertRows(at indexPaths: [STIndexPath], with animation: UITableViewRowAnimation) {
+    public func insertRows(at indexPaths: [STIndexPath], with animation: UITableView.RowAnimation) {
         var indexPathsDic = [String: [STIndexPath]]()
         indexPaths.forEach { (indexPath) -> Void in
             if var indexPathsInBoard = indexPathsDic[String(indexPath.board)] {
@@ -156,7 +156,7 @@ public extension STTableBoard {
         }
     }
 
-    public func insertSections(_ sections: IndexSet, atBoard boardIndex: Int, with animation: UITableViewRowAnimation) {
+    public func insertSections(_ sections: IndexSet, atBoard boardIndex: Int, with animation: UITableView.RowAnimation) {
         let board = boards[boardIndex]
         guard let tableView = board.tableView else {
             return
@@ -175,7 +175,7 @@ public extension STTableBoard {
         }
     }
 
-    public func deleteRows(at indexPaths: [STIndexPath], with animation: UITableViewRowAnimation) {
+    public func deleteRows(at indexPaths: [STIndexPath], with animation: UITableView.RowAnimation) {
         var indexPathsDic = [String: [STIndexPath]]()
         indexPaths.forEach { (indexPath) -> Void in
             if var indexPathsInBoard = indexPathsDic[String(indexPath.board)] {
@@ -202,7 +202,7 @@ public extension STTableBoard {
         }
     }
 
-    public func deleteSections(_ sections: IndexSet, atBoard boardIndex: Int, with animation: UITableViewRowAnimation) {
+    public func deleteSections(_ sections: IndexSet, atBoard boardIndex: Int, with animation: UITableView.RowAnimation) {
         let board = boards[boardIndex]
         guard let tableView = board.tableView else {
             return
@@ -213,7 +213,7 @@ public extension STTableBoard {
         autoAdjustTableBoardHeight(board, animated: true)
     }
 
-    public func moveRowWithinBoard(at indexPath: STIndexPath, to newIndexPath: STIndexPath, reloadAfterMoving: Bool = false, with animation: UITableViewRowAnimation = .none) {
+    public func moveRowWithinBoard(at indexPath: STIndexPath, to newIndexPath: STIndexPath, reloadAfterMoving: Bool = false, with animation: UITableView.RowAnimation = .none) {
         guard indexPath.board == newIndexPath.board else {
             return
         }
@@ -233,7 +233,7 @@ public extension STTableBoard {
         self.autoAdjustTableBoardHeight(board, animated: true)
     }
 
-    public func insertRow(at indexPath: STIndexPath, withRowAnimation animation: UITableViewRowAnimation, atScrollPosition scrollPosition: UITableViewScrollPosition) {
+    public func insertRow(at indexPath: STIndexPath, withRowAnimation animation: UITableView.RowAnimation, atScrollPosition scrollPosition: UITableView.ScrollPosition) {
         let board = boards[indexPath.board]
         guard let tableView = board.tableView else {
             return
@@ -253,7 +253,7 @@ public extension STTableBoard {
         }
     }
 
-    public func reloadRows(at indexPaths: [STIndexPath], with animation: UITableViewRowAnimation) {
+    public func reloadRows(at indexPaths: [STIndexPath], with animation: UITableView.RowAnimation) {
         var indexPathsDic = [String: [STIndexPath]]()
         indexPaths.forEach { (indexPath) -> Void in
             if var indexPathsInBoard = indexPathsDic[String(indexPath.board)] {
@@ -280,7 +280,7 @@ public extension STTableBoard {
         }
     }
 
-    public func reloadSections(_ sections: IndexSet, atBoard boardIndex: Int, with animation: UITableViewRowAnimation) {
+    public func reloadSections(_ sections: IndexSet, atBoard boardIndex: Int, with animation: UITableView.RowAnimation) {
         let board = boards[boardIndex]
         guard let tableView = board.tableView else {
             return
@@ -299,7 +299,7 @@ public extension STTableBoard {
         return tableView.cellForRow(at: indexPath.toIndexPath()) as? STBoardCell
     }
 
-    public func scrollToRow(at indexPath: STIndexPath, at scrollPosition: UITableViewScrollPosition, animated: Bool) {
+    public func scrollToRow(at indexPath: STIndexPath, at scrollPosition: UITableView.ScrollPosition, animated: Bool) {
         let board = boards[indexPath.board]
         guard let tableView = board.tableView else {
             return

@@ -146,9 +146,9 @@ extension ViewController {
         tableBoard.dataSource = self
         tableBoard.showAddBoardButton = true
 //        tableBoard.preferredBoardWidth = 280
-        self.addChildViewController(tableBoard)
+        self.addChild(tableBoard)
         view.addSubview(tableBoard.view)
-        tableBoard.didMove(toParentViewController: self)
+        tableBoard.didMove(toParent: self)
     }
 
     fileprivate func setupContianerView() {

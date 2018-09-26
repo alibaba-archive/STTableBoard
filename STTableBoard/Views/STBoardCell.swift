@@ -37,7 +37,7 @@ open class STBoardCell: UITableViewCell {
         self.selectionStyle = .none
     }
 
-    override public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
     }
