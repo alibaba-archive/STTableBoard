@@ -32,7 +32,9 @@ extension ViewController: STTableBoardDelegate {
     }
 
     func tableBoard(_ tableBoard: STTableBoard, willRemoveBoardAt index: Int) -> Bool {
-        guard index != 0 else { return false }
+        guard index != 0 else {
+            return false
+        }
         dataArray1.remove(at: index)
         dataArray2.remove(at: index)
         titleArray.remove(at: index)

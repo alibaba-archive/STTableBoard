@@ -42,7 +42,9 @@ open class STTableBoard: UIViewController {
     }
 
     var numberOfPage: Int {
-        guard let page = self.dataSource?.numberOfBoards(in: self) else { return 1 }
+        guard let page = self.dataSource?.numberOfBoards(in: self) else {
+            return 1
+        }
         return page + (showAddBoardButton ? 1 : 0)
     }
 

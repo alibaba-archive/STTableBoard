@@ -45,9 +45,17 @@ struct BoardHeaderViewConstant {
 }
 
 extension UIColor {
-    static var darkGrayTextColor: UIColor { return UIColor(red: 56 / 255.0, green: 56 / 255.0, blue: 56 / 255.0, alpha: 1.0) }
-    static var grayTextColor: UIColor { return UIColor(red: 128 / 255.0, green: 128 / 255.0, blue: 128 / 255.0, alpha: 1.0) }
-    static var primaryBlueColor: UIColor { return UIColor(red: 61 / 255.0, green: 168 / 255.0, blue: 245 / 255.0, alpha: 1.0) }
+    static var darkGrayTextColor: UIColor {
+        return UIColor(red: 56 / 255.0, green: 56 / 255.0, blue: 56 / 255.0, alpha: 1.0)
+    }
+
+    static var grayTextColor: UIColor {
+        return UIColor(red: 128 / 255.0, green: 128 / 255.0, blue: 128 / 255.0, alpha: 1.0)
+    }
+
+    static var primaryBlueColor: UIColor {
+        return UIColor(red: 61 / 255.0, green: 168 / 255.0, blue: 245 / 255.0, alpha: 1.0)
+    }
 }
 
 let timerUserInfoTableViewKey = "theTableView"
@@ -57,7 +65,7 @@ let top: CGFloat = 20.0
 let bottom: CGFloat = top
 let pageSpacing: CGFloat = leading / 2
 let overlap: CGFloat = pageSpacing * 3
-let rotateAngel: CGFloat = .pi / 36
+let rotateAngel: CGFloat = 0
 let headerViewHeight: CGFloat = 30
 let footerViewNormalHeight: CGFloat = 44
 let footerViewDisabledHeight: CGFloat = 15

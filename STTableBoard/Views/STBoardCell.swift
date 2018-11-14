@@ -17,9 +17,9 @@ open class STBoardCell: UITableViewCell {
 
         let snapshot = UIImageView(image: image)
         let layer = snapshot.layer
-        layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
-        layer.shadowRadius = 5.0
-        layer.shadowOpacity = 0.4
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowRadius = 8
+        layer.shadowOpacity = 0.1
         return snapshot
     }
 
