@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D35B5EFA21A2AC0E00760C80 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B5EF921A2AC0E00760C80 /* FeedbackGenerator.swift */; };
 		EB2D5E9D1C42A51E00029B8F /* STTableBoard+Implement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D5E9C1C42A51E00029B8F /* STTableBoard+Implement.swift */; };
 		EB2D5E9F1C42A5C700029B8F /* STTableBoard+Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D5E9E1C42A5C700029B8F /* STTableBoard+Public.swift */; };
 		EB3D687E1C3B6C7E00C6EAFD /* TextComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3D687D1C3B6C7E00C6EAFD /* TextComposeView.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D35B5EF921A2AC0E00760C80 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		EB2D5E9C1C42A51E00029B8F /* STTableBoard+Implement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STTableBoard+Implement.swift"; sourceTree = "<group>"; };
 		EB2D5E9E1C42A5C700029B8F /* STTableBoard+Public.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STTableBoard+Public.swift"; sourceTree = "<group>"; };
 		EB3D687D1C3B6C7E00C6EAFD /* TextComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextComposeView.swift; sourceTree = "<group>"; };
@@ -70,6 +72,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D35B5EF821A2ABDB00760C80 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D35B5EF921A2AC0E00760C80 /* FeedbackGenerator.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		EB1CF1F01C4CC7840084AB53 /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +114,7 @@
 				EB793B371C1E618300BF1148 /* Classes */,
 				EB793B391C1E618300BF1148 /* Extensions */,
 				EB793B431C1E618300BF1148 /* Views */,
+				D35B5EF821A2ABDB00760C80 /* Helpers */,
 				EB793B161C1E608900BF1148 /* STTableBoard.h */,
 				EB7C97C31C21B2C300C68649 /* Images.xcassets */,
 				EB793B181C1E608900BF1148 /* Info.plist */,
@@ -294,6 +305,7 @@
 			files = (
 				EBEA1D041C3A6A39000B56BF /* NewBoardButton.swift in Sources */,
 				EB793B511C1E618300BF1148 /* STShadowTableView.swift in Sources */,
+				D35B5EFA21A2AC0E00760C80 /* FeedbackGenerator.swift in Sources */,
 				EB793B4C1C1E618300BF1148 /* UIView+Frame.swift in Sources */,
 				EB3D687E1C3B6C7E00C6EAFD /* TextComposeView.swift in Sources */,
 				EB793B4B1C1E618300BF1148 /* UIScrollView+Extension.swift in Sources */,
