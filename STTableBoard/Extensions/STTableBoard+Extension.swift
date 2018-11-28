@@ -148,6 +148,9 @@ extension STTableBoard {
             return
         }
 
+        if destinationBoard.index != sourceIndex {
+            FeedbackGenerator.impactOccurred()
+        }
         tableBoard(self, moveBoardAtIndex: sourceIndex, toIndex: destinationBoard.index)
     }
 }
@@ -290,6 +293,7 @@ extension STTableBoard {
     func moveRowToBoard(_ tableView: STShadowTableView?, recognizer: UIGestureRecognizer) {
         guard let tableView = tableView, dataSource?.tableBoard(self, shouldMoveRowAt: sourceIndexPath, originIndexPath: originIndexPath, toDestinationBoard: tableView.index) == true else {
             deactivateDropMaskForDestinationBoard()
+            destinationBoardIndex = originIndexPath.board
             return
         }
         if let lastMovingTime = lastMovingTime {
@@ -301,6 +305,9 @@ extension STTableBoard {
         let newDestinationBoard = boards[tableView.index]
         newDestinationBoard.dropMessageLabel.text = dataSource?.tableBoard(self, dropReleaseTextForBoardAt: tableView.index)
         newDestinationBoard.activateDropMask()
+        if newDestinationBoard.index != destinationBoardIndex {
+            FeedbackGenerator.impactOccurred()
+        }
         destinationBoardIndex = newDestinationBoard.index
         lastMovingTime = Date()
     }
@@ -351,6 +358,9 @@ extension STTableBoard {
             if let cell = tableView.cellForRow(at: newIndexPath) as? STBoardCell {
                 cell.moving = true
             }
+            if newIndexPath != sourceIndexPath.toIndexPath() {
+                FeedbackGenerator.impactOccurred()
+            }
         } else {
             let sourceTableView = boards[sourceIndexPath.board].tableView
             sourceTableView?.beginUpdates()
@@ -364,6 +374,7 @@ extension STTableBoard {
             if let cell = tableView.cellForRow(at: newIndexPath) as? STBoardCell {
                 cell.moving = true
             }
+            FeedbackGenerator.impactOccurred()
         }
         sourceIndexPath = newIndexPath.toSTIndexPath(board: tableView.index)
         lastMovingTime = Date()
@@ -380,6 +391,7 @@ extension STTableBoard {
             let scale = CGAffineTransform.identity.scaledBy(x: 1.05, y: 1.05)
             snapshot.transform = scale.concatenating(rotate)
             snapshot.alpha = 0.95
+            FeedbackGenerator.selectionChanged()
         case .origin:
             snapshot.transform = CGAffineTransform.identity
             snapshot.alpha = 1.0
