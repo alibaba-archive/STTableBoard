@@ -381,7 +381,7 @@ extension STTableBoard {
     }
 
     func updateSnapViewStatus(_ status: SnapViewStatus) {
-        guard let snapshot = self.snapshot else {
+        guard let snapshot = snapshot else {
             return
         }
 
@@ -393,7 +393,7 @@ extension STTableBoard {
             snapshot.alpha = 0.95
             FeedbackGenerator.selectionChanged()
         case .origin:
-            snapshot.transform = CGAffineTransform.identity
+            snapshot.transform = .identity
             snapshot.alpha = 1.0
         }
 
@@ -669,7 +669,9 @@ extension STTableBoard {
     }
 
     func tableViewAtPoint(_ pointInContainerView: CGPoint) -> STShadowTableView? {
-        guard let board = boardAtPoint(pointInContainerView) else { return nil }
+        guard let board = boardAtPoint(pointInContainerView) else {
+            return nil
+        }
         return board.tableView
     }
 
@@ -688,7 +690,9 @@ extension STTableBoard {
     }
 
     func snapshotBottomRightPoint() -> CGPoint {
-        guard let snapshot = snapshot else { return .zero }
+        guard let snapshot = snapshot else {
+            return .zero
+        }
         let width = snapshot.width * 1.05
         let height = snapshot.height * 1.05
         let tanAngle = snapshot.height / snapshot.width
@@ -700,7 +704,9 @@ extension STTableBoard {
     }
 
     func snapshotTopLeftPoint() -> CGPoint {
-        guard let snapshot = snapshot else { return .zero }
+        guard let snapshot = snapshot else {
+            return .zero
+        }
         let width = snapshot.width * 1.05
         let height = snapshot.height * 1.05
         let tanAngle = snapshot.height / snapshot.width
@@ -713,7 +719,9 @@ extension STTableBoard {
 
     func pageAtPoint(_ pointInContainerView: CGPoint) -> Int {
         let pointX = pointInContainerView.x
-        guard pointX > leading else { return 0 }
+        guard pointX > leading else {
+            return 0
+        }
         let page = Int(ceilf(Float((pointX - leading) / (scrollView.width - leading - pageSpacing))))
         return page
     }
