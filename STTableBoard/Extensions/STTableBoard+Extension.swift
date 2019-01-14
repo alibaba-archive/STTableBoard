@@ -106,12 +106,14 @@ extension STTableBoard {
         guard sourceIndex != -1 else {
             return
         }
+        
+        if isScrolling {
+            stopAnimation()
+        }
+        
         let board = boards[sourceIndex]
 
         func resetBoard() {
-            if isScrolling {
-                stopAnimation()
-            }
             if isMoveBoardFromPageMode {
                 switchMode()
                 isMoveBoardFromPageMode = false
@@ -148,7 +150,7 @@ extension STTableBoard {
             return
         }
 
-        if destinationBoard.index != sourceIndex {
+        if destinationBoard.index != sourceIndex, let dataSource = dataSource, dataSource.tableBoard(self, shouldMoveBoardAt: sourceIndex, to: destinationBoard.index) {
             FeedbackGenerator.impactOccurred()
         }
         tableBoard(self, moveBoardAtIndex: sourceIndex, toIndex: destinationBoard.index)
@@ -418,8 +420,8 @@ extension STTableBoard {
         }
         let minX = snapshot.layer.presentation()!.frame.origin.x * currentScale
         let maxX = (snapshot.layer.presentation()!.frame.origin.x + snapshot.width) * currentScale
-        let leftOffsetX = scrollView.presentContenOffset()!.x
-        let rightOffsetX = scrollView.presentContenOffset()!.x  + scrollView.width
+        let leftOffsetX = isScrolling ? scrollView.presentContenOffset()!.x : scrollView.contentOffset.x
+        let rightOffsetX = (isScrolling ? scrollView.presentContenOffset()!.x : scrollView.contentOffset.x) + scrollView.width
 
         // left scrolling
         if minX < leftOffsetX && leftOffsetX > 0 {
