@@ -11,6 +11,10 @@ import UIKit
 // MARK: - Public methods
 // swiftlint:disable identifier_name
 public extension STTableBoard {
+    public func updateLocalizedString(_ value: String, forKey key: String) {
+        localizedString.updateValue(value, forKey: key)
+    }
+
     public func reloadData(_ resetPage: Bool = true, resetMode: Bool = false) {
         resetContentSize()
 
@@ -79,6 +83,10 @@ public extension STTableBoard {
         }
         let board = boards[index]
         board.shouldShowActionButton = dataSource?.tableBoard(self, shouldShowActionButtonAt: index) ?? true
+    }
+
+    public func reloadAddBoardButtonTitle() {
+        newBoardButtonView.title = localizedString["STTableBoard.AddBoard"]
     }
 
     public func removeBoard(at index: Int) {

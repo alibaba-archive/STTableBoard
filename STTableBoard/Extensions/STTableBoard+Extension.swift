@@ -106,11 +106,11 @@ extension STTableBoard {
         guard sourceIndex != -1 else {
             return
         }
-        
+
         if isScrolling {
             stopAnimation()
         }
-        
+
         let board = boards[sourceIndex]
 
         func resetBoard() {
