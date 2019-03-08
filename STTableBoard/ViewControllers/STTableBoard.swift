@@ -36,6 +36,11 @@ open class STTableBoard: UIViewController {
             scrollView.isShowLoadingView = showLoadingView
         }
     }
+    open var tintColor: UIColor? {
+        didSet {
+            view.tintColor = tintColor
+        }
+    }
 
     var maxBoardHeight: CGFloat {
         return self.containerView.height - (top + bottom)
