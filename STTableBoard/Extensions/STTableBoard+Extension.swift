@@ -233,7 +233,7 @@ extension STTableBoard {
     func endMovingRow(_ callDataSource: Bool = true) {
         let sourceTableView = boards[sourceIndexPath.board].tableView
 
-        if dropMode == .board, let destinationBoardIndex = self.destinationBoardIndex {
+        if dropMode == .board, let destinationBoardIndex = destinationBoardIndex, destinationBoardIndex != originIndexPath.board {
             dataSource?.tableBoard(self, moveRowAt: sourceIndexPath, toDestinationBoard: destinationBoardIndex)
             rowDidBeRemovedFromTableView(sourceTableView!)
             UIView.animate(withDuration: 0.33, animations: {
