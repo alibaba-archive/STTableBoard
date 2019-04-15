@@ -106,6 +106,8 @@ var currentOrientation: STTableBoardOrientation {
         orientation = .portrait
     case .landscapeLeft, .landscapeRight:
         orientation = .landscape
+    @unknown default:
+        break
     }
     return orientation
 }

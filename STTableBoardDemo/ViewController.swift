@@ -174,10 +174,10 @@ extension ViewController {
 
     fileprivate func layoutView() {
         tableBoard.view.translatesAutoresizingMaskIntoConstraints = false
-        let views: [String: Any] = ["tableBoard": tableBoard.view]
+        let views: [String: Any] = ["tableBoard": tableBoard.view!]
         let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableBoard]|", options: [], metrics: nil, views: views)
-        let top = NSLayoutConstraint(item: tableBoard.view, attribute: .top, relatedBy: .equal, toItem: containerView, attribute: .bottom, multiplier: 1, constant: 0)
-        let bottom = NSLayoutConstraint(item: tableBoard.view, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
+        let top = NSLayoutConstraint(item: tableBoard.view!, attribute: .top, relatedBy: .equal, toItem: containerView, attribute: .bottom, multiplier: 1, constant: 0)
+        let bottom = NSLayoutConstraint(item: tableBoard.view!, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
         NSLayoutConstraint.activate(horizontalConstraints + [top, bottom])
     }
 

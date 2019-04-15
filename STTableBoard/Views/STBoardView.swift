@@ -53,7 +53,7 @@ class STBoardView: UIView {
     }
 
     lazy var footerViewHeightConstraint: NSLayoutConstraint = {
-        let constraint = NSLayoutConstraint(item: self.footerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: shouldEnableAddRow ? footerViewNormalHeight : footerViewDisabledHeight)
+        let constraint = NSLayoutConstraint(item: footerView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: shouldEnableAddRow ? footerViewNormalHeight : footerViewDisabledHeight)
         return constraint
     }()
 
@@ -143,10 +143,10 @@ class STBoardView: UIView {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         footerView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        let headerViewHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[headerView]|", options: [], metrics: nil, views: ["headerView": headerView])
-        let tableViewHorizontalConstraints  = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: ["tableView": tableView])
-        let footerViewHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[footerView]|", options: [], metrics: nil, views: ["footerView": footerView])
-        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[headerView(==headerViewHeight)][tableView][footerView]|", options: [], metrics: ["headerViewHeight": headerViewHeight], views: ["headerView": headerView, "tableView": tableView, "footerView": footerView])
+        let headerViewHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[headerView]|", options: [], metrics: nil, views: ["headerView": headerView!])
+        let tableViewHorizontalConstraints  = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: ["tableView": tableView!])
+        let footerViewHorizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[footerView]|", options: [], metrics: nil, views: ["footerView": footerView!])
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[headerView(==headerViewHeight)][tableView][footerView]|", options: [], metrics: ["headerViewHeight": headerViewHeight], views: ["headerView": headerView!, "tableView": tableView!, "footerView": footerView!])
 
         let horizontalConstraints = headerViewHorizontalConstraints + tableViewHorizontalConstraints + footerViewHorizontalConstraints
         NSLayoutConstraint.activate(horizontalConstraints + verticalConstraints + [footerViewHeightConstraint])
@@ -168,12 +168,12 @@ class STBoardView: UIView {
         dropMaskView.layer.borderColor = UIColor.primaryBlueColor.cgColor
 
         dropMaskView.addSubview(dropMessageLabel)
-        dropMaskView.addConstraint(NSLayoutConstraint(item: dropMessageLabel, attribute: .leading, relatedBy: .equal, toItem: dropMaskView, attribute: .leading, multiplier: 1, constant: 10))
-        dropMaskView.addConstraint(NSLayoutConstraint(item: dropMaskView, attribute: .trailing, relatedBy: .equal, toItem: dropMessageLabel, attribute: .trailing, multiplier: 1, constant: 10))
-        dropMaskView.addConstraint(NSLayoutConstraint(item: dropMessageLabel, attribute: .top, relatedBy: .equal, toItem: dropMaskView, attribute: .top, multiplier: 1, constant: 10))
+        dropMaskView.addConstraint(NSLayoutConstraint(item: dropMessageLabel!, attribute: .leading, relatedBy: .equal, toItem: dropMaskView, attribute: .leading, multiplier: 1, constant: 10))
+        dropMaskView.addConstraint(NSLayoutConstraint(item: dropMaskView!, attribute: .trailing, relatedBy: .equal, toItem: dropMessageLabel, attribute: .trailing, multiplier: 1, constant: 10))
+        dropMaskView.addConstraint(NSLayoutConstraint(item: dropMessageLabel!, attribute: .top, relatedBy: .equal, toItem: dropMaskView, attribute: .top, multiplier: 1, constant: 10))
         addSubview(dropMaskView)
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[dropMaskView]|", options: [], metrics: nil, views: ["dropMaskView": dropMaskView]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[dropMaskView]|", options: [], metrics: nil, views: ["dropMaskView": dropMaskView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[dropMaskView]|", options: [], metrics: nil, views: ["dropMaskView": dropMaskView!]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[dropMaskView]|", options: [], metrics: nil, views: ["dropMaskView": dropMaskView!]))
 
         bringSubviewToFront(dropMaskView)
         deactivateDropMask()
