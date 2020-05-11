@@ -238,6 +238,11 @@ open class STTableBoard: UIViewController {
         scrollView.maximumZoomScale = scaleForPage
         scrollView.delegate = self
         scrollView.bounces = false
+        if #available(iOS 11.0, *) {
+            scrollView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
         view.addSubview(scrollView)
 
         pageControl.frame = CGRect(x: 0, y: view.height - pageControlHeight, width: view.width, height: pageControlHeight)
